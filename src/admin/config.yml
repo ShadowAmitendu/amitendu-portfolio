@@ -1,0 +1,156 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images"
+public_folder: "/images"
+max_file_size: 10485760
+
+media_processing:
+  enabled: true
+  quality: 80
+  width: 1600
+  strip_metadata: true
+  format:
+    enabled: true
+    default: webp
+
+files:
+  - name: "site"
+    label: "Site settings"
+    file: "src/_data/site.json"
+    fields:
+      - { label: "Site title", name: "title", widget: "string" }
+      - { label: "Header tagline", name: "tagline", widget: "string" }
+      - { label: "Email", name: "email", widget: "string" }
+      - { label: "Footer text", name: "footer", widget: "string" }
+      - { label: "Footer title", name: "footerTitle", widget: "string" }
+      - { label: "Footer badge", name: "footerBadge", widget: "string" }
+      - { label: "Visitor count", name: "visitorCount", widget: "string" }
+      - label: "Left sidebar"
+        name: "leftSidebar"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Links"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+      - label: "Right sidebar"
+        name: "rightSidebar"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Links"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+      - { label: "Featured item limit", name: "featuredLimit", widget: "number", value_type: "int", default: 4 }
+  - name: "home"
+    label: "Homepage"
+    file: "src/index.njk"
+    fields:
+      - { label: "Page title", name: "title", widget: "hidden", default: "Home" }
+      - { label: "Header tagline", name: "headerTagline", widget: "hidden", default: "WELCOME TO MY HOMEPAGE" }
+      - { label: "Greeting", name: "greeting", widget: "string" }
+      - { label: "Welcome text", name: "welcome", widget: "string" }
+      - { label: "About heading", name: "aboutTitle", widget: "string" }
+      - { label: "About text", name: "about", widget: "text" }
+      - { label: "Currently heading", name: "currentlyTitle", widget: "string" }
+      - { label: "Currently", name: "currently", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+      - { label: "Profile image", name: "profileImage", widget: "image", required: false }
+      - { label: "Profile image alt text", name: "profileAlt", widget: "string", required: false }
+      - { label: "Status heading", name: "statusTitle", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - label: "Quick links"
+        name: "links"
+        widget: "list"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
+      - label: "Recent updates"
+        name: "updates"
+        widget: "list"
+        fields:
+          - { label: "Date", name: "date", widget: "string" }
+          - { label: "Text", name: "text", widget: "string" }
+      - { label: "Contact heading", name: "contactTitle", widget: "string" }
+      - { label: "Contact text", name: "contact", widget: "text" }
+      - { label: "Badges", name: "badges", widget: "list", field: { label: "Badge", name: "badge", widget: "string" } }
+  - name: "blog-page"
+    label: "Blog landing page"
+    file: "src/blog.njk"
+    fields:
+      - { label: "Page title", name: "title", widget: "hidden", default: "Blog" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string" }
+      - { label: "Heading", name: "heading", widget: "string" }
+      - { label: "Intro", name: "intro", widget: "text" }
+  - name: "portfolio-page"
+    label: "Portfolio landing page"
+    file: "src/portfolio.njk"
+    fields:
+      - { label: "Page title", name: "title", widget: "hidden", default: "Portfolio" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string" }
+      - { label: "Heading", name: "heading", widget: "string" }
+      - { label: "Intro", name: "intro", widget: "text" }
+  - name: "about-page"
+    label: "About page"
+    file: "src/about.njk"
+    fields:
+      - { label: "Page title", name: "title", widget: "hidden", default: "About" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string" }
+      - { label: "Heading", name: "heading", widget: "string" }
+      - { label: "Intro", name: "intro", widget: "text" }
+      - { label: "Profile image", name: "profileImage", widget: "image", required: false }
+      - { label: "Profile image alt text", name: "profileAlt", widget: "string", required: false }
+      - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+
+collections:
+  - name: "authors"
+    label: "Authors"
+    folder: "src/authors"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Profile image", name: "image", widget: "image", required: false }
+      - { label: "Bio", name: "bio", widget: "text", required: false }
+  - name: "blog"
+    label: "Blog posts"
+    folder: "src/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string", default: "BLOG POST" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Publish date", name: "date", widget: "datetime" }
+      - { label: "Tags", name: "tags", widget: "hidden", default: ["blog"] }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Author image", name: "authorImage", widget: "image", required: false }
+      - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "portfolio"
+    label: "Portfolio projects"
+    folder: "src/portfolio"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string", default: "PORTFOLIO PROJECT" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Tags", name: "tags", widget: "hidden", default: ["portfolio"] }
+      - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }
+      - { label: "Body", name: "body", widget: "markdown" }

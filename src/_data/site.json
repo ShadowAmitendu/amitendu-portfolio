@@ -1,0 +1,26 @@
+{
+  "title": "Shadow Amitendu",
+  "tagline": "WELCOME TO MY HOMEPAGE",
+  "email": "hello@example.com",
+  "footer": "All rights reserved.",
+  "footerTitle": "Thanks for stopping by!",
+  "footerBadge": "made with HTML, CSS & Eleventy",
+  "visitorCount": "you are visitor #000042",
+  "leftSidebar": {
+    "title": "Navigate",
+    "items": [
+      { "label": "home", "url": "/" },
+      { "label": "about", "url": "/about/" },
+      { "label": "blog", "url": "/blog/" },
+      { "label": "portfolio", "url": "/portfolio/" }
+    ]
+  },
+  "rightSidebar": {
+    "title": "Elsewhere",
+    "items": [
+      { "label": "GitHub", "url": "https://github.com/" },
+      { "label": "Email", "url": "mailto:hello@example.com" }
+    ]
+  },
+  "featuredLimit": 4
+}

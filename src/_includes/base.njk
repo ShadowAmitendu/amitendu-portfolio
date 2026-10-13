@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or site.title }} // personal homepage</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="site-body min-h-screen px-4 py-10 font-[Verdana,Tahoma,sans-serif] text-[#222]">
+    <main class="site-shell mx-auto max-w-6xl p-1">
+      <header class="site-header relative overflow-hidden text-white">
+        <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="/images/header-banner.jpg" alt="" />
+        <div class="relative px-5 py-4">
+          <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ headerTagline or site.tagline }}</p>
+          <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] text-2xl tracking-tight">{{ title or site.title }}</h1>
+        </div>
+      </header>
+      <nav class="site-nav px-5 py-2 text-xs">
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+        <span class="px-2 text-[#8aa2af]">|</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+        <span class="px-2 text-[#8aa2af]">|</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+        <span class="px-2 text-[#8aa2af]">|</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+      </nav>
+      <div class="site-columns">
+        <aside class="site-sidebar site-sidebar-left">
+          <h2>{{ site.leftSidebar.title }}</h2>
+          {% for item in site.leftSidebar.items %}
+            <p><a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a></p>
+          {% endfor %}
+        </aside>
+        <section class="site-content px-5 py-6 text-sm leading-6">
+          {% if image %}<img class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}" alt="{{ title }}" />{% endif %}
+          {% if author %}
+            <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
+              {% if authorImage %}<img class="h-7 w-7 object-cover" src="{{ authorImage }}" alt="{{ author }}" />{% endif %}
+              <span>by {{ author }}</span>
+            </div>
+          {% endif %}
+          {{ content | safe }}
+        </section>
+        <aside class="site-sidebar site-sidebar-right">
+          <h2>{{ site.rightSidebar.title }}</h2>
+          {% for item in site.rightSidebar.items %}
+            <p><a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a></p>
+          {% endfor %}
+        </aside>
+      </div>
+      <footer class="site-footer px-5 py-4 text-center text-[11px] text-[#71828b]">
+        <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
+        <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>
+        <p class="mt-2">
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+          <span class="px-1">·</span>
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+          <span class="px-1">·</span>
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+          <span class="px-1">·</span>
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+        </p>
+        <p class="mt-2 text-[10px]">{{ site.footerBadge }} · {{ site.visitorCount }}</p>
+      </footer>
+    </main>
+  </body>
+</html>
