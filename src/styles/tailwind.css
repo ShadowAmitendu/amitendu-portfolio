@@ -271,3 +271,65 @@ body {
     width: 5rem;
   }
 }
+
+/* 2005 Article Entry Styles */
+.site-entry-body p {
+  margin-top: 1rem;
+}
+
+.site-entry-body p:first-child {
+  margin-top: 0.5rem;
+}
+
+.site-entry-body blockquote {
+  margin: 1.25rem 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to bottom, #fffdf0 0%, #fff6c9 100%);
+  border-left: 4px solid #e1a62a;
+  box-shadow: inset 0 1px 0 #fff;
+  font-style: italic;
+  color: #3b4d57;
+}
+
+.site-entry-body ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  list-style-type: square;
+}
+
+.site-entry-body ol {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  list-style-type: decimal;
+}
+
+.site-entry-body li {
+  margin-top: 0.25rem;
+}
+
+.site-entry-body pre {
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  background: #103c5b;
+  color: #e8f3f8;
+  border: 1px solid #0a3550;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  box-shadow: 2px 2px 0 #b8c5cc;
+}
+
+.site-entry-body code:not(pre code) {
+  padding: 0.1rem 0.35rem;
+  background: #e8f3f8;
+  border: 1px solid #b7cbd6;
+  font-size: 0.85em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #164b70;
+}
+
+.site-entry-body hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px dashed #b2c2cc;
+}

@@ -34,13 +34,6 @@ skills:
   - Markdown
 contactTitle: Contact
 contact: Have a question or want to say hello? Send me an email.
-badges:
-  - HTML 4.01 Strict
-  - CSS Validated
-  - Best at 1024×768
-  - Handcrafted with Care
-  - RSS 2.0 Ready
-  - AnyBrowser Friendly
 ---
 <div class="site-intro border-l-4 border-[#e1a62a] bg-[#fff9e6] px-4 py-3">
   <p class="font-[Trebuchet_MS,Verdana,sans-serif] font-bold text-[#164b70]">{{ greeting }}</p>
@@ -124,9 +117,5 @@ badges:
 
 <h2 class="mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">{{ contactTitle }}</h2>
 <p class="mt-3">{{ contact }} <a class="text-[#064f83] underline hover:text-[#c0392b]" href="mailto:{{ site.email }}">Email me</a>.</p>
-
-<div class="mt-6 flex flex-wrap gap-2">
-  {% for badge in badges %}<span class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-2 py-1 text-[10px] text-[#164b70]">{{ badge }}</span>{% endfor %}
-</div>
 
 <p class="mt-6 text-xs text-[#71828b]">Last updated: {{ buildDate | shortDate }}</p>

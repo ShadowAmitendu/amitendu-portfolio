@@ -131,14 +131,15 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post.njk" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Header tagline", name: "headerTagline", widget: "string", default: "BLOG POST" }
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Publish date", name: "date", widget: "datetime" }
-      - { label: "Tags", name: "tags", widget: "hidden", default: ["blog"] }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Author image", name: "authorImage", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: ["blog"] }
+      - { label: "Author", name: "author", widget: "string", default: "Shadow Amitendu" }
+      - { label: "Current mood", name: "mood", widget: "string", required: false, hint: "e.g. thoughtful, caffeinated" }
+      - { label: "Current music", name: "music", widget: "string", required: false, hint: "e.g. Daft Punk - Digital Love" }
       - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "portfolio"

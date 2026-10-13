@@ -1,0 +1,76 @@
+---
+layout: base.njk
+isPost: true
+---
+<article class="site-entry">
+  {# 2005-era Weblog Entry Header Bar #}
+  <header class="site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]">
+    <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]">
+      <div class="flex items-center gap-2">
+        <span class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">ENTRY</span>
+        <time class="font-bold text-[#164b70]" datetime="{{ date }}">{{ date | shortDate }}</time>
+      </div>
+      <div class="text-[11px]">
+        {% if author %}written by <span class="font-bold text-[#164b70]">{{ author }}</span>{% endif %}
+      </div>
+    </div>
+    <h2 class="mt-2 text-xl font-bold tracking-tight text-[#164b70]">
+      {{ title }}
+    </h2>
+    {% if description %}
+      <p class="mt-1 text-xs italic text-[#71828b]">{{ description }}</p>
+    {% endif %}
+  </header>
+
+  {# Featured Image in Retro Beveled Frame #}
+  {% if image %}
+    <div class="site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]">
+      <img class="h-auto max-h-96 w-full object-cover" src="{{ image }}" alt="{{ title }}" />
+    </div>
+  {% endif %}
+
+  {# Entry Body Content #}
+  <div class="site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]">
+    {{ content | safe }}
+  </div>
+
+  {# 2005 LiveJournal / Xanga Mood & Music Box #}
+  <div class="site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-[#164b70]">Mood:</span>
+        <span>{{ mood or "contemplative 💭" }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-[#164b70]">Music:</span>
+        <span class="italic">{{ music or "radio static 📻" }}</span>
+      </div>
+    </div>
+  </div>
+
+  {# 2005 Entry Footer: Tags & Classic Actions #}
+  <footer class="site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class="font-bold text-[#164b70]">Filed under:</span>
+        {% for tag in tags %}
+          {% if tag != "blog" %}
+            <span class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]">{{ tag }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="flex items-center gap-2 text-[11px]">
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="mailto:{{ site.email }}?subject=Re:%20{{ title }}">💬 comment</a>
+        <span>·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">🔗 permalink</a>
+        <span>·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#top">▲ top</a>
+      </div>
+    </div>
+  </footer>
+
+  {# Bottom Navigation #}
+  <nav class="mt-6 border-t border-[#b7cbd6] pt-4 text-xs">
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">« Return to Web Log Index</a>
+  </nav>
+</article>
