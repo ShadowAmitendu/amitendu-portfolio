@@ -1,9 +1,16 @@
+import markdownIt from "markdown-it";
+
+const md = markdownIt({ html: true, breaks: true, linkify: true });
+
 export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/assets");
 	eleventyConfig.addPassthroughCopy({ "src/images": "images" });
 	eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
+	eleventyConfig.addFilter("markdown", (content) => {
+		return md.render(content || "");
+	});
 	eleventyConfig.addFilter("shortDate", (value) => {
 		const date = new Date(value);
 		return Number.isNaN(date.getTime())

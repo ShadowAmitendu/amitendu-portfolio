@@ -55,12 +55,23 @@ collections:
               widget: "string",
               required: false,
             }
-          - {
-              label: "Paragraphs",
-              name: "paragraphs",
-              widget: "list",
-              field: { label: "Paragraph", name: "paragraph", widget: "text" },
-            }
+          - label: "Content (Rich Text / Markdown)"
+            name: "content"
+            widget: "markdown"
+            modes: ["rich_text", "raw"]
+            buttons:
+              - bold
+              - italic
+              - code
+              - link
+              - heading-two
+              - heading-three
+              - quote
+              - bulleted-list
+              - numbered-list
+            editor_components:
+              - image
+              - code-block
 
   - name: "resume-page"
     label: "Resume / CV"

@@ -5,8 +5,5 @@
 	"intro": "A little more about the person behind this homepage.",
 	"profileImage": "/images/shadow-amitendu.jpg",
 	"profileAlt": "Amitendu Bikash Dhusiya",
-	"paragraphs": [
-		"I am Amitendu Bikash Dhusiya, a developer who enjoys making useful, thoughtful things for the web.",
-		"This site is a small personal space for my projects, notes, and experiments. It is built with Eleventy, Nunjucks, Markdown, and Tailwind CSS."
-	]
+	"content": "I am Amitendu Bikash Dhusiya, a developer who enjoys making useful, thoughtful things for the web.\n\nThis a small place on the vast internet that we surf each day, here's a small gem to have!"
 }

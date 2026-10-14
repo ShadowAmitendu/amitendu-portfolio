@@ -1205,6 +1205,9 @@
 						: null;
 					var profileAlt =
 						entry.getIn(["data", "profileAlt"]) || "Profile photo";
+					var contentWidget =
+						this.props.widgetFor("content") ||
+						this.props.widgetFor("body");
 					var paragraphs = entry.getIn(["data", "paragraphs"]);
 
 					var aboutContent = h(
@@ -1231,15 +1234,20 @@
 								: null,
 							h(
 								"div",
-								null,
+								{
+									className:
+										"site-entry-body min-w-0 flex-1 text-sm leading-relaxed text-[#26343d]",
+								},
 								intro ? h("p", null, intro) : null,
-								paragraphs && paragraphs.size
-									? paragraphs
-											.map(function (p, idx) {
-												return h("p", { key: idx, className: "mt-3" }, p);
-											})
-											.toArray()
-									: null,
+								contentWidget
+									? h("div", { className: "mt-3" }, contentWidget)
+									: paragraphs && paragraphs.size
+										? paragraphs
+												.map(function (p, idx) {
+													return h("p", { key: idx, className: "mt-3" }, p);
+												})
+												.toArray()
+										: null,
 							),
 						),
 						h(
