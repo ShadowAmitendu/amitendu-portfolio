@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title or site.title }} // personal homepage</title>
     <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body class="site-body min-h-screen px-4 py-10 font-[Verdana,Tahoma,sans-serif] text-[#222]">
     <main class="site-shell mx-auto max-w-6xl p-1">
@@ -62,5 +63,16 @@
         </p>
       </footer>
     </main>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
