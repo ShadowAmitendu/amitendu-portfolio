@@ -11,49 +11,54 @@ pagination:
   generatePageOnEmptyData: true
 permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
-<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">{{ blogPage.heading or heading or 'Web log' }}</h2>
+<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">
+  {{ blogPage.heading or heading or 'Web log' }}</h2>
 <p class="mt-3">{{ blogPage.intro or intro or 'Notes from my corner of the web.' }}</p>
 {% if posts and posts.length > 0 %}
-  {% for post in posts %}
-  <article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4">
-    <div class="site-card-row flex items-center justify-between gap-4">
-      <div class="min-w-0 flex-1">
-        <h3 class="font-bold text-[#164b70]">
-          <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ post.url }}">{{ post.data.title }}</a>
-        </h3>
-        <p class="mt-2 text-xs text-[#71828b]">
-          {{ post.data.date | shortDate }}{% if post.data.author %} · by {{ post.data.author }}{% endif %}
-          ·
-          <span class="site-comment-link inline-block">
-            <span id="IDCommentsPostTitle{{ post.fileSlug | safeId }}" style="display:none">{{ post.data.title }}</span>
-            <script>
+{% for post in posts %}
+<article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4">
+  <div class="site-card-row flex items-center justify-between gap-4">
+    <div class="min-w-0 flex-1">
+      <h3 class="font-bold text-[#164b70]">
+        <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ post.url }}">{{ post.data.title }}</a>
+      </h3>
+      <p class="mt-2 text-xs text-[#71828b]">
+        {{ post.data.date | shortDate }}{% if post.data.author %} · by {{ post.data.author }}{% endif %}
+        ·
+        <span class="site-comment-link inline-block">
+          <span id="IDCommentsPostTitle{{ post.fileSlug | safeId }}" style="display:none">{{ post.data.title }}</span>
+          <script>
             var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
             var idcomments_post_id = '{{ post.fileSlug | safeId }}';
             var idcomments_post_url = '{{ post.url }}';
-            </script>
-            <script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
-          </span>
-        </p>
-        <p class="mt-2 text-sm leading-relaxed">{{ post.data.description }}</p>
-      </div>
-      {% if post.data.image %}
-        <a href="{{ post.url }}" class="shrink-0">
-          <img class="site-card-image h-24 w-28 max-w-full object-cover" src="{{ post.data.image }}" alt="{{ post.data.title }}" />
-        </a>
-      {% endif %}
+          </script>
+          <script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+        </span>
+      </p>
+      <p class="mt-2 text-sm leading-relaxed">{{ post.data.description }}</p>
     </div>
-  </article>
-  {% endfor %}
-  {% if pagination.pages.length > 1 %}
-  <nav class="mt-6 flex flex-wrap items-center gap-3 text-xs" aria-label="Blog pagination">
-    {% if pagination.href.previous %}<a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ pagination.href.previous }}">← newer posts</a>{% endif %}
-    <span>page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
-    {% if pagination.href.next %}<a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ pagination.href.next }}">older posts →</a>{% endif %}
-  </nav>
-  {% endif %}
-{% else %}
-  <div class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
-    <p class="font-bold text-sm text-[#164b70]">No Blogs</p>
-    <p class="mt-1">There are no blog posts published yet. Check back soon!</p>
+    {% if post.data.image %}
+    <a href="{{ post.url }}" class="shrink-0">
+      <img class="site-card-image h-24 w-28 max-w-full object-cover" src="{{ post.data.image }}"
+        alt="{{ post.data.title }}" />
+    </a>
+    {% endif %}
   </div>
+</article>
+{% endfor %}
+{% if pagination.pages.length > 1 %}
+<nav class="mt-6 flex flex-wrap items-center gap-3 text-xs" aria-label="Blog pagination">
+  {% if pagination.href.previous %}<a class="text-[#064f83] underline hover:text-[#c0392b]"
+    href="{{ pagination.href.previous }}">← newer posts</a>{% endif %}
+  <span>page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+  {% if pagination.href.next %}<a class="text-[#064f83] underline hover:text-[#c0392b]"
+    href="{{ pagination.href.next }}">older posts →</a>{% endif %}
+</nav>
+{% endif %}
+{% else %}
+<div
+  class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+  <p class="font-bold text-sm text-[#164b70]">No Blogs</p>
+  <p class="mt-1">There are no blog posts published yet. Check back soon!</p>
+</div>
 {% endif %}

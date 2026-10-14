@@ -1,539 +1,1451 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-      // 1. Inject site stylesheet, Barlow Condensed, and Bebas Neue fonts into the preview iframe
-      CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap");
-      CMS.registerPreviewStyle("/assets/styles.css");
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Content Manager</title>
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+	</head>
+	<body>
+		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+		<script>
+			// 1. Inject site stylesheet, Barlow Condensed, and Bebas Neue fonts into the preview iframe
+			CMS.registerPreviewStyle(
+				"https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap",
+			);
+			CMS.registerPreviewStyle("/assets/styles.css");
 
-      // Helper function to render the full site shell (header banner, nav, sidebars, footer)
-      // Helper function to render the full site shell (header banner, nav, sidebars, footer)
-      function renderFullSiteShell(headerTagline, pageTitle, contentChildren, activeNavKey, breadcrumbs) {
-        var navItems = [
-          { key: 'home', label: 'home', url: '/' },
-          { key: 'about', label: 'about', url: '/about/' },
-          { key: 'portfolio', label: 'portfolio', url: '/portfolio/' },
-          { key: 'blog', label: 'blog', url: '/blog/' },
-          { key: 'resume', label: 'resume', url: '/resume/' }
-        ];
+			// Helper function to render the full site shell (header banner, nav, sidebars, footer)
+			// Helper function to render the full site shell (header banner, nav, sidebars, footer)
+			function renderFullSiteShell(
+				headerTagline,
+				pageTitle,
+				contentChildren,
+				activeNavKey,
+				breadcrumbs,
+			) {
+				var navItems = [
+					{ key: "home", label: "home", url: "/" },
+					{ key: "about", label: "about", url: "/about/" },
+					{ key: "portfolio", label: "portfolio", url: "/portfolio/" },
+					{ key: "blog", label: "blog", url: "/blog/" },
+					{ key: "resume", label: "resume", url: "/resume/" },
+				];
 
-        var navElements = [];
-        navItems.forEach(function(item, idx) {
-          if (idx > 0) {
-            navElements.push(h('span', { key: 'sep-' + idx, className: 'px-1 text-[#8aa2af]' }, '|'));
-          }
-          var isActive = activeNavKey === item.key;
-          navElements.push(
-            h('a', {
-              key: item.key,
-              className: 'site-nav-link px-2 py-0.5 ' + (isActive
-                ? 'bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline'
-                : 'text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]'),
-              href: item.url
-            }, item.label)
-          );
-        });
+				var navElements = [];
+				navItems.forEach(function (item, idx) {
+					if (idx > 0) {
+						navElements.push(
+							h(
+								"span",
+								{ key: "sep-" + idx, className: "px-1 text-[#8aa2af]" },
+								"|",
+							),
+						);
+					}
+					var isActive = activeNavKey === item.key;
+					navElements.push(
+						h(
+							"a",
+							{
+								key: item.key,
+								className:
+									"site-nav-link px-2 py-0.5 " +
+									(isActive
+										? "bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline"
+										: "text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]"),
+								href: item.url,
+							},
+							item.label,
+						),
+					);
+				});
 
-        var breadcrumbElements = null;
-        if (activeNavKey !== 'home' && breadcrumbs && breadcrumbs.length) {
-          var bcChildren = [
-            h('span', { key: 'loc-label', className: 'font-bold text-[#164b70]' }, 'Location:'),
-            h('a', { key: 'bc-home', className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, 'home'),
-            h('span', { key: 'bc-sep-0', className: 'text-[#8aa2af]' }, '>')
-          ];
-          breadcrumbs.forEach(function(crumb, cIdx) {
-            if (cIdx > 0) {
-              bcChildren.push(h('span', { key: 'bc-sep-' + (cIdx + 1), className: 'text-[#8aa2af]' }, '>'));
-            }
-            if (crumb.url && cIdx < breadcrumbs.length - 1) {
-              bcChildren.push(h('a', { key: 'bc-' + cIdx, className: 'text-[#064f83] underline hover:text-[#c0392b]', href: crumb.url }, crumb.label));
-            } else {
-              bcChildren.push(h('span', { key: 'bc-' + cIdx, className: 'font-bold text-[#164b70]' }, crumb.label));
-            }
-          });
-          breadcrumbElements = h('div', {
-            className: 'site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[11px] text-[#536a75] shadow-[inset_0_1px_0_#fff]'
-          }, bcChildren);
-        }
+				var breadcrumbElements = null;
+				if (activeNavKey !== "home" && breadcrumbs && breadcrumbs.length) {
+					var bcChildren = [
+						h(
+							"span",
+							{ key: "loc-label", className: "font-bold text-[#164b70]" },
+							"Location:",
+						),
+						h(
+							"a",
+							{
+								key: "bc-home",
+								className: "text-[#064f83] underline hover:text-[#c0392b]",
+								href: "/",
+							},
+							"home",
+						),
+						h("span", { key: "bc-sep-0", className: "text-[#8aa2af]" }, ">"),
+					];
+					breadcrumbs.forEach(function (crumb, cIdx) {
+						if (cIdx > 0) {
+							bcChildren.push(
+								h(
+									"span",
+									{ key: "bc-sep-" + (cIdx + 1), className: "text-[#8aa2af]" },
+									">",
+								),
+							);
+						}
+						if (crumb.url && cIdx < breadcrumbs.length - 1) {
+							bcChildren.push(
+								h(
+									"a",
+									{
+										key: "bc-" + cIdx,
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: crumb.url,
+									},
+									crumb.label,
+								),
+							);
+						} else {
+							bcChildren.push(
+								h(
+									"span",
+									{ key: "bc-" + cIdx, className: "font-bold text-[#164b70]" },
+									crumb.label,
+								),
+							);
+						}
+					});
+					breadcrumbElements = h(
+						"div",
+						{
+							className:
+								"site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]",
+						},
+						bcChildren,
+					);
+				}
 
-        var sidebarLinks = navItems.map(function(item) {
-          var isActive = activeNavKey === item.key;
-          return h('p', { key: 'side-' + item.key },
-            isActive
-              ? h('span', { className: 'inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[11px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]' }, item.label)
-              : h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: item.url }, item.label)
-          );
-        });
+				var sidebarLinks = navItems.map(function (item) {
+					var isActive = activeNavKey === item.key;
+					return h(
+						"p",
+						{ key: "side-" + item.key },
+						isActive
+							? h(
+									"span",
+									{
+										className:
+											"inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[14px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]",
+									},
+									item.label,
+								)
+							: h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: item.url,
+									},
+									item.label,
+								),
+					);
+				});
 
-        return h('div', { className: 'site-body min-h-screen px-2 py-6 font-[\'Barlow_Condensed\',sans-serif] text-[#222]' },
-          h('main', { className: 'site-shell mx-auto max-w-6xl p-1' },
-            // Header with CRT monitors banner
-            h('header', { className: 'site-header relative overflow-hidden text-white' },
-              h('img', { className: 'site-header-banner absolute inset-0 h-full w-full object-cover', src: '/images/header-banner.jpg', alt: '' }),
-              h('div', { className: 'relative px-5 py-4' },
-                h('p', { className: 'text-center text-xs tracking-[0.2em] text-[#b8d9e8]' }, headerTagline || 'MY WEB LOG'),
-                h('h1', { className: 'mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] text-2xl tracking-tight' }, pageTitle || 'Amitendu Bikash Dhusiya')
-              )
-            ),
+				return h(
+					"div",
+					{
+						className:
+							"site-body min-h-screen px-2 py-6 font-['Barlow_Condensed',sans-serif] text-[#222]",
+					},
+					h(
+						"main",
+						{ className: "site-shell mx-auto max-w-6xl p-1" },
+						// Header with CRT monitors banner
+						h(
+							"header",
+							{ className: "site-header relative overflow-hidden text-white" },
+							h("img", {
+								className:
+									"site-header-banner absolute inset-0 h-full w-full object-cover",
+								src: "/images/header-banner.jpg",
+								alt: "",
+							}),
+							h(
+								"div",
+								{ className: "relative px-5 py-4" },
+								h(
+									"p",
+									{
+										className:
+											"text-center text-xs tracking-[0.2em] text-[#b8d9e8]",
+									},
+									headerTagline || "MY WEB LOG",
+								),
+								h(
+									"h1",
+									{
+										className:
+											"mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] tracking-tight",
+									},
+									pageTitle || "Amitendu Bikash Dhusiya",
+								),
+							),
+						),
 
-            // Navigation bar with active link background & breadcrumbs
-            h('nav', { className: 'site-nav text-xs' },
-              h('div', { className: 'site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5' }, navElements),
-              breadcrumbElements
-            ),
+						// Navigation bar with active link background & breadcrumbs
+						h(
+							"nav",
+							{ className: "site-nav text-xs" },
+							h(
+								"div",
+								{
+									className:
+										"site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5",
+								},
+								navElements,
+							),
+							breadcrumbElements,
+						),
 
-            // 3 Columns: Left Sidebar, Main Content, Right Sidebar
-            h('div', { className: 'site-columns' },
-              // Left Sidebar
-              h('aside', { className: 'site-sidebar site-sidebar-left' },
-                h('h2', null, 'Navigate'),
-                sidebarLinks
-              ),
+						// 3 Columns: Left Sidebar, Main Content, Right Sidebar
+						h(
+							"div",
+							{ className: "site-columns" },
+							// Left Sidebar
+							h(
+								"aside",
+								{ className: "site-sidebar site-sidebar-left" },
+								h("h2", null, "Navigate"),
+								sidebarLinks,
+							),
 
-              // Main Article / Content
-              h('section', { className: 'site-content px-5 py-6 text-sm leading-6' },
-                contentChildren
-              ),
+							// Main Article / Content
+							h(
+								"section",
+								{ className: "site-content px-5 py-6 text-sm leading-6" },
+								contentChildren,
+							),
 
-              // Right Sidebar
-              h('aside', { className: 'site-sidebar site-sidebar-right' },
-                h('h2', null, 'Elsewhere'),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: 'https://github.com/' }, 'GitHub')),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: 'mailto:hello@example.com' }, 'Email'))
-              )
-            ),
+							// Right Sidebar
+							h(
+								"aside",
+								{ className: "site-sidebar site-sidebar-right" },
+								h("h2", null, "Elsewhere"),
+								h(
+									"p",
+									null,
+									h(
+										"a",
+										{
+											className:
+												"text-[#064f83] underline hover:text-[#c0392b]",
+											href: "https://github.com/",
+										},
+										"GitHub",
+									),
+								),
+								h(
+									"p",
+									null,
+									h(
+										"a",
+										{
+											className:
+												"text-[#064f83] underline hover:text-[#c0392b]",
+											href: "mailto:hello@example.com",
+										},
+										"Email",
+									),
+								),
+							),
+						),
 
-            // Footer
-            h('footer', { className: 'site-footer px-5 py-4 text-center text-[11px] text-[#71828b]' },
-              h('p', { className: 'font-bold text-[#164b70]' }, 'Thanks for stopping by!'),
-              h('p', { className: 'mt-1' }, '© ' + new Date().getFullYear() + ' Amitendu Bikash Dhusiya. All rights reserved.'),
-              h('p', { className: 'mt-2' },
-                h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, 'home'),
-                h('span', { className: 'px-1' }, '·'),
-                h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/about/' }, 'about'),
-                h('span', { className: 'px-1' }, '·'),
-                h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/blog/' }, 'blog'),
-                h('span', { className: 'px-1' }, '·'),
-                h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, 'portfolio'),
-                h('span', { className: 'px-1' }, '·'),
-                h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/resume/' }, 'resume')
-              ),
-              h('p', { className: 'mt-2 text-[10px]' }, 'Last updated: ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }))
-            )
-          )
-        );
-      }
+						// Footer
+						h(
+							"footer",
+							{
+								className:
+									"site-footer px-5 py-4 text-center text-[14px] text-[#71828b]",
+							},
+							h(
+								"p",
+								{ className: "font-bold text-[#164b70]" },
+								"Thanks for stopping by!",
+							),
+							h(
+								"p",
+								{ className: "mt-1" },
+								"© " +
+									new Date().getFullYear() +
+									" Amitendu Bikash Dhusiya. All rights reserved.",
+							),
+							h(
+								"p",
+								{ className: "mt-2" },
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "/",
+									},
+									"home",
+								),
+								h("span", { className: "px-1" }, "·"),
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "/about/",
+									},
+									"about",
+								),
+								h("span", { className: "px-1" }, "·"),
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "/blog/",
+									},
+									"blog",
+								),
+								h("span", { className: "px-1" }, "·"),
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "/portfolio/",
+									},
+									"portfolio",
+								),
+								h("span", { className: "px-1" }, "·"),
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "/resume/",
+									},
+									"resume",
+								),
+							),
+							h(
+								"p",
+								{ className: "mt-2 text-[10px]" },
+								"Last updated: " +
+									new Date().toLocaleDateString("en-US", {
+										month: "short",
+										day: "numeric",
+										year: "numeric",
+									}),
+							),
+						),
+					),
+				);
+			}
 
-      // 2. Custom Blog Post Preview in Full Site Shell
-      var BlogPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'Untitled Post';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'BLOG POST';
-          var date = entry.getIn(['data', 'date']);
-          var author = entry.getIn(['data', 'author']) || 'Amitendu Bikash Dhusiya';
-          var description = entry.getIn(['data', 'description']);
-          var rawImage = entry.getIn(['data', 'image']);
-          var image = rawImage ? this.props.getAsset(rawImage) : null;
-          var body = this.props.widgetFor('body');
-          var isDraft = entry.getIn(['data', 'draft']);
+			// 2. Custom Blog Post Preview in Full Site Shell
+			var BlogPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Untitled Post";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "BLOG POST";
+					var date = entry.getIn(["data", "date"]);
+					var author =
+						entry.getIn(["data", "author"]) || "Amitendu Bikash Dhusiya";
+					var description = entry.getIn(["data", "description"]);
+					var rawImage = entry.getIn(["data", "image"]);
+					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var body = this.props.widgetFor("body");
+					var tags = entry.getIn(["data", "tags"]);
+					var isDraft =
+						entry.getIn(["data", "draft"]) ||
+						(tags &&
+							(typeof tags === "string"
+								? tags === "draft"
+								: tags.includes
+									? tags.includes("draft")
+									: false));
 
-          var formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
-            month: 'short', day: 'numeric', year: 'numeric'
-          }) : 'Draft';
+					var formattedDate = date
+						? new Date(date).toLocaleDateString("en-US", {
+								month: "short",
+								day: "numeric",
+								year: "numeric",
+							})
+						: "Draft";
 
-          var articleContent = h('article', { className: 'site-entry' },
-            // Header
-            h('header', { className: 'site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]' },
-              h('div', { className: 'flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]' },
-                h('div', { className: 'flex items-center gap-2' },
-                  h('span', { className: 'inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'ENTRY'),
-                  isDraft ? h('span', { className: 'inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'DRAFT') : null,
-                  h('time', { className: 'font-bold text-[#164b70]' }, formattedDate)
-                ),
-                h('div', { className: 'text-[11px]' }, 'written by ',
-                  h('span', { className: 'font-bold text-[#164b70]' }, author)
-                )
-              ),
-              h('h2', { className: 'mt-2 text-xl font-bold tracking-tight text-[#164b70]' }, title),
-              description ? h('p', { className: 'mt-1 text-xs italic text-[#71828b]' }, description) : null
-            ),
+					var articleContent = h(
+						"article",
+						{ className: "site-entry" },
+						// Header
+						h(
+							"header",
+							{
+								className:
+									"site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]",
+							},
+							h(
+								"div",
+								{
+									className:
+										"flex flex-wrap items-center justify-between gap-2 text-[14px] text-[#536a75]",
+								},
+								h(
+									"div",
+									{ className: "flex items-center gap-2" },
+									h(
+										"span",
+										{
+											className:
+												"inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase",
+										},
+										"ENTRY",
+									),
+									isDraft
+										? h(
+												"span",
+												{
+													className:
+														"inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase",
+												},
+												"DRAFT",
+											)
+										: null,
+									h(
+										"time",
+										{ className: "font-bold text-[#164b70]" },
+										formattedDate,
+									),
+								),
+								h(
+									"div",
+									{ className: "text-[14px]" },
+									"written by ",
+									h("span", { className: "font-bold text-[#164b70]" }, author),
+								),
+							),
+							h(
+								"h1",
+								{
+									className:
+										"site-entry-title mt-2 font-bold tracking-tight text-[#164b70]",
+								},
+								title,
+							),
+							description
+								? h(
+										"p",
+										{ className: "mt-1 text-xs italic text-[#71828b]" },
+										description,
+									)
+								: null,
+						),
 
-            isDraft ? h('div', { className: 'my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]' }, 'DRAFT - This post is saved as a draft and is hidden from public blog listings.') : null,
+						isDraft
+							? h(
+									"div",
+									{
+										className:
+											"my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]",
+									},
+									"DRAFT - This post is saved as a draft and is hidden from public blog listings.",
+								)
+							: null,
 
-            // Featured image
-            image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
-              h('img', { className: 'h-auto w-full object-contain', src: image.toString(), alt: title })
-            ) : null,
+						// Featured image
+						image
+							? h(
+									"div",
+									{
+										className:
+											"site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]",
+									},
+									h("img", {
+										className: "h-auto w-full object-contain",
+										src: image.toString(),
+										alt: title,
+									}),
+								)
+							: null,
 
-            // Body
-            h('div', { className: 'site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]' }, body),
+						// Body
+						h(
+							"div",
+							{
+								className:
+									"site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]",
+							},
+							body,
+						),
 
-            // Footer
-            h('footer', { className: 'site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]' },
-              h('div', { className: 'flex flex-wrap items-center justify-between gap-3' },
-                h('div', { className: 'flex items-center gap-1.5' },
-                  h('span', { className: 'font-bold text-[#164b70]' }, 'Filed under:'),
-                  h('span', { className: 'site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]' }, 'blog')
-                ),
-                h('div', { className: 'flex items-center gap-2 text-[11px]' },
-                  h('span', { className: 'text-[#064f83] underline' }, 'Comments (IntenseDebate)'),
-                  h('span', null, '·'),
-                  h('span', { className: 'text-[#064f83] underline' }, 'permalink'),
-                  h('span', null, '·'),
-                  h('span', { className: 'text-[#064f83] underline' }, 'top')
-                )
-              )
-            ),
+						// Footer
+						h(
+							"footer",
+							{
+								className:
+									"site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]",
+							},
+							h(
+								"div",
+								{
+									className:
+										"flex flex-wrap items-center justify-between gap-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-center gap-1.5" },
+									h(
+										"span",
+										{ className: "font-bold text-[#164b70]" },
+										"Filed under:",
+									),
+									h(
+										"span",
+										{
+											className:
+												"site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]",
+										},
+										"blog",
+									),
+								),
+								h(
+									"div",
+									{ className: "flex items-center gap-2 text-[14px]" },
+									h(
+										"span",
+										{ className: "text-[#064f83] underline" },
+										"Comments (IntenseDebate)",
+									),
+									h("span", null, "·"),
+									h(
+										"span",
+										{ className: "text-[#064f83] underline" },
+										"permalink",
+									),
+									h("span", null, "·"),
+									h("span", { className: "text-[#064f83] underline" }, "top"),
+								),
+							),
+						),
 
-            // Comments Box
-            h('section', { className: 'site-comments mt-8 p-4' },
-              h('h3', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]' }, 'Comments'),
-              h('div', { className: 'mt-3 text-xs text-[#71828b]' },
-                h('p', null, 'IntenseDebate comment stream will display here on published site.')
-              )
-            ),
+						// Comments Box
+						h(
+							"section",
+							{ className: "site-comments mt-8 p-4" },
+							h(
+								"h3",
+								{
+									className:
+										"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+								},
+								"Comments",
+							),
+							h(
+								"div",
+								{ className: "mt-3 text-xs text-[#71828b]" },
+								h(
+									"p",
+									null,
+									"IntenseDebate comment stream will display here on published site.",
+								),
+							),
+						),
 
-            // Back link
-            h('nav', { className: 'mt-6 border-t border-[#b7cbd6] pt-4 text-xs' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/blog/' }, '« Return to Web Log Index')
-            )
-          );
+						// Back link
+						h(
+							"nav",
+							{ className: "mt-6 border-t border-[#b7cbd6] pt-4 text-xs" },
+							h(
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/blog/",
+								},
+								"« Return to Web Log Index",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, articleContent, 'blog', [{ label: 'blog', url: '/blog/' }, { label: title }]);
-        }
-      });
-      CMS.registerPreviewTemplate('blog', BlogPreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						articleContent,
+						"blog",
+						[{ label: "blog", url: "/blog/" }, { label: title }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("blog", BlogPreview);
 
-      // 3. Custom Portfolio Project Preview in Full Site Shell
-      var PortfolioPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'Untitled Project';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'PORTFOLIO PROJECT';
-          var description = entry.getIn(['data', 'description']);
-          var rawImage = entry.getIn(['data', 'image']);
-          var image = rawImage ? this.props.getAsset(rawImage) : null;
-          var body = this.props.widgetFor('body');
-          var isDraft = entry.getIn(['data', 'draft']);
+			// 3. Custom Portfolio Project Preview in Full Site Shell
+			var PortfolioPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Untitled Project";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "PORTFOLIO PROJECT";
+					var description = entry.getIn(["data", "description"]);
+					var rawImage = entry.getIn(["data", "image"]);
+					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var body = this.props.widgetFor("body");
+					var tags = entry.getIn(["data", "tags"]);
+					var isDraft =
+						entry.getIn(["data", "draft"]) ||
+						(tags &&
+							(typeof tags === "string"
+								? tags === "draft"
+								: tags.includes
+									? tags.includes("draft")
+									: false));
 
-          var portfolioContent = h('div', null,
-            h('div', { className: 'flex items-center gap-2' },
-              h('p', { className: 'text-xs text-[#71828b]' }, 'portfolio / project'),
-              isDraft ? h('span', { className: 'inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'DRAFT') : null
-            ),
-            h('h2', { className: 'mt-2 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]' }, title),
-            description ? h('p', { className: 'mt-2 text-sm italic text-[#536a75]' }, description) : null,
-            isDraft ? h('div', { className: 'my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]' }, 'DRAFT - This project is saved as a draft and is hidden from public listings.') : null,
-            image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
-              h('img', { className: 'h-auto w-full object-contain', src: image.toString(), alt: title })
-            ) : null,
-            h('div', { className: 'site-entry-body text-sm leading-relaxed mt-4' }, body),
-            h('p', { className: 'mt-6' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, '← back to portfolio')
-            )
-          );
+					var portfolioContent = h(
+						"div",
+						null,
+						h(
+							"div",
+							{ className: "flex items-center gap-2" },
+							h(
+								"p",
+								{ className: "text-xs text-[#71828b]" },
+								"portfolio / project",
+							),
+							isDraft
+								? h(
+										"span",
+										{
+											className:
+												"inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase",
+										},
+										"DRAFT",
+									)
+								: null,
+						),
+						h(
+							"h1",
+							{
+								className:
+									"site-entry-title mt-2 border-b border-[#b7cbd6] pb-1 font-bold text-[#164b70]",
+							},
+							title,
+						),
+						description
+							? h(
+									"p",
+									{ className: "mt-2 text-sm italic text-[#536a75]" },
+									description,
+								)
+							: null,
+						isDraft
+							? h(
+									"div",
+									{
+										className:
+											"my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]",
+									},
+									"DRAFT - This project is saved as a draft and is hidden from public listings.",
+								)
+							: null,
+						image
+							? h(
+									"div",
+									{
+										className:
+											"site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]",
+									},
+									h("img", {
+										className: "h-auto w-full object-contain",
+										src: image.toString(),
+										alt: title,
+									}),
+								)
+							: null,
+						h(
+							"div",
+							{ className: "site-entry-body text-sm leading-relaxed mt-4" },
+							body,
+						),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/portfolio/",
+								},
+								"← back to portfolio",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, portfolioContent, 'portfolio', [{ label: 'portfolio', url: '/portfolio/' }, { label: title }]);
-        }
-      });
-      CMS.registerPreviewTemplate('portfolio', PortfolioPreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						portfolioContent,
+						"portfolio",
+						[{ label: "portfolio", url: "/portfolio/" }, { label: title }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("portfolio", PortfolioPreview);
 
-      // 4. Custom Resume / CV Preview in Full Site Shell
-      var ResumePreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'Resume';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'CURRICULUM VITAE';
-          var heading = entry.getIn(['data', 'heading']) || 'Curriculum Vitae';
-          var subheading = entry.getIn(['data', 'subheading']);
-          var intro = entry.getIn(['data', 'intro']);
-          var pdfUrl = entry.getIn(['data', 'pdfUrl']);
-          var contactDetails = entry.getIn(['data', 'contactDetails']);
-          var experience = entry.getIn(['data', 'experience']);
-          var education = entry.getIn(['data', 'education']);
-          var skillsList = entry.getIn(['data', 'skillsList']);
-          var additionalNotes = entry.getIn(['data', 'additionalNotes']);
+			// 4. Custom Resume / CV Preview in Full Site Shell
+			var ResumePreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Resume";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "CURRICULUM VITAE";
+					var heading = entry.getIn(["data", "heading"]) || "Curriculum Vitae";
+					var subheading = entry.getIn(["data", "subheading"]);
+					var intro = entry.getIn(["data", "intro"]);
+					var pdfUrl = entry.getIn(["data", "pdfUrl"]);
+					var contactDetails = entry.getIn(["data", "contactDetails"]);
+					var experience = entry.getIn(["data", "experience"]);
+					var education = entry.getIn(["data", "education"]);
+					var skillsList = entry.getIn(["data", "skillsList"]);
+					var additionalNotes = entry.getIn(["data", "additionalNotes"]);
 
-          var resumeContent = h('div', { className: 'site-resume' },
-            // Header
-            h('div', { className: 'border-b border-[#b7cbd6] pb-3' },
-              h('div', { className: 'flex flex-wrap items-baseline justify-between gap-2' },
-                h('div', null,
-                  h('h2', { className: 'font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]' }, heading),
-                  subheading ? h('p', { className: 'mt-1 text-sm font-bold text-[#536a75]' }, subheading) : null
-                ),
-                pdfUrl ? h('div', null,
-                  h('span', { className: 'site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] shadow-[1px_1px_0_#b8c5cc]' }, 'Download PDF')
-                ) : null
-              )
-            ),
+					var resumeContent = h(
+						"div",
+						{ className: "site-resume" },
+						// Header
+						h(
+							"div",
+							{ className: "border-b border-[#b7cbd6] pb-3" },
+							h(
+								"div",
+								{
+									className:
+										"flex flex-wrap items-baseline justify-between gap-2",
+								},
+								h(
+									"div",
+									null,
+									h(
+										"h2",
+										{
+											className:
+												"font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]",
+										},
+										heading,
+									),
+									subheading
+										? h(
+												"p",
+												{ className: "mt-1 text-sm font-bold text-[#536a75]" },
+												subheading,
+											)
+										: null,
+								),
+								pdfUrl
+									? h(
+											"div",
+											null,
+											h(
+												"span",
+												{
+													className:
+														"site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] shadow-[1px_1px_0_#b8c5cc]",
+												},
+												"Download PDF",
+											),
+										)
+									: null,
+							),
+						),
 
-            // Summary
-            intro ? h('div', { className: 'mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]' },
-              h('p', null, intro)
-            ) : null,
+						// Summary
+						intro
+							? h(
+									"div",
+									{
+										className:
+											"mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]",
+									},
+									h("p", null, intro),
+								)
+							: null,
 
-            // Contact details
-            contactDetails && contactDetails.size ? h('div', { className: 'mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]' },
-              h('div', { className: 'flex flex-wrap items-center gap-x-6 gap-y-1' },
-                contactDetails.map(function(item, idx) {
-                  return h('p', { key: idx },
-                    h('span', { className: 'font-bold text-[#164b70]' }, item.get('label') + ': '),
-                    h('span', null, item.get('value'))
-                  );
-                }).toArray()
-              )
-            ) : null,
+						// Contact details
+						contactDetails && contactDetails.size
+							? h(
+									"div",
+									{
+										className:
+											"mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]",
+									},
+									h(
+										"div",
+										{
+											className: "flex flex-wrap items-center gap-x-6 gap-y-1",
+										},
+										contactDetails
+											.map(function (item, idx) {
+												return h(
+													"p",
+													{ key: idx },
+													h(
+														"span",
+														{ className: "font-bold text-[#164b70]" },
+														item.get("label") + ": ",
+													),
+													h("span", null, item.get("value")),
+												);
+											})
+											.toArray(),
+									),
+								)
+							: null,
 
-            // Experience
-            experience && experience.size ? h('section', { className: 'mt-8' },
-              h('h3', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]' }, 'Experience'),
-              h('div', { className: 'mt-4 space-y-5' },
-                experience.map(function(job, idx) {
-                  return h('div', { key: idx, className: 'site-resume-item' },
-                    h('div', { className: 'flex flex-wrap items-baseline justify-between gap-2' },
-                      h('h4', { className: 'font-bold text-sm text-[#164b70]' }, job.get('role')),
-                      job.get('period') ? h('span', { className: 'text-xs text-[#71828b]' }, job.get('period')) : null
-                    ),
-                    job.get('company') ? h('p', { className: 'text-xs font-semibold text-[#536a75]' }, job.get('company')) : null,
-                    job.get('description') ? h('p', { className: 'mt-1.5 text-xs leading-relaxed text-[#26343d]' }, job.get('description')) : null
-                  );
-                }).toArray()
-              )
-            ) : null,
+						// Experience
+						experience && experience.size
+							? h(
+									"section",
+									{ className: "mt-8" },
+									h(
+										"h3",
+										{
+											className:
+												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+										},
+										"Experience",
+									),
+									h(
+										"div",
+										{ className: "mt-4 space-y-5" },
+										experience
+											.map(function (job, idx) {
+												return h(
+													"div",
+													{ key: idx, className: "site-resume-item" },
+													h(
+														"div",
+														{
+															className:
+																"flex flex-wrap items-baseline justify-between gap-2",
+														},
+														h(
+															"h4",
+															{ className: "font-bold text-sm text-[#164b70]" },
+															job.get("role"),
+														),
+														job.get("period")
+															? h(
+																	"span",
+																	{ className: "text-xs text-[#71828b]" },
+																	job.get("period"),
+																)
+															: null,
+													),
+													job.get("company")
+														? h(
+																"p",
+																{
+																	className:
+																		"text-xs font-semibold text-[#536a75]",
+																},
+																job.get("company"),
+															)
+														: null,
+													job.get("description")
+														? h(
+																"p",
+																{
+																	className:
+																		"mt-1.5 text-xs leading-relaxed text-[#26343d]",
+																},
+																job.get("description"),
+															)
+														: null,
+												);
+											})
+											.toArray(),
+									),
+								)
+							: null,
 
-            // Education
-            education && education.size ? h('section', { className: 'mt-8' },
-              h('h3', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]' }, 'Education'),
-              h('div', { className: 'mt-4 space-y-4' },
-                education.map(function(edu, idx) {
-                  return h('div', { key: idx, className: 'site-resume-item' },
-                    h('div', { className: 'flex flex-wrap items-baseline justify-between gap-2' },
-                      h('h4', { className: 'font-bold text-sm text-[#164b70]' }, edu.get('degree')),
-                      edu.get('period') ? h('span', { className: 'text-xs text-[#71828b]' }, edu.get('period')) : null
-                    ),
-                    edu.get('institution') ? h('p', { className: 'text-xs font-semibold text-[#536a75]' }, edu.get('institution')) : null,
-                    edu.get('details') ? h('p', { className: 'mt-1 text-xs text-[#71828b]' }, edu.get('details')) : null
-                  );
-                }).toArray()
-              )
-            ) : null,
+						// Education
+						education && education.size
+							? h(
+									"section",
+									{ className: "mt-8" },
+									h(
+										"h3",
+										{
+											className:
+												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+										},
+										"Education",
+									),
+									h(
+										"div",
+										{ className: "mt-4 space-y-4" },
+										education
+											.map(function (edu, idx) {
+												return h(
+													"div",
+													{ key: idx, className: "site-resume-item" },
+													h(
+														"div",
+														{
+															className:
+																"flex flex-wrap items-baseline justify-between gap-2",
+														},
+														h(
+															"h4",
+															{ className: "font-bold text-sm text-[#164b70]" },
+															edu.get("degree"),
+														),
+														edu.get("period")
+															? h(
+																	"span",
+																	{ className: "text-xs text-[#71828b]" },
+																	edu.get("period"),
+																)
+															: null,
+													),
+													edu.get("institution")
+														? h(
+																"p",
+																{
+																	className:
+																		"text-xs font-semibold text-[#536a75]",
+																},
+																edu.get("institution"),
+															)
+														: null,
+													edu.get("details")
+														? h(
+																"p",
+																{ className: "mt-1 text-xs text-[#71828b]" },
+																edu.get("details"),
+															)
+														: null,
+												);
+											})
+											.toArray(),
+									),
+								)
+							: null,
 
-            // Skills
-            skillsList && skillsList.size ? h('section', { className: 'mt-8' },
-              h('h3', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]' }, 'Skills & Expertise'),
-              h('div', { className: 'mt-4 space-y-2.5' },
-                skillsList.map(function(cat, idx) {
-                  return h('div', { key: idx, className: 'text-xs' },
-                    h('span', { className: 'font-bold text-[#164b70]' }, cat.get('category') + ': '),
-                    h('span', { className: 'ml-1 text-[#26343d]' }, cat.get('items'))
-                  );
-                }).toArray()
-              )
-            ) : null,
+						// Skills
+						skillsList && skillsList.size
+							? h(
+									"section",
+									{ className: "mt-8" },
+									h(
+										"h3",
+										{
+											className:
+												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+										},
+										"Skills & Expertise",
+									),
+									h(
+										"div",
+										{ className: "mt-4 space-y-2.5" },
+										skillsList
+											.map(function (cat, idx) {
+												return h(
+													"div",
+													{ key: idx, className: "text-xs" },
+													h(
+														"span",
+														{ className: "font-bold text-[#164b70]" },
+														cat.get("category") + ": ",
+													),
+													h(
+														"span",
+														{ className: "ml-1 text-[#26343d]" },
+														cat.get("items"),
+													),
+												);
+											})
+											.toArray(),
+									),
+								)
+							: null,
 
-            // Additional Notes
-            additionalNotes ? h('section', { className: 'mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]' },
-              h('p', null,
-                h('span', { className: 'font-bold text-[#164b70]' }, 'Note: '),
-                additionalNotes
-              )
-            ) : null,
+						// Additional Notes
+						additionalNotes
+							? h(
+									"section",
+									{
+										className:
+											"mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]",
+									},
+									h(
+										"p",
+										null,
+										h(
+											"span",
+											{ className: "font-bold text-[#164b70]" },
+											"Note: ",
+										),
+										additionalNotes,
+									),
+								)
+							: null,
 
-            h('p', { className: 'mt-8 border-t border-[#b7cbd6] pt-4 text-xs' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, '← back to home')
-            )
-          );
+						h(
+							"p",
+							{ className: "mt-8 border-t border-[#b7cbd6] pt-4 text-xs" },
+							h(
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
+								"← back to home",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, resumeContent, 'resume', [{ label: 'resume' }]);
-        }
-      });
-      CMS.registerPreviewTemplate('resume-page', ResumePreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						resumeContent,
+						"resume",
+						[{ label: "resume" }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("resume-page", ResumePreview);
 
-      // 5. Custom Homepage Preview in Full Site Shell
-      var HomePreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var greeting = entry.getIn(['data', 'greeting']) || 'Hello, internet!';
-          var welcome = entry.getIn(['data', 'welcome']) || 'You found my little corner of the web.';
-          var aboutTitle = entry.getIn(['data', 'aboutTitle']) || 'About this site';
-          var about = entry.getIn(['data', 'about']) || '';
-          var rawProfileImage = entry.getIn(['data', 'profileImage']);
-          var profileImage = rawProfileImage ? this.props.getAsset(rawProfileImage) : null;
-          var profileAlt = entry.getIn(['data', 'profileAlt']) || 'Profile photo';
-          var currentlyTitle = entry.getIn(['data', 'currentlyTitle']) || 'Currently';
-          var currently = entry.getIn(['data', 'currently']);
-          var statusTitle = entry.getIn(['data', 'statusTitle']) || 'Status';
-          var status = entry.getIn(['data', 'status']);
-          var links = entry.getIn(['data', 'links']);
-          var skills = entry.getIn(['data', 'skills']);
+			// 5. Custom Homepage Preview in Full Site Shell
+			var HomePreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var greeting =
+						entry.getIn(["data", "greeting"]) || "Hello, internet!";
+					var welcome =
+						entry.getIn(["data", "welcome"]) ||
+						"You found my little corner of the web.";
+					var aboutTitle =
+						entry.getIn(["data", "aboutTitle"]) || "About this site";
+					var about = entry.getIn(["data", "about"]) || "";
+					var rawProfileImage = entry.getIn(["data", "profileImage"]);
+					var profileImage = rawProfileImage
+						? this.props.getAsset(rawProfileImage)
+						: null;
+					var profileAlt =
+						entry.getIn(["data", "profileAlt"]) || "Profile photo";
+					var currentlyTitle =
+						entry.getIn(["data", "currentlyTitle"]) || "Currently";
+					var currently = entry.getIn(["data", "currently"]);
+					var statusTitle = entry.getIn(["data", "statusTitle"]) || "Status";
+					var status = entry.getIn(["data", "status"]);
+					var links = entry.getIn(["data", "links"]);
+					var skills = entry.getIn(["data", "skills"]);
 
-          var homeContent = h('div', null,
-            // Intro Callout
-            h('div', { className: 'site-intro border-l-4 border-[#e1a62a] bg-[#fff9e6] px-4 py-3' },
-              h('p', { className: 'font-[Trebuchet_MS,Verdana,sans-serif] font-bold text-[#164b70]' }, greeting),
-              h('p', { className: 'mt-1' }, welcome)
-            ),
+					var homeContent = h(
+						"div",
+						null,
+						// Intro Callout
+						h(
+							"div",
+							{
+								className:
+									"site-intro border-l-4 border-[#e1a62a] bg-[#fff9e6] px-4 py-3",
+							},
+							h(
+								"p",
+								{
+									className:
+										"font-[Trebuchet_MS,Verdana,sans-serif] font-bold text-[#164b70]",
+								},
+								greeting,
+							),
+							h("p", { className: "mt-1" }, welcome),
+						),
 
-            // About Section
-            h('h2', { className: 'mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, aboutTitle),
-            h('div', { className: 'mt-3 flex items-start gap-4' },
-              h('p', { className: 'flex-1' }, about),
-              profileImage ? h('img', { className: 'site-profile-frame h-24 w-24 shrink-0 object-cover', src: profileImage.toString(), alt: profileAlt }) : null
-            ),
+						// About Section
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							aboutTitle,
+						),
+						h(
+							"div",
+							{ className: "mt-3 flex items-start gap-4" },
+							h("p", { className: "flex-1" }, about),
+							profileImage
+								? h("img", {
+										className:
+											"site-profile-frame h-24 w-24 shrink-0 object-cover",
+										src: profileImage.toString(),
+										alt: profileAlt,
+									})
+								: null,
+						),
 
-            // Currently Section
-            h('h2', { className: 'mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, currentlyTitle),
-            currently && currently.size ? h('ul', { className: 'mt-3 list-inside list-disc' },
-              currently.map(function(item, idx) {
-                return h('li', { key: idx }, item);
-              }).toArray()
-            ) : null,
+						// Currently Section
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							currentlyTitle,
+						),
+						currently && currently.size
+							? h(
+									"ul",
+									{ className: "mt-3 list-inside list-disc" },
+									currently
+										.map(function (item, idx) {
+											return h("li", { key: idx }, item);
+										})
+										.toArray(),
+								)
+							: null,
 
-            // Status Section
-            h('h2', { className: 'mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, statusTitle),
-            status && status.size ? h('div', { className: 'mt-3 border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3' },
-              status.map(function(item, idx) {
-                return h('p', { key: idx },
-                  h('span', { className: 'font-bold text-[#164b70]' }, item.get('label') + ': '),
-                  item.get('value')
-                );
-              }).toArray()
-            ) : null,
+						// Status Section
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							statusTitle,
+						),
+						status && status.size
+							? h(
+									"div",
+									{
+										className:
+											"mt-3 border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3",
+									},
+									status
+										.map(function (item, idx) {
+											return h(
+												"p",
+												{ key: idx },
+												h(
+													"span",
+													{ className: "font-bold text-[#164b70]" },
+													item.get("label") + ": ",
+												),
+												item.get("value"),
+											);
+										})
+										.toArray(),
+								)
+							: null,
 
-            // Quick links
-            h('h2', { className: 'mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, 'Quick links'),
-            links && links.size ? h('div', { className: 'mt-3 flex flex-wrap gap-x-3 gap-y-1' },
-              links.map(function(link, idx) {
-                return h('a', { key: idx, className: 'text-[#064f83] underline hover:text-[#c0392b]', href: link.get('url') || '#' }, link.get('label'));
-              }).toArray()
-            ) : null,
+						// Quick links
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							"Quick links",
+						),
+						links && links.size
+							? h(
+									"div",
+									{ className: "mt-3 flex flex-wrap gap-x-3 gap-y-1" },
+									links
+										.map(function (link, idx) {
+											return h(
+												"a",
+												{
+													key: idx,
+													className:
+														"text-[#064f83] underline hover:text-[#c0392b]",
+													href: link.get("url") || "#",
+												},
+												link.get("label"),
+											);
+										})
+										.toArray(),
+								)
+							: null,
 
-            // Skills
-            h('h2', { className: 'mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, 'Skills'),
-            skills && skills.size ? h('p', { className: 'mt-3' }, skills.toArray().join(' · ')) : null
-          );
+						// Skills
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							"Skills",
+						),
+						skills && skills.size
+							? h("p", { className: "mt-3" }, skills.toArray().join(" · "))
+							: null,
+					);
 
-          return renderFullSiteShell('WELCOME TO MY HOMEPAGE', 'Home', homeContent, 'home', null);
-        }
-      });
-      CMS.registerPreviewTemplate('home', HomePreview);
+					return renderFullSiteShell(
+						"WELCOME TO MY HOMEPAGE",
+						"Home",
+						homeContent,
+						"home",
+						null,
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("home", HomePreview);
 
-      // 6. Custom About Page Preview in Full Site Shell
-      var AboutPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'About';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'ABOUT THIS PERSON';
-          var heading = entry.getIn(['data', 'heading']) || 'About me';
-          var intro = entry.getIn(['data', 'intro']) || '';
-          var rawProfileImage = entry.getIn(['data', 'profileImage']);
-          var profileImage = rawProfileImage ? this.props.getAsset(rawProfileImage) : null;
-          var profileAlt = entry.getIn(['data', 'profileAlt']) || 'Profile photo';
-          var paragraphs = entry.getIn(['data', 'paragraphs']);
+			// 6. Custom About Page Preview in Full Site Shell
+			var AboutPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "About";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "ABOUT THIS PERSON";
+					var heading = entry.getIn(["data", "heading"]) || "About me";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawProfileImage = entry.getIn(["data", "profileImage"]);
+					var profileImage = rawProfileImage
+						? this.props.getAsset(rawProfileImage)
+						: null;
+					var profileAlt =
+						entry.getIn(["data", "profileAlt"]) || "Profile photo";
+					var paragraphs = entry.getIn(["data", "paragraphs"]);
 
-          var aboutContent = h('div', null,
-            h('h2', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, heading),
-            h('div', { className: 'site-about-intro mt-4 flex items-start gap-4' },
-              profileImage ? h('img', { className: 'site-about-image h-auto w-28 shrink-0 object-contain', src: profileImage.toString(), alt: profileAlt }) : null,
-              h('div', null,
-                intro ? h('p', null, intro) : null,
-                paragraphs && paragraphs.size ? paragraphs.map(function(p, idx) {
-                  return h('p', { key: idx, className: 'mt-3' }, p);
-                }).toArray() : null
-              )
-            ),
-            h('p', { className: 'mt-6' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, '← back to home')
-            )
-          );
+					var aboutContent = h(
+						"div",
+						null,
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						h(
+							"div",
+							{ className: "site-about-intro mt-4 flex items-start gap-4" },
+							profileImage
+								? h("img", {
+										className:
+											"site-about-image h-auto w-28 shrink-0 object-contain",
+										src: profileImage.toString(),
+										alt: profileAlt,
+									})
+								: null,
+							h(
+								"div",
+								null,
+								intro ? h("p", null, intro) : null,
+								paragraphs && paragraphs.size
+									? paragraphs
+											.map(function (p, idx) {
+												return h("p", { key: idx, className: "mt-3" }, p);
+											})
+											.toArray()
+									: null,
+							),
+						),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
+								"← back to home",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, aboutContent, 'about', [{ label: 'about' }]);
-        }
-      });
-      CMS.registerPreviewTemplate('about-page', AboutPreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						aboutContent,
+						"about",
+						[{ label: "about" }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("about-page", AboutPreview);
 
-      // 7. Custom Blog Landing Page Preview in Full Site Shell
-      var BlogPagePreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'Blog';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'MY WEB LOG';
-          var heading = entry.getIn(['data', 'heading']) || 'Web log';
-          var intro = entry.getIn(['data', 'intro']) || 'Notes from my corner of the web.';
+			// 7. Custom Blog Landing Page Preview in Full Site Shell
+			var BlogPagePreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Blog";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "MY WEB LOG";
+					var heading = entry.getIn(["data", "heading"]) || "Web log";
+					var intro =
+						entry.getIn(["data", "intro"]) ||
+						"Notes from my corner of the web.";
 
-          var blogPageContent = h('div', null,
-            h('h2', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, heading),
-            h('p', { className: 'mt-3' }, intro),
-            h('div', { className: 'mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]' },
-              h('p', { className: 'font-bold text-sm text-[#164b70]' }, 'Blog Landing Page Preview'),
-              h('p', { className: 'mt-1' }, 'Published blog posts will appear here dynamically in reverse chronological order.')
-            )
-          );
+					var blogPageContent = h(
+						"div",
+						null,
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						h("p", { className: "mt-3" }, intro),
+						h(
+							"div",
+							{
+								className:
+									"mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]",
+							},
+							h(
+								"p",
+								{ className: "font-bold text-sm text-[#164b70]" },
+								"Blog Landing Page Preview",
+							),
+							h(
+								"p",
+								{ className: "mt-1" },
+								"Published blog posts will appear here dynamically in reverse chronological order.",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, blogPageContent, 'blog', [{ label: 'blog' }]);
-        }
-      });
-      CMS.registerPreviewTemplate('blog-page', BlogPagePreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						blogPageContent,
+						"blog",
+						[{ label: "blog" }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("blog-page", BlogPagePreview);
 
-      // 8. Custom Portfolio Landing Page Preview in Full Site Shell
-      var PortfolioPagePreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']) || 'Portfolio';
-          var headerTagline = entry.getIn(['data', 'headerTagline']) || 'MY WEB PORTFOLIO';
-          var heading = entry.getIn(['data', 'heading']) || 'My work';
-          var intro = entry.getIn(['data', 'intro']) || 'A few things I have made on the internet.';
+			// 8. Custom Portfolio Landing Page Preview in Full Site Shell
+			var PortfolioPagePreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Portfolio";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "MY WEB PORTFOLIO";
+					var heading = entry.getIn(["data", "heading"]) || "My work";
+					var intro =
+						entry.getIn(["data", "intro"]) ||
+						"A few things I have made on the internet.";
 
-          var portfolioPageContent = h('div', null,
-            h('h2', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, heading),
-            h('p', { className: 'mt-3' }, intro),
-            h('div', { className: 'mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]' },
-              h('p', { className: 'font-bold text-sm text-[#164b70]' }, 'Portfolio Landing Page Preview'),
-              h('p', { className: 'mt-1' }, 'Published portfolio projects will appear here dynamically.')
-            )
-          );
+					var portfolioPageContent = h(
+						"div",
+						null,
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						h("p", { className: "mt-3" }, intro),
+						h(
+							"div",
+							{
+								className:
+									"mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]",
+							},
+							h(
+								"p",
+								{ className: "font-bold text-sm text-[#164b70]" },
+								"Portfolio Landing Page Preview",
+							),
+							h(
+								"p",
+								{ className: "mt-1" },
+								"Published portfolio projects will appear here dynamically.",
+							),
+						),
+					);
 
-          return renderFullSiteShell(headerTagline, title, portfolioPageContent, 'portfolio', [{ label: 'portfolio' }]);
-        }
-      });
-      CMS.registerPreviewTemplate('portfolio-page', PortfolioPagePreview);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						portfolioPageContent,
+						"portfolio",
+						[{ label: "portfolio" }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("portfolio-page", PortfolioPagePreview);
 
-      // 9. Custom Author Profile Preview in Full Site Shell
-      var AuthorPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var name = entry.getIn(['data', 'name']) || 'Author';
-          var rawImage = entry.getIn(['data', 'image']);
-          var image = rawImage ? this.props.getAsset(rawImage) : null;
-          var bio = entry.getIn(['data', 'bio']) || '';
+			// 9. Custom Author Profile Preview in Full Site Shell
+			var AuthorPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var name = entry.getIn(["data", "name"]) || "Author";
+					var rawImage = entry.getIn(["data", "image"]);
+					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var bio = entry.getIn(["data", "bio"]) || "";
 
-          var authorContent = h('div', null,
-            h('h2', { className: 'border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]' }, 'Author Profile: ' + name),
-            h('div', { className: 'mt-4 flex items-start gap-4 border border-[#b7cbd6] bg-[#f8fbfc] p-4 shadow-[inset_0_1px_0_#fff]' },
-              image ? h('img', { className: 'site-profile-frame h-20 w-20 shrink-0 object-cover', src: image.toString(), alt: name }) : null,
-              h('div', { className: 'flex-1' },
-                h('h3', { className: 'font-bold text-base text-[#164b70]' }, name),
-                h('p', { className: 'mt-2 text-xs leading-relaxed text-[#26343d]' }, bio)
-              )
-            ),
-            h('p', { className: 'mt-6' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, '← back to home')
-            )
-          );
+					var authorContent = h(
+						"div",
+						null,
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+							},
+							"Author Profile: " + name,
+						),
+						h(
+							"div",
+							{
+								className:
+									"mt-4 flex items-start gap-4 border border-[#b7cbd6] bg-[#f8fbfc] p-4 shadow-[inset_0_1px_0_#fff]",
+							},
+							image
+								? h("img", {
+										className:
+											"site-profile-frame h-20 w-20 shrink-0 object-cover",
+										src: image.toString(),
+										alt: name,
+									})
+								: null,
+							h(
+								"div",
+								{ className: "flex-1" },
+								h(
+									"h3",
+									{ className: "font-bold text-base text-[#164b70]" },
+									name,
+								),
+								h(
+									"p",
+									{ className: "mt-2 text-xs leading-relaxed text-[#26343d]" },
+									bio,
+								),
+							),
+						),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
+								"← back to home",
+							),
+						),
+					);
 
-          return renderFullSiteShell('AUTHOR PROFILE', name, authorContent, 'about', [{ label: 'about', url: '/about/' }, { label: name }]);
-        }
-      });
-      CMS.registerPreviewTemplate('authors', AuthorPreview);
-    </script>
-  </body>
+					return renderFullSiteShell(
+						"AUTHOR PROFILE",
+						name,
+						authorContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: name }],
+					);
+				},
+			});
+			CMS.registerPreviewTemplate("authors", AuthorPreview);
+		</script>
+	</body>
 </html>

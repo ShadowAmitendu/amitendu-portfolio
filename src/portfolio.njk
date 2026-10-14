@@ -11,33 +11,37 @@ pagination:
   generatePageOnEmptyData: true
 permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
-<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">{{ portfolioPage.heading or heading or 'My work' }}</h2>
+<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">
+  {{ portfolioPage.heading or heading or 'My work' }}</h2>
 <p class="mt-3">{{ portfolioPage.intro or intro or 'A few things I have made on the internet.' }}</p>
 {% if projects and projects.length > 0 %}
-  {% for project in projects %}
-  <article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-0">
-    <a class="site-card-link block p-4 text-inherit no-underline" href="{{ project.url }}">
-      <div class="site-card-row flex items-center justify-between gap-4">
-        <div class="min-w-0">
-          <h3 class="font-bold text-[#164b70]">{{ project.data.title }}</h3>
-          <p class="mt-2">{{ project.data.description }}</p>
-        </div>
-        {% if project.data.image %}<img class="site-card-image h-24 w-28 max-w-full shrink-0 object-cover" src="{{ project.data.image }}"
-          alt="{{ project.data.title }}" />{% endif %}
+{% for project in projects %}
+<article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-0">
+  <a class="site-card-link block p-4 text-inherit no-underline" href="{{ project.url }}">
+    <div class="site-card-row flex items-center justify-between gap-4">
+      <div class="min-w-0">
+        <h3 class="font-bold text-[#164b70]">{{ project.data.title }}</h3>
+        <p class="mt-2">{{ project.data.description }}</p>
       </div>
-    </a>
-  </article>
-  {% endfor %}
-  {% if pagination.pages.length > 1 %}
-  <nav class="mt-6 flex flex-wrap items-center gap-3 text-xs" aria-label="Portfolio pagination">
-    {% if pagination.href.previous %}<a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ pagination.href.previous }}">← newer projects</a>{% endif %}
-    <span>page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
-    {% if pagination.href.next %}<a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ pagination.href.next }}">older projects →</a>{% endif %}
-  </nav>
-  {% endif %}
+      {% if project.data.image %}<img class="site-card-image h-24 w-28 max-w-full shrink-0 object-cover"
+        src="{{ project.data.image }}" alt="{{ project.data.title }}" />{% endif %}
+    </div>
+  </a>
+</article>
+{% endfor %}
+{% if pagination.pages.length > 1 %}
+<nav class="mt-6 flex flex-wrap items-center gap-3 text-xs" aria-label="Portfolio pagination">
+  {% if pagination.href.previous %}<a class="text-[#064f83] underline hover:text-[#c0392b]"
+    href="{{ pagination.href.previous }}">← newer projects</a>{% endif %}
+  <span>page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+  {% if pagination.href.next %}<a class="text-[#064f83] underline hover:text-[#c0392b]"
+    href="{{ pagination.href.next }}">older projects →</a>{% endif %}
+</nav>
+{% endif %}
 {% else %}
-  <div class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
-    <p class="font-bold text-sm text-[#164b70]">No Portfolio</p>
-    <p class="mt-1">There are no portfolio projects published yet. Check back soon!</p>
-  </div>
+<div
+  class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+  <p class="font-bold text-sm text-[#164b70]">No Portfolio</p>
+  <p class="mt-1">There are no portfolio projects published yet. Check back soon!</p>
+</div>
 {% endif %}

@@ -2,8 +2,8 @@
 layout: base.njk
 permalink: /resume/
 eleventyComputed:
-  title: "{{ resume.title or 'Resume' }}"
-  headerTagline: "{{ resume.headerTagline or 'CURRICULUM VITAE' }}"
+title: "{{ resume.title or 'Resume' }}"
+headerTagline: "{{ resume.headerTagline or 'CURRICULUM VITAE' }}"
 ---
 {% set r = resume %}
 <div class="site-resume">
@@ -11,114 +11,122 @@ eleventyComputed:
   <div class="border-b border-[#b7cbd6] pb-3">
     <div class="flex flex-wrap items-baseline justify-between gap-2">
       <div>
-        <h2 class="font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]">{{ r.heading }}</h2>
+        <h2 class="font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]">
+          {{ r.heading }}</h2>
         {% if r.subheading %}
-          <p class="mt-1 text-sm font-bold text-[#536a75]">{{ r.subheading }}</p>
+        <p class="mt-1 text-sm font-bold text-[#536a75]">{{ r.subheading }}</p>
         {% endif %}
       </div>
       {% if r.pdfUrl %}
-        <div>
-          <a class="site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] hover:text-[#c0392b] shadow-[1px_1px_0_#b8c5cc]" href="{{ r.pdfUrl }}" target="_blank" rel="noopener">Download PDF</a>
-        </div>
+      <div>
+        <a class="site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] hover:text-[#c0392b] shadow-[1px_1px_0_#b8c5cc]"
+          href="{{ r.pdfUrl }}" target="_blank" rel="noopener">Download PDF</a>
+      </div>
       {% endif %}
     </div>
   </div>
 
   {# Professional Summary #}
   {% if r.intro %}
-    <div class="mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]">
-      <p>{{ r.intro }}</p>
-    </div>
+  <div class="mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]">
+    <p>{{ r.intro }}</p>
+  </div>
   {% endif %}
 
   {# Contact Details Box #}
   {% if r.contactDetails and r.contactDetails.length > 0 %}
-    <div class="mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-1">
-        {% for item in r.contactDetails %}
-          <p>
-            <span class="font-bold text-[#164b70]">{{ item.label }}:</span>
-            {% if item.url %}
-              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.value }}</a>
-            {% else %}
-              <span>{{ item.value }}</span>
-            {% endif %}
-          </p>
-        {% endfor %}
-      </div>
+  <div class="mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-1">
+      {% for item in r.contactDetails %}
+      <p>
+        <span class="font-bold text-[#164b70]">{{ item.label }}:</span>
+        {% if item.url %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.value }}</a>
+        {% else %}
+        <span>{{ item.value }}</span>
+        {% endif %}
+      </p>
+      {% endfor %}
     </div>
+  </div>
   {% endif %}
 
   {# Experience Section #}
   {% if r.experience and r.experience.length > 0 %}
-    <section class="mt-8">
-      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Experience</h3>
-      <div class="mt-4 space-y-5">
-        {% for job in r.experience %}
-          <div class="site-resume-item">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h4 class="font-bold text-sm text-[#164b70]">{{ job.role }}</h4>
-              {% if job.period %}
-                <span class="text-xs text-[#71828b]">{{ job.period }}</span>
-              {% endif %}
-            </div>
-            {% if job.company %}
-              <p class="text-xs font-semibold text-[#536a75]">{{ job.company }}</p>
-            {% endif %}
-            {% if job.description %}
-              <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">{{ job.description }}</p>
-            {% endif %}
-          </div>
-        {% endfor %}
+  <section class="mt-8">
+    <h3
+      class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">
+      Experience</h3>
+    <div class="mt-4 space-y-5">
+      {% for job in r.experience %}
+      <div class="site-resume-item">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h4 class="font-bold text-sm text-[#164b70]">{{ job.role }}</h4>
+          {% if job.period %}
+          <span class="text-xs text-[#71828b]">{{ job.period }}</span>
+          {% endif %}
+        </div>
+        {% if job.company %}
+        <p class="text-xs font-semibold text-[#536a75]">{{ job.company }}</p>
+        {% endif %}
+        {% if job.description %}
+        <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">{{ job.description }}</p>
+        {% endif %}
       </div>
-    </section>
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
   {# Education Section #}
   {% if r.education and r.education.length > 0 %}
-    <section class="mt-8">
-      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Education</h3>
-      <div class="mt-4 space-y-4">
-        {% for edu in r.education %}
-          <div class="site-resume-item">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h4 class="font-bold text-sm text-[#164b70]">{{ edu.degree }}</h4>
-              {% if edu.period %}
-                <span class="text-xs text-[#71828b]">{{ edu.period }}</span>
-              {% endif %}
-            </div>
-            {% if edu.institution %}
-              <p class="text-xs font-semibold text-[#536a75]">{{ edu.institution }}</p>
-            {% endif %}
-            {% if edu.details %}
-              <p class="mt-1 text-xs text-[#71828b]">{{ edu.details }}</p>
-            {% endif %}
-          </div>
-        {% endfor %}
+  <section class="mt-8">
+    <h3
+      class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">
+      Education</h3>
+    <div class="mt-4 space-y-4">
+      {% for edu in r.education %}
+      <div class="site-resume-item">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h4 class="font-bold text-sm text-[#164b70]">{{ edu.degree }}</h4>
+          {% if edu.period %}
+          <span class="text-xs text-[#71828b]">{{ edu.period }}</span>
+          {% endif %}
+        </div>
+        {% if edu.institution %}
+        <p class="text-xs font-semibold text-[#536a75]">{{ edu.institution }}</p>
+        {% endif %}
+        {% if edu.details %}
+        <p class="mt-1 text-xs text-[#71828b]">{{ edu.details }}</p>
+        {% endif %}
       </div>
-    </section>
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
   {# Technical Skills Section #}
   {% if r.skillsList and r.skillsList.length > 0 %}
-    <section class="mt-8">
-      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Skills & Expertise</h3>
-      <div class="mt-4 space-y-2.5">
-        {% for cat in r.skillsList %}
-          <div class="text-xs">
-            <span class="font-bold text-[#164b70]">{{ cat.category }}:</span>
-            <span class="ml-1 text-[#26343d]">{{ cat.items }}</span>
-          </div>
-        {% endfor %}
+  <section class="mt-8">
+    <h3
+      class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">
+      Skills & Expertise</h3>
+    <div class="mt-4 space-y-2.5">
+      {% for cat in r.skillsList %}
+      <div class="text-xs">
+        <span class="font-bold text-[#164b70]">{{ cat.category }}:</span>
+        <span class="ml-1 text-[#26343d]">{{ cat.items }}</span>
       </div>
-    </section>
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
   {# Additional Notes #}
   {% if r.additionalNotes %}
-    <section class="mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]">
-      <p><span class="font-bold text-[#164b70]">Note:</span> {{ r.additionalNotes }}</p>
-    </section>
+  <section class="mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]">
+    <p><span class="font-bold text-[#164b70]">Note:</span> {{ r.additionalNotes }}</p>
+  </section>
   {% endif %}
 
   {# Back link #}

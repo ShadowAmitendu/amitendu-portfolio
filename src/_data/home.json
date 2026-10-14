@@ -1,43 +1,36 @@
 {
-  "profileAlt": "Amitendu Bikash Dhusiya",
-  "skills": [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Eleventy",
-    "Nunjucks",
-    "Markdown"
-  ],
-  "welcome": "You Found Out a Hidden Gem!",
-  "currently": [
-    "learning something new",
-    "building useful little projects",
-    "listening to music while I work"
-  ],
-  "statusTitle": "Status",
-  "aboutTitle": "About this site & MySelf",
-  "about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
-  "profileImage": "/images/shadow-amitendu.jpg",
-  "currentlyTitle": "Currently",
-  "status": [
-    {
-      "label": "Currently",
-      "value": "building small websites"
-    },
-    {
-      "label": "Listening to",
-      "value": "music while I work"
-    },
-    {
-      "label": "Status",
-      "value": "online"
-    }
-  ],
-  "greeting": "Hello, Stranger!",
-  "links": [
-    {
-      "label": "GitHub",
-      "url": "https://github.com/ShadowAmitendu"
-    }
-  ]
+	"profileAlt": "Amitendu Bikash Dhusiya",
+	"skills": ["HTML", "CSS", "JavaScript", "Eleventy", "Nunjucks", "Markdown"],
+	"welcome": "You Found Out a Hidden Gem!",
+	"currently": [
+		"learning something new",
+		"building useful little projects",
+		"listening to music while I work"
+	],
+	"statusTitle": "Status",
+	"aboutTitle": "About this site & MySelf",
+	"about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
+	"profileImage": "/images/shadow-amitendu.jpg",
+	"currentlyTitle": "Currently",
+	"status": [
+		{
+			"label": "Currently",
+			"value": "building small websites"
+		},
+		{
+			"label": "Listening to",
+			"value": "music while I work"
+		},
+		{
+			"label": "Status",
+			"value": "online"
+		}
+	],
+	"greeting": "Hello, Stranger!",
+	"links": [
+		{
+			"label": "GitHub",
+			"url": "https://github.com/ShadowAmitendu"
+		}
+	]
 }

@@ -1,159 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% if title and title != site.title %}{{ title }}{% if pagination.pageNumber and pagination.pageNumber > 0 %} (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
-    <main class="site-shell mx-auto max-w-6xl p-1">
-      <header class="site-header relative overflow-hidden text-white">
-        <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="/images/header-banner.jpg" alt="" />
-        <div class="relative px-5 py-4">
-          <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ headerTagline or site.tagline }}</p>
-          <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] text-2xl tracking-tight">{{ title or site.title }}</h1>
-        </div>
-      </header>
-      {% set isHome = (page.url == '/' or page.url == '') %}
-      {% set isAbout = ('/about/' in page.url) %}
-      {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
-      {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
-      {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
 
-      <nav class="site-nav text-xs">
-        <div class="site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5">
-          <a class="site-nav-link {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/">home</a>
-          <span class="px-1 text-[#8aa2af]">|</span>
-          <a class="site-nav-link {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/about/">about</a>
-          <span class="px-1 text-[#8aa2af]">|</span>
-          <a class="site-nav-link {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/portfolio/">portfolio</a>
-          <span class="px-1 text-[#8aa2af]">|</span>
-          <a class="site-nav-link {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/blog/">blog</a>
-          <span class="px-1 text-[#8aa2af]">|</span>
-          <a class="site-nav-link {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/resume/">resume</a>
-        </div>
-        {% if not isHome %}
-        <div class="site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[11px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
-          <span class="font-bold text-[#164b70]">Location:</span>
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
-          <span class="text-[#8aa2af]">&gt;</span>
-          {% if isBlog %}
-            {% if isPost or (tags and 'blog' in tags and page.url != '/blog/') %}
-              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
-              <span class="text-[#8aa2af]">&gt;</span>
-              <span class="font-bold text-[#164b70]">{{ title }}</span>
-            {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
-              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
-              <span class="text-[#8aa2af]">&gt;</span>
-              <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
-            {% else %}
-              <span class="font-bold text-[#164b70]">blog</span>
-            {% endif %}
-          {% elif isPortfolio %}
-            {% if tags and 'portfolio' in tags and page.url != '/portfolio/' %}
-              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
-              <span class="text-[#8aa2af]">&gt;</span>
-              <span class="font-bold text-[#164b70]">{{ title }}</span>
-            {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
-              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
-              <span class="text-[#8aa2af]">&gt;</span>
-              <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
-            {% else %}
-              <span class="font-bold text-[#164b70]">portfolio</span>
-            {% endif %}
-          {% elif isAbout %}
-            <span class="font-bold text-[#164b70]">about</span>
-          {% elif isResume %}
-            <span class="font-bold text-[#164b70]">resume</span>
-          {% elif '/authors/' in page.url %}
-            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
-            <span class="text-[#8aa2af]">&gt;</span>
-            <span class="font-bold text-[#164b70]">{{ name or title }}</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% if title and title != site.title %}{{ title }}{% if pagination.pageNumber and pagination.pageNumber > 0 %}
+    (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+
+<body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
+  <main class="site-shell mx-auto max-w-6xl p-1">
+    <header class="site-header relative overflow-hidden text-white">
+      <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="/images/header-banner.jpg"
+        alt="" />
+      <div class="relative px-5 py-4">
+        <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ headerTagline or site.tagline }}</p>
+        <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] tracking-tight">
+          {{ title or site.title }}</h1>
+      </div>
+    </header>
+    {% set isHome = (page.url == '/' or page.url == '') %}
+    {% set isAbout = ('/about/' in page.url) %}
+    {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
+    {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
+    {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
+
+    <nav class="site-nav text-xs">
+      <div class="site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5">
+        <a class="site-nav-link {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+          href="/">home</a>
+        <span class="px-1 text-[#8aa2af]">|</span>
+        <a class="site-nav-link {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+          href="/about/">about</a>
+        <span class="px-1 text-[#8aa2af]">|</span>
+        <a class="site-nav-link {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+          href="/portfolio/">portfolio</a>
+        <span class="px-1 text-[#8aa2af]">|</span>
+        <a class="site-nav-link {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+          href="/blog/">blog</a>
+        <span class="px-1 text-[#8aa2af]">|</span>
+        <a class="site-nav-link {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+          href="/resume/">resume</a>
+      </div>
+      {% if not isHome %}
+      <div
+        class="site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+        <span class="font-bold text-[#164b70]">Location:</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        {% if isBlog %}
+        {% if isPost or (tags and 'blog' in tags and page.url != '/blog/') %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        <span class="font-bold text-[#164b70]">{{ title }}</span>
+        {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+        {% else %}
+        <span class="font-bold text-[#164b70]">blog</span>
+        {% endif %}
+        {% elif isPortfolio %}
+        {% if tags and 'portfolio' in tags and page.url != '/portfolio/' %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        <span class="font-bold text-[#164b70]">{{ title }}</span>
+        {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+        {% else %}
+        <span class="font-bold text-[#164b70]">portfolio</span>
+        {% endif %}
+        {% elif isAbout %}
+        <span class="font-bold text-[#164b70]">about</span>
+        {% elif isResume %}
+        <span class="font-bold text-[#164b70]">resume</span>
+        {% elif '/authors/' in page.url %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+        <span class="text-[#8aa2af]">&gt;</span>
+        <span class="font-bold text-[#164b70]">{{ name or title }}</span>
+        {% else %}
+        <span class="font-bold text-[#164b70]">{{ title }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+    </nav>
+    <div class="site-columns">
+      <aside class="site-sidebar site-sidebar-left">
+        <h2>{{ site.leftSidebar.title }}</h2>
+        {% for item in site.leftSidebar.items %}
+        {% set itemActive = false %}
+        {% if item.url == '/' and isHome %}
+        {% set itemActive = true %}
+        {% elif item.url == '/about/' and isAbout %}
+        {% set itemActive = true %}
+        {% elif item.url == '/blog/' and isBlog %}
+        {% set itemActive = true %}
+        {% elif item.url == '/portfolio/' and isPortfolio %}
+        {% set itemActive = true %}
+        {% elif (item.url == '/resume/' or item.url == '/cv/') and isResume %}
+        {% set itemActive = true %}
+        {% endif %}
+        <p>
+          {% if itemActive %}
+          <span
+            class="inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[14px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">{{ item.label }}</span>
           {% else %}
-            <span class="font-bold text-[#164b70]">{{ title }}</span>
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a>
           {% endif %}
+        </p>
+        {% endfor %}
+      </aside>
+      <section class="site-content px-5 py-6 text-sm leading-6">
+        {% if draft and not isPost %}
+        <div
+          class="mb-4 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
+          DRAFT - This project is saved as a draft and is hidden from public listings.
         </div>
         {% endif %}
-      </nav>
-      <div class="site-columns">
-        <aside class="site-sidebar site-sidebar-left">
-          <h2>{{ site.leftSidebar.title }}</h2>
-          {% for item in site.leftSidebar.items %}
-            {% set itemActive = false %}
-            {% if item.url == '/' and isHome %}
-              {% set itemActive = true %}
-            {% elif item.url == '/about/' and isAbout %}
-              {% set itemActive = true %}
-            {% elif item.url == '/blog/' and isBlog %}
-              {% set itemActive = true %}
-            {% elif item.url == '/portfolio/' and isPortfolio %}
-              {% set itemActive = true %}
-            {% elif (item.url == '/resume/' or item.url == '/cv/') and isResume %}
-              {% set itemActive = true %}
-            {% endif %}
-            <p>
-              {% if itemActive %}
-                <span class="inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[11px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">{{ item.label }}</span>
-              {% else %}
-                <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a>
-              {% endif %}
-            </p>
-          {% endfor %}
-        </aside>
-        <section class="site-content px-5 py-6 text-sm leading-6">
-          {% if draft and not isPost %}
-            <div class="mb-4 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
-              DRAFT - This project is saved as a draft and is hidden from public listings.
-            </div>
-          {% endif %}
-          {% if image and not isPost and not hideHeroImage %}<img class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}" alt="{{ title }}" />{% endif %}
-          {% if author and not isPost %}
-            <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
-              {% if authorImage %}<img class="h-7 w-7 object-cover" src="{{ authorImage }}" alt="{{ author }}" />{% endif %}
-              <span>by {{ author }}</span>
-            </div>
-          {% endif %}
-          {{ content | safe }}
-        </section>
-        <aside class="site-sidebar site-sidebar-right">
-          <h2>{{ site.rightSidebar.title }}</h2>
-          {% for item in site.rightSidebar.items %}
-            <p><a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a></p>
-          {% endfor %}
-        </aside>
-      </div>
-      <footer class="site-footer px-5 py-4 text-center text-[11px] text-[#71828b]">
-        <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
-        <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>
-        <p class="mt-2">
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
-          <span class="px-1">·</span>
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
-          <span class="px-1">·</span>
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
-          <span class="px-1">·</span>
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
-          <span class="px-1">·</span>
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/resume/">resume</a>
-        </p>
-        <p class="mt-2 text-[10px]">Last updated: {{ buildDate | shortDate }}</p>
-      </footer>
-    </main>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-  </body>
+        {% if image and not isPost and not hideHeroImage %}<img
+          class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}"
+          alt="{{ title }}" />{% endif %}
+        {% if author and not isPost %}
+        <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
+          {% if authorImage %}<img class="h-7 w-7 object-cover" src="{{ authorImage }}" alt="{{ author }}" />{% endif %}
+          <span>by {{ author }}</span>
+        </div>
+        {% endif %}
+        {{ content | safe }}
+      </section>
+      <aside class="site-sidebar site-sidebar-right">
+        <h2>{{ site.rightSidebar.title }}</h2>
+        {% for item in site.rightSidebar.items %}
+        <p><a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a></p>
+        {% endfor %}
+      </aside>
+    </div>
+    <footer class="site-footer px-5 py-4 text-center text-[14px] text-[#71828b]">
+      <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
+      <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>
+      <p class="mt-2">
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+        <span class="px-1">·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+        <span class="px-1">·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+        <span class="px-1">·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+        <span class="px-1">·</span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/resume/">resume</a>
+      </p>
+      <p class="mt-2 text-[10px]">Last updated: {{ buildDate | shortDate }}</p>
+    </footer>
+  </main>
+  <script>
+    if ( window.netlifyIdentity )
+    {
+      window.netlifyIdentity.on( "init", ( user ) =>
+      {
+        if ( !user )
+        {
+          window.netlifyIdentity.on( "login", () =>
+          {
+            document.location.href = "/admin/";
+          } );
+        }
+      } );
+    }
+  </script>
+</body>
+
 </html>

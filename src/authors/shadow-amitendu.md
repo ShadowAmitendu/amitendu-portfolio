@@ -8,6 +8,7 @@ image: /images/shadow-amitendu.jpg
 bio: Developer and maker of small things for the web.
 hideHeroImage: true
 ---
+
 <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-6 shadow-[inset_0_1px_0_#fff]">
   <div class="flex items-start gap-4">
     {% if image %}<img class="site-profile-frame h-24 w-24 shrink-0 object-cover" src="{{ image }}" alt="{{ name }}" />{% endif %}

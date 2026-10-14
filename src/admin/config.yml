@@ -24,13 +24,43 @@ collections:
         file: "src/_data/about.json"
         format: "json"
         fields:
-          - { label: "Page title", name: "title", widget: "string", default: "About" }
-          - { label: "Header tagline", name: "headerTagline", widget: "string", default: "ABOUT THIS PERSON" }
-          - { label: "Heading", name: "heading", widget: "string", default: "About me" }
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "About",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "ABOUT THIS PERSON",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "About me",
+            }
           - { label: "Intro", name: "intro", widget: "text" }
-          - { label: "Profile image", name: "profileImage", widget: "image", required: false }
-          - { label: "Profile image alt text", name: "profileAlt", widget: "string", required: false }
-          - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+          - {
+              label: "Profile image",
+              name: "profileImage",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Profile image alt text",
+              name: "profileAlt",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Paragraphs",
+              name: "paragraphs",
+              widget: "list",
+              field: { label: "Paragraph", name: "paragraph", widget: "text" },
+            }
 
   - name: "resume-page"
     label: "Resume / CV"
@@ -40,12 +70,43 @@ collections:
         file: "src/_data/resume.json"
         format: "json"
         fields:
-          - { label: "Page title", name: "title", widget: "string", default: "Resume" }
-          - { label: "Header tagline", name: "headerTagline", widget: "string", default: "CURRICULUM VITAE" }
-          - { label: "Heading", name: "heading", widget: "string", default: "Curriculum Vitae" }
-          - { label: "Subheading / Role", name: "subheading", widget: "string", default: "Full-Stack Web Developer & Designer", required: false }
-          - { label: "Professional Summary", name: "intro", widget: "text", required: false }
-          - { label: "Resume PDF URL or File", name: "pdfUrl", widget: "file", required: false }
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Resume",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "CURRICULUM VITAE",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Curriculum Vitae",
+            }
+          - {
+              label: "Subheading / Role",
+              name: "subheading",
+              widget: "string",
+              default: "Full-Stack Web Developer & Designer",
+              required: false,
+            }
+          - {
+              label: "Professional Summary",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - {
+              label: "Resume PDF URL or File",
+              name: "pdfUrl",
+              widget: "file",
+              required: false,
+            }
           - label: "Contact Details"
             name: "contactDetails"
             widget: "list"
@@ -60,7 +121,11 @@ collections:
             required: false
             fields:
               - { label: "Job Title", name: "role", widget: "string" }
-              - { label: "Company / Organization", name: "company", widget: "string" }
+              - {
+                  label: "Company / Organization",
+                  name: "company",
+                  widget: "string",
+                }
               - { label: "Period", name: "period", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
           - label: "Education"
@@ -68,10 +133,23 @@ collections:
             widget: "list"
             required: false
             fields:
-              - { label: "Degree / Certificate", name: "degree", widget: "string" }
-              - { label: "Institution / School", name: "institution", widget: "string" }
+              - {
+                  label: "Degree / Certificate",
+                  name: "degree",
+                  widget: "string",
+                }
+              - {
+                  label: "Institution / School",
+                  name: "institution",
+                  widget: "string",
+                }
               - { label: "Period", name: "period", widget: "string" }
-              - { label: "Details", name: "details", widget: "string", required: false }
+              - {
+                  label: "Details",
+                  name: "details",
+                  widget: "string",
+                  required: false,
+                }
           - label: "Skill Categories"
             name: "skillsList"
             widget: "list"
@@ -79,7 +157,12 @@ collections:
             fields:
               - { label: "Category", name: "category", widget: "string" }
               - { label: "Skills", name: "items", widget: "string" }
-          - { label: "Additional Notes", name: "additionalNotes", widget: "text", required: false }
+          - {
+              label: "Additional Notes",
+              name: "additionalNotes",
+              widget: "text",
+              required: false,
+            }
 
   - name: "pages"
     label: "Pages"
@@ -93,10 +176,29 @@ collections:
           - { label: "Welcome text", name: "welcome", widget: "string" }
           - { label: "About heading", name: "aboutTitle", widget: "string" }
           - { label: "About text", name: "about", widget: "text" }
-          - { label: "Currently heading", name: "currentlyTitle", widget: "string" }
-          - { label: "Currently", name: "currently", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
-          - { label: "Profile image", name: "profileImage", widget: "image", required: false }
-          - { label: "Profile image alt text", name: "profileAlt", widget: "string", required: false }
+          - {
+              label: "Currently heading",
+              name: "currentlyTitle",
+              widget: "string",
+            }
+          - {
+              label: "Currently",
+              name: "currently",
+              widget: "list",
+              field: { label: "Item", name: "item", widget: "string" },
+            }
+          - {
+              label: "Profile image",
+              name: "profileImage",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Profile image alt text",
+              name: "profileAlt",
+              widget: "string",
+              required: false,
+            }
           - { label: "Status heading", name: "statusTitle", widget: "string" }
           - label: "Status"
             name: "status"
@@ -110,24 +212,59 @@ collections:
             fields:
               - { label: "Label", name: "label", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
-          - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
+          - {
+              label: "Skills",
+              name: "skills",
+              widget: "list",
+              field: { label: "Skill", name: "skill", widget: "string" },
+            }
       - name: "blog-page"
         label: "Blog landing page"
         file: "src/_data/blogPage.json"
         format: "json"
         fields:
-          - { label: "Page title", name: "title", widget: "string", default: "Blog" }
-          - { label: "Header tagline", name: "headerTagline", widget: "string", default: "MY WEB LOG" }
-          - { label: "Heading", name: "heading", widget: "string", default: "Web log" }
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Blog",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "MY WEB LOG",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Web log",
+            }
           - { label: "Intro", name: "intro", widget: "text" }
       - name: "portfolio-page"
         label: "Portfolio landing page"
         file: "src/_data/portfolioPage.json"
         format: "json"
         fields:
-          - { label: "Page title", name: "title", widget: "string", default: "Portfolio" }
-          - { label: "Header tagline", name: "headerTagline", widget: "string", default: "MY WEB PORTFOLIO" }
-          - { label: "Heading", name: "heading", widget: "string", default: "My work" }
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Portfolio",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "MY WEB PORTFOLIO",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "My work",
+            }
           - { label: "Intro", name: "intro", widget: "text" }
       - name: "site"
         label: "Site settings"
@@ -163,7 +300,13 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
-          - { label: "Featured item limit", name: "featuredLimit", widget: "number", value_type: "int", default: 4 }
+          - {
+              label: "Featured item limit",
+              name: "featuredLimit",
+              widget: "number",
+              value_type: "int",
+              default: 4,
+            }
 
   - name: "blog"
     label: "Blog posts"
@@ -171,24 +314,64 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     view_filters:
-      - label: "Drafts"
-        field: "draft"
-        pattern: true
       - label: "Published"
-        field: "draft"
-        pattern: false
+        field: "tags"
+        pattern: "post"
+      - label: "Drafts"
+        field: "tags"
+        pattern: "draft"
     fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "post.njk" }
-      - { label: "Draft", name: "draft", widget: "boolean", default: false, hint: "Check to save as draft. Drafts will not appear on the live site." }
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "post.njk",
+        }
+      - label: "Status (Tag)"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "Post (Published)", value: "post" }
+          - { label: "Draft (Hidden from site)", value: "draft" }
+        default: ["post"]
+        hint: "Choose 'post' to publish on blog, or 'draft' to save as draft."
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Header tagline", name: "headerTagline", widget: "string", default: "BLOG POST" }
+      - {
+          label: "Header tagline",
+          name: "headerTagline",
+          widget: "string",
+          default: "BLOG POST",
+        }
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Publish date", name: "date", widget: "datetime" }
-      - { label: "Tags", name: "tags", widget: "list", default: ["blog"] }
-      - { label: "Author", name: "author", widget: "string", default: "Amitendu Bikash Dhusiya" }
-      - { label: "Current mood", name: "mood", widget: "string", required: false, hint: "e.g. thoughtful, caffeinated" }
-      - { label: "Current music", name: "music", widget: "string", required: false, hint: "e.g. Daft Punk - Digital Love" }
-      - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "string",
+          default: "Amitendu Bikash Dhusiya",
+        }
+      - {
+          label: "Current mood",
+          name: "mood",
+          widget: "string",
+          required: false,
+          hint: "e.g. thoughtful, caffeinated",
+        }
+      - {
+          label: "Current music",
+          name: "music",
+          widget: "string",
+          required: false,
+          hint: "e.g. Daft Punk - Digital Love",
+        }
+      - {
+          label: "Featured image",
+          name: "image",
+          widget: "image",
+          required: false,
+          hint: "Upload an image or use an external image URL.",
+        }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "portfolio"
@@ -197,20 +380,43 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     view_filters:
-      - label: "Drafts"
-        field: "draft"
-        pattern: true
       - label: "Published"
-        field: "draft"
-        pattern: false
+        field: "tags"
+        pattern: "portfolio"
+      - label: "Drafts"
+        field: "tags"
+        pattern: "draft"
     fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-      - { label: "Draft", name: "draft", widget: "boolean", default: false, hint: "Check to save as draft. Drafts will not appear on the live site." }
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "base.njk",
+        }
+      - label: "Status (Tag)"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "Portfolio (Published)", value: "portfolio" }
+          - { label: "Draft (Hidden from site)", value: "draft" }
+        default: ["portfolio"]
+        hint: "Choose 'portfolio' to publish, or 'draft' to save as draft."
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Header tagline", name: "headerTagline", widget: "string", default: "PORTFOLIO PROJECT" }
+      - {
+          label: "Header tagline",
+          name: "headerTagline",
+          widget: "string",
+          default: "PORTFOLIO PROJECT",
+        }
       - { label: "Description", name: "description", widget: "string" }
-      - { label: "Tags", name: "tags", widget: "hidden", default: ["portfolio"] }
-      - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }
+      - {
+          label: "Featured image",
+          name: "image",
+          widget: "image",
+          required: false,
+          hint: "Upload an image or use an external image URL.",
+        }
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "authors"
@@ -219,11 +425,36 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-      - { label: "Page title", name: "title", widget: "hidden", default: "Author Profile" }
-      - { label: "Header tagline", name: "headerTagline", widget: "hidden", default: "AUTHOR PROFILE" }
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "base.njk",
+        }
+      - {
+          label: "Page title",
+          name: "title",
+          widget: "hidden",
+          default: "Author Profile",
+        }
+      - {
+          label: "Header tagline",
+          name: "headerTagline",
+          widget: "hidden",
+          default: "AUTHOR PROFILE",
+        }
       - { label: "Slug", name: "slug", widget: "string" }
       - { label: "Name", name: "name", widget: "string" }
-      - { label: "Profile image", name: "image", widget: "image", required: false }
+      - {
+          label: "Profile image",
+          name: "image",
+          widget: "image",
+          required: false,
+        }
       - { label: "Bio", name: "bio", widget: "text", required: false }
-      - { label: "Hide hero image", name: "hideHeroImage", widget: "hidden", default: true }
+      - {
+          label: "Hide hero image",
+          name: "hideHeroImage",
+          widget: "hidden",
+          default: true,
+        }

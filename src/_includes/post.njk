@@ -2,28 +2,32 @@
 layout: base.njk
 isPost: true
 ---
+{% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
 <article class="site-entry">
   {# 2005-era Weblog Entry Header Bar #}
-  <header class="site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]">
-    <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]">
+  <header
+    class="site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]">
+    <div class="flex flex-wrap items-center justify-between gap-2 text-[14px] text-[#536a75]">
       <div class="flex items-center gap-2">
-        <span class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">ENTRY</span>
-        {% if draft %}<span class="inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">DRAFT</span>{% endif %}
+        <span
+          class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">ENTRY</span>
+        {% if isDraft %}<span
+          class="inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">DRAFT</span>{% endif %}
         <time class="font-bold text-[#164b70]" datetime="{{ date }}">{{ date | shortDate }}</time>
       </div>
-      <div class="text-[11px]">
+      <div class="text-[14px]">
         {% if author %}written by <span class="font-bold text-[#164b70]">{{ author }}</span>{% endif %}
       </div>
     </div>
-    <h2 class="mt-2 text-xl font-bold tracking-tight text-[#164b70]">
+    <h1 class="site-entry-title mt-2 font-bold tracking-tight text-[#164b70]">
       {{ title }}
-    </h2>
+    </h1>
     {% if description %}
-      <p class="mt-1 text-xs italic text-[#71828b]">{{ description }}</p>
+    <p class="mt-1 text-xs italic text-[#71828b]">{{ description }}</p>
     {% endif %}
   </header>
 
-  {% if draft %}
+  {% if isDraft %}
   <div class="my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
     DRAFT - This post is saved as a draft and is hidden from public blog listings.
   </div>
@@ -31,9 +35,9 @@ isPost: true
 
   {# Featured Image in Retro Beveled Frame #}
   {% if image %}
-    <div class="site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]">
-      <img class="h-auto w-full object-contain" src="{{ image }}" alt="{{ title }}" />
-    </div>
+  <div class="site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]">
+    <img class="h-auto w-full object-contain" src="{{ image }}" alt="{{ title }}" />
+  </div>
   {% endif %}
 
   {# Entry Body Content #}
@@ -43,7 +47,8 @@ isPost: true
 
   {# Mood & Music Box (Optional) #}
   {% if mood or music %}
-  <div class="site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+  <div
+    class="site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
     <div class="flex flex-wrap items-center justify-between gap-2">
       {% if mood %}
       <div class="flex items-center gap-2">
@@ -67,17 +72,18 @@ isPost: true
       <div class="flex flex-wrap items-center gap-1.5">
         <span class="font-bold text-[#164b70]">Filed under:</span>
         {% for tag in tags %}
-          {% if tag != "blog" %}
-            <span class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]">{{ tag }}</span>
-          {% endif %}
+        {% if tag != "blog" %}
+        <span
+          class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]">{{ tag }}</span>
+        {% endif %}
         {% endfor %}
       </div>
-      <div class="flex items-center gap-2 text-[11px]">
+      <div class="flex items-center gap-2 text-[14px]">
         <span class="site-comment-link inline-block">
           <script>
-          var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
-          var idcomments_post_id = '{{ page.fileSlug | safeId }}';
-          var idcomments_post_url;
+            var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
+            var idcomments_post_id = '{{ page.fileSlug | safeId }}';
+            var idcomments_post_url;
           </script>
           <script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
         </span>
@@ -91,12 +97,14 @@ isPost: true
 
   {# IntenseDebate Comments Section #}
   <section id="comments" class="site-comments mt-8 p-4">
-    <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Comments</h3>
+    <h3
+      class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">
+      Comments</h3>
     <div class="mt-3">
       <script>
-      var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
-      var idcomments_post_id = '{{ page.fileSlug | safeId }}';
-      var idcomments_post_url;
+        var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
+        var idcomments_post_id = '{{ page.fileSlug | safeId }}';
+        var idcomments_post_url;
       </script>
       <span id="IDCommentsPostTitle" style="display:none">{{ title }}</span>
       <script type='text/javascript' src='https://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
