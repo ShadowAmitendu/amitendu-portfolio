@@ -3,11 +3,9 @@ layout: post.njk
 title: Hello, internet!
 headerTagline: BLOG POST
 description: Why I still like making small websites by hand.
-date: 2000-10-13
+date: 2026-10-14
 author: Shadow Amitendu
 image: /images/blogOneImg.avif
-mood: optimistic ☕
-music: Daft Punk – Digital Love 🎧
 tags:
   - blog
   - thoughts

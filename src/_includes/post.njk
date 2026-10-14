@@ -34,21 +34,27 @@ isPost: true
     {{ content | safe }}
   </div>
 
-  {# 2005 LiveJournal / Xanga Mood & Music Box #}
+  {# Mood & Music Box (Optional) #}
+  {% if mood or music %}
   <div class="site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
     <div class="flex flex-wrap items-center justify-between gap-2">
+      {% if mood %}
       <div class="flex items-center gap-2">
         <span class="font-bold text-[#164b70]">Mood:</span>
-        <span>{{ mood or "contemplative 💭" }}</span>
+        <span>{{ mood }}</span>
       </div>
+      {% endif %}
+      {% if music %}
       <div class="flex items-center gap-2">
         <span class="font-bold text-[#164b70]">Music:</span>
-        <span class="italic">{{ music or "radio static 📻" }}</span>
+        <span class="italic">{{ music }}</span>
       </div>
+      {% endif %}
     </div>
   </div>
+  {% endif %}
 
-  {# 2005 Entry Footer: Tags & Classic Actions #}
+  {# Entry Footer: Tags & Classic Actions #}
   <footer class="site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]">
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="flex flex-wrap items-center gap-1.5">
@@ -60,11 +66,11 @@ isPost: true
         {% endfor %}
       </div>
       <div class="flex items-center gap-2 text-[11px]">
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="mailto:{{ site.email }}?subject=Re:%20{{ title }}">💬 comment</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="mailto:{{ site.email }}?subject=Re:%20{{ title }}">comment</a>
         <span>·</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">🔗 permalink</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">permalink</a>
         <span>·</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#top">▲ top</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#top">top</a>
       </div>
     </div>
   </footer>

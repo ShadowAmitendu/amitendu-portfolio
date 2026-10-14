@@ -73,13 +73,14 @@
                 h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/blog/' }, 'blog'),
                 h('span', { className: 'px-1' }, '·'),
                 h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, 'portfolio')
-              )
+              ),
+              h('p', { className: 'mt-2 text-[10px]' }, 'Last updated: ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }))
             )
           )
         );
       }
 
-      // 2. Custom 2005-era Blog Post Preview in Full Site Shell
+      // 2. Custom Blog Post Preview in Full Site Shell
       var BlogPreview = createClass({
         render: function() {
           var entry = this.props.entry;
@@ -88,11 +89,8 @@
           var date = entry.getIn(['data', 'date']);
           var author = entry.getIn(['data', 'author']) || 'Shadow Amitendu';
           var description = entry.getIn(['data', 'description']);
-          var mood = entry.getIn(['data', 'mood']) || 'contemplative 💭';
-          var music = entry.getIn(['data', 'music']) || 'radio static 📻';
           var rawImage = entry.getIn(['data', 'image']);
           var image = rawImage ? this.props.getAsset(rawImage) : null;
-          var tags = entry.getIn(['data', 'tags']);
           var body = this.props.widgetFor('body');
 
           var formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
@@ -121,40 +119,7 @@
             ) : null,
 
             // Body
-            h('div', { className: 'site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]' }, body),
-
-            // Mood & Music
-            h('div', { className: 'site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]' },
-              h('div', { className: 'flex flex-wrap items-center justify-between gap-2' },
-                h('div', { className: 'flex items-center gap-2' },
-                  h('span', { className: 'font-bold text-[#164b70]' }, 'Mood: '),
-                  h('span', null, mood)
-                ),
-                h('div', { className: 'flex items-center gap-2' },
-                  h('span', { className: 'font-bold text-[#164b70]' }, 'Music: '),
-                  h('span', { className: 'italic' }, music)
-                )
-              )
-            ),
-
-            // Footer
-            h('footer', { className: 'site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]' },
-              h('div', { className: 'flex flex-wrap items-center justify-between gap-3' },
-                h('div', { className: 'flex flex-wrap items-center gap-1.5' },
-                  h('span', { className: 'font-bold text-[#164b70]' }, 'Filed under:'),
-                  tags && tags.map ? tags.map(function(tag, i) {
-                    return tag !== 'blog' ? h('span', { key: i, className: 'site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]' }, tag) : null;
-                  }) : null
-                ),
-                h('div', { className: 'flex items-center gap-2 text-[11px]' },
-                  h('span', { className: 'text-[#064f83] underline' }, '💬 comment'),
-                  h('span', null, '·'),
-                  h('span', { className: 'text-[#064f83] underline' }, '🔗 permalink'),
-                  h('span', null, '·'),
-                  h('span', { className: 'text-[#064f83] underline' }, '▲ top')
-                )
-              )
-            )
+            h('div', { className: 'site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]' }, body)
           );
 
           return renderFullSiteShell(headerTagline, title, articleContent);

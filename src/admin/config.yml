@@ -78,15 +78,6 @@ files:
           - { label: "Label", name: "label", widget: "string" }
           - { label: "URL", name: "url", widget: "string" }
       - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
-      - label: "Recent updates"
-        name: "updates"
-        widget: "list"
-        fields:
-          - { label: "Date", name: "date", widget: "string" }
-          - { label: "Text", name: "text", widget: "string" }
-      - { label: "Contact heading", name: "contactTitle", widget: "string" }
-      - { label: "Contact text", name: "contact", widget: "text" }
-      - { label: "Badges", name: "badges", widget: "list", field: { label: "Badge", name: "badge", widget: "string" } }
   - name: "blog-page"
     label: "Blog landing page"
     file: "src/blog.njk"

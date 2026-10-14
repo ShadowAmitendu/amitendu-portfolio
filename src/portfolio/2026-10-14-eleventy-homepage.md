@@ -3,7 +3,7 @@ layout: base.njk
 title: A tiny personal homepage
 headerTagline: PORTFOLIO PROJECT
 description: A small, fast, old-school homepage made with Eleventy and Nunjucks.
-date: 2000-10-13
+date: 2026-10-14
 image: https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D
 tags:
   - portfolio
