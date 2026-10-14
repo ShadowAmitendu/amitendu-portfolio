@@ -1,27 +1,44 @@
 {
-	"title": "Amitendu Bikash Dhusiya",
-	"tagline": "WELCOME TO MY HOMEPAGE",
-	"email": "hello@example.com",
-	"footer": "All rights reserved.",
-	"footerTitle": "Thanks for stopping by!",
-	"footerBadge": "made with HTML, CSS & Eleventy",
-	"visitorCount": "you are visitor #000042",
-	"leftSidebar": {
-		"title": "Navigate",
-		"items": [
-			{ "label": "home", "url": "/" },
-			{ "label": "about", "url": "/about/" },
-			{ "label": "blog", "url": "/blog/" },
-			{ "label": "portfolio", "url": "/portfolio/" },
-			{ "label": "resume", "url": "/resume/" }
-		]
-	},
-	"rightSidebar": {
-		"title": "Elsewhere",
-		"items": [
-			{ "label": "GitHub", "url": "https://github.com/" },
-			{ "label": "Email", "url": "mailto:hello@example.com" }
-		]
-	},
-	"featuredLimit": 4
+  "rightSidebar": {
+    "title": "Elsewhere",
+    "items": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/"
+      }
+    ]
+  },
+  "visitorCount": "you are visitor #000042",
+  "footerBadge": "made with HTML, CSS & Eleventy",
+  "featuredLimit": 4,
+  "tagline": "WELCOME TO MY HOMEPAGE",
+  "leftSidebar": {
+    "title": "Navigate",
+    "items": [
+      {
+        "label": "home",
+        "url": "/"
+      },
+      {
+        "label": "about",
+        "url": "/about/"
+      },
+      {
+        "label": "blog",
+        "url": "/blog/"
+      },
+      {
+        "label": "portfolio",
+        "url": "/portfolio/"
+      },
+      {
+        "label": "resume",
+        "url": "/resume/"
+      }
+    ]
+  },
+  "title": "Amitendu Bikash Dhusiya",
+  "footer": "All rights reserved.",
+  "email": "amitendubikashdhusiya@gmail.com",
+  "footerTitle": "Thanks for stopping by!"
 }

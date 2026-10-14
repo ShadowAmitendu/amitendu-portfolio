@@ -1,61 +1,93 @@
 {
-	"title": "Resume",
-	"headerTagline": "CURRICULUM VITAE",
-	"heading": "Curriculum Vitae",
-	"subheading": "Full-Stack Web Developer & Designer",
-	"intro": "Developer with a passion for clean HTML, static sites, responsive layouts, and performant web technologies. Crafting thoughtful software and retro-inspired digital spaces.",
-	"pdfUrl": "",
-	"contactDetails": [
-		{
-			"label": "Location",
-			"value": "Earth, Online"
-		},
-		{
-			"label": "Email",
-			"value": "hello@example.com",
-			"url": "mailto:hello@example.com"
-		},
-		{
-			"label": "GitHub",
-			"value": "github.com",
-			"url": "https://github.com/"
-		}
-	],
-	"experience": [
-		{
-			"role": "Senior Frontend Developer",
-			"company": "Web Systems Co.",
-			"period": "2024 – Present",
-			"description": "Building fast, lightweight web applications with modern static site tooling, Tailwind CSS, and headless CMS integrations. Improving performance, accessibility, and clean architecture."
-		},
-		{
-			"role": "Web Developer & Designer",
-			"company": "Creative Pixel Studio",
-			"period": "2021 – 2024",
-			"description": "Designed and developed custom client websites, handcrafted responsive templates, and managed content workflow with Git-based CMS solutions."
-		}
-	],
-	"education": [
-		{
-			"degree": "B.S. in Computer Science",
-			"institution": "University of Technology",
-			"period": "2017 – 2021",
-			"details": "Focused on software engineering, web standards, and distributed systems."
-		}
-	],
-	"skillsList": [
-		{
-			"category": "Frontend",
-			"items": "HTML5, CSS3, JavaScript, TypeScript, Tailwind CSS, Nunjucks, Eleventy"
-		},
-		{
-			"category": "Backend & Tooling",
-			"items": "Node.js, Git, GitHub, Decap CMS, Netlify, REST APIs"
-		},
-		{
-			"category": "Design & Practices",
-			"items": "Responsive Design, Semantic Web, Web Accessibility, Performance Optimization"
-		}
-	],
-	"additionalNotes": "Open to freelance opportunities, open-source collaboration, and interesting web projects."
+  "skillsList": [
+    {
+      "category": "Frontend",
+      "items": "HTML5, CSS3, JavaScript, TypeScript, Nunjucks, Eleventy"
+    },
+    {
+      "category": "Backend",
+      "items": "Spring Boot, AppWrite, Netlify, Vercel, DeepCapCMS, GitHub & Git, NeonDB"
+    },
+    {
+      "category": "Design & Practices",
+      "items": "Responsive Design, Semantic Web, Web Accessibility, Performance Optimization"
+    },
+    {
+      "category": "Programming Languages",
+      "items": "C, Java, Python 3, SQL, JavaScript, PHP"
+    },
+    {
+      "category": "Database",
+      "items": "MySQL, PostGreSQL, Oracle SQL Plus"
+    },
+    {
+      "category": "Frameworks & Libraries",
+      "items": "Angular, React, TailwindCSS v2, v3 & v4, Bootstrap v6, "
+    },
+    {
+      "category": "Build Tools",
+      "items": "Maven, npm, Vite"
+    },
+    {
+      "category": "Others",
+      "items": "Networks, DSA with C, Microsoft Windows 10 & 11, Linux/UNIX with WSL (Ubuntu, Debian, Arch), MacOS"
+    }
+  ],
+  "headerTagline": "CURRICULUM VITAE",
+  "contactDetails": [
+    {
+      "label": "Location",
+      "value": "West Bengal, India"
+    },
+    {
+      "label": "GitHub",
+      "value": "ShadowAmitendu",
+      "url": "https://github.com/ShadowAmitendu"
+    },
+    {
+      "label": "LinkedIn",
+      "value": "amitendu",
+      "url": "https://www.linkedin.com/in/amitendu/"
+    }
+  ],
+  "heading": "Amitendu Bikash Dhusiya",
+  "subheading": "Full-Stack Developer | Cloud & Android Development | Desktop Development",
+  "education": [
+    {
+      "degree": "Bachelor's of Computer Application",
+      "institution": "Techno India (Hooghly Campus) - Under Afill. Maulana Abul Kalam Azad University of Technology",
+      "period": "2023- 2027",
+      "details": "Focusing on becoming a Great Software Developer"
+    },
+    {
+      "degree": "Senior Secondary (Class XII)",
+      "institution": "Sudhir Memorial Institute Liluah",
+      "period": "2023",
+      "details": "Stream: Commerce with Computer Science | Percentage: 71.20%"
+    },
+    {
+      "degree": "Secondary (Class X)",
+      "institution": "Sudhir Memorial Institute Liluah",
+      "period": "2021",
+      "details": "Percentage: 71.33%"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Bootcamp- SAP Advanced Business Application Programming Programmer",
+      "company": "Techno India Group & AWS Academy",
+      "period": "Aug 2025 - Jan 2026",
+      "description": "Learned the fundamentals of SAP ABAP programming, including reports, internal tables, and basic SAP development concepts. Gained introductory experience in developing business applications within the SAP environment."
+    },
+    {
+      "role": "Internship - AWS Academy Graduate - Cloud Foundations",
+      "company": "Techno Billion AI",
+      "period": "Jul 2025 - Dec 2025",
+      "description": "Learned how to use AWS and created a project on demonstation of Pipelining with a example Weather Application for the showcase"
+    }
+  ],
+  "intro": "BCA student at Techno India Hooghly Campus and Web Development Intern at DAS SOLUTIONS, with a strong foundation in HTML, CSS, JavaScript, and Java. Skilled in problem-solving, logical thinking, and UI/UX design, with hands-on experience developing projects such as a Java-based Tic Tac Toe game and a Missing Roll Number Finder application. Eager to apply technical knowledge to real-world challenges, contribute to software development projects, and build expertise in web development and software engineering through continuous learning and practical experience.",
+  "title": "Resume",
+  "additionalNotes": "Open to freelance and internship and job opportunities, open-source collaboration, and interesting web projects or cloud projects.",
+  "pdfUrl": ""
 }
