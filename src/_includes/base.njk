@@ -4,7 +4,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{% if title and title != site.title %}{{ title }}{% if pagination.pageNumber and pagination.pageNumber > 0 %}
+  {% set isHome = (page.url == '/' or page.url == '') %}
+  {% set isAbout = ('/about/' in page.url) %}
+  {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
+  {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
+  {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
+
+  {% set displayTitle = title %}
+  {% set displayTagline = headerTagline %}
+
+  {% if isAbout and not isPost %}
+    {% set displayTitle = about.title or 'About' %}
+    {% set displayTagline = about.headerTagline or 'ABOUT MYSELF' %}
+  {% elif isResume and not isPost %}
+    {% set displayTitle = resume.title or 'Resume' %}
+    {% set displayTagline = resume.headerTagline or 'CURRICULUM VITAE' %}
+  {% elif isPortfolio and page.url == '/portfolio/' %}
+    {% set displayTitle = portfolioPage.title or 'Portfolio' %}
+    {% set displayTagline = portfolioPage.headerTagline or 'MY WEB PORTFOLIO' %}
+  {% elif isBlog and page.url == '/blog/' %}
+    {% set displayTitle = blogPage.title or 'Blog' %}
+    {% set displayTagline = blogPage.headerTagline or 'MY WEB LOG' %}
+  {% elif isHome %}
+    {% set displayTitle = site.title %}
+    {% set displayTagline = site.tagline %}
+  {% endif %}
+
+  {% if not displayTitle %}{% set displayTitle = site.title %}{% endif %}
+  {% if not displayTagline %}{% set displayTagline = site.tagline %}{% endif %}
+  <title>{% if displayTitle and displayTitle != site.title %}{{ displayTitle }}{% if pagination.pageNumber and pagination.pageNumber > 0 %}
     (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,16 +49,11 @@
       <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="/images/header-banner.jpg"
         alt="" />
       <div class="relative px-5 py-4">
-        <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ headerTagline or site.tagline }}</p>
+        <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ displayTagline }}</p>
         <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] tracking-tight">
-          {{ title or site.title }}</h1>
+          {{ displayTitle }}</h1>
       </div>
     </header>
-    {% set isHome = (page.url == '/' or page.url == '') %}
-    {% set isAbout = ('/about/' in page.url) %}
-    {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
-    {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
-    {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
 
     <nav class="site-nav text-xs">
       <div class="site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5">
