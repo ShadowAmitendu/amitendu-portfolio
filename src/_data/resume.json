@@ -1,0 +1,61 @@
+{
+  "title": "Resume",
+  "headerTagline": "CURRICULUM VITAE",
+  "heading": "Curriculum Vitae",
+  "subheading": "Full-Stack Web Developer & Designer",
+  "intro": "Developer with a passion for clean HTML, static sites, responsive layouts, and performant web technologies. Crafting thoughtful software and retro-inspired digital spaces.",
+  "pdfUrl": "",
+  "contactDetails": [
+    {
+      "label": "Location",
+      "value": "Earth, Online"
+    },
+    {
+      "label": "Email",
+      "value": "hello@example.com",
+      "url": "mailto:hello@example.com"
+    },
+    {
+      "label": "GitHub",
+      "value": "github.com",
+      "url": "https://github.com/"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Senior Frontend Developer",
+      "company": "Web Systems Co.",
+      "period": "2024 – Present",
+      "description": "Building fast, lightweight web applications with modern static site tooling, Tailwind CSS, and headless CMS integrations. Improving performance, accessibility, and clean architecture."
+    },
+    {
+      "role": "Web Developer & Designer",
+      "company": "Creative Pixel Studio",
+      "period": "2021 – 2024",
+      "description": "Designed and developed custom client websites, handcrafted responsive templates, and managed content workflow with Git-based CMS solutions."
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.S. in Computer Science",
+      "institution": "University of Technology",
+      "period": "2017 – 2021",
+      "details": "Focused on software engineering, web standards, and distributed systems."
+    }
+  ],
+  "skillsList": [
+    {
+      "category": "Frontend",
+      "items": "HTML5, CSS3, JavaScript, TypeScript, Tailwind CSS, Nunjucks, Eleventy"
+    },
+    {
+      "category": "Backend & Tooling",
+      "items": "Node.js, Git, GitHub, Decap CMS, Netlify, REST APIs"
+    },
+    {
+      "category": "Design & Practices",
+      "items": "Responsive Design, Semantic Web, Web Accessibility, Performance Optimization"
+    }
+  ],
+  "additionalNotes": "Open to freelance opportunities, open-source collaboration, and interesting web projects."
+}

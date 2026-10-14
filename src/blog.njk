@@ -1,7 +1,8 @@
 ---
 layout: base.njk
-title: Blog
-headerTagline: MY WEB LOG
+eleventyComputed:
+  title: "{{ blogPage.title or 'Blog' }}"
+  headerTagline: "{{ blogPage.headerTagline or 'MY WEB LOG' }}"
 pagination:
   data: collections.blog
   size: 25
@@ -9,11 +10,9 @@ pagination:
   reverse: true
   generatePageOnEmptyData: true
 permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
-heading: Web log
-intro: Notes from my corner of the web.
 ---
-<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">{{ heading }}</h2>
-<p class="mt-3">{{ intro }}</p>
+<h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">{{ blogPage.heading or heading or 'Web log' }}</h2>
+<p class="mt-3">{{ blogPage.intro or intro or 'Notes from my corner of the web.' }}</p>
 {% if posts and posts.length > 0 %}
   {% for post in posts %}
   <article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4">

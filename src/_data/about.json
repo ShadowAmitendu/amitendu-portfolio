@@ -1,0 +1,12 @@
+{
+  "title": "About",
+  "headerTagline": "ABOUT THIS PERSON",
+  "heading": "About me",
+  "intro": "A little more about the person behind this homepage.",
+  "profileImage": "/images/shadow-amitendu.jpg",
+  "profileAlt": "Amitendu Bikash Dhusiya",
+  "paragraphs": [
+    "I am Amitendu Bikash Dhusiya, a developer who enjoys making useful, thoughtful things for the web.",
+    "This site is a small personal space for my projects, notes, and experiments. It is built with Eleventy, Nunjucks, Markdown, and Tailwind CSS."
+  ]
+}

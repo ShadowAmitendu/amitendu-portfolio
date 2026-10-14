@@ -21,11 +21,9 @@ collections:
     files:
       - name: "about-page"
         label: "About Me"
-        file: "src/about.njk"
-        format: "yaml-frontmatter"
+        file: "src/_data/about.json"
+        format: "json"
         fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-          - { label: "Permalink", name: "permalink", widget: "hidden", default: "/about/" }
           - { label: "Page title", name: "title", widget: "string", default: "About" }
           - { label: "Header tagline", name: "headerTagline", widget: "string", default: "ABOUT THIS PERSON" }
           - { label: "Heading", name: "heading", widget: "string", default: "About me" }
@@ -39,11 +37,9 @@ collections:
     files:
       - name: "resume-page"
         label: "Resume / CV Page"
-        file: "src/resume.njk"
-        format: "yaml-frontmatter"
+        file: "src/_data/resume.json"
+        format: "json"
         fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-          - { label: "Permalink", name: "permalink", widget: "hidden", default: "/resume/" }
           - { label: "Page title", name: "title", widget: "string", default: "Resume" }
           - { label: "Header tagline", name: "headerTagline", widget: "string", default: "CURRICULUM VITAE" }
           - { label: "Heading", name: "heading", widget: "string", default: "Curriculum Vitae" }
@@ -90,12 +86,9 @@ collections:
     files:
       - name: "home"
         label: "Homepage"
-        file: "src/index.njk"
-        format: "yaml-frontmatter"
+        file: "src/_data/home.json"
+        format: "json"
         fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-          - { label: "Page title", name: "title", widget: "hidden", default: "Home" }
-          - { label: "Header tagline", name: "headerTagline", widget: "hidden", default: "WELCOME TO MY HOMEPAGE" }
           - { label: "Greeting", name: "greeting", widget: "string" }
           - { label: "Welcome text", name: "welcome", widget: "string" }
           - { label: "About heading", name: "aboutTitle", widget: "string" }
@@ -120,21 +113,19 @@ collections:
           - { label: "Skills", name: "skills", widget: "list", field: { label: "Skill", name: "skill", widget: "string" } }
       - name: "blog-page"
         label: "Blog landing page"
-        file: "src/blog.njk"
-        format: "yaml-frontmatter"
+        file: "src/_data/blogPage.json"
+        format: "json"
         fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-          - { label: "Page title", name: "title", widget: "hidden", default: "Blog" }
+          - { label: "Page title", name: "title", widget: "string", default: "Blog" }
           - { label: "Header tagline", name: "headerTagline", widget: "string", default: "MY WEB LOG" }
           - { label: "Heading", name: "heading", widget: "string", default: "Web log" }
           - { label: "Intro", name: "intro", widget: "text" }
       - name: "portfolio-page"
         label: "Portfolio landing page"
-        file: "src/portfolio.njk"
-        format: "yaml-frontmatter"
+        file: "src/_data/portfolioPage.json"
+        format: "json"
         fields:
-          - { label: "Layout", name: "layout", widget: "hidden", default: "base.njk" }
-          - { label: "Page title", name: "title", widget: "hidden", default: "Portfolio" }
+          - { label: "Page title", name: "title", widget: "string", default: "Portfolio" }
           - { label: "Header tagline", name: "headerTagline", widget: "string", default: "MY WEB PORTFOLIO" }
           - { label: "Heading", name: "heading", widget: "string", default: "My work" }
           - { label: "Intro", name: "intro", widget: "text" }

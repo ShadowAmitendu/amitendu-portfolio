@@ -1,0 +1,47 @@
+{
+  "greeting": "Hello, internet!",
+  "welcome": "You found my little corner of the web.",
+  "aboutTitle": "About this site",
+  "about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
+  "currentlyTitle": "Currently",
+  "currently": [
+    "learning something new",
+    "building useful little projects",
+    "listening to music while I work"
+  ],
+  "profileImage": "/images/shadow-amitendu.jpg",
+  "profileAlt": "Amitendu Bikash Dhusiya",
+  "statusTitle": "Status",
+  "status": [
+    {
+      "label": "Currently",
+      "value": "building small websites"
+    },
+    {
+      "label": "Listening to",
+      "value": "music while I work"
+    },
+    {
+      "label": "Status",
+      "value": "online"
+    }
+  ],
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:hello@example.com"
+    }
+  ],
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Eleventy",
+    "Nunjucks",
+    "Markdown"
+  ]
+}

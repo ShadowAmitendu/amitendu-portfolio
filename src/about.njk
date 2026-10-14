@@ -1,24 +1,18 @@
 ---
 layout: base.njk
-title: About
 permalink: /about/
-headerTagline: ABOUT THIS PERSON
-heading: About me
-intro: A little more about the person behind this homepage.
-profileImage: /images/shadow-amitendu.jpg
-profileAlt: Amitendu Bikash Dhusiya
-paragraphs:
-  - I am Amitendu Bikash Dhusiya, a developer who enjoys making useful, thoughtful things for the web.
-  - This site is a small personal space for my projects, notes, and experiments. It is built with Eleventy, Nunjucks, Markdown, and Tailwind CSS.
+eleventyComputed:
+  title: "{{ about.title or 'About' }}"
+  headerTagline: "{{ about.headerTagline or 'ABOUT THIS PERSON' }}"
 ---
 <h2 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]">
-  {{ heading }}</h2>
+  {{ about.heading or heading }}</h2>
 <div class="site-about-intro mt-4 flex items-start gap-4">
-  {% if profileImage %}<img class="site-about-image h-auto w-28 shrink-0 object-contain" src="{{ profileImage }}"
-    alt="{{ profileAlt }}" />{% endif %}
+  {% if about.profileImage %}<img class="site-about-image h-auto w-28 shrink-0 object-contain" src="{{ about.profileImage }}"
+    alt="{{ about.profileAlt }}" />{% endif %}
   <div>
-    <p>{{ intro }}</p>
-    {% for paragraph in paragraphs %}<p class="mt-3">{{ paragraph }}</p>{% endfor %}
+    <p>{{ about.intro or intro }}</p>
+    {% for paragraph in about.paragraphs %}<p class="mt-3">{{ paragraph }}</p>{% endfor %}
   </div>
 </div>
 
