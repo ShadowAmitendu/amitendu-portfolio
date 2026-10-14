@@ -1,5 +1,5 @@
 {
-  "title": "Shadow Amitendu",
+  "title": "Amitendu Bikash Dhusiya",
   "tagline": "WELCOME TO MY HOMEPAGE",
   "email": "hello@example.com",
   "footer": "All rights reserved.",
@@ -12,7 +12,8 @@
       { "label": "home", "url": "/" },
       { "label": "about", "url": "/about/" },
       { "label": "blog", "url": "/blog/" },
-      { "label": "portfolio", "url": "/portfolio/" }
+      { "label": "portfolio", "url": "/portfolio/" },
+      { "label": "resume", "url": "/resume/" }
     ]
   },
   "rightSidebar": {

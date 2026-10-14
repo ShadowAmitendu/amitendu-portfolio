@@ -105,6 +105,50 @@ files:
       - { label: "Profile image", name: "profileImage", widget: "image", required: false }
       - { label: "Profile image alt text", name: "profileAlt", widget: "string", required: false }
       - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+  - name: "resume-page"
+    label: "Resume / CV page"
+    file: "src/resume.njk"
+    fields:
+      - { label: "Page title", name: "title", widget: "string", default: "Resume" }
+      - { label: "Header tagline", name: "headerTagline", widget: "string", default: "CURRICULUM VITAE" }
+      - { label: "Heading", name: "heading", widget: "string", default: "Curriculum Vitae" }
+      - { label: "Subheading / Role", name: "subheading", widget: "string", default: "Full-Stack Web Developer & Designer", required: false }
+      - { label: "Professional Summary", name: "intro", widget: "text", required: false }
+      - { label: "Resume PDF URL or File", name: "pdfUrl", widget: "file", required: false }
+      - label: "Contact Details"
+        name: "contactDetails"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+          - { label: "URL", name: "url", widget: "string", required: false }
+      - label: "Work Experience"
+        name: "experience"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Job Title", name: "role", widget: "string" }
+          - { label: "Company / Organization", name: "company", widget: "string" }
+          - { label: "Period", name: "period", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+      - label: "Education"
+        name: "education"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Degree / Certificate", name: "degree", widget: "string" }
+          - { label: "Institution / School", name: "institution", widget: "string" }
+          - { label: "Period", name: "period", widget: "string" }
+          - { label: "Details", name: "details", widget: "string", required: false }
+      - label: "Skill Categories"
+        name: "skillsList"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Category", name: "category", widget: "string" }
+          - { label: "Skills", name: "items", widget: "string" }
+      - { label: "Additional Notes", name: "additionalNotes", widget: "text", required: false }
 
 collections:
   - name: "authors"
@@ -128,7 +172,7 @@ collections:
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Publish date", name: "date", widget: "datetime" }
       - { label: "Tags", name: "tags", widget: "list", default: ["blog"] }
-      - { label: "Author", name: "author", widget: "string", default: "Shadow Amitendu" }
+      - { label: "Author", name: "author", widget: "string", default: "Amitendu Bikash Dhusiya" }
       - { label: "Current mood", name: "mood", widget: "string", required: false, hint: "e.g. thoughtful, caffeinated" }
       - { label: "Current music", name: "music", widget: "string", required: false, hint: "e.g. Daft Punk - Digital Love" }
       - { label: "Featured image", name: "image", widget: "image", required: false, hint: "Upload an image or use an external image URL." }

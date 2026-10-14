@@ -1,0 +1,161 @@
+---
+layout: base.njk
+title: Resume
+permalink: /resume/
+headerTagline: CURRICULUM VITAE
+heading: Curriculum Vitae
+subheading: Full-Stack Web Developer & Designer
+intro: Developer with a passion for clean HTML, static sites, responsive layouts, and performant web technologies. Crafting thoughtful software and retro-inspired digital spaces.
+pdfUrl: ""
+contactDetails:
+  - label: Location
+    value: Earth, Online
+  - label: Email
+    value: hello@example.com
+    url: mailto:hello@example.com
+  - label: GitHub
+    value: github.com
+    url: https://github.com/
+experience:
+  - role: Senior Frontend Developer
+    company: Web Systems Co.
+    period: 2024 – Present
+    description: Building fast, lightweight web applications with modern static site tooling, Tailwind CSS, and headless CMS integrations. Improving performance, accessibility, and clean architecture.
+  - role: Web Developer & Designer
+    company: Creative Pixel Studio
+    period: 2021 – 2024
+    description: Designed and developed custom client websites, handcrafted responsive templates, and managed content workflow with Git-based CMS solutions.
+education:
+  - degree: B.S. in Computer Science
+    institution: University of Technology
+    period: 2017 – 2021
+    details: Focused on software engineering, web standards, and distributed systems.
+skillsList:
+  - category: Frontend
+    items: HTML5, CSS3, JavaScript, TypeScript, Tailwind CSS, Nunjucks, Eleventy
+  - category: Backend & Tooling
+    items: Node.js, Git, GitHub, Decap CMS, Netlify, REST APIs
+  - category: Design & Practices
+    items: Responsive Design, Semantic Web, Web Accessibility, Performance Optimization
+additionalNotes: Open to freelance opportunities, open-source collaboration, and interesting web projects.
+---
+<div class="site-resume">
+  {# Header / Title #}
+  <div class="border-b border-[#b7cbd6] pb-3">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <div>
+        <h2 class="font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]">{{ heading }}</h2>
+        {% if subheading %}
+          <p class="mt-1 text-sm font-bold text-[#536a75]">{{ subheading }}</p>
+        {% endif %}
+      </div>
+      {% if pdfUrl %}
+        <div>
+          <a class="site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] hover:text-[#c0392b] shadow-[1px_1px_0_#b8c5cc]" href="{{ pdfUrl }}" target="_blank" rel="noopener">Download PDF</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Professional Summary #}
+  {% if intro %}
+    <div class="mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]">
+      <p>{{ intro }}</p>
+    </div>
+  {% endif %}
+
+  {# Contact Details Box #}
+  {% if contactDetails and contactDetails.length > 0 %}
+    <div class="mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-1">
+        {% for item in contactDetails %}
+          <p>
+            <span class="font-bold text-[#164b70]">{{ item.label }}:</span>
+            {% if item.url %}
+              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.value }}</a>
+            {% else %}
+              <span>{{ item.value }}</span>
+            {% endif %}
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Experience Section #}
+  {% if experience and experience.length > 0 %}
+    <section class="mt-8">
+      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Experience</h3>
+      <div class="mt-4 space-y-5">
+        {% for job in experience %}
+          <div class="site-resume-item">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h4 class="font-bold text-sm text-[#164b70]">{{ job.role }}</h4>
+              {% if job.period %}
+                <span class="text-xs text-[#71828b]">{{ job.period }}</span>
+              {% endif %}
+            </div>
+            {% if job.company %}
+              <p class="text-xs font-semibold text-[#536a75]">{{ job.company }}</p>
+            {% endif %}
+            {% if job.description %}
+              <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">{{ job.description }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {# Education Section #}
+  {% if education and education.length > 0 %}
+    <section class="mt-8">
+      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Education</h3>
+      <div class="mt-4 space-y-4">
+        {% for edu in education %}
+          <div class="site-resume-item">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <h4 class="font-bold text-sm text-[#164b70]">{{ edu.degree }}</h4>
+              {% if edu.period %}
+                <span class="text-xs text-[#71828b]">{{ edu.period }}</span>
+              {% endif %}
+            </div>
+            {% if edu.institution %}
+              <p class="text-xs font-semibold text-[#536a75]">{{ edu.institution }}</p>
+            {% endif %}
+            {% if edu.details %}
+              <p class="mt-1 text-xs text-[#71828b]">{{ edu.details }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {# Technical Skills Section #}
+  {% if skillsList and skillsList.length > 0 %}
+    <section class="mt-8">
+      <h3 class="border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]">Skills & Expertise</h3>
+      <div class="mt-4 space-y-2.5">
+        {% for cat in skillsList %}
+          <div class="text-xs">
+            <span class="font-bold text-[#164b70]">{{ cat.category }}:</span>
+            <span class="ml-1 text-[#26343d]">{{ cat.items }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {# Additional Notes #}
+  {% if additionalNotes %}
+    <section class="mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]">
+      <p><span class="font-bold text-[#164b70]">Note:</span> {{ additionalNotes }}</p>
+    </section>
+  {% endif %}
+
+  {# Back link #}
+  <p class="mt-8 border-t border-[#b7cbd6] pt-4 text-xs">
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a>
+  </p>
+</div>
