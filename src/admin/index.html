@@ -8,5 +8,117 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // 1. Inject your site CSS and Bebas Neue font into the preview iframe
+      CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+      CMS.registerPreviewStyle("/assets/styles.css");
+
+      // 2. Custom 2005-era Blog Post Preview
+      var BlogPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title']) || 'Untitled Post';
+          var date = entry.getIn(['data', 'date']);
+          var author = entry.getIn(['data', 'author']) || 'Shadow Amitendu';
+          var description = entry.getIn(['data', 'description']);
+          var mood = entry.getIn(['data', 'mood']) || 'contemplative 💭';
+          var music = entry.getIn(['data', 'music']) || 'radio static 📻';
+          var rawImage = entry.getIn(['data', 'image']);
+          var image = rawImage ? this.props.getAsset(rawImage) : null;
+          var tags = entry.getIn(['data', 'tags']);
+          var body = this.props.widgetFor('body');
+
+          var formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric'
+          }) : 'Draft';
+
+          return h('div', { style: { padding: '1.25rem', fontFamily: 'Verdana, Tahoma, sans-serif', color: '#26343d', background: '#ffffff', minHeight: '100vh' } },
+            h('article', { className: 'site-entry' },
+              // Header
+              h('header', { className: 'site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]' },
+                h('div', { className: 'flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]' },
+                  h('div', { className: 'flex items-center gap-2' },
+                    h('span', { className: 'inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'ENTRY'),
+                    h('time', { className: 'font-bold text-[#164b70]' }, formattedDate)
+                  ),
+                  h('div', { className: 'text-[11px]' }, 'written by ',
+                    h('span', { className: 'font-bold text-[#164b70]' }, author)
+                  )
+                ),
+                h('h2', { className: 'mt-2 text-xl font-bold tracking-tight text-[#164b70]' }, title),
+                description ? h('p', { className: 'mt-1 text-xs italic text-[#71828b]' }, description) : null
+              ),
+
+              // Featured image
+              image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
+                h('img', { className: 'h-auto max-h-96 w-full object-cover', src: image.toString(), alt: title })
+              ) : null,
+
+              // Body
+              h('div', { className: 'site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]' }, body),
+
+              // Mood & Music
+              h('div', { className: 'site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]' },
+                h('div', { className: 'flex flex-wrap items-center justify-between gap-2' },
+                  h('div', { className: 'flex items-center gap-2' },
+                    h('span', { className: 'font-bold text-[#164b70]' }, 'Mood: '),
+                    h('span', null, mood)
+                  ),
+                  h('div', { className: 'flex items-center gap-2' },
+                    h('span', { className: 'font-bold text-[#164b70]' }, 'Music: '),
+                    h('span', { className: 'italic' }, music)
+                  )
+                )
+              ),
+
+              // Footer
+              h('footer', { className: 'site-entry-footer mt-4 border-t border-dashed border-[#b7cbd6] pt-3 text-xs text-[#71828b]' },
+                h('div', { className: 'flex flex-wrap items-center justify-between gap-3' },
+                  h('div', { className: 'flex flex-wrap items-center gap-1.5' },
+                    h('span', { className: 'font-bold text-[#164b70]' }, 'Filed under:'),
+                    tags && tags.map ? tags.map(function(tag, i) {
+                      return tag !== 'blog' ? h('span', { key: i, className: 'site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]' }, tag) : null;
+                    }) : null
+                  ),
+                  h('div', { className: 'flex items-center gap-2 text-[11px]' },
+                    h('span', { className: 'text-[#064f83] underline' }, '💬 comment'),
+                    h('span', null, '·'),
+                    h('span', { className: 'text-[#064f83] underline' }, '🔗 permalink'),
+                    h('span', null, '·'),
+                    h('span', { className: 'text-[#064f83] underline' }, '▲ top')
+                  )
+                )
+              )
+            )
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate('blog', BlogPreview);
+
+      // 3. Custom Portfolio Preview
+      var PortfolioPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title']) || 'Untitled Project';
+          var description = entry.getIn(['data', 'description']);
+          var rawImage = entry.getIn(['data', 'image']);
+          var image = rawImage ? this.props.getAsset(rawImage) : null;
+          var body = this.props.widgetFor('body');
+
+          return h('div', { style: { padding: '1.25rem', fontFamily: 'Verdana, Tahoma, sans-serif', color: '#26343d', background: '#ffffff', minHeight: '100vh' } },
+            h('p', { className: 'text-xs text-[#71828b]' }, 'portfolio / project'),
+            h('h2', { className: 'mt-2 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]' }, title),
+            description ? h('p', { className: 'mt-2 text-sm italic text-[#536a75]' }, description) : null,
+            image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
+              h('img', { className: 'h-auto max-h-96 w-full object-cover', src: image.toString(), alt: title })
+            ) : null,
+            h('div', { className: 'site-content text-sm leading-relaxed mt-4' }, body)
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate('portfolio', PortfolioPreview);
+    </script>
   </body>
 </html>
