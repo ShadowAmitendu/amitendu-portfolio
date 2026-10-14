@@ -97,6 +97,7 @@
           var rawImage = entry.getIn(['data', 'image']);
           var image = rawImage ? this.props.getAsset(rawImage) : null;
           var body = this.props.widgetFor('body');
+          var isDraft = entry.getIn(['data', 'draft']);
 
           var formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
             month: 'short', day: 'numeric', year: 'numeric'
@@ -108,6 +109,7 @@
               h('div', { className: 'flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]' },
                 h('div', { className: 'flex items-center gap-2' },
                   h('span', { className: 'inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'ENTRY'),
+                  isDraft ? h('span', { className: 'inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'DRAFT') : null,
                   h('time', { className: 'font-bold text-[#164b70]' }, formattedDate)
                 ),
                 h('div', { className: 'text-[11px]' }, 'written by ',
@@ -117,6 +119,8 @@
               h('h2', { className: 'mt-2 text-xl font-bold tracking-tight text-[#164b70]' }, title),
               description ? h('p', { className: 'mt-1 text-xs italic text-[#71828b]' }, description) : null
             ),
+
+            isDraft ? h('div', { className: 'my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]' }, 'DRAFT - This post is saved as a draft and is hidden from public blog listings.') : null,
 
             // Featured image
             image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
@@ -172,15 +176,20 @@
           var rawImage = entry.getIn(['data', 'image']);
           var image = rawImage ? this.props.getAsset(rawImage) : null;
           var body = this.props.widgetFor('body');
+          var isDraft = entry.getIn(['data', 'draft']);
 
           var portfolioContent = h('div', null,
-            h('p', { className: 'text-xs text-[#71828b]' }, 'portfolio / project'),
+            h('div', { className: 'flex items-center gap-2' },
+              h('p', { className: 'text-xs text-[#71828b]' }, 'portfolio / project'),
+              isDraft ? h('span', { className: 'inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase' }, 'DRAFT') : null
+            ),
             h('h2', { className: 'mt-2 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]' }, title),
             description ? h('p', { className: 'mt-2 text-sm italic text-[#536a75]' }, description) : null,
+            isDraft ? h('div', { className: 'my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]' }, 'DRAFT - This project is saved as a draft and is hidden from public listings.') : null,
             image ? h('div', { className: 'site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]' },
               h('img', { className: 'h-auto w-full object-contain', src: image.toString(), alt: title })
             ) : null,
-            h('div', { className: 'site-content text-sm leading-relaxed mt-4' }, body),
+            h('div', { className: 'site-entry-body text-sm leading-relaxed mt-4' }, body),
             h('p', { className: 'mt-6' },
               h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, '← back to portfolio')
             )

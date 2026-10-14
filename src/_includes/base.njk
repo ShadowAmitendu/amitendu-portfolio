@@ -38,7 +38,12 @@
           {% endfor %}
         </aside>
         <section class="site-content px-5 py-6 text-sm leading-6">
-          {% if image and not isPost %}<img class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}" alt="{{ title }}" />{% endif %}
+          {% if draft and not isPost %}
+            <div class="mb-4 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
+              DRAFT - This project is saved as a draft and is hidden from public listings.
+            </div>
+          {% endif %}
+          {% if image and not isPost and not hideHeroImage %}<img class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}" alt="{{ title }}" />{% endif %}
           {% if author and not isPost %}
             <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
               {% if authorImage %}<img class="h-7 w-7 object-cover" src="{{ authorImage }}" alt="{{ author }}" />{% endif %}

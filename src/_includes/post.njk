@@ -8,6 +8,7 @@ isPost: true
     <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#536a75]">
       <div class="flex items-center gap-2">
         <span class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">ENTRY</span>
+        {% if draft %}<span class="inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">DRAFT</span>{% endif %}
         <time class="font-bold text-[#164b70]" datetime="{{ date }}">{{ date | shortDate }}</time>
       </div>
       <div class="text-[11px]">
@@ -21,6 +22,12 @@ isPost: true
       <p class="mt-1 text-xs italic text-[#71828b]">{{ description }}</p>
     {% endif %}
   </header>
+
+  {% if draft %}
+  <div class="my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
+    DRAFT - This post is saved as a draft and is hidden from public blog listings.
+  </div>
+  {% endif %}
 
   {# Featured Image in Retro Beveled Frame #}
   {% if image %}

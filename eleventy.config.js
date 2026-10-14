@@ -22,17 +22,23 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("blog", (collectionApi) =>
     collectionApi
       .getFilteredByTag("blog")
+      .filter((item) => !item.data.draft)
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0)),
   );
   eleventyConfig.addCollection("portfolio", (collectionApi) =>
     collectionApi
       .getFilteredByTag("portfolio")
+      .filter((item) => !item.data.draft)
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0)),
   );
   eleventyConfig.addCollection("updates", (collectionApi) =>
     collectionApi
       .getAll()
-      .filter((item) => item.data.tags?.includes("blog") || item.data.tags?.includes("portfolio"))
+      .filter(
+        (item) =>
+          (item.data.tags?.includes("blog") || item.data.tags?.includes("portfolio")) &&
+          !item.data.draft,
+      )
       .sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0)),
   );
 

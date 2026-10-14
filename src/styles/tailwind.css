@@ -273,6 +273,58 @@ body {
 }
 
 /* 2005 Article Entry Styles */
+/* Standard Markdown Heading Sizes & Spacing */
+.site-entry-body h1 {
+  font-size: 2rem !important;
+  line-height: 1.25;
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+}
+
+.site-entry-body h2 {
+  font-size: 1.5rem !important;
+  line-height: 1.3;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  border-bottom: 1px solid #b7cbd6;
+  padding-bottom: 0.25rem;
+}
+
+.site-entry-body h3 {
+  font-size: 1.25rem !important;
+  line-height: 1.35;
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+
+.site-entry-body h4 {
+  font-size: 1.1rem !important;
+  line-height: 1.4;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  font-weight: bold;
+}
+
+.site-entry-body h5 {
+  font-size: 1rem !important;
+  line-height: 1.4;
+  margin-top: 0.85rem;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+}
+
+.site-entry-body h6 {
+  font-size: 0.875rem !important;
+  line-height: 1.4;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+  color: #536a75;
+}
+
 .site-entry-body p {
   margin-top: 1rem;
 }
