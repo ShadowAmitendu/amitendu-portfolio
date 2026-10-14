@@ -14,7 +14,64 @@
       CMS.registerPreviewStyle("/assets/styles.css");
 
       // Helper function to render the full site shell (header banner, nav, sidebars, footer)
-      function renderFullSiteShell(headerTagline, pageTitle, contentChildren) {
+      // Helper function to render the full site shell (header banner, nav, sidebars, footer)
+      function renderFullSiteShell(headerTagline, pageTitle, contentChildren, activeNavKey, breadcrumbs) {
+        var navItems = [
+          { key: 'home', label: 'home', url: '/' },
+          { key: 'about', label: 'about', url: '/about/' },
+          { key: 'portfolio', label: 'portfolio', url: '/portfolio/' },
+          { key: 'blog', label: 'blog', url: '/blog/' },
+          { key: 'resume', label: 'resume', url: '/resume/' }
+        ];
+
+        var navElements = [];
+        navItems.forEach(function(item, idx) {
+          if (idx > 0) {
+            navElements.push(h('span', { key: 'sep-' + idx, className: 'px-1 text-[#8aa2af]' }, '|'));
+          }
+          var isActive = activeNavKey === item.key;
+          navElements.push(
+            h('a', {
+              key: item.key,
+              className: 'site-nav-link px-2 py-0.5 ' + (isActive
+                ? 'bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline'
+                : 'text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]'),
+              href: item.url
+            }, item.label)
+          );
+        });
+
+        var breadcrumbElements = null;
+        if (activeNavKey !== 'home' && breadcrumbs && breadcrumbs.length) {
+          var bcChildren = [
+            h('span', { key: 'loc-label', className: 'font-bold text-[#164b70]' }, 'Location:'),
+            h('a', { key: 'bc-home', className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, 'home'),
+            h('span', { key: 'bc-sep-0', className: 'text-[#8aa2af]' }, '>')
+          ];
+          breadcrumbs.forEach(function(crumb, cIdx) {
+            if (cIdx > 0) {
+              bcChildren.push(h('span', { key: 'bc-sep-' + (cIdx + 1), className: 'text-[#8aa2af]' }, '>'));
+            }
+            if (crumb.url && cIdx < breadcrumbs.length - 1) {
+              bcChildren.push(h('a', { key: 'bc-' + cIdx, className: 'text-[#064f83] underline hover:text-[#c0392b]', href: crumb.url }, crumb.label));
+            } else {
+              bcChildren.push(h('span', { key: 'bc-' + cIdx, className: 'font-bold text-[#164b70]' }, crumb.label));
+            }
+          });
+          breadcrumbElements = h('div', {
+            className: 'site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[11px] text-[#536a75] shadow-[inset_0_1px_0_#fff]'
+          }, bcChildren);
+        }
+
+        var sidebarLinks = navItems.map(function(item) {
+          var isActive = activeNavKey === item.key;
+          return h('p', { key: 'side-' + item.key },
+            isActive
+              ? h('span', { className: 'inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[11px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]' }, item.label)
+              : h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: item.url }, item.label)
+          );
+        });
+
         return h('div', { className: 'site-body min-h-screen px-2 py-6 font-[\'Barlow_Condensed\',sans-serif] text-[#222]' },
           h('main', { className: 'site-shell mx-auto max-w-6xl p-1' },
             // Header with CRT monitors banner
@@ -26,17 +83,10 @@
               )
             ),
 
-            // Navigation bar
-            h('nav', { className: 'site-nav px-5 py-2 text-xs' },
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, 'home'),
-              h('span', { className: 'px-2 text-[#8aa2af]' }, '|'),
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/about/' }, 'about'),
-              h('span', { className: 'px-2 text-[#8aa2af]' }, '|'),
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, 'portfolio'),
-              h('span', { className: 'px-2 text-[#8aa2af]' }, '|'),
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/blog/' }, 'blog'),
-              h('span', { className: 'px-2 text-[#8aa2af]' }, '|'),
-              h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/resume/' }, 'resume')
+            // Navigation bar with active link background & breadcrumbs
+            h('nav', { className: 'site-nav text-xs' },
+              h('div', { className: 'site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5' }, navElements),
+              breadcrumbElements
             ),
 
             // 3 Columns: Left Sidebar, Main Content, Right Sidebar
@@ -44,11 +94,7 @@
               // Left Sidebar
               h('aside', { className: 'site-sidebar site-sidebar-left' },
                 h('h2', null, 'Navigate'),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/' }, 'home')),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/about/' }, 'about')),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/blog/' }, 'blog')),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/portfolio/' }, 'portfolio')),
-                h('p', null, h('a', { className: 'text-[#064f83] underline hover:text-[#c0392b]', href: '/resume/' }, 'resume'))
+                sidebarLinks
               ),
 
               // Main Article / Content
@@ -161,7 +207,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, articleContent);
+          return renderFullSiteShell(headerTagline, title, articleContent, 'blog', [{ label: 'blog', url: '/blog/' }, { label: title }]);
         }
       });
       CMS.registerPreviewTemplate('blog', BlogPreview);
@@ -195,7 +241,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, portfolioContent);
+          return renderFullSiteShell(headerTagline, title, portfolioContent, 'portfolio', [{ label: 'portfolio', url: '/portfolio/' }, { label: title }]);
         }
       });
       CMS.registerPreviewTemplate('portfolio', PortfolioPreview);
@@ -307,7 +353,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, resumeContent);
+          return renderFullSiteShell(headerTagline, title, resumeContent, 'resume', [{ label: 'resume' }]);
         }
       });
       CMS.registerPreviewTemplate('resume-page', ResumePreview);
@@ -376,7 +422,7 @@
             skills && skills.size ? h('p', { className: 'mt-3' }, skills.toArray().join(' · ')) : null
           );
 
-          return renderFullSiteShell('WELCOME TO MY HOMEPAGE', 'Home', homeContent);
+          return renderFullSiteShell('WELCOME TO MY HOMEPAGE', 'Home', homeContent, 'home', null);
         }
       });
       CMS.registerPreviewTemplate('home', HomePreview);
@@ -410,7 +456,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, aboutContent);
+          return renderFullSiteShell(headerTagline, title, aboutContent, 'about', [{ label: 'about' }]);
         }
       });
       CMS.registerPreviewTemplate('about-page', AboutPreview);
@@ -433,7 +479,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, blogPageContent);
+          return renderFullSiteShell(headerTagline, title, blogPageContent, 'blog', [{ label: 'blog' }]);
         }
       });
       CMS.registerPreviewTemplate('blog-page', BlogPagePreview);
@@ -456,7 +502,7 @@
             )
           );
 
-          return renderFullSiteShell(headerTagline, title, portfolioPageContent);
+          return renderFullSiteShell(headerTagline, title, portfolioPageContent, 'portfolio', [{ label: 'portfolio' }]);
         }
       });
       CMS.registerPreviewTemplate('portfolio-page', PortfolioPagePreview);
@@ -484,7 +530,7 @@
             )
           );
 
-          return renderFullSiteShell('AUTHOR PROFILE', name, authorContent);
+          return renderFullSiteShell('AUTHOR PROFILE', name, authorContent, 'about', [{ label: 'about', url: '/about/' }, { label: name }]);
         }
       });
       CMS.registerPreviewTemplate('authors', AuthorPreview);

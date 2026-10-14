@@ -19,22 +19,90 @@
           <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] text-2xl tracking-tight">{{ title or site.title }}</h1>
         </div>
       </header>
-      <nav class="site-nav px-5 py-2 text-xs">
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
-        <span class="px-2 text-[#8aa2af]">|</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
-        <span class="px-2 text-[#8aa2af]">|</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
-        <span class="px-2 text-[#8aa2af]">|</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
-        <span class="px-2 text-[#8aa2af]">|</span>
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/resume/">resume</a>
+      {% set isHome = (page.url == '/' or page.url == '') %}
+      {% set isAbout = ('/about/' in page.url) %}
+      {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
+      {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
+      {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
+
+      <nav class="site-nav text-xs">
+        <div class="site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5">
+          <a class="site-nav-link {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/">home</a>
+          <span class="px-1 text-[#8aa2af]">|</span>
+          <a class="site-nav-link {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/about/">about</a>
+          <span class="px-1 text-[#8aa2af]">|</span>
+          <a class="site-nav-link {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/portfolio/">portfolio</a>
+          <span class="px-1 text-[#8aa2af]">|</span>
+          <a class="site-nav-link {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/blog/">blog</a>
+          <span class="px-1 text-[#8aa2af]">|</span>
+          <a class="site-nav-link {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5" href="/resume/">resume</a>
+        </div>
+        {% if not isHome %}
+        <div class="site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[11px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+          <span class="font-bold text-[#164b70]">Location:</span>
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+          <span class="text-[#8aa2af]">&gt;</span>
+          {% if isBlog %}
+            {% if isPost or (tags and 'blog' in tags and page.url != '/blog/') %}
+              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+              <span class="text-[#8aa2af]">&gt;</span>
+              <span class="font-bold text-[#164b70]">{{ title }}</span>
+            {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+              <span class="text-[#8aa2af]">&gt;</span>
+              <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+            {% else %}
+              <span class="font-bold text-[#164b70]">blog</span>
+            {% endif %}
+          {% elif isPortfolio %}
+            {% if tags and 'portfolio' in tags and page.url != '/portfolio/' %}
+              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+              <span class="text-[#8aa2af]">&gt;</span>
+              <span class="font-bold text-[#164b70]">{{ title }}</span>
+            {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+              <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+              <span class="text-[#8aa2af]">&gt;</span>
+              <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+            {% else %}
+              <span class="font-bold text-[#164b70]">portfolio</span>
+            {% endif %}
+          {% elif isAbout %}
+            <span class="font-bold text-[#164b70]">about</span>
+          {% elif isResume %}
+            <span class="font-bold text-[#164b70]">resume</span>
+          {% elif '/authors/' in page.url %}
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+            <span class="text-[#8aa2af]">&gt;</span>
+            <span class="font-bold text-[#164b70]">{{ name or title }}</span>
+          {% else %}
+            <span class="font-bold text-[#164b70]">{{ title }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
       </nav>
       <div class="site-columns">
         <aside class="site-sidebar site-sidebar-left">
           <h2>{{ site.leftSidebar.title }}</h2>
           {% for item in site.leftSidebar.items %}
-            <p><a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a></p>
+            {% set itemActive = false %}
+            {% if item.url == '/' and isHome %}
+              {% set itemActive = true %}
+            {% elif item.url == '/about/' and isAbout %}
+              {% set itemActive = true %}
+            {% elif item.url == '/blog/' and isBlog %}
+              {% set itemActive = true %}
+            {% elif item.url == '/portfolio/' and isPortfolio %}
+              {% set itemActive = true %}
+            {% elif (item.url == '/resume/' or item.url == '/cv/') and isResume %}
+              {% set itemActive = true %}
+            {% endif %}
+            <p>
+              {% if itemActive %}
+                <span class="inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[11px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">{{ item.label }}</span>
+              {% else %}
+                <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a>
+              {% endif %}
+            </p>
           {% endfor %}
         </aside>
         <section class="site-content px-5 py-6 text-sm leading-6">
