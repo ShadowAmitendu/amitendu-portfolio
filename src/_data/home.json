@@ -1,17 +1,24 @@
 {
-  "greeting": "Hello, internet!",
-  "welcome": "You found my little corner of the web.",
-  "aboutTitle": "About this site",
-  "about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
-  "currentlyTitle": "Currently",
+  "profileAlt": "Amitendu Bikash Dhusiya",
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Eleventy",
+    "Nunjucks",
+    "Markdown"
+  ],
+  "welcome": "You Found Out a Hidden Gem!",
   "currently": [
     "learning something new",
     "building useful little projects",
     "listening to music while I work"
   ],
-  "profileImage": "/images/shadow-amitendu.jpg",
-  "profileAlt": "Amitendu Bikash Dhusiya",
   "statusTitle": "Status",
+  "aboutTitle": "About this site & MySelf",
+  "about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
+  "profileImage": "/images/shadow-amitendu.jpg",
+  "currentlyTitle": "Currently",
   "status": [
     {
       "label": "Currently",
@@ -26,22 +33,11 @@
       "value": "online"
     }
   ],
+  "greeting": "Hello, Stranger!",
   "links": [
     {
       "label": "GitHub",
-      "url": "https://github.com/"
-    },
-    {
-      "label": "Email",
-      "url": "mailto:hello@example.com"
+      "url": "https://github.com/ShadowAmitendu"
     }
-  ],
-  "skills": [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Eleventy",
-    "Nunjucks",
-    "Markdown"
   ]
 }
