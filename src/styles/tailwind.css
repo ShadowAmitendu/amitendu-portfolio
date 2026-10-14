@@ -357,3 +357,24 @@ a[id^="IDShowCommentLink"]:hover {
   font-family: inherit;
 }
 
+/* Blog Entry Images: full/max natural height */
+.site-entry-image-frame img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  display: block;
+}
+
+.site-entry-body img {
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 1.25rem auto;
+  border: 1px solid #7892a3;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow: 2px 2px 0 #b8c5cc;
+  display: block;
+}
+
