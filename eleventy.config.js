@@ -12,6 +12,11 @@ export default function (eleventyConfig) {
           year: "numeric",
         }).format(date);
   });
+  eleventyConfig.addFilter("safeId", (value) => {
+    const slug = String(value || "post");
+    const cleaned = slug.replace(/[^a-zA-Z0-9_]/g, "_");
+    return /^[a-zA-Z_]/.test(cleaned) ? cleaned : `post_${cleaned}`;
+  });
   eleventyConfig.addGlobalData("buildDate", () => new Date());
   eleventyConfig.addShortcode("currentYear", () => `${new Date().getFullYear()}`);
   eleventyConfig.addCollection("blog", (collectionApi) =>
