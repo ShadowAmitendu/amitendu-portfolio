@@ -1,0 +1,70 @@
+---
+layout: base.njk
+title: Books
+headerTagline: WHAT I'M READING
+permalink: /about/books/
+aboutTab: books
+---
+{% include "about-tabs.njk" %}
+
+<h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
+  {{ books.heading or 'Bookshelf' }}</h2>
+{% if books.intro %}
+<p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ books.intro }}</p>
+{% endif %}
+
+<div class="mt-4 space-y-3">
+  {% if books.items and books.items.length > 0 %}
+  {% for book in books.items %}
+  <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3">
+    <div class="flex items-start gap-3">
+      {% if book.image %}
+      <img class="h-24 w-16 shrink-0 object-cover border border-[#7892a3]" src="{{ book.image }}" alt="{{ book.title }}" />
+      {% else %}
+      <div class="h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+        BOOK
+      </div>
+      {% endif %}
+      <div class="min-w-0 flex-1">
+        <h3 class="font-bold text-[#164b70]">
+          {% if book.link %}
+          <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">{{ book.title }}</a>
+          {% else %}
+          {{ book.title }}
+          {% endif %}
+          {% if book.author %}
+          <span class="font-normal text-xs text-[#556b78]">by {{ book.author }}</span>
+          {% endif %}
+        </h3>
+        <p class="mt-1 text-xs text-[#71828b]">
+          {% if book.status == "currently-reading" %}
+          <strong>[Currently Reading]</strong>
+          {% elif book.status == "read" %}
+          <strong>[Read]</strong>
+          {% elif book.status == "to-read" %}
+          <strong>[Want to Read]</strong>
+          {% endif %}
+          {% if book.progress %} · {{ book.progress }}{% endif %}
+          {% if book.rating %} · Rating: {{ book.rating }}{% endif %}
+          {% if book.year %} · {{ book.year }}{% endif %}
+        </p>
+        {% if book.review %}
+        <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">"{{ book.review }}"</p>
+        {% endif %}
+        {% if book.link %}
+        <p class="mt-2 text-xs">
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">details &raquo;</a>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+  {% else %}
+  <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+    No books added yet. Books added via the admin panel will appear here.
+  </div>
+  {% endif %}
+</div>
+
+<p class="mt-6"><a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a></p>

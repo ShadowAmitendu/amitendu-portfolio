@@ -16,11 +16,11 @@ media_processing:
     default: webp
 
 collections:
-  - name: "about-page"
-    label: "About (Author Page)"
+  - name: "about-section"
+    label: "About (Me, Books, Movies, Games)"
     files:
-      - name: "about-page"
-        label: "About Me"
+      - name: "about-me"
+        label: "Tab 1: Me"
         file: "src/_data/about.json"
         format: "json"
         fields:
@@ -72,6 +72,270 @@ collections:
             editor_components:
               - image
               - code-block
+
+      - name: "about-books"
+        label: "Tab 2: Books"
+        file: "src/_data/books.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Books",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "WHAT I'M READING",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Bookshelf",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Books List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} by {{fields.author}} [{{fields.status}}]"
+            fields:
+              - { label: "Book Title", name: "title", widget: "string" }
+              - { label: "Author", name: "author", widget: "string", required: false }
+              - {
+                  label: "Cover Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload a book cover image (JPG, PNG, WEBP).",
+                }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Currently Reading", value: "currently-reading" }
+                  - { label: "Completed / Finished", value: "read" }
+                  - { label: "Want to Read / Plan to Read", value: "to-read" }
+                default: "currently-reading"
+              - {
+                  label: "Progress / Notes (e.g. Chapter 6 / Page 140)",
+                  name: "progress",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Rating (e.g. 5/5, 9/10, or ★★★★★)",
+                  name: "rating",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Year / Date Read",
+                  name: "year",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Thoughts / Mini Review",
+                  name: "review",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Link (Goodreads, Amazon, or Official Site)",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                }
+
+      - name: "about-movies"
+        label: "Tab 3: Movies"
+        file: "src/_data/movies.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Movies",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "WHAT I'M WATCHING",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Cinema & Shows",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Movies & Shows List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} [{{fields.status}}]"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - {
+                  label: "Director / Creator / Studio",
+                  name: "director",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Poster Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload a movie or show poster image (JPG, PNG, WEBP).",
+                }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Currently Watching", value: "currently-watching" }
+                  - { label: "Completed / Watched", value: "watched" }
+                  - { label: "Plan to Watch", value: "plan-to-watch" }
+                default: "watched"
+              - label: "Media Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Movie / Film", value: "Movie" }
+                  - { label: "TV Series", value: "TV Series" }
+                  - { label: "Anime", value: "Anime" }
+                  - { label: "Documentary", value: "Documentary" }
+                default: "Movie"
+                required: false
+              - {
+                  label: "Progress / Notes (e.g. Season 2 or Finished)",
+                  name: "progress",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
+                  name: "rating",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Year",
+                  name: "year",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Thoughts / Mini Review",
+                  name: "review",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Link (IMDb, Letterboxd, MyAnimeList, TMDB)",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                }
+
+      - name: "about-games"
+        label: "Tab 4: Games"
+        file: "src/_data/games.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Games",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "WHAT I'M PLAYING",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Games & Software",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Games List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} [{{fields.status}}]"
+            fields:
+              - { label: "Game / Tool Name", name: "name", widget: "string" }
+              - {
+                  label: "Icon / Logo Image",
+                  name: "icon",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload a game icon or logo (PNG, SVG, WEBP, JPG).",
+                }
+              - {
+                  label: "Platform (e.g. PC, Mobile, Console)",
+                  name: "platform",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                      - { label: "Auto (Detect from URL/Label)", value: "" }
+                      - { label: "DEV Community (dev.to)", value: "dev.to" }
+                      - { label: "Discord", value: "discord" }
+                      - { label: "Figma", value: "figma" }
+                      - { label: "Finder", value: "finder" }
+                      - { label: "GitHub", value: "github" }
+                      - { label: "Hashnode", value: "hashnode" }
+                      - { label: "Instagram", value: "instagram" }
+                      - { label: "LinkedIn", value: "linkedin" }
+                      - { label: "Apple Mail", value: "mail" }
+                      - { label: "Masterji", value: "masterji" }
+                      - { label: "Medium", value: "medium" }
+                      - { label: "Notes", value: "notes" }
+                      - { label: "Peerlist", value: "peerlist" }
+                      - { label: "Safari / Web", value: "safari" }
+                      - { label: "Terminal", value: "terminal" }
+                      - { label: "Twitter / X", value: "twitter" }
+                      - { label: "X (Twitter)", value: "x" }
+                      - { label: "YouTube", value: "youtube" }
+                default: "Currently Playing"
+              - {
+                  label: "Description / Notes",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Link (Official Website or Store Page)",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                }
 
   - name: "resume-page"
     label: "Resume / CV"
@@ -174,346 +438,6 @@ collections:
               widget: "text",
               required: false,
             }
-
-  - name: "shelf-page"
-    label: "Books & Movies"
-    files:
-      - name: "shelf"
-        label: "Books & Movies (Shelf)"
-        file: "src/_data/shelf.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Books & Movies",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "READING & WATCHING",
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Books & Movies",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - {
-              label: "Books Section Heading",
-              name: "booksHeading",
-              widget: "string",
-              default: "Bookshelf",
-            }
-          - {
-              label: "Books Section Intro",
-              name: "booksIntro",
-              widget: "string",
-              required: false,
-            }
-          - label: "Books List"
-            name: "books"
-            widget: "list"
-            summary: "{{fields.title}} by {{fields.author}} [{{fields.status}}]"
-            fields:
-              - { label: "Book Title", name: "title", widget: "string" }
-              - { label: "Author", name: "author", widget: "string" }
-              - {
-                  label: "Cover Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a book cover image (JPG, PNG, WEBP).",
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Currently Reading", value: "currently-reading" }
-                  - { label: "Completed / Finished", value: "read" }
-                  - { label: "Want to Read / Plan to Read", value: "to-read" }
-                default: "currently-reading"
-              - {
-                  label: "Progress / Notes (e.g. Chapter 6 / Page 140)",
-                  name: "progress",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Rating (e.g. 5/5, 9/10, or ★★★★★)",
-                  name: "rating",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Year / Date Read",
-                  name: "year",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Thoughts / Mini Review",
-                  name: "review",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (Goodreads, Amazon, or Official Site)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-          - {
-              label: "Movies Section Heading",
-              name: "moviesHeading",
-              widget: "string",
-              default: "Cinema & Shows",
-            }
-          - {
-              label: "Movies Section Intro",
-              name: "moviesIntro",
-              widget: "string",
-              required: false,
-            }
-          - label: "Movies & Shows List"
-            name: "movies"
-            widget: "list"
-            summary: "{{fields.title}} [{{fields.status}}]"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "Director / Creator / Studio",
-                  name: "director",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Poster Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a movie or show poster image (JPG, PNG, WEBP).",
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Currently Watching", value: "currently-watching" }
-                  - { label: "Completed / Watched", value: "watched" }
-                  - { label: "Plan to Watch", value: "plan-to-watch" }
-                default: "watched"
-              - label: "Media Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "Movie / Film", value: "Movie" }
-                  - { label: "TV Series", value: "TV Series" }
-                  - { label: "Anime", value: "Anime" }
-                  - { label: "Documentary", value: "Documentary" }
-                default: "Movie"
-                required: false
-              - {
-                  label: "Progress / Notes (e.g. Season 2 or Finished)",
-                  name: "progress",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
-                  name: "rating",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Year",
-                  name: "year",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Thoughts / Mini Review",
-                  name: "review",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (IMDb, Letterboxd, MyAnimeList, TMDB)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-
-  - name: "apps-page"
-    label: "Games & Apps"
-    files:
-      - name: "apps"
-        label: "Games & Apps (Uses)"
-        file: "src/_data/apps.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Games & Apps",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "SOFTWARE & GAMING",
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Games & Apps I Use",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - {
-              label: "Games Section Heading",
-              name: "gamesHeading",
-              widget: "string",
-              default: "Games I Play",
-            }
-          - {
-              label: "Games Section Intro",
-              name: "gamesIntro",
-              widget: "string",
-              required: false,
-            }
-          - label: "Games List"
-            name: "games"
-            widget: "list"
-            summary: "{{fields.name}} [{{fields.status}}]"
-            fields:
-              - { label: "Game Name", name: "name", widget: "string" }
-              - {
-                  label: "Icon Image",
-                  name: "icon",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a game icon or logo (PNG, SVG, WEBP, JPG).",
-                }
-              - {
-                  label: "Platform (e.g. PC, Mobile, Console)",
-                  name: "platform",
-                  widget: "string",
-                  required: false,
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                      - { label: "Auto (Detect from URL/Label)", value: "" }
-                      - { label: "DEV Community (dev.to)", value: "dev.to" }
-                      - { label: "Discord", value: "discord" }
-                      - { label: "Figma", value: "figma" }
-                      - { label: "Finder", value: "finder" }
-                      - { label: "GitHub", value: "github" }
-                      - { label: "Hashnode", value: "hashnode" }
-                      - { label: "Instagram", value: "instagram" }
-                      - { label: "LinkedIn", value: "linkedin" }
-                      - { label: "Apple Mail", value: "mail" }
-                      - { label: "Masterji", value: "masterji" }
-                      - { label: "Medium", value: "medium" }
-                      - { label: "Notes", value: "notes" }
-                      - { label: "Peerlist", value: "peerlist" }
-                      - { label: "Safari / Web", value: "safari" }
-                      - { label: "Terminal", value: "terminal" }
-                      - { label: "Twitter / X", value: "twitter" }
-                      - { label: "X (Twitter)", value: "x" }
-                      - { label: "YouTube", value: "youtube" }
-                default: "Currently Playing"
-              - {
-                  label: "Genre / Tags (e.g. Action RPG, Open World)",
-                  name: "genre",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Description / Notes",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (Official Website or Store Page)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-          - {
-              label: "Apps Section Heading",
-              name: "appsHeading",
-              widget: "string",
-              default: "Software & Tools",
-            }
-          - {
-              label: "Apps Section Intro",
-              name: "appsIntro",
-              widget: "string",
-              required: false,
-            }
-          - label: "Apps & Software List"
-            name: "apps"
-            widget: "list"
-            summary: "{{fields.name}} [{{fields.category}}]"
-            fields:
-              - { label: "App Name", name: "name", widget: "string" }
-              - {
-                  label: "Icon Image",
-                  name: "icon",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload an app icon or logo (PNG, SVG, WEBP, JPG).",
-                }
-              - label: "Category"
-                name: "category"
-                widget: "select"
-                options:
-                  - { label: "Development", value: "Development" }
-                  - { label: "Design", value: "Design" }
-                  - { label: "Productivity", value: "Productivity" }
-                  - { label: "Communication", value: "Communication" }
-                  - { label: "Version Control", value: "Version Control" }
-                  - { label: "Media / Audio", value: "Media" }
-                  - { label: "Utilities / OS", value: "Utility" }
-                default: "Development"
-              - label: "Status / Role"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Daily Driver", value: "Daily Driver" }
-                  - { label: "Core Tool", value: "Tool" }
-                  - { label: "Occasional", value: "Occasional" }
-                default: "Daily Driver"
-                required: false
-              - {
-                  label: "Description / Why I Use It",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (App Website or Download Page)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
 
   - name: "pages"
     label: "Pages"

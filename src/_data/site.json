@@ -97,14 +97,6 @@
       {
         "label": "resume",
         "url": "/resume/"
-      },
-      {
-        "label": "shelf",
-        "url": "/shelf/"
-      },
-      {
-        "label": "apps",
-        "url": "/apps/"
       }
     ]
   },
