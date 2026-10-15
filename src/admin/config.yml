@@ -120,7 +120,12 @@ collections:
             summary: "{{fields.title}} by {{fields.author}} [{{fields.status}}]"
             fields:
               - { label: "Book Title", name: "title", widget: "string" }
-              - { label: "Author", name: "author", widget: "string", required: false }
+              - {
+                  label: "Author",
+                  name: "author",
+                  widget: "string",
+                  required: false,
+                }
               - {
                   label: "Cover Image",
                   name: "image",
@@ -459,7 +464,11 @@ collections:
             widget: "list"
             summary: "{{fields.name}} [{{fields.category}}]"
             fields:
-              - { label: "Software / Tool Name", name: "name", widget: "string" }
+              - {
+                  label: "Software / Tool Name",
+                  name: "name",
+                  widget: "string",
+                }
               - {
                   label: "Icon / Logo Image",
                   name: "icon",
@@ -555,7 +564,6 @@ collections:
                   required: false,
                   hint: "Short note on who they are or what their site is about.",
                 }
-
 
   - name: "resume-page"
     label: "Resume / CV"
@@ -1056,4 +1064,3 @@ collections:
           widget: "hidden",
           default: true,
         }
-

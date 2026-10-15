@@ -12,6 +12,7 @@ date: 2026-05-27T08:41:00.000+05:30
 author: Amitendu Bikash Dhusiya
 image: /images/img-20260120-wa0008.webp
 ---
+
 ## S.A.P. Bootcamp Experience
 
 From August 2025 to January 2026, I attended a 6-month SAP ABAP Bootcamp at Techno India Group in Salt Lake City, West Bengal.
@@ -24,10 +25,10 @@ This was my introduction to the world of SAP and enterprise software development
 
 I started with the fundamentals of ABAP (Advanced Business Application Programming), including:
 
-* Writing simple ABAP programs
-* Working with reports and internal tables
-* Understanding program flow and data handling
-* Learning basic debugging techniques
+- Writing simple ABAP programs
+- Working with reports and internal tables
+- Understanding program flow and data handling
+- Learning basic debugging techniques
 
 I also explored Object-Oriented ABAP (OOABAP), where I learned about classes, objects, methods, and reusable code structures used in modern SAP development.
 
@@ -37,11 +38,11 @@ Alongside programming, I was introduced to SAP HANA and basic database concepts,
 
 ![Some code we were writing!](/images/20260115_113008.webp "Some code we were writing!")
 
-* ABAP Programming
-* Object-Oriented ABAP (OOABAP)
-* SAP HANA Fundamentals
-* SAP Reports & Internal Tables
-* Basic Enterprise Application Development
+- ABAP Programming
+- Object-Oriented ABAP (OOABAP)
+- SAP HANA Fundamentals
+- SAP Reports & Internal Tables
+- Basic Enterprise Application Development
 
 ## Overall Experience
 

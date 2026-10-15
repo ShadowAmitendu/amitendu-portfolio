@@ -45,7 +45,7 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 		: "";
 
 	return `<figure class="site-image-figure my-5 text-center">
-  <a class="site-lightbox-trigger inline-block cursor-zoom-in" href="${md.utils.escapeHtml(src)}" data-lightbox="true" data-caption="${md.utils.escapeHtml(captionText)}" title="${md.utils.escapeHtml(captionText || 'Click to view full image')}">
+  <a class="site-lightbox-trigger inline-block cursor-zoom-in" href="${md.utils.escapeHtml(src)}" data-lightbox="true" data-caption="${md.utils.escapeHtml(captionText)}" title="${md.utils.escapeHtml(captionText || "Click to view full image")}">
     <img src="${md.utils.escapeHtml(src)}" alt="${md.utils.escapeHtml(alt)}" class="site-entry-image block mx-auto max-w-full h-auto" />
   </a>
   ${captionHtml}
@@ -73,9 +73,7 @@ export default function (eleventyConfig) {
 	});
 	eleventyConfig.addFilter("isoDate", (value) => {
 		const date = new Date(value);
-		return Number.isNaN(date.getTime())
-			? ""
-			: date.toISOString().split("T")[0];
+		return Number.isNaN(date.getTime()) ? "" : date.toISOString().split("T")[0];
 	});
 	eleventyConfig.addFilter("shortDate", (value) => {
 		const date = new Date(value);

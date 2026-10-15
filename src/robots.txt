@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://shadowamitendu.github.io/sitemap.xml
+Sitemap: https://amitendu.me/sitemap.xml

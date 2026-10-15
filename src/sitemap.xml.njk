@@ -4,16 +4,19 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for item in collections.all %}
+  {% for item in collections.all %}
   {% if item.url and not item.data.draft and not ('/admin/' in item.url) and item.url != '/shelf/' and item.url != '/apps/' %}
   <url>
     <loc>{{ site.url }}{{ item.url }}</loc>
     {% if item.date %}
     <lastmod>{{ item.date | isoDate }}</lastmod>
     {% endif %}
-    <changefreq>{% if item.url == '/' %}daily{% elif '/blog/' in item.url %}weekly{% else %}monthly{% endif %}</changefreq>
-    <priority>{% if item.url == '/' %}1.0{% elif '/about/' in item.url or item.url == '/portfolio/' or item.url == '/resume/' %}0.8{% else %}0.6{% endif %}</priority>
+    <changefreq>{% if item.url == '/' %}daily{% elif '/blog/' in item.url %}weekly{% else %}monthly{% endif %}
+    </changefreq>
+    <priority>
+      {% if item.url == '/' %}1.0{% elif '/about/' in item.url or item.url == '/portfolio/' or item.url == '/resume/' %}0.8{% else %}0.6{% endif %}
+    </priority>
   </url>
   {% endif %}
-{% endfor %}
+  {% endfor %}
 </urlset>

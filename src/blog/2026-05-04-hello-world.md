@@ -12,6 +12,7 @@ author: Amitendu Bikash Dhusiya
 mood: ""
 image: /images/tiu.webp
 ---
+
 # Hello World!
 
 Welcome to my blog.
@@ -28,10 +29,10 @@ And sometimes they may simply be random experiments that I find interesting enou
 
 The goal is simple:
 
-* Learn publicly
-* Build consistently
-* Share useful things
-* Improve over time
+- Learn publicly
+- Build consistently
+- Share useful things
+- Improve over time
 
 I do not expect every post to be perfect, but I do want every post to be real and useful in some way. Over time, this blog will grow along with my skills and interests.
 

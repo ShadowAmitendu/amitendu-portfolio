@@ -18,12 +18,14 @@ aboutTab: books
   {% for book in books.items %}
   <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
     {# 2005 Window Header #}
-    <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
+    <div
+      class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
       <div class="flex items-baseline gap-1.5 text-sm">
         <span class="text-sm font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
         <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline">
           {% if book.link %}
-          <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">{{ book.title }}</a>
+          <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank"
+            rel="noopener noreferrer">{{ book.title }}</a>
           {% else %}
           {{ book.title }}
           {% endif %}
@@ -34,7 +36,9 @@ aboutTab: books
       </div>
       <div>
         {% if book.status == "currently-reading" %}
-        <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">CURRENTLY READING</span>
+        <span
+          class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">CURRENTLY
+          READING</span>
         {% elif book.status == "read" %}
         <span class="text-[11px] font-bold text-[#2e7d32]">FINISHED / READ</span>
         {% elif book.status == "to-read" %}
@@ -72,7 +76,8 @@ aboutTab: books
             <tr class="border-b border-[#e1ebf0]">
               <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Reading Status:</td>
               <td class="py-1 text-[#3b4d57]">
-                {% if book.status == "currently-reading" %}Currently Reading{% elif book.status == "read" %}Completed / Finished{% else %}Want to Read{% endif %}
+                {% if book.status == "currently-reading" %}Currently Reading{% elif book.status == "read" %}Completed /
+                Finished{% else %}Want to Read{% endif %}
               </td>
             </tr>
             {% endif %}
@@ -105,7 +110,8 @@ aboutTab: books
 
         {% if book.link %}
         <div class="pt-2 flex justify-end">
-          <a class="site-button-2007 inline-block px-3 py-1 text-xs" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">
+          <a class="site-button-2007 inline-block px-3 py-1 text-xs" href="{{ book.link }}" target="_blank"
+            rel="noopener noreferrer">
             Book Details / Page &raquo;
           </a>
         </div>
