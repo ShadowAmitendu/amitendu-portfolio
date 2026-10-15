@@ -18,22 +18,22 @@
   {% set displayTagline = headerTagline %}
 
   {% if isAbout and not isPost %}
-    {% if aboutTab == 'books' %}
-      {% set displayTitle = books.title or 'Books' %}
-      {% set displayTagline = books.headerTagline or "WHAT I'M READING" %}
-    {% elif aboutTab == 'movies' %}
-      {% set displayTitle = movies.title or 'Movies' %}
-      {% set displayTagline = movies.headerTagline or "WHAT I'M WATCHING" %}
-    {% elif aboutTab == 'games' %}
-      {% set displayTitle = games.title or 'Games' %}
-      {% set displayTagline = games.headerTagline or "WHAT I'M PLAYING" %}
-    {% elif aboutTab == 'software' %}
-      {% set displayTitle = software.title or 'Software' %}
-      {% set displayTagline = software.headerTagline or "TOOLS & APPS I USE" %}
-    {% else %}
-      {% set displayTitle = about.title or 'About' %}
-      {% set displayTagline = about.headerTagline or 'ABOUT MYSELF' %}
-    {% endif %}
+  {% if aboutTab == 'books' %}
+  {% set displayTitle = books.title or 'Books' %}
+  {% set displayTagline = books.headerTagline or "WHAT I'M READING" %}
+  {% elif aboutTab == 'movies' %}
+  {% set displayTitle = movies.title or 'Movies' %}
+  {% set displayTagline = movies.headerTagline or "WHAT I'M WATCHING" %}
+  {% elif aboutTab == 'games' %}
+  {% set displayTitle = games.title or 'Games' %}
+  {% set displayTagline = games.headerTagline or "WHAT I'M PLAYING" %}
+  {% elif aboutTab == 'software' %}
+  {% set displayTitle = software.title or 'Software' %}
+  {% set displayTagline = software.headerTagline or "TOOLS & APPS I USE" %}
+  {% else %}
+  {% set displayTitle = about.title or 'About' %}
+  {% set displayTagline = about.headerTagline or 'ABOUT MYSELF' %}
+  {% endif %}
   {% elif isResume and not isPost %}
   {% set displayTitle = resume.title or 'Resume' %}
   {% set displayTagline = resume.headerTagline or 'CURRICULUM VITAE' %}
@@ -56,45 +56,48 @@
 
   {% set pageDesc = description %}
   {% if not pageDesc %}
-    {% if isAbout and not isPost %}
-      {% if aboutTab == 'books' %}
-        {% set pageDesc = books.intro or "Books read and recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-      {% elif aboutTab == 'movies' %}
-        {% set pageDesc = movies.intro or "Cinema, shows, and anime enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-      {% elif aboutTab == 'games' %}
-        {% set pageDesc = games.intro or "Video games played by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-      {% elif aboutTab == 'software' %}
-        {% set pageDesc = software.intro or "Software, developer tools, and applications used by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-      {% else %}
-        {% set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast." %}
-      {% endif %}
-    {% elif isResume and not isPost %}
-      {% set pageDesc = resume.intro or "Curriculum Vitae and resume of Amitendu Bikash Dhusiya — Skills, experience, education, and technical background." %}
-    {% elif isPortfolio and page.url == '/portfolio/' %}
-      {% set pageDesc = portfolioPage.intro or "Web and software development portfolio projects by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-    {% elif isBlog and page.url == '/blog/' %}
-      {% set pageDesc = blogPage.intro or "Articles, thoughts, and development logs by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-    {% elif isHome %}
-      {% set pageDesc = site.description %}
-    {% else %}
-      {% set pageDesc = site.description %}
-    {% endif %}
+  {% if isAbout and not isPost %}
+  {% if aboutTab == 'books' %}
+  {% set pageDesc = books.intro or "Books read and recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif aboutTab == 'movies' %}
+  {% set pageDesc = movies.intro or "Cinema, shows, and anime enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif aboutTab == 'games' %}
+  {% set pageDesc = games.intro or "Video games played by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif aboutTab == 'software' %}
+  {% set pageDesc = software.intro or "Software, developer tools, and applications used by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% else %}
+  {% set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast." %}
+  {% endif %}
+  {% elif isResume and not isPost %}
+  {% set pageDesc = resume.intro or "Curriculum Vitae and resume of Amitendu Bikash Dhusiya — Skills, experience, education, and technical background." %}
+  {% elif isPortfolio and page.url == '/portfolio/' %}
+  {% set pageDesc = portfolioPage.intro or "Web and software development portfolio projects by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif isBlog and page.url == '/blog/' %}
+  {% set pageDesc = blogPage.intro or "Articles, thoughts, and development logs by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif isHome %}
+  {% set pageDesc = site.description %}
+  {% else %}
+  {% set pageDesc = site.description %}
+  {% endif %}
   {% endif %}
 
   {% set socialImage = image or site.ogImage %}
   {% if socialImage and not socialImage.startsWith('http') %}
-    {% set socialImageUrl = site.url ~ socialImage %}
+  {% set socialImageUrl = site.url ~ socialImage %}
   {% else %}
-    {% set socialImageUrl = socialImage %}
+  {% set socialImageUrl = socialImage %}
   {% endif %}
 
-  <title>{% if isHome %}{{ site.title }} - {{ site.tagline }}{% elif displayTitle and displayTitle != site.title %}{{ displayTitle }}{% if pagination.pageNumber and pagination.pageNumber > 0 %} (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <title>{% if isHome %}{{ site.title }} -
+    {{ site.tagline }}{% elif displayTitle and displayTitle != site.title %}{{ displayTitle }}{% if pagination.pageNumber and pagination.pageNumber > 0 %}
+    (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
 
   {# Primary Search Engine Meta Tags #}
   <meta name="description" content="{{ pageDesc | escape }}" />
   <meta name="keywords" content="{{ site.keywords | escape }}" />
   <meta name="author" content="{{ author or site.name }}" />
-  <meta name="robots" content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
+  <meta name="robots"
+    content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
   <meta name="googlebot" content="{% if isDraft %}noindex, nofollow{% else %}index, follow{% endif %}" />
   <link rel="canonical" href="{{ canonicalUrl }}" />
   <meta name="generator" content="Eleventy" />
@@ -111,12 +114,14 @@
   <meta property="og:image:alt" content="{{ displayTitle }}" />
   <meta property="og:locale" content="en_US" />
   {% if isPost %}
-  {% if date %}<meta property="article:published_time" content="{{ date | isoDate }}" />{% endif %}
+  {% if date %}
+  <meta property="article:published_time" content="{{ date | isoDate }}" />{% endif %}
   <meta property="article:author" content="{{ author or site.name }}" />
   {% if tags %}
-    {% for tag in tags %}
-      {% if tag != "blog" and tag != "post" %}<meta property="article:tag" content="{{ tag }}" />{% endif %}
-    {% endfor %}
+  {% for tag in tags %}
+  {% if tag != "blog" and tag != "post" %}
+  <meta property="article:tag" content="{{ tag }}" />{% endif %}
+  {% endfor %}
   {% endif %}
   {% endif %}
 
@@ -207,7 +212,8 @@
     </header>
 
     <nav class="site-nav text-xs">
-      <div class="site-nav-links flex flex-nowrap items-center justify-center gap-0.5 sm:gap-1 px-1 sm:px-5 py-1 text-[11px] sm:text-xs overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
+      <div
+        class="site-nav-links flex flex-nowrap items-center justify-center gap-0.5 sm:gap-1 px-1 sm:px-5 py-1 text-[11px] sm:text-xs overflow-x-auto whitespace-nowrap scrollbar-none">
         <a class="site-nav-link shrink-0 {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/">home</a>
         <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
@@ -355,7 +361,8 @@
           {% for item in site.rightSidebar.items %}
           {% set itemIcon = item.url | resolveIcon(item.label, item.icon) %}
           <div>
-            <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}" {% if item.url and item.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}"
+              {% if item.url and item.url.startsWith('http') %}target="_blank" rel="noopener noreferrer" {% endif %}>
               <img class="site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]"
                 src="/assets/icons/macos-{{ itemIcon }}.png" alt="" width="20" height="20" />
               <span class="underline">{{ item.label }}</span>
@@ -363,64 +370,106 @@
           </div>
           {% endfor %}
         </div>
-        {# Currently Reading Widget #}
+        {# Book I am reading Card in Right Sidebar #}
         {% set sidebarBook = null %}
         {% for b in (books.items or shelf.books) %}
-          {% if (b.status == "currently-reading" or b.status == "reading") and not sidebarBook %}
-            {% set sidebarBook = b %}
-          {% endif %}
+        {% if (b.status == "currently-reading" or b.status == "reading") and not sidebarBook %}
+        {% set sidebarBook = b %}
+        {% endif %}
         {% endfor %}
         {% if not sidebarBook and (books.items and books.items.length > 0) %}
-          {% set sidebarBook = books.items[0] %}
+        {% set sidebarBook = books.items[0] %}
         {% endif %}
         {% if sidebarBook %}
         <div class="mt-5 border-t border-[#b7cbd6] pt-3">
-          <h2>Currently Reading</h2>
-          <div class="mt-2 flex items-start gap-2.5">
-            {% if sidebarBook.image %}
-            <img class="site-profile-frame h-16 w-12 shrink-0 object-cover"
-              src="{{ sidebarBook.image }}" alt="{{ sidebarBook.title }}" />
-            {% else %}
-            <div class="h-16 w-12 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
-              BOOK
+          <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
+            <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
+              <span>Book I am reading</span>
+              <span class="text-[10px] text-[#556b78] font-normal">[Reading]</span>
             </div>
-            {% endif %}
-            <div class="min-w-0 flex-1 text-xs">
-              <p class="font-bold leading-tight text-[#164b70]">
-                {% if sidebarBook.link %}
-                <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ sidebarBook.link }}" target="_blank" rel="noopener noreferrer">{{ sidebarBook.title }}</a>
+            <div class="p-2.5 text-center flex flex-col items-center">
+              <a class="my-1 block hover:opacity-90" href="/about/books/" title="{{ sidebarBook.title }} - view on bookshelf">
+                {% if sidebarBook.image %}
+                <img class="h-24 w-16 object-contain border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]"
+                  src="{{ sidebarBook.image }}" alt="{{ sidebarBook.title }}" />
                 {% else %}
-                {{ sidebarBook.title }}
+                <div class="h-20 w-14 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+                  BOOK
+                </div>
                 {% endif %}
-              </p>
-              {% if sidebarBook.author %}<p class="text-[11px] text-[#556b78] mt-0.5">by {{ sidebarBook.author }}</p>{% endif %}
-              {% if sidebarBook.progress %}
-              <p class="text-[11px] text-[#164b70] mt-1 font-semibold">[{{ sidebarBook.progress }}]</p>
+              </a>
+              <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase">
+                <a class="text-[#164b70] underline hover:text-[#c0392b]" href="/about/books/">{{ sidebarBook.title }}</a>
+              </h3>
+              {% if sidebarBook.author %}
+              <p class="text-[11px] text-[#556b78] mt-0.5">by {{ sidebarBook.author }}</p>
               {% endif %}
             </div>
-          </div>
-          <div class="mt-2 text-right text-xs">
-            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/books/">View bookshelf &raquo;</a>
           </div>
         </div>
         {% endif %}
 
-        {# Games Icons in Right Sidebar #}
-        {% set sidebarGames = games.items or apps.games %}
-        {% if sidebarGames and sidebarGames.length > 0 %}
-        <div class="mt-5 border-t border-[#b7cbd6] pt-3">
-          <h2>Games</h2>
-          <div class="mt-2 flex flex-wrap gap-1.5">
-            {% for g in sidebarGames %}
-            {% if g.icon %}
-            <a class="block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]" href="{{ g.link or '/about/games/' }}" title="{{ g.name }}{% if g.status %} [{{ g.status }}]{% endif %}" {% if g.link and g.link.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              <img class="h-6 w-6 object-contain" src="{{ g.icon }}" alt="{{ g.name }}" width="24" height="24" />
-            </a>
+        {# Games I play Card in Right Sidebar #}
+        {% set sidebarGame = null %}
+        {% for g in (games.items or []) %}
+          {% if not sidebarGame %}
+            {% if g.playingRightNow or g.playingNow or g.status == "Playing right now" or (g.tags and ("Playing right now" in g.tags or "playing right now" in g.tags)) %}
+              {% set sidebarGame = g %}
             {% endif %}
-            {% endfor %}
-          </div>
-          <div class="mt-2 text-right text-xs">
-            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/games/">View games &raquo;</a>
+          {% endif %}
+        {% endfor %}
+        {% if not sidebarGame %}
+          {% for g in (games.items or []) %}
+            {% if not sidebarGame and (g.status == "Currently Playing" or g.status == "currently-playing" or g.status == "Ongoing") %}
+              {% set sidebarGame = g %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        {% if not sidebarGame and (games.items and games.items.length > 0) %}
+          {% set sidebarGame = games.items[0] %}
+        {% endif %}
+
+        {% if games.items and games.items.length > 0 %}
+        <div class="mt-5 border-t border-[#b7cbd6] pt-3">
+          <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
+            <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
+              <span>Games I play</span>
+              <span class="text-[10px] text-[#556b78] font-normal">[Ongoing]</span>
+            </div>
+            {% if sidebarGame %}
+            {% set sGameImg = sidebarGame.image or sidebarGame.icon %}
+            <div class="p-2.5 text-center flex flex-col items-center">
+              <a class="my-1 block hover:opacity-90" href="/about/games/" title="{{ sidebarGame.name }} - view on games page">
+                {% if sGameImg %}
+                <img class="h-20 w-20 object-contain border border-[#7892a3] bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.12)]"
+                  src="{{ sGameImg }}" alt="{{ sidebarGame.name }}" />
+                {% else %}
+                <div class="h-16 w-16 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+                  GAME
+                </div>
+                {% endif %}
+              </a>
+              <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase">
+                <a class="text-[#164b70] underline hover:text-[#c0392b]" href="/about/games/">{{ sidebarGame.name }}</a>
+              </h3>
+              <p class="text-[11px] text-[#556b78] mt-0.5">
+                {{ sidebarGame.platform or sidebarGame.publisher or "PC" }}
+              </p>
+            </div>
+            {% endif %}
+
+            {# If there are other games, show them as icons below the featured game, all linking to /about/games/ #}
+            {% if games.items.length > 1 %}
+            <div class="border-t border-[#d8e3ea] bg-[#eef4f7] px-2 py-1.5 flex flex-wrap items-center justify-center gap-1.5">
+              {% for g in games.items %}
+              {% if g != sidebarGame and (g.icon or g.image) %}
+              <a class="block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]" href="/about/games/" title="{{ g.name }}{% if g.status %} [{{ g.status }}]{% endif %}">
+                <img class="h-6 w-6 object-contain" src="{{ g.icon or g.image }}" alt="{{ g.name }}" width="24" height="24" />
+              </a>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
         </div>
         {% endif %}
@@ -433,7 +482,10 @@
           <div class="mt-2 flex flex-wrap gap-1.5">
             {% for s in sidebarSoftware %}
             {% if s.icon %}
-            <a class="block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]" href="{{ s.link or '/about/software/' }}" title="{{ s.name }}{% if s.category %} [{{ s.category }}]{% endif %}" {% if s.link and s.link.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            <a class="block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]"
+              href="{{ s.link or '/about/software/' }}"
+              title="{{ s.name }}{% if s.category %} [{{ s.category }}]{% endif %}"
+              {% if s.link and s.link.startsWith('http') %}target="_blank" rel="noopener noreferrer" {% endif %}>
               <img class="h-6 w-6 object-contain" src="{{ s.icon }}" alt="{{ s.name }}" width="24" height="24" />
             </a>
             {% endif %}
@@ -521,47 +573,55 @@
     }
   </script>
   <script>
-    (function () {
-      function openExternalLinksInNewTab() {
-        var links = document.querySelectorAll('a[href]');
-        for (var i = 0; i < links.length; i++) {
-          var a = links[i];
-          var href = a.getAttribute('href');
-          if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) continue;
+    ( function ()
+    {
+      function openExternalLinksInNewTab ()
+      {
+        var links = document.querySelectorAll( 'a[href]' );
+        for ( var i = 0; i < links.length; i++ )
+        {
+          var a = links[ i ];
+          var href = a.getAttribute( 'href' );
+          if ( !href || href.charAt( 0 ) === '#' || href.indexOf( 'javascript:' ) === 0 ) continue;
           var isInternal = (
-            href.charAt(0) === '/' ||
-            href.indexOf('./') === 0 ||
-            href.indexOf('../') === 0 ||
+            href.charAt( 0 ) === '/' ||
+            href.indexOf( './' ) === 0 ||
+            href.indexOf( '../' ) === 0 ||
             a.hostname === window.location.hostname
           );
-          if (!isInternal) {
-            a.setAttribute('target', '_blank');
-            a.setAttribute('rel', 'noopener noreferrer');
+          if ( !isInternal )
+          {
+            a.setAttribute( 'target', '_blank' );
+            a.setAttribute( 'rel', 'noopener noreferrer' );
           }
         }
       }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', openExternalLinksInNewTab);
-      } else {
+      if ( document.readyState === 'loading' )
+      {
+        document.addEventListener( 'DOMContentLoaded', openExternalLinksInNewTab );
+      } else
+      {
         openExternalLinksInNewTab();
       }
-      document.addEventListener('click', function (e) {
-        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-        if (!a) return;
-        var href = a.getAttribute('href');
-        if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+      document.addEventListener( 'click', function ( e )
+      {
+        var a = e.target && e.target.closest ? e.target.closest( 'a[href]' ) : null;
+        if ( !a ) return;
+        var href = a.getAttribute( 'href' );
+        if ( !href || href.charAt( 0 ) === '#' || href.indexOf( 'javascript:' ) === 0 ) return;
         var isInternal = (
-          href.charAt(0) === '/' ||
-          href.indexOf('./') === 0 ||
-          href.indexOf('../') === 0 ||
+          href.charAt( 0 ) === '/' ||
+          href.indexOf( './' ) === 0 ||
+          href.indexOf( '../' ) === 0 ||
           a.hostname === window.location.hostname
         );
-        if (!isInternal) {
-          a.setAttribute('target', '_blank');
-          a.setAttribute('rel', 'noopener noreferrer');
+        if ( !isInternal )
+        {
+          a.setAttribute( 'target', '_blank' );
+          a.setAttribute( 'rel', 'noopener noreferrer' );
         }
-      });
-    })();
+      } );
+    } )();
   </script>
 </body>
 

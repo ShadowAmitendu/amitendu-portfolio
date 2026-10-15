@@ -41,7 +41,14 @@ aboutTab: games
         <p class="text-xs text-[#556b78] mt-0.5">{{ game.publisher }}</p>
         {% endif %}
         <p class="mt-1 text-xs text-[#71828b]">
-          {% if game.status %}<strong>[{{ game.status }}]</strong>{% endif %}
+          {% if game.playingRightNow or game.playingNow or game.status == "Playing right now" %}
+          <strong class="text-[#164b70]">[Playing right now]</strong>
+          {% elif game.status %}
+          <strong>[{{ game.status }}]</strong>
+          {% endif %}
+          {% if game.tags and game.tags.length > 0 %}
+          <span class="ml-1 text-[11px] text-[#556b78]">· {{ game.tags | join(', ') }}</span>
+          {% endif %}
         </p>
         {% if game.description %}
         <p class="mt-1 text-xs text-[#26343d]">{{ game.description }}</p>

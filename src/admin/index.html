@@ -2019,13 +2019,29 @@
 													game.publisher,
 												)
 											: null,
-										game.status
+										game.playingRightNow || game.status === "Playing right now"
 											? h(
 													"p",
 													{ className: "mt-1 text-xs text-[#71828b]" },
-													h("strong", null, "[" + game.status + "]"),
+													h(
+														"strong",
+														{ className: "text-[#164b70]" },
+														"[Playing right now]",
+													),
+													game.tags && game.tags.length
+														? " · " + (Array.isArray(game.tags) ? game.tags.join(", ") : game.tags)
+														: null,
 												)
-											: null,
+											: game.status
+												? h(
+														"p",
+														{ className: "mt-1 text-xs text-[#71828b]" },
+														h("strong", null, "[" + game.status + "]"),
+														game.tags && game.tags.length
+															? " · " + (Array.isArray(game.tags) ? game.tags.join(", ") : game.tags)
+															: null,
+													)
+												: null,
 										game.description
 											? h(
 													"p",

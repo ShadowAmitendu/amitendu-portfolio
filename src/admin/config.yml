@@ -326,9 +326,17 @@ collections:
           - label: "Games List"
             name: "items"
             widget: "list"
-            summary: "{{fields.name}} [{{fields.status}}]"
+            summary: "{{fields.name}} [{{fields.status}}] {{#fields.playingRightNow}}★ Playing Right Now{{/fields.playingRightNow}}"
             fields:
               - { label: "Game Name", name: "name", widget: "string" }
+              - {
+                  label: "Playing Right Now (Feature on Home & Sidebar)",
+                  name: "playingRightNow",
+                  widget: "boolean",
+                  default: false,
+                  required: false,
+                  hint: "Enable to feature this game in the 'Games I play' card on the Home page and Sidebar.",
+                }
               - {
                   label: "Cover / Box Art Image",
                   name: "image",
@@ -348,7 +356,7 @@ collections:
                   name: "publisher",
                   widget: "string",
                   required: false,
-                  hint: "e.g. Nintendo, FromSoftware, Valve, Sony, etc.",
+                  hint: "e.g. HoYoverse, Nintendo, FromSoftware, Valve, Sony, etc.",
                 }
               - {
                   label: "Platform (e.g. PC, Switch, PS5, Steam Deck)",
@@ -360,12 +368,20 @@ collections:
                 name: "status"
                 widget: "select"
                 options:
+                  - { label: "Playing right now", value: "Playing right now" }
                   - { label: "Currently Playing", value: "Currently Playing" }
                   - { label: "Completed", value: "Completed" }
                   - { label: "Plan to Play / Backlog", value: "Backlog" }
                   - { label: "On Hold", value: "On Hold" }
                   - { label: "Dropped", value: "Dropped" }
-                default: "Currently Playing"
+                default: "Playing right now"
+              - {
+                  label: "Tags",
+                  name: "tags",
+                  widget: "list",
+                  required: false,
+                  hint: "Add tags, e.g. 'Playing right now', 'RPG', 'Gacha', 'PC', etc.",
+                }
               - {
                   label: "Description / Notes",
                   name: "description",

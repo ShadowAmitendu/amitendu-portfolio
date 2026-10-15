@@ -5,7 +5,11 @@
   "intro": "Video games I play, love, or am currently exploring.",
   "items": [
     {
-      "status": "Currently Playing",
+      "playingRightNow": true,
+      "status": "Playing right now",
+      "tags": [
+        "Playing right now"
+      ],
       "name": "Genshin Impact",
       "platform": "PC",
       "icon": "/images/macos-gi.webp",
@@ -13,7 +17,9 @@
       "link": "https://hoyoplay.hoyoverse.com/"
     },
     {
+      "playingRightNow": false,
       "status": "Currently Playing",
+      "tags": [],
       "name": "Honkai: Star Rail",
       "icon": "/images/macos-hsr.webp",
       "platform": "PC",

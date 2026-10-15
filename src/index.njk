@@ -12,8 +12,7 @@ title: Home
   </p>
 </div>
 
-<h2 id="about"
-  class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
+<h2 id="about" class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
   {{ h.aboutTitle or aboutTitle }}</h2>
 <div class="mt-3 flex items-start gap-4">
   <p class="flex-1">{{ h.about or about }}</p>
@@ -36,56 +35,13 @@ title: Home
     {{ item.value }}</p>{% endfor %}
 </div>
 
-{# Currently Reading #}
-{% set homeBook = null %}
-{% for b in (books.items or shelf.books) %}
-  {% if (b.status == "currently-reading" or b.status == "reading") and not homeBook %}
-    {% set homeBook = b %}
-  {% endif %}
-{% endfor %}
-{% if not homeBook and (books.items and books.items.length > 0) %}
-  {% set homeBook = books.items[0] %}
-{% endif %}
-{% if homeBook %}
-<h2 class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
-  Currently Reading
-</h2>
-<div class="mt-3 border border-[#b7cbd6] bg-[#f4f8fa] p-3 text-sm flex items-start gap-3">
-  {% if homeBook.image %}
-  <img class="h-20 w-14 shrink-0 object-cover border border-[#7892a3]" src="{{ homeBook.image }}" alt="{{ homeBook.title }}" />
-  {% endif %}
-  <div class="min-w-0 flex-1">
-    <p>
-      <span class="font-bold text-[#164b70]">
-        {% if homeBook.link %}
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ homeBook.link }}" target="_blank" rel="noopener noreferrer">{{ homeBook.title }}</a>
-        {% else %}
-        {{ homeBook.title }}
-        {% endif %}
-      </span>
-      {% if homeBook.author %}<span class="text-[#556b78]">by {{ homeBook.author }}</span>{% endif %}
-      {% if homeBook.year %}<span class="text-[#71828b]">({{ homeBook.year }})</span>{% endif %}
-    </p>
-    {% if homeBook.progress %}
-    <p class="mt-1 text-xs text-[#556b78]"><span class="font-bold text-[#164b70]">Progress:</span> {{ homeBook.progress }}</p>
-    {% endif %}
-    {% if homeBook.review %}
-    <p class="mt-1 text-xs text-[#26343d] italic">"{{ homeBook.review }}"</p>
-    {% endif %}
-    <p class="mt-2 text-xs">
-      <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/books/">view full bookshelf &raquo;</a>
-    </p>
-  </div>
-</div>
-{% endif %}
-
 <h2 class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
   Quick links</h2>
 <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2">
   {% for link in (h.links or links) %}
   {% set linkIcon = link.url | resolveIcon(link.label, link.icon) %}
-  <a class="flex items-center gap-1.5 text-[#064f83] underline hover:text-[#c0392b]"
-    href="{{ link.url }}" {% if link.url and link.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
+  <a class="flex items-center gap-1.5 text-[#064f83] underline hover:text-[#c0392b]" href="{{ link.url }}"
+    {% if link.url and link.url.startsWith('http') %}target="_blank" rel="noopener noreferrer" {% endif %}>
     <img class="site-macos-icon h-4 w-4 shrink-0 rounded-[3.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]"
       src="/assets/icons/macos-{{ linkIcon }}.png" alt="" width="16" height="16" />
     <span>{{ link.label }}</span>
@@ -153,16 +109,25 @@ title: Home
 {# Side-by-Side: Ongoing Games & Currently Reading Book #}
 {% set ongoingGame = null %}
 {% for g in (games.items or []) %}
-  {% if not ongoingGame and (g.status == "Currently Playing" or g.status == "currently-playing" or g.status == "playing" or g.status == "Ongoing") %}
-    {% set ongoingGame = g %}
-  {% endif %}
+{% if not ongoingGame %}
+{% if g.playingRightNow or g.playingNow or g.status == "Playing right now" or (g.tags and ("Playing right now" in g.tags or "playing right now" in g.tags)) %}
+{% set ongoingGame = g %}
+{% endif %}
+{% endif %}
 {% endfor %}
+{% if not ongoingGame %}
+{% for g in (games.items or []) %}
+{% if not ongoingGame and (g.status == "Currently Playing" or g.status == "currently-playing" or g.status == "Ongoing") %}
+{% set ongoingGame = g %}
+{% endif %}
+{% endfor %}
+{% endif %}
 
 {% set ongoingBook = null %}
 {% for b in (books.items or []) %}
-  {% if not ongoingBook and (b.status == "currently-reading" or b.status == "reading" or b.status == "Currently Reading") %}
-    {% set ongoingBook = b %}
-  {% endif %}
+{% if not ongoingBook and (b.status == "currently-reading" or b.status == "reading" or b.status == "Currently Reading") %}
+{% set ongoingBook = b %}
+{% endif %}
 {% endfor %}
 
 <div class="mt-6 flex items-baseline justify-between border-b border-[#b7cbd6] pb-1">
@@ -176,82 +141,80 @@ title: Home
   </div>
 </div>
 
-<div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+<div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
   {# Side 1: Games I play #}
   <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
-    <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
+    <div
+      class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
       <span>Games I play</span>
       {% if ongoingGame %}<span class="text-[10px] text-[#556b78] font-normal">[Ongoing]</span>{% endif %}
     </div>
 
     {% if ongoingGame %}
     {% set gameImg = ongoingGame.image or ongoingGame.icon %}
-    <div class="p-3.5 text-center flex flex-col items-center flex-1">
-      <div class="my-1.5 flex justify-center">
+    <div class="p-2.5 text-center flex flex-col items-center flex-1">
+      <a class="my-1 block hover:opacity-90" href="/about/games/" title="{{ ongoingGame.name }} - view on games page">
         {% if gameImg %}
-        <img class="h-36 max-h-36 w-auto max-w-full object-contain border border-[#7892a3] bg-white p-1 shadow-[0_1px_3px_rgba(0,0,0,0.15)]"
+        <img
+          class="h-20 w-20 sm:h-24 sm:w-24 object-contain border border-[#7892a3] bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.12)]"
           src="{{ gameImg }}" alt="{{ ongoingGame.name }}" />
         {% else %}
-        <div class="h-32 w-24 border border-[#7892a3] bg-[#dce9ef] flex flex-col items-center justify-center text-[#164b70] shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
-          <span class="text-xs font-bold">GAME</span>
+        <div
+          class="h-16 w-16 border border-[#7892a3] bg-[#dce9ef] flex flex-col items-center justify-center text-[#164b70]">
+          <span class="text-[10px] font-bold">GAME</span>
         </div>
         {% endif %}
-      </div>
-      <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-snug">
-        {% if ongoingGame.link %}
-        <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ ongoingGame.link }}" target="_blank" rel="noopener noreferrer">{{ ongoingGame.name }}</a>
-        {% else %}
-        {{ ongoingGame.name }}
-        {% endif %}
+      </a>
+      <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase">
+        <a class="text-[#164b70] underline hover:text-[#c0392b]" href="/about/games/">{{ ongoingGame.name }}</a>
       </h3>
-      <p class="text-xs text-[#556b78] mt-0.5">
-        {{ ongoingGame.publisher or ongoingGame.platform or "Independent" }}
+      <p class="text-[11px] text-[#556b78] mt-0.5">
+        {{ ongoingGame.platform or ongoingGame.publisher or "PC" }}
       </p>
     </div>
     {% else %}
-    <div class="p-6 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[160px]">
+    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[110px]">
       <p class="font-bold text-[#556b78]">Nothing to show</p>
-      <p class="text-[11px] text-[#8aa2af] mt-1">No ongoing game added yet.</p>
+      <p class="text-[11px] text-[#8aa2af] mt-0.5">No ongoing game added yet.</p>
     </div>
     {% endif %}
   </article>
 
   {# Side 2: Book I am reading #}
   <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
-    <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
+    <div
+      class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
       <span>Book I am reading</span>
       {% if ongoingBook %}<span class="text-[10px] text-[#556b78] font-normal">[Reading]</span>{% endif %}
     </div>
 
     {% if ongoingBook %}
-    <div class="p-3.5 text-center flex flex-col items-center flex-1">
-      <div class="my-1.5 flex justify-center">
+    <div class="p-2.5 text-center flex flex-col items-center flex-1">
+      <a class="my-1 block hover:opacity-90" href="/about/books/" title="{{ ongoingBook.title }} - view on bookshelf">
         {% if ongoingBook.image %}
-        <img class="h-36 max-h-36 w-auto max-w-full object-contain border border-[#7892a3] bg-white p-1 shadow-[0_1px_3px_rgba(0,0,0,0.15)]"
+        <img
+          class="h-24 w-16 sm:h-28 sm:w-20 object-contain border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]"
           src="{{ ongoingBook.image }}" alt="{{ ongoingBook.title }}" />
         {% else %}
-        <div class="h-32 w-24 border border-[#7892a3] bg-[#dce9ef] flex flex-col items-center justify-center text-[#164b70] shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
-          <span class="text-xs font-bold">BOOK</span>
+        <div
+          class="h-20 w-14 border border-[#7892a3] bg-[#dce9ef] flex flex-col items-center justify-center text-[#164b70]">
+          <span class="text-[10px] font-bold">BOOK</span>
         </div>
         {% endif %}
-      </div>
-      <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-snug">
-        {% if ongoingBook.link %}
-        <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ ongoingBook.link }}" target="_blank" rel="noopener noreferrer">{{ ongoingBook.title }}</a>
-        {% else %}
-        {{ ongoingBook.title }}
-        {% endif %}
+      </a>
+      <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase">
+        <a class="text-[#164b70] underline hover:text-[#c0392b]" href="/about/books/">{{ ongoingBook.title }}</a>
       </h3>
       {% if ongoingBook.author %}
-      <p class="text-xs text-[#556b78] mt-0.5">
+      <p class="text-[11px] text-[#556b78] mt-0.5">
         by {{ ongoingBook.author }}
       </p>
       {% endif %}
     </div>
     {% else %}
-    <div class="p-6 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[160px]">
+    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[110px]">
       <p class="font-bold text-[#556b78]">Nothing to show</p>
-      <p class="text-[11px] text-[#8aa2af] mt-1">No book being read right now.</p>
+      <p class="text-[11px] text-[#8aa2af] mt-0.5">No book being read right now.</p>
     </div>
     {% endif %}
   </article>
@@ -271,20 +234,26 @@ title: Home
   <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3">
     <div class="flex items-start gap-3">
       {% if previewMovie.image %}
-      <img class="h-20 w-14 shrink-0 object-cover border border-[#7892a3]" src="{{ previewMovie.image }}" alt="{{ previewMovie.title }}" />
+      <img class="h-20 w-14 shrink-0 object-cover border border-[#7892a3]" src="{{ previewMovie.image }}"
+        alt="{{ previewMovie.title }}" />
       {% else %}
-      <div class="h-20 w-14 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+      <div
+        class="h-20 w-14 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
         CINEMA
       </div>
       {% endif %}
       <div class="min-w-0 flex-1">
-        <p class="text-xs text-[#71828b]">[Movie / Show: {% if previewMovie.status == 'currently-watching' %}Currently Watching{% elif previewMovie.status == 'watched' %}Watched{% else %}Plan to Watch{% endif %}]</p>
+        <p class="text-xs text-[#71828b]">[Movie / Show: {% if previewMovie.status == 'currently-watching' %}Currently
+          Watching{% elif previewMovie.status == 'watched' %}Watched{% else %}Plan to Watch{% endif %}]</p>
         <h3 class="font-bold text-[#164b70] text-sm mt-0.5">
           <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/movies/">{{ previewMovie.title }}</a>
         </h3>
-        {% if previewMovie.director %}<p class="text-xs text-[#556b78] mt-0.5">Directed by {{ previewMovie.director }}</p>
-        {% elif previewMovie.creator %}<p class="text-xs text-[#556b78] mt-0.5">Created by {{ previewMovie.creator }}</p>{% endif %}
-        {% if previewMovie.rating %}<p class="text-xs text-[#c0392b] font-bold mt-1">Rating: {{ previewMovie.rating }}</p>{% endif %}
+        {% if previewMovie.director %}<p class="text-xs text-[#556b78] mt-0.5">Directed by {{ previewMovie.director }}
+        </p>
+        {% elif previewMovie.creator %}<p class="text-xs text-[#556b78] mt-0.5">Created by {{ previewMovie.creator }}
+        </p>{% endif %}
+        {% if previewMovie.rating %}<p class="text-xs text-[#c0392b] font-bold mt-1">Rating: {{ previewMovie.rating }}
+        </p>{% endif %}
       </div>
     </div>
   </article>
@@ -305,11 +274,13 @@ title: Home
     {% for s in homeSoftware.slice(0, 4) %}
     <li class="flex items-center gap-2 text-xs">
       {% if s.icon %}
-      <img class="h-5 w-5 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5" src="{{ s.icon }}" alt="{{ s.name }}" width="20" height="20" />
+      <img class="h-5 w-5 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5" src="{{ s.icon }}"
+        alt="{{ s.name }}" width="20" height="20" />
       {% endif %}
       <span class="font-bold text-[#164b70]">
         {% if s.link %}
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ s.link }}" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ s.link }}" target="_blank"
+          rel="noopener noreferrer">{{ s.name }}</a>
         {% else %}
         {{ s.name }}
         {% endif %}
@@ -331,10 +302,12 @@ title: Home
 <div class="mt-3 w-full max-w-full overflow-x-auto border border-[#b7cbd6] bg-[#f4f8fa] p-3">
   <div class="mb-2 flex items-center justify-between text-xs text-[#556b78]">
     <span class="font-bold text-[#164b70]">@ShadowAmitendu on GitHub</span>
-    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="https://github.com/ShadowAmitendu" target="_blank" rel="noopener noreferrer">View Profile</a>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="https://github.com/ShadowAmitendu" target="_blank"
+      rel="noopener noreferrer">View Profile</a>
   </div>
   <a class="block min-w-0" href="https://github.com/ShadowAmitendu" target="_blank" rel="noopener noreferrer">
-    <img class="block max-w-none" style="min-width: 640px; width: 640px;" src="https://ghchart.rshah.org/ShadowAmitendu" alt="ShadowAmitendu's GitHub Contributions Calendar" loading="lazy" />
+    <img class="block max-w-none" style="min-width: 640px; width: 640px;" src="https://ghchart.rshah.org/ShadowAmitendu"
+      alt="ShadowAmitendu's GitHub Contributions Calendar" loading="lazy" />
   </a>
 </div>
 
@@ -349,7 +322,8 @@ title: Home
   {% endfor %}
   {% for project in collections.portfolio %}
   {% if loop.index <= 2 %}<li><span class="text-[#71828b]">{{ project.data.date | shortDate }}</span> — Added project:
-    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ project.url }}">{{ project.data.title }}</a></li>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ project.url }}">{{ project.data.title }}</a>
+  </li>
   {% endif %}
   {% endfor %}
 </ul>
