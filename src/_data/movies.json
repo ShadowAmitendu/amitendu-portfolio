@@ -17,14 +17,15 @@
   ],
   "shows": [
     {
+      "creator": "Marvel Studios",
+      "progress": "Season 1 & 2",
       "status": "watched",
       "title": "Loki ",
-      "creator": "Marvel Studios",
-      "rating": "5/5",
-      "link": "https://www.imdb.com/title/tt9140554/",
       "review": "Character Development is Insane in my opinion, from a Villan to Glorious Purpose!",
+      "link": "https://www.imdb.com/title/tt9140554/",
+      "image": "/images/mv5byza2yjm2zwqtytzhms00oti3ltlhyzqtzjbizwzkmddlnja5xkeyxkfqcgc-._v1_fmjpg_ux864_.webp",
       "year": "2021-2023",
-      "progress": "Season 1 & 2"
+      "rating": "5/5"
     }
   ]
 }
