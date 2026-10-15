@@ -564,14 +564,49 @@ body {
 }
 
 .site-entry-body a,
-.site-content a:not(.site-card-link) {
+.site-content a:not(.site-card-link):not(.site-subnav-link) {
 	color: #064f83;
 	text-decoration: underline;
 }
 
 .site-entry-body a:hover,
-.site-content a:not(.site-card-link):hover {
+.site-content a:not(.site-card-link):not(.site-subnav-link):hover {
 	color: #c0392b;
+}
+
+/* In-Page Subnav (e.g. About tabs) */
+.site-subnav {
+	border: 1px solid #b7cbd6;
+	background: linear-gradient(to bottom, #f8fbfc 0%, #dce8ee 100%);
+	box-shadow: inset 0 1px 0 #ffffff;
+}
+
+.site-subnav-link {
+	color: #064f83 !important;
+	text-decoration: underline !important;
+}
+
+.site-subnav-link:hover,
+.site-subnav-link:focus-visible {
+	color: #c0392b !important;
+	background-color: #dce9f0;
+	text-decoration: underline !important;
+}
+
+.site-subnav-link.active,
+.site-subnav-link.is-active {
+	background: #164b70 !important;
+	color: #ffffff !important;
+	font-weight: 700 !important;
+	text-decoration: none !important;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.site-subnav-link.active:hover,
+.site-subnav-link.is-active:hover {
+	color: #ffffff !important;
+	background: #123d5c !important;
+	text-decoration: none !important;
 }
 
 /* IntenseDebate Comments Container & Links */

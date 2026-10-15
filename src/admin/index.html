@@ -1334,13 +1334,81 @@
 			});
 			CMS.registerPreviewTemplate("home", HomePreview);
 
-			// 6. Custom About Page Preview in Full Site Shell
-			var AboutPreview = createClass({
+			// Helper to render main content without extra site shell noise
+			function renderMainContentContainer(contentChildren) {
+				return h(
+					"div",
+					{
+						className:
+							"site-content px-5 py-6 text-sm leading-6 font-['Barlow_Condensed',sans-serif] text-[#222]",
+						style: {
+							maxWidth: "760px",
+							margin: "1rem auto",
+							border: "1px solid #b7cbd6",
+							background: "#ffffff",
+							boxShadow: "2px 2px 0 #cad6de",
+						},
+					},
+					contentChildren,
+				);
+			}
+
+			// In-page subnav helper for previews
+			function renderInPageSubnav(activeTab) {
+				var tabs = [
+					{ key: "me", label: "me" },
+					{ key: "books", label: "books" },
+					{ key: "movies", label: "movies" },
+					{ key: "games", label: "games" },
+				];
+				var children = [];
+				tabs.forEach(function (tab, idx) {
+					if (idx > 0) {
+						children.push(
+							h(
+								"span",
+								{
+									key: "sep-" + idx,
+									className: "text-[#8aa2af] shrink-0 select-none",
+								},
+								"|",
+							),
+						);
+					}
+					var isActive = activeTab === tab.key;
+					children.push(
+						h(
+							"span",
+							{
+								key: tab.key,
+								className:
+									"site-subnav-link shrink-0 px-2.5 py-0.5 " +
+									(isActive ? "active font-bold" : ""),
+							},
+							tab.label,
+						),
+					);
+				});
+				return h(
+					"nav",
+					{
+						className: "site-subnav mb-4 border border-[#b7cbd6] px-2 py-1 text-xs",
+					},
+					h(
+						"div",
+						{
+							className:
+								"site-subnav-links flex flex-nowrap items-center justify-center gap-1 sm:gap-1.5 px-1 py-0.5 text-[12px] sm:text-[13px] overflow-x-auto whitespace-nowrap",
+						},
+						children,
+					),
+				);
+			}
+
+			// 6. Custom About Page Previews (Main Content Only)
+			var AboutMePreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
-					var title = entry.getIn(["data", "title"]) || "About";
-					var headerTagline =
-						entry.getIn(["data", "headerTagline"]) || "ABOUT THIS PERSON";
 					var heading = entry.getIn(["data", "heading"]) || "About me";
 					var intro = entry.getIn(["data", "intro"]) || "";
 					var rawProfileImage = entry.getIn(["data", "profileImage"]);
@@ -1357,6 +1425,7 @@
 					var aboutContent = h(
 						"div",
 						null,
+						renderInPageSubnav("me"),
 						h(
 							"h2",
 							{
@@ -1398,26 +1467,474 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"a",
-								{
-									className: "text-[#064f83] underline hover:text-[#c0392b]",
-									href: "/",
-								},
+								"span",
+								{ className: "text-[#064f83] underline" },
 								"← back to home",
 							),
 						),
 					);
 
-					return renderFullSiteShell(
-						headerTagline,
-						title,
-						aboutContent,
-						"about",
-						[{ label: "about" }],
-					);
+					return renderMainContentContainer(aboutContent);
 				},
 			});
-			CMS.registerPreviewTemplate("about-page", AboutPreview);
+
+			var AboutBooksPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading = entry.getIn(["data", "heading"]) || "Bookshelf";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawItems = entry.getIn(["data", "items"]);
+					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var itemsListElements;
+					if (!items || items.length === 0) {
+						itemsListElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No books added yet. Books added via this form will appear here.",
+						);
+					} else {
+						itemsListElements = items.map(function (book, idx) {
+							var coverSrc = null;
+							if (book.image) {
+								var asset = getAsset(book.image);
+								coverSrc = asset ? asset.toString() : book.image;
+							}
+							var statusLabel = "[Want to Read]";
+							if (book.status === "currently-reading") {
+								statusLabel = "[Currently Reading]";
+							} else if (book.status === "read") {
+								statusLabel = "[Read]";
+							}
+
+							return h(
+								"article",
+								{
+									key: idx,
+									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-start gap-3" },
+									coverSrc
+										? h("img", {
+												className:
+													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
+												src: coverSrc,
+												alt: book.title || "",
+											})
+										: h(
+												"div",
+												{
+													className:
+														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
+												},
+												"BOOK",
+											),
+									h(
+										"div",
+										{ className: "min-w-0 flex-1" },
+										h(
+											"h3",
+											{ className: "font-bold text-[#164b70]" },
+											book.title || "Untitled Book",
+											book.author
+												? h(
+														"span",
+														{
+															className:
+																"font-normal text-xs text-[#556b78] ml-1.5",
+														},
+														"by " + book.author,
+													)
+												: null,
+										),
+										h(
+											"p",
+											{ className: "mt-1 text-xs text-[#71828b]" },
+											h("strong", null, statusLabel),
+											book.progress ? " · " + book.progress : null,
+											book.rating ? " · Rating: " + book.rating : null,
+											book.year ? " · " + book.year : null,
+										),
+										book.review
+											? h(
+													"p",
+													{
+														className:
+															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
+													},
+													'"' + book.review + '"',
+												)
+											: null,
+										book.link
+											? h(
+													"p",
+													{ className: "mt-2 text-xs" },
+													h(
+														"span",
+														{ className: "text-[#064f83] underline" },
+														"details »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var booksContent = h(
+						"div",
+						null,
+						renderInPageSubnav("books"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+								)
+							: null,
+						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(booksContent);
+				},
+			});
+
+			var AboutMoviesPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading = entry.getIn(["data", "heading"]) || "Cinema & Shows";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawItems = entry.getIn(["data", "items"]);
+					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var itemsListElements;
+					if (!items || items.length === 0) {
+						itemsListElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No movies or shows added yet. Movies added via this form will appear here.",
+						);
+					} else {
+						itemsListElements = items.map(function (movie, idx) {
+							var posterSrc = null;
+							if (movie.image) {
+								var asset = getAsset(movie.image);
+								posterSrc = asset ? asset.toString() : movie.image;
+							}
+							var statusLabel = "[Plan to Watch]";
+							if (movie.status === "currently-watching") {
+								statusLabel = "[Watching]";
+							} else if (movie.status === "watched") {
+								statusLabel = "[Watched]";
+							}
+
+							return h(
+								"article",
+								{
+									key: idx,
+									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-start gap-3" },
+									posterSrc
+										? h("img", {
+												className:
+													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
+												src: posterSrc,
+												alt: movie.title || "",
+											})
+										: h(
+												"div",
+												{
+													className:
+														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
+												},
+												"CINEMA",
+											),
+									h(
+										"div",
+										{ className: "min-w-0 flex-1" },
+										h(
+											"h3",
+											{ className: "font-bold text-[#164b70]" },
+											movie.title || "Untitled Title",
+											movie.director
+												? h(
+														"span",
+														{
+															className:
+																"font-normal text-xs text-[#556b78] ml-1.5",
+														},
+														"(" + movie.director + ")",
+													)
+												: null,
+										),
+										h(
+											"p",
+											{ className: "mt-1 text-xs text-[#71828b]" },
+											movie.type
+												? h(
+														"strong",
+														{ className: "mr-1" },
+														"[" + movie.type + "]",
+													)
+												: null,
+											h("strong", null, statusLabel),
+											movie.progress ? " · " + movie.progress : null,
+											movie.rating ? " · Rating: " + movie.rating : null,
+											movie.year ? " · " + movie.year : null,
+										),
+										movie.review
+											? h(
+													"p",
+													{
+														className:
+															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
+													},
+													'"' + movie.review + '"',
+												)
+											: null,
+										movie.link
+											? h(
+													"p",
+													{ className: "mt-2 text-xs" },
+													h(
+														"span",
+														{ className: "text-[#064f83] underline" },
+														"details »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var moviesContent = h(
+						"div",
+						null,
+						renderInPageSubnav("movies"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+								)
+							: null,
+						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(moviesContent);
+				},
+			});
+
+			var AboutGamesPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading = entry.getIn(["data", "heading"]) || "Games & Software";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawItems = entry.getIn(["data", "items"]);
+					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var itemsListElements;
+					if (!items || items.length === 0) {
+						itemsListElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No games added yet. Games added via this form will appear here.",
+						);
+					} else {
+						itemsListElements = items.map(function (game, idx) {
+							var iconSrc = null;
+							if (game.icon) {
+								var asset = getAsset(game.icon);
+								iconSrc = asset ? asset.toString() : game.icon;
+							}
+
+							return h(
+								"article",
+								{
+									key: idx,
+									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-start gap-3" },
+									iconSrc
+										? h("img", {
+												className:
+													"h-10 w-10 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5",
+												src: iconSrc,
+												alt: game.name || "",
+											})
+										: h(
+												"div",
+												{
+													className:
+														"h-10 w-10 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]",
+												},
+												"GAME",
+											),
+									h(
+										"div",
+										{ className: "min-w-0 flex-1" },
+										h(
+											"h3",
+											{ className: "font-bold text-[#164b70]" },
+											game.name || "Untitled Game",
+											game.platform
+												? h(
+														"span",
+														{
+															className:
+																"font-normal text-xs text-[#556b78] ml-1.5",
+														},
+														"(" + game.platform + ")",
+													)
+												: null,
+										),
+										game.status
+											? h(
+													"p",
+													{ className: "mt-1 text-xs text-[#71828b]" },
+													h("strong", null, "[" + game.status + "]"),
+												)
+											: null,
+										game.description
+											? h(
+													"p",
+													{ className: "mt-1 text-xs text-[#26343d]" },
+													game.description,
+												)
+											: null,
+										game.link
+											? h(
+													"p",
+													{ className: "mt-1.5 text-xs" },
+													h(
+														"span",
+														{ className: "text-[#064f83] underline" },
+														"official link »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var gamesContent = h(
+						"div",
+						null,
+						renderInPageSubnav("games"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+								)
+							: null,
+						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(gamesContent);
+				},
+			});
+
+			var AboutSectionRouter = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var file = entry.get("file") || "";
+					var slug = entry.get("slug") || "";
+
+					if (file.indexOf("books.json") !== -1 || slug === "about-books") {
+						return h(AboutBooksPreview, this.props);
+					}
+					if (file.indexOf("movies.json") !== -1 || slug === "about-movies") {
+						return h(AboutMoviesPreview, this.props);
+					}
+					if (file.indexOf("games.json") !== -1 || slug === "about-games") {
+						return h(AboutGamesPreview, this.props);
+					}
+					return h(AboutMePreview, this.props);
+				},
+			});
+
+			CMS.registerPreviewTemplate("about-section", AboutSectionRouter);
+			CMS.registerPreviewTemplate("about-me", AboutMePreview);
+			CMS.registerPreviewTemplate("about-books", AboutBooksPreview);
+			CMS.registerPreviewTemplate("about-movies", AboutMoviesPreview);
+			CMS.registerPreviewTemplate("about-games", AboutGamesPreview);
+			CMS.registerPreviewTemplate("about-page", AboutMePreview);
 
 			// 7. Custom Blog Landing Page Preview in Full Site Shell
 			var BlogPagePreview = createClass({
