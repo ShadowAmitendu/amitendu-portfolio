@@ -25,7 +25,7 @@
       {
         "label": "Peerlist",
         "url": "https://peerlist.io/amitendu",
-        "icon": null
+        "icon": "peerlist"
       },
       {
         "label": "Discord",
@@ -35,11 +35,12 @@
       {
         "label": "Figma",
         "url": "https://www.figma.com/@shadow_amitendu",
-        "icon": null
+        "icon": "figma"
       },
       {
         "url": "https://www.instagram.com/shadowamitendu/",
-        "label": "Instagram"
+        "label": "Instagram",
+        "icon": "instagram"
       },
       {
         "url": "https://dev.to/shadowamitendu",
@@ -47,7 +48,8 @@
       },
       {
         "label": "Hashnode",
-        "url": "https://hashnode.com/@amitendu"
+        "url": "https://hashnode.com/@amitendu",
+        "icon": "hashnode"
       },
       {
         "label": "MasterJi",
