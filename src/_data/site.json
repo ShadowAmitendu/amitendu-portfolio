@@ -1,19 +1,49 @@
 {
-  "title": "Amitendu Bikash Dhusiya",
-  "name": "Amitendu Bikash Dhusiya",
-  "handle": "ShadowAmitendu",
-  "description": "Personal homepage and developer portfolio of Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, web development intern, and software builder passionate about React, Java, Spring Boot, and UI/UX design.",
-  "url": "https://shadowamitendu.github.io",
-  "keywords": "Amitendu Bikash Dhusiya, ShadowAmitendu, Amitendu, Web Developer, Software Engineer, Portfolio, BCA, React, Java, Spring Boot, JavaScript, Front-End Developer, Full Stack Developer, Techno India Hooghly",
-  "twitter": "@shadow_amitendu",
-  "ogImage": "/images/shadow-amitendu.jpg",
-  "tagline": "WELCOME TO MY HOMEPAGE",
-  "email": "amitendubikashdhusiya@gmail.com",
-  "footerTitle": "Thanks for stopping by!",
-  "footer": "All rights reserved.",
+  "rightSidebar": {
+    "title": "Elsewhere",
+    "items": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/ShadowAmitendu",
+        "icon": "github"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@ShadowAmitendu",
+        "icon": "youtube"
+      },
+      {
+        "label": "X (Formerly Twitter)",
+        "url": "https://x.com/shadow_amitendu",
+        "icon": "twitter"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/amitendu/",
+        "icon": "linkedin"
+      },
+      {
+        "label": "Peerlist",
+        "url": "https://peerlist.io/amitendu",
+        "icon": ""
+      },
+      {
+        "label": "Discord",
+        "url": "https://discord.com/users/553845371131002891",
+        "icon": "discord"
+      },
+      {
+        "label": "Figma",
+        "url": "https://www.figma.com/@shadow_amitendu",
+        "icon": ""
+      }
+    ]
+  },
   "visitorCount": "you are visitor #000042",
+  "ogImage": "/images/shadow-amitendu.jpg",
+  "handle": "ShadowAmitendu",
   "footerBadge": "made with HTML, CSS & Eleventy",
-  "featuredLimit": 4,
+  "keywords": "Amitendu Bikash Dhusiya, ShadowAmitendu, Amitendu, Web Developer, Software Engineer, Portfolio, BCA, React, Java, Spring Boot, JavaScript, Front-End Developer, Full Stack Developer, Techno India Hooghly",
   "author": {
     "name": "Amitendu",
     "role": "Developer & Maker",
@@ -21,11 +51,11 @@
     "bio": "Building small things for the web.",
     "resumeUrl": "/resume/"
   },
-  "sidebar": {
-    "recentPostsTitle": "Recent Posts",
-    "recentPostsLimit": 3,
-    "favoritesTitle": "Favorites"
-  },
+  "name": "Amitendu Bikash Dhusiya",
+  "featuredLimit": 4,
+  "tagline": "WELCOME TO MY HOMEPAGE",
+  "url": "https://shadowamitendu.github.io",
+  "twitter": "@shadow_amitendu",
   "leftSidebar": {
     "title": "Navigate",
     "items": [
@@ -51,19 +81,14 @@
       }
     ]
   },
-  "rightSidebar": {
-    "title": "Elsewhere",
-    "items": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/ShadowAmitendu",
-        "icon": "github"
-      },
-      {
-        "label": "YouTube",
-        "url": "https://www.youtube.com/@ShadowAmitendu",
-        "icon": "youtube"
-      }
-    ]
-  }
+  "title": "Amitendu Bikash Dhusiya",
+  "footer": "All rights reserved.",
+  "sidebar": {
+    "recentPostsTitle": "Recent Posts",
+    "recentPostsLimit": 3,
+    "favoritesTitle": "Favorites"
+  },
+  "email": "amitendubikashdhusiya@gmail.com",
+  "description": "Personal homepage and developer portfolio of Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, web development intern, and software builder passionate about React, Java, Spring Boot, and UI/UX design.",
+  "footerTitle": "Thanks for stopping by!"
 }
