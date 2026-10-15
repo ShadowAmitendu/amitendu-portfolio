@@ -96,8 +96,9 @@ isPost: true
         {% endif %}
         {% endfor %}
       </div>
+      {% set postCommentsList = (comments and comments[page.fileSlug]) or postComments or [] %}
       <div class="flex items-center gap-2 text-[14px]">
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments ({{ postCommentsList.length }})</a>
         <span>·</span>
         <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">permalink</a>
         <span>·</span>
@@ -106,18 +107,46 @@ isPost: true
     </div>
   </footer>
 
-  {# Retro 2000s Weblog Comments & Guestbook Section (Powered by Netlify Forms, zero trackers) #}
+  {# Comments Section #}
   <section id="comments" class="site-comments mt-8 p-4">
-    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#b7cbd6] pb-1.5">
-      <h3 class="text-base font-bold text-[#164b70] flex items-center gap-1.5">
-        <span>💬</span>
-        <span>Comments & Guestbook</span>
+    <div class="border-b border-[#b7cbd6] pb-1.5 flex items-baseline justify-between gap-2">
+      <h3 class="text-base font-bold text-[#164b70]">
+        Comments ({{ postCommentsList.length }})
       </h3>
-      <span class="text-[11px] text-[#71828b] italic">100% private · no third-party trackers</span>
+      <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="#postAComment">Leave a comment »</a>
     </div>
 
-    {# Retro Post-a-Comment Form #}
-    <div class="mt-4">
+    {# Display Approved Comments #}
+    {% if postCommentsList.length > 0 %}
+    <div class="mt-4 space-y-3">
+      {% for item in postCommentsList %}
+      <div class="site-comment-item border border-[#c6d7e0] bg-white p-3 shadow-[1px_1px_0_#cad6de]">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-[#edf3f6] pb-1 text-xs">
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
+            <span class="font-bold text-[#164b70]">{{ item.name }}</span>
+          </div>
+          {% if item.date %}
+          <time class="text-[#71828b] text-[11px]">{{ item.date | shortDate }}</time>
+          {% endif %}
+        </div>
+        <div class="mt-2 text-xs leading-relaxed text-[#26343d] whitespace-pre-line">
+          {{ item.message }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="mt-3 py-2 text-xs text-[#71828b] italic">
+      No comments posted yet. Be the first to leave a comment!
+    </div>
+    {% endif %}
+
+    {# Post-a-Comment Form #}
+    <div id="postAComment" class="mt-6 pt-4 border-t border-[#b7cbd6]">
+      <h4 class="text-sm font-bold text-[#164b70] mb-3">
+        Leave a Comment
+      </h4>
       <form
         name="blog-comments"
         method="POST"
@@ -139,27 +168,27 @@ isPost: true
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label for="comment-name" class="block text-xs font-bold text-[#164b70] mb-1">
-              Name / Handle <span class="text-[#c0392b]">*</span>:
+              Name <span class="text-[#c0392b]">*</span>:
             </label>
             <input
               type="text"
               id="comment-name"
               name="name"
               required
-              placeholder="e.g. Rahul, ShadowGuest"
+              placeholder="Your name"
               class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
             />
           </div>
 
           <div>
             <label for="comment-email" class="block text-xs font-bold text-[#164b70] mb-1">
-              Email / Contact <span class="text-[10px] font-normal text-[#71828b]">(optional, never published)</span>:
+              Email <span class="text-[10px] font-normal text-[#71828b]">(optional, not shown)</span>:
             </label>
             <input
               type="text"
               id="comment-email"
               name="contact"
-              placeholder="e.g. you@example.com or @handle"
+              placeholder="your@email.com"
               class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
             />
           </div>
@@ -167,26 +196,23 @@ isPost: true
 
         <div>
           <label for="comment-message" class="block text-xs font-bold text-[#164b70] mb-1">
-            Message <span class="text-[#c0392b]">*</span>:
+            Comment <span class="text-[#c0392b]">*</span>:
           </label>
           <textarea
             id="comment-message"
             name="message"
             rows="4"
             required
-            placeholder="Leave a comment, feedback, or greeting..."
+            placeholder="Write your comment here..."
             class="w-full border border-[#7892a3] bg-white p-2.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none font-sans"
           ></textarea>
         </div>
 
-        {# Anti-Spam CAPTCHA Verification #}
-        <div class="border border-[#c6d7e0] bg-[#f4f8fa] p-3 shadow-[inset_0_1px_0_#fff]">
-          <div class="flex flex-wrap items-center justify-between gap-1 mb-1.5">
-            <label for="comment-captcha" class="block text-xs font-bold text-[#164b70]">
-              Anti-Spam Verification (CAPTCHA) <span class="text-[#c0392b]">*</span>:
-            </label>
-            <span class="text-[10px] text-[#71828b]">Math challenge to stop automated bots</span>
-          </div>
+        {# Security Code / Anti-Spam #}
+        <div class="border border-[#c6d7e0] bg-[#f4f8fa] p-2.5 shadow-[inset_0_1px_0_#fff]">
+          <label for="comment-captcha" class="block text-xs font-bold text-[#164b70] mb-1.5">
+            Security code <span class="text-[#c0392b]">*</span>:
+          </label>
 
           <div class="flex flex-wrap items-center gap-2">
             <div class="flex items-center border border-[#7892a3] bg-gradient-to-b from-[#ffffff] to-[#e4eef2] px-3 py-1 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.08)]">
@@ -200,7 +226,7 @@ isPost: true
               class="text-xs text-[#064f83] underline hover:text-[#c0392b] cursor-pointer"
               title="Generate a new question"
             >
-              ↻ Change
+              [Refresh]
             </button>
             <div class="flex items-center gap-1.5">
               <span class="text-xs font-bold text-[#556b78]">=</span>
@@ -216,34 +242,27 @@ isPost: true
             </div>
           </div>
           <p id="captchaError" class="hidden mt-1 text-[11px] font-bold text-[#c0392b]">
-            ⚠ Incorrect answer. Please enter the correct sum to prove you are human.
+            Incorrect code. Please try again.
           </p>
         </div>
 
         {# Netlify native reCAPTCHA container for server-side verification #}
         <div data-netlify-recaptcha="true"></div>
 
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-          <p class="text-[11px] text-[#71828b]">
-            🔒 Protected by CAPTCHA & Netlify. Submissions are moderated.
-          </p>
+        <div class="pt-1">
           <button
             type="submit"
             id="commentSubmitBtn"
             class="border border-[#14486d] bg-gradient-to-b from-[#2a6b98] to-[#164b70] px-4 py-1.5 text-xs font-bold text-white shadow-[1px_1px_0_#0c2e47] hover:from-[#357ea7] hover:to-[#1b5680] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
           >
-            Sign Guestbook / Post Comment »
+            Post Comment
           </button>
         </div>
 
-        {# Instant Feedback Message #}
+        {# Confirmation Message #}
         <div id="commentStatus" class="hidden mt-3 border border-[#48bb78] bg-[#f0fff4] p-3 text-xs text-[#22543d] shadow-[inset_0_1px_0_#fff]">
-          <p class="font-bold flex items-center gap-1.5 text-sm text-[#22543d]">
-            <span>✓</span>
-            <span>Thank you for signing the guestbook!</span>
-          </p>
-          <p class="mt-1 text-[11px] text-[#276749]">
-            Your comment has been submitted successfully to the guestbook log.
+          <p class="font-bold text-xs text-[#22543d]">
+            Your comment has been submitted. Thank you.
           </p>
         </div>
       </form>
@@ -316,7 +335,7 @@ isPost: true
             form.reset();
             generateCaptcha();
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Post Another Comment »';
+            submitBtn.textContent = 'Post Comment';
           })
           .catch(function() {
             form.submit();

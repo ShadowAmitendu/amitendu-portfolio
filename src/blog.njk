@@ -21,8 +21,8 @@ permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pag
       </h3>
       <p class="mt-2 text-xs text-[#71828b]">
         {{ post.data.date | shortDate }}{% if post.data.author %} · by {{ post.data.author }}{% endif %}
-        ·
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ post.url }}#comments">comments</a>
+        {% set postCommentCount = (comments and comments[post.fileSlug] and comments[post.fileSlug].length) or 0 %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ post.url }}#comments">comments ({{ postCommentCount }})</a>
       </p>
       <p class="mt-2 text-sm leading-relaxed">{{ post.data.description }}</p>
     </div>
