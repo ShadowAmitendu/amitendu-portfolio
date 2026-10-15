@@ -311,6 +311,22 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
+                  - label: "macOS Icon"
+                    name: "icon"
+                    widget: "select"
+                    required: false
+                    options:
+                      - { label: "Auto (Detect from URL/Label)", value: "" }
+                      - { label: "GitHub", value: "github" }
+                      - { label: "Apple Mail", value: "mail" }
+                      - { label: "Safari / Web", value: "safari" }
+                      - { label: "Terminal", value: "terminal" }
+                      - { label: "Finder", value: "finder" }
+                      - { label: "LinkedIn", value: "linkedin" }
+                      - { label: "Twitter / X", value: "twitter" }
+                      - { label: "Discord", value: "discord" }
+                      - { label: "YouTube", value: "youtube" }
+                      - { label: "Notes", value: "notes" }
           - {
               label: "Featured item limit",
               name: "featuredLimit",

@@ -230,29 +230,49 @@
 								{ className: "site-sidebar site-sidebar-right" },
 								h("h2", null, "Elsewhere"),
 								h(
-									"p",
-									null,
+									"div",
+									{ className: "mt-2 space-y-2" },
 									h(
-										"a",
-										{
-											className:
-												"text-[#064f83] underline hover:text-[#c0392b]",
-											href: "https://github.com/",
-										},
-										"GitHub",
+										"div",
+										null,
+										h(
+											"a",
+											{
+												className:
+													"group flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
+												href: "https://github.com/",
+											},
+											h("img", {
+												className:
+													"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)] transition-transform duration-150 group-hover:scale-110",
+												src: "/assets/icons/macos-github.png",
+												alt: "",
+												width: 20,
+												height: 20,
+											}),
+											h("span", { className: "underline" }, "GitHub"),
+										),
 									),
-								),
-								h(
-									"p",
-									null,
 									h(
-										"a",
-										{
-											className:
-												"text-[#064f83] underline hover:text-[#c0392b]",
-											href: "mailto:hello@example.com",
-										},
-										"Email",
+										"div",
+										null,
+										h(
+											"a",
+											{
+												className:
+													"group flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
+												href: "mailto:amitendubikashdhusiya@gmail.com",
+											},
+											h("img", {
+												className:
+													"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)] transition-transform duration-150 group-hover:scale-110",
+												src: "/assets/icons/macos-mail.png",
+												alt: "",
+												width: 20,
+												height: 20,
+											}),
+											h("span", { className: "underline" }, "Email"),
+										),
 									),
 								),
 							),
