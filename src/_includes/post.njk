@@ -96,7 +96,7 @@ isPost: true
         {% endif %}
         {% endfor %}
       </div>
-      {% set postCommentsList = (comments and comments[page.fileSlug]) or postComments or [] %}
+      {% set postCommentsList = (comments | getComments(page.fileSlug, page.filePathStem)) or postComments or [] %}
       <div class="flex items-center gap-2 text-[14px]">
         <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments ({{ postCommentsList.length }})</a>
         <span>·</span>

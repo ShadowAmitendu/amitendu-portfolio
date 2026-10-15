@@ -1,6 +1,7 @@
 {
-  "bootcamp-of-sap": [
+  "items": [
     {
+      "postSlug": "bootcamp-of-sap",
       "name": "Rahul",
       "date": "2026-05-28",
       "message": "This is so cool!"

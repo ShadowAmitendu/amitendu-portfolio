@@ -1056,3 +1056,32 @@ collections:
           widget: "hidden",
           default: true,
         }
+
+  - name: "comments"
+    label: "Comments"
+    files:
+      - name: "blog-comments"
+        label: "Approved Blog Comments"
+        file: "src/_data/comments.json"
+        format: "json"
+        fields:
+          - label: "Approved Comments"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} on {{fields.postSlug}} ({{fields.date}})"
+            fields:
+              - label: "Blog Post Slug"
+                name: "postSlug"
+                widget: "string"
+                hint: "The slug of the blog post (e.g. 'bootcamp-of-sap' or '2026-05-27-bootcamp-of-sap')."
+              - label: "Name"
+                name: "name"
+                widget: "string"
+              - label: "Date"
+                name: "date"
+                widget: "date"
+                format: "YYYY-MM-DD"
+              - label: "Comment Message"
+                name: "message"
+                widget: "text"
+
