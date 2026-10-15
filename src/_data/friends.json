@@ -1,16 +1,16 @@
 {
-	"title": "Friends",
-	"headerTagline": "FRIENDS & ALLIES",
-	"heading": "Friends & Web Neighbours",
-	"intro": "Friends, fellow developers, creative peers, and wonderful personal homepages around the web.",
-	"headerBanner": "/images/header-banner.jpg",
-	"items": [
-		{
-			"name": "Friend's Name",
-			"url": "https://example.com",
-			"avatar": "",
-			"relationship": "Peer / Friend",
-			"description": "Fellow developer, builder, and tech enthusiast."
-		}
-	]
+  "title": "Friends",
+  "headerTagline": "FRIENDS & ALLIES",
+  "heading": "Friends & Web Neighbours",
+  "intro": "Friends, fellow developers, creative peers, and wonderful personal homepages around the web.",
+  "headerBanner": "/images/header-banner.jpg",
+  "items": [
+    {
+      "relationship": "Best Friend",
+      "name": "Aritra Kumar aka cyphenstyne",
+      "url": "https://cyphenstyne.tech/",
+      "description": "Bro hates Theo!",
+      "avatar": "/images/20241105_133840.avif"
+    }
+  ]
 }
