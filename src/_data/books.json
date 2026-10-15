@@ -3,5 +3,16 @@
   "headerTagline": "WHAT I'M READING",
   "heading": "Bookshelf",
   "intro": "Books I am currently reading, finished, or planning to read.",
-  "items": []
+  "items": [
+    {
+      "status": "currently-reading",
+      "title": "MySQL Crash Course",
+      "author": "Rick Silva",
+      "image": "/images/71naanvgjbl._ac_uf1000-1000_ql80_.webp",
+      "rating": "5/5",
+      "year": "2026",
+      "review": "This book is really a very good approach to MySQL for Beginners",
+      "link": "https://amzn.in/d/0ds2lWF2"
+    }
+  ]
 }
