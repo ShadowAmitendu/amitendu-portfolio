@@ -3,5 +3,14 @@
   "headerTagline": "TOOLS & APPS I USE",
   "heading": "Software & Tools",
   "intro": "Software, developer tools, and everyday applications I use and recommend.",
-  "items": []
+  "items": [
+    {
+      "name": "Visual Studio code",
+      "icon": "/images/3d527a6b-776f-4e87-a651-03aaf2fc4649.webp",
+      "category": "Editor",
+      "platform": "Windows and MacOS",
+      "description": "versatile code editor",
+      "link": "https://code.visualstudio.com/"
+    }
+  ]
 }
