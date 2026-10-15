@@ -16,16 +16,11 @@ image: /images/img-20260120-wa0008.webp
 
 From August 2025 to January 2026, I attended a 6-month SAP ABAP Bootcamp at Techno India Group in Salt Lake City, West Bengal.
 
-
-
 This was my introduction to the world of SAP and enterprise software development. During the bootcamp, I learned how business applications are developed inside SAP systems and got hands-on experience with ABAP programming.
 
 ## What I Learned
 
-
-
-
-![A view of the room we were sitting in!](/images/20260115_095553.heic "A view of the room we were sitting in!")
+![A view of the room we were sitting in!](/images/20260115_095553.webp "A view of the room we were sitting in!")
 
 I started with the fundamentals of ABAP (Advanced Business Application Programming), including:
 
@@ -40,7 +35,7 @@ Alongside programming, I was introduced to SAP HANA and basic database concepts,
 
 ## Skills I Built
 
-![Some code we were writing!](/images/20260115_113008.heic "Some code we were writing!")
+![Some code we were writing!](/images/20260115_113008.webp "Some code we were writing!")
 
 * ABAP Programming
 * Object-Oriented ABAP (OOABAP)
