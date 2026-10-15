@@ -4,7 +4,7 @@ tags:
   - post
   - fav
 title: First Year Runner Up
-headerTagline: BLOG POST
+headerTagline: STORY TIME
 description: Secured Runner-Up position in the Single Coding Competition at
   Spark Quest 3.0. A competitive programming experience focused on
   problem-solving, logical thinking, and coding under time constraints.
