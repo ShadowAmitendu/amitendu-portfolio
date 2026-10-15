@@ -294,44 +294,6 @@
           {% endif %}
         </p>
         {% endfor %}
-        <div class="mt-5 border-t border-[#b7cbd6] pt-3 text-center">
-          <h2 class="text-left">Visitors</h2>
-          <div class="mt-2 flex flex-col items-center justify-center min-h-[30px] overflow-hidden">
-            <span id="adblock-notice" style="display: none;" class="text-xs font-bold text-[#c0392b]">Please Turn off your browser ad-blocker</span>
-            <div id="visitor-counter-box" class="flex flex-col items-center justify-center">
-              <script>
-                function handleAdBlock() {
-                  var notice = document.getElementById('adblock-notice');
-                  var box = document.getElementById('visitor-counter-box');
-                  if (notice) notice.style.display = 'inline-block';
-                  if (box) box.style.display = 'none';
-                }
-              </script>
-              <script type='text/javascript'
-                src='https://www.freevisitorcounters.com/auth.php?id=6c686d026fc4d2924a3282e7be0e6fe32bd5922c' onerror="handleAdBlock()"></script>
-              <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1668210/t/0" onerror="handleAdBlock()"></script>
-            </div>
-          </div>
-        </div>
-        <script>
-          (function() {
-            function verifyCounter() {
-              var img = document.querySelector('img.counterimg') || document.querySelector('img[src*="freevisitorcounters.com"]');
-              if (!img) {
-                handleAdBlock();
-              } else if (img.complete && (img.naturalWidth === 0 || img.offsetHeight === 0)) {
-                handleAdBlock();
-              } else {
-                img.addEventListener('error', handleAdBlock);
-              }
-            }
-            if (document.readyState === 'complete') {
-              setTimeout(verifyCounter, 700);
-            } else {
-              window.addEventListener('load', function() { setTimeout(verifyCounter, 700); });
-            }
-          })();
-        </script>
       </aside>
       <section class="site-content px-5 py-6 text-sm leading-6">
         {% if draft and not isPost %}
