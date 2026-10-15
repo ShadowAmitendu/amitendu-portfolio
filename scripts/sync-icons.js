@@ -105,7 +105,7 @@ export function syncConfigIcons() {
 	}
 
 	const iconOptionsRegex =
-		/(name:\s*["']icon["'][\s\S]*?options:\s*\n)(?:\s+-\s*\{[^\n]+\}\n?)+/;
+		/(-\s*label:\s*["']Website Icon["'][\s\S]*?options:\s*\n)(?:\s+-\s*\{[^\n]+\}\n?)+/;
 	if (iconOptionsRegex.test(content)) {
 		const updated = content.replace(
 			iconOptionsRegex,

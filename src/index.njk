@@ -151,7 +151,7 @@ title: Home
 </div>
 
 {% set homeBooks = books.items or shelf.books %}
-{% set homeMovies = movies.items or shelf.movies %}
+{% set homeMovies = movies.movies or movies.items or movies.shows or shelf.movies %}
 {% if (homeBooks and homeBooks.length > 0) or (homeMovies and homeMovies.length > 0) %}
 <div class="mt-6 flex items-baseline justify-between border-b border-[#b7cbd6] pb-1">
   <h2 class="text-lg font-bold text-[#164b70]">
@@ -201,7 +201,8 @@ title: Home
         <h3 class="font-bold text-[#164b70] text-sm mt-0.5">
           <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/movies/">{{ previewMovie.title }}</a>
         </h3>
-        {% if previewMovie.director %}<p class="text-xs text-[#556b78] mt-0.5">Directed by {{ previewMovie.director }}</p>{% endif %}
+        {% if previewMovie.director %}<p class="text-xs text-[#556b78] mt-0.5">Directed by {{ previewMovie.director }}</p>
+        {% elif previewMovie.creator %}<p class="text-xs text-[#556b78] mt-0.5">Created by {{ previewMovie.creator }}</p>{% endif %}
         {% if previewMovie.rating %}<p class="text-xs text-[#c0392b] font-bold mt-1">Rating: {{ previewMovie.rating }}</p>{% endif %}
       </div>
     </div>
@@ -235,6 +236,37 @@ title: Home
       </span>
       {% if g.platform %}<span class="text-[#71828b]">({{ g.platform }})</span>{% endif %}
       {% if g.status %}<span class="text-[#556b78]">[{{ g.status }}]</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% set homeSoftware = software.items %}
+{% if homeSoftware and homeSoftware.length > 0 %}
+<div class="mt-6 flex items-baseline justify-between border-b border-[#b7cbd6] pb-1">
+  <h2 class="text-lg font-bold text-[#164b70]">
+    Software & Tools
+  </h2>
+  <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="/about/software/">View all &raquo;</a>
+</div>
+<div class="mt-3 border border-[#b7cbd6] bg-[#f4f8fa] p-3 text-sm">
+  <p class="font-bold text-[#164b70] text-xs">Tools & Apps I Use:</p>
+  <ul class="mt-2 space-y-1.5 list-none">
+    {% for s in homeSoftware.slice(0, 4) %}
+    <li class="flex items-center gap-2 text-xs">
+      {% if s.icon %}
+      <img class="h-5 w-5 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5" src="{{ s.icon }}" alt="{{ s.name }}" width="20" height="20" />
+      {% endif %}
+      <span class="font-bold text-[#164b70]">
+        {% if s.link %}
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ s.link }}" target="_blank" rel="noopener noreferrer">{{ s.name }}</a>
+        {% else %}
+        {{ s.name }}
+        {% endif %}
+      </span>
+      {% if s.category %}<span class="text-[#71828b]">({{ s.category }})</span>{% endif %}
+      {% if s.platform %}<span class="text-[#556b78]">[{{ s.platform }}]</span>{% endif %}
     </li>
     {% endfor %}
   </ul>

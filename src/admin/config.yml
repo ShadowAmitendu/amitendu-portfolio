@@ -17,7 +17,7 @@ media_processing:
 
 collections:
   - name: "about-section"
-    label: "About (Me, Books, Movies, Games)"
+    label: "About (Me, Books, Movies, Games, Software)"
     files:
       - name: "about-me"
         label: "Tab 1: Me"
@@ -184,14 +184,14 @@ collections:
               widget: "text",
               required: false,
             }
-          - label: "Movies & Shows List"
-            name: "items"
+          - label: "Movies (Section 1)"
+            name: "movies"
             widget: "list"
             summary: "{{fields.title}} [{{fields.status}}]"
             fields:
-              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Movie Title", name: "title", widget: "string" }
               - {
-                  label: "Director / Creator / Studio",
+                  label: "Director / Studio",
                   name: "director",
                   widget: "string",
                   required: false,
@@ -201,7 +201,7 @@ collections:
                   name: "image",
                   widget: "image",
                   required: false,
-                  hint: "Upload a movie or show poster image (JPG, PNG, WEBP).",
+                  hint: "Upload a movie poster image (JPG, PNG, WEBP).",
                 }
               - label: "Status"
                 name: "status"
@@ -211,22 +211,6 @@ collections:
                   - { label: "Completed / Watched", value: "watched" }
                   - { label: "Plan to Watch", value: "plan-to-watch" }
                 default: "watched"
-              - label: "Media Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "Movie / Film", value: "Movie" }
-                  - { label: "TV Series", value: "TV Series" }
-                  - { label: "Anime", value: "Anime" }
-                  - { label: "Documentary", value: "Documentary" }
-                default: "Movie"
-                required: false
-              - {
-                  label: "Progress / Notes (e.g. Season 2 or Finished)",
-                  name: "progress",
-                  widget: "string",
-                  required: false,
-                }
               - {
                   label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
                   name: "rating",
@@ -234,7 +218,7 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Year",
+                  label: "Release Year",
                   name: "year",
                   widget: "string",
                   required: false,
@@ -246,7 +230,65 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Link (IMDb, Letterboxd, MyAnimeList, TMDB)",
+                  label: "Link (IMDb, Letterboxd, TMDB)",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                }
+
+          - label: "TV Shows & Series (Section 2)"
+            name: "shows"
+            widget: "list"
+            summary: "{{fields.title}} [{{fields.status}}]"
+            fields:
+              - { label: "Show Title", name: "title", widget: "string" }
+              - {
+                  label: "Creator / Network / Studio",
+                  name: "creator",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Poster Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload a show poster image (JPG, PNG, WEBP).",
+                }
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Currently Watching", value: "currently-watching" }
+                  - { label: "Completed / Finished", value: "watched" }
+                  - { label: "Plan to Watch", value: "plan-to-watch" }
+                default: "currently-watching"
+              - {
+                  label: "Progress / Notes (e.g. Season 2 or S03E04)",
+                  name: "progress",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
+                  name: "rating",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Year / Airing Period",
+                  name: "year",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Thoughts / Mini Review",
+                  name: "review",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Link (IMDb, TMDB, MyAnimeList)",
                   name: "link",
                   widget: "string",
                   required: false,
@@ -273,7 +315,7 @@ collections:
               label: "Heading",
               name: "heading",
               widget: "string",
-              default: "Games & Software",
+              default: "Games",
             }
           - {
               label: "Page intro text",
@@ -286,16 +328,16 @@ collections:
             widget: "list"
             summary: "{{fields.name}} [{{fields.status}}]"
             fields:
-              - { label: "Game / Tool Name", name: "name", widget: "string" }
+              - { label: "Game Name", name: "name", widget: "string" }
               - {
-                  label: "Icon / Logo Image",
+                  label: "Icon / Cover Image",
                   name: "icon",
                   widget: "image",
                   required: false,
-                  hint: "Upload a game icon or logo (PNG, SVG, WEBP, JPG).",
+                  hint: "Upload a game icon or box art (PNG, SVG, WEBP, JPG).",
                 }
               - {
-                  label: "Platform (e.g. PC, Mobile, Console)",
+                  label: "Platform (e.g. PC, Switch, PS5, Steam Deck)",
                   name: "platform",
                   widget: "string",
                   required: false,
@@ -304,25 +346,11 @@ collections:
                 name: "status"
                 widget: "select"
                 options:
-                      - { label: "Auto (Detect from URL/Label)", value: "" }
-                      - { label: "DEV Community (dev.to)", value: "dev.to" }
-                      - { label: "Discord", value: "discord" }
-                      - { label: "Figma", value: "figma" }
-                      - { label: "Finder", value: "finder" }
-                      - { label: "GitHub", value: "github" }
-                      - { label: "Hashnode", value: "hashnode" }
-                      - { label: "Instagram", value: "instagram" }
-                      - { label: "LinkedIn", value: "linkedin" }
-                      - { label: "Apple Mail", value: "mail" }
-                      - { label: "Masterji", value: "masterji" }
-                      - { label: "Medium", value: "medium" }
-                      - { label: "Notes", value: "notes" }
-                      - { label: "Peerlist", value: "peerlist" }
-                      - { label: "Safari / Web", value: "safari" }
-                      - { label: "Terminal", value: "terminal" }
-                      - { label: "Twitter / X", value: "twitter" }
-                      - { label: "X (Twitter)", value: "x" }
-                      - { label: "YouTube", value: "youtube" }
+                  - { label: "Currently Playing", value: "Currently Playing" }
+                  - { label: "Completed", value: "Completed" }
+                  - { label: "Plan to Play / Backlog", value: "Backlog" }
+                  - { label: "On Hold", value: "On Hold" }
+                  - { label: "Dropped", value: "Dropped" }
                 default: "Currently Playing"
               - {
                   label: "Description / Notes",
@@ -331,7 +359,74 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Link (Official Website or Store Page)",
+                  label: "Link (Official Website or Steam Page)",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                }
+
+      - name: "about-software"
+        label: "Tab 5: Software"
+        file: "src/_data/software.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Software",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "TOOLS & APPS I USE",
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Software & Tools",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Software List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} [{{fields.category}}]"
+            fields:
+              - { label: "Software / Tool Name", name: "name", widget: "string" }
+              - {
+                  label: "Icon / Logo Image",
+                  name: "icon",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload an app icon or logo (PNG, SVG, WEBP, JPG).",
+                }
+              - {
+                  label: "Category (e.g. Code Editor, Terminal, Productivity, Browser)",
+                  name: "category",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Platform / OS (e.g. macOS, Linux, Windows, Web)",
+                  name: "platform",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Description / Why I Use It",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Link (Official Website or Download Page)",
                   name: "link",
                   widget: "string",
                   required: false,

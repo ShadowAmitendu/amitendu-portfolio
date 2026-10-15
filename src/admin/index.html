@@ -1360,6 +1360,7 @@
 					{ key: "books", label: "books" },
 					{ key: "movies", label: "movies" },
 					{ key: "games", label: "games" },
+					{ key: "software", label: "software" },
 				];
 				var children = [];
 				tabs.forEach(function (tab, idx) {
@@ -1626,24 +1627,43 @@
 			var AboutMoviesPreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
-					var heading = entry.getIn(["data", "heading"]) || "Cinema & Shows";
+					var heading =
+						entry.getIn(["data", "heading"]) || "Cinema & TV Shows";
 					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawMovies = entry.getIn(["data", "movies"]);
+					var moviesList =
+						rawMovies && rawMovies.toJS ? rawMovies.toJS() : [];
+					var rawShows = entry.getIn(["data", "shows"]);
+					var showsList =
+						rawShows && rawShows.toJS ? rawShows.toJS() : [];
 					var rawItems = entry.getIn(["data", "items"]);
 					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
 					var getAsset = this.props.getAsset;
 
-					var itemsListElements;
-					if (!items || items.length === 0) {
-						itemsListElements = h(
+					// Fallback if older items format was used
+					if (moviesList.length === 0 && items.length > 0) {
+						moviesList = items.filter(function (it) {
+							return it.type !== "TV Series";
+						});
+					}
+					if (showsList.length === 0 && items.length > 0) {
+						showsList = items.filter(function (it) {
+							return it.type === "TV Series";
+						});
+					}
+
+					var moviesElements;
+					if (!moviesList || moviesList.length === 0) {
+						moviesElements = h(
 							"div",
 							{
 								className:
 									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
 							},
-							"No movies or shows added yet. Movies added via this form will appear here.",
+							"No movies added yet. Movies added via Section 1 will appear here.",
 						);
 					} else {
-						itemsListElements = items.map(function (movie, idx) {
+						moviesElements = moviesList.map(function (movie, idx) {
 							var posterSrc = null;
 							if (movie.image) {
 								var asset = getAsset(movie.image);
@@ -1684,9 +1704,9 @@
 										"div",
 										{ className: "min-w-0 flex-1" },
 										h(
-											"h3",
-											{ className: "font-bold text-[#164b70]" },
-											movie.title || "Untitled Title",
+											"h4",
+											{ className: "font-bold text-[#164b70] text-sm" },
+											movie.title || "Untitled Movie",
 											movie.director
 												? h(
 														"span",
@@ -1701,15 +1721,7 @@
 										h(
 											"p",
 											{ className: "mt-1 text-xs text-[#71828b]" },
-											movie.type
-												? h(
-														"strong",
-														{ className: "mr-1" },
-														"[" + movie.type + "]",
-													)
-												: null,
 											h("strong", null, statusLabel),
-											movie.progress ? " · " + movie.progress : null,
 											movie.rating ? " · Rating: " + movie.rating : null,
 											movie.year ? " · " + movie.year : null,
 										),
@@ -1724,6 +1736,107 @@
 												)
 											: null,
 										movie.link
+											? h(
+													"p",
+													{ className: "mt-2 text-xs" },
+													h(
+														"span",
+														{ className: "text-[#064f83] underline" },
+														"details »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var showsElements;
+					if (!showsList || showsList.length === 0) {
+						showsElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No TV shows added yet. TV shows added via Section 2 will appear here.",
+						);
+					} else {
+						showsElements = showsList.map(function (show, idx) {
+							var posterSrc = null;
+							if (show.image) {
+								var asset = getAsset(show.image);
+								posterSrc = asset ? asset.toString() : show.image;
+							}
+							var statusLabel = "[Plan to Watch]";
+							if (show.status === "currently-watching") {
+								statusLabel = "[Watching]";
+							} else if (show.status === "watched") {
+								statusLabel = "[Finished]";
+							}
+
+							return h(
+								"article",
+								{
+									key: idx,
+									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-start gap-3" },
+									posterSrc
+										? h("img", {
+												className:
+													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
+												src: posterSrc,
+												alt: show.title || "",
+											})
+										: h(
+												"div",
+												{
+													className:
+														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
+												},
+												"SERIES",
+											),
+									h(
+										"div",
+										{ className: "min-w-0 flex-1" },
+										h(
+											"h4",
+											{ className: "font-bold text-[#164b70] text-sm" },
+											show.title || "Untitled Show",
+											show.creator
+												? h(
+														"span",
+														{
+															className:
+																"font-normal text-xs text-[#556b78] ml-1.5",
+														},
+														"(" + show.creator + ")",
+													)
+												: null,
+										),
+										h(
+											"p",
+											{ className: "mt-1 text-xs text-[#71828b]" },
+											h("strong", null, statusLabel),
+											show.progress ? " · " + show.progress : null,
+											show.rating ? " · Rating: " + show.rating : null,
+											show.year ? " · " + show.year : null,
+										),
+										show.review
+											? h(
+													"p",
+													{
+														className:
+															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
+													},
+													'"' + show.review + '"',
+												)
+											: null,
+										show.link
 											? h(
 													"p",
 													{ className: "mt-2 text-xs" },
@@ -1759,7 +1872,32 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"div",
+							{ className: "mt-6" },
+							h(
+								"h3",
+								{
+									className:
+										"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
+								},
+								"Movies / Cinema",
+							),
+							h("div", { className: "mt-3 space-y-3" }, moviesElements),
+						),
+						h(
+							"div",
+							{ className: "mt-8" },
+							h(
+								"h3",
+								{
+									className:
+										"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
+								},
+								"TV Shows & Series",
+							),
+							h("div", { className: "mt-3 space-y-3" }, showsElements),
+						),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -1778,7 +1916,7 @@
 			var AboutGamesPreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
-					var heading = entry.getIn(["data", "heading"]) || "Games & Software";
+					var heading = entry.getIn(["data", "heading"]) || "Games";
 					var intro = entry.getIn(["data", "intro"]) || "";
 					var rawItems = entry.getIn(["data", "items"]);
 					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
@@ -1910,6 +2048,141 @@
 				},
 			});
 
+			var AboutSoftwarePreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading = entry.getIn(["data", "heading"]) || "Software & Tools";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawItems = entry.getIn(["data", "items"]);
+					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var itemsListElements;
+					if (!items || items.length === 0) {
+						itemsListElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No software or tools added yet. Software added via this form will appear here.",
+						);
+					} else {
+						itemsListElements = items.map(function (item, idx) {
+							var iconSrc = null;
+							if (item.icon) {
+								var asset = getAsset(item.icon);
+								iconSrc = asset ? asset.toString() : item.icon;
+							}
+
+							return h(
+								"article",
+								{
+									key: idx,
+									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+								},
+								h(
+									"div",
+									{ className: "flex items-start gap-3" },
+									iconSrc
+										? h("img", {
+												className:
+													"h-10 w-10 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5",
+												src: iconSrc,
+												alt: item.name || "",
+											})
+										: h(
+												"div",
+												{
+													className:
+														"h-10 w-10 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]",
+												},
+												"APP",
+											),
+									h(
+										"div",
+										{ className: "min-w-0 flex-1" },
+										h(
+											"h3",
+											{ className: "font-bold text-[#164b70]" },
+											item.name || "Untitled Software",
+											item.category
+												? h(
+														"span",
+														{
+															className:
+																"font-normal text-xs text-[#556b78] ml-1.5",
+														},
+														"(" + item.category + ")",
+													)
+												: null,
+										),
+										item.platform
+											? h(
+													"p",
+													{ className: "mt-1 text-xs text-[#71828b]" },
+													h("strong", null, "[" + item.platform + "]"),
+												)
+											: null,
+										item.description
+											? h(
+													"p",
+													{ className: "mt-1 text-xs text-[#26343d]" },
+													item.description,
+												)
+											: null,
+										item.link
+											? h(
+													"p",
+													{ className: "mt-1.5 text-xs" },
+													h(
+														"span",
+														{ className: "text-[#064f83] underline" },
+														"official link »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var softwareContent = h(
+						"div",
+						null,
+						renderInPageSubnav("software"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+								)
+							: null,
+						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(softwareContent);
+				},
+			});
+
 			var AboutSectionRouter = createClass({
 				render: function () {
 					var entry = this.props.entry;
@@ -1925,6 +2198,12 @@
 					if (file.indexOf("games.json") !== -1 || slug === "about-games") {
 						return h(AboutGamesPreview, this.props);
 					}
+					if (
+						file.indexOf("software.json") !== -1 ||
+						slug === "about-software"
+					) {
+						return h(AboutSoftwarePreview, this.props);
+					}
 					return h(AboutMePreview, this.props);
 				},
 			});
@@ -1934,6 +2213,7 @@
 			CMS.registerPreviewTemplate("about-books", AboutBooksPreview);
 			CMS.registerPreviewTemplate("about-movies", AboutMoviesPreview);
 			CMS.registerPreviewTemplate("about-games", AboutGamesPreview);
+			CMS.registerPreviewTemplate("about-software", AboutSoftwarePreview);
 			CMS.registerPreviewTemplate("about-page", AboutMePreview);
 
 			// 7. Custom Blog Landing Page Preview in Full Site Shell

@@ -8,64 +8,142 @@ aboutTab: movies
 {% include "about-tabs.njk" %}
 
 <h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
-  {{ movies.heading or 'Cinema & Shows' }}</h2>
+  {{ movies.heading or 'Cinema & TV Shows' }}</h2>
 {% if movies.intro %}
 <p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ movies.intro }}</p>
 {% endif %}
 
-<div class="mt-4 space-y-3">
-  {% if movies.items and movies.items.length > 0 %}
-  {% for movie in movies.items %}
-  <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3">
-    <div class="flex items-start gap-3">
-      {% if movie.image %}
-      <img class="h-24 w-16 shrink-0 object-cover border border-[#7892a3]" src="{{ movie.image }}" alt="{{ movie.title }}" />
-      {% else %}
-      <div class="h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
-        CINEMA
-      </div>
-      {% endif %}
-      <div class="min-w-0 flex-1">
-        <h3 class="font-bold text-[#164b70]">
+{# Section 1: Movies #}
+<div class="mt-6">
+  <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
+    Movies / Cinema
+  </h3>
+  <div class="mt-3 space-y-3">
+    {% set movieList = movies.movies or [] %}
+    {% if movieList.length == 0 and movies.items %}
+      {% for item in movies.items %}
+        {% if item.type != 'TV Series' %}{% set movieList = (movieList.push(item), movieList) %}{% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if movieList and movieList.length > 0 %}
+    {% for movie in movieList %}
+    <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3">
+      <div class="flex items-start gap-3">
+        {% if movie.image %}
+        <img class="h-24 w-16 shrink-0 object-cover border border-[#7892a3]" src="{{ movie.image }}" alt="{{ movie.title }}" />
+        {% else %}
+        <div class="h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+          CINEMA
+        </div>
+        {% endif %}
+        <div class="min-w-0 flex-1">
+          <h4 class="font-bold text-[#164b70] text-sm">
+            {% if movie.link %}
+            <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">{{ movie.title }}</a>
+            {% else %}
+            {{ movie.title }}
+            {% endif %}
+            {% if movie.director %}
+            <span class="font-normal text-xs text-[#556b78]">({{ movie.director }})</span>
+            {% endif %}
+          </h4>
+          <p class="mt-1 text-xs text-[#71828b]">
+            {% if movie.status == "currently-watching" %}
+            <strong>[Watching]</strong>
+            {% elif movie.status == "watched" %}
+            <strong>[Watched]</strong>
+            {% elif movie.status == "plan-to-watch" %}
+            <strong>[Plan to Watch]</strong>
+            {% endif %}
+            {% if movie.rating %} · Rating: {{ movie.rating }}{% endif %}
+            {% if movie.year %} · {{ movie.year }}{% endif %}
+          </p>
+          {% if movie.review %}
+          <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">"{{ movie.review }}"</p>
+          {% endif %}
           {% if movie.link %}
-          <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">{{ movie.title }}</a>
-          {% else %}
-          {{ movie.title }}
+          <p class="mt-2 text-xs">
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">details &raquo;</a>
+          </p>
           {% endif %}
-          {% if movie.director %}
-          <span class="font-normal text-xs text-[#556b78]">({{ movie.director }})</span>
-          {% endif %}
-        </h3>
-        <p class="mt-1 text-xs text-[#71828b]">
-          {% if movie.type %}<strong>[{{ movie.type }}]</strong>{% endif %}
-          {% if movie.status == "currently-watching" %}
-          <strong>[Watching]</strong>
-          {% elif movie.status == "watched" %}
-          <strong>[Watched]</strong>
-          {% elif movie.status == "plan-to-watch" %}
-          <strong>[Plan to Watch]</strong>
-          {% endif %}
-          {% if movie.progress %} · {{ movie.progress }}{% endif %}
-          {% if movie.rating %} · Rating: {{ movie.rating }}{% endif %}
-          {% if movie.year %} · {{ movie.year }}{% endif %}
-        </p>
-        {% if movie.review %}
-        <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">"{{ movie.review }}"</p>
-        {% endif %}
-        {% if movie.link %}
-        <p class="mt-2 text-xs">
-          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">details &raquo;</a>
-        </p>
-        {% endif %}
+        </div>
       </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+      No movies added yet. Movies added via the admin panel will appear here.
     </div>
-  </article>
-  {% endfor %}
-  {% else %}
-  <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
-    No movies or shows added yet. Movies added via the admin panel will appear here.
+    {% endif %}
   </div>
-  {% endif %}
+</div>
+
+{# Section 2: TV Shows #}
+<div class="mt-8">
+  <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
+    TV Shows &amp; Series
+  </h3>
+  <div class="mt-3 space-y-3">
+    {% set showList = movies.shows or [] %}
+    {% if showList.length == 0 and movies.items %}
+      {% for item in movies.items %}
+        {% if item.type == 'TV Series' %}{% set showList = (showList.push(item), showList) %}{% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if showList and showList.length > 0 %}
+    {% for show in showList %}
+    <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3">
+      <div class="flex items-start gap-3">
+        {% if show.image %}
+        <img class="h-24 w-16 shrink-0 object-cover border border-[#7892a3]" src="{{ show.image }}" alt="{{ show.title }}" />
+        {% else %}
+        <div class="h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]">
+          SERIES
+        </div>
+        {% endif %}
+        <div class="min-w-0 flex-1">
+          <h4 class="font-bold text-[#164b70] text-sm">
+            {% if show.link %}
+            <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ show.link }}" target="_blank" rel="noopener noreferrer">{{ show.title }}</a>
+            {% else %}
+            {{ show.title }}
+            {% endif %}
+            {% if show.creator %}
+            <span class="font-normal text-xs text-[#556b78]">({{ show.creator }})</span>
+            {% endif %}
+          </h4>
+          <p class="mt-1 text-xs text-[#71828b]">
+            {% if show.status == "currently-watching" %}
+            <strong>[Watching]</strong>
+            {% elif show.status == "watched" %}
+            <strong>[Finished]</strong>
+            {% elif show.status == "plan-to-watch" %}
+            <strong>[Plan to Watch]</strong>
+            {% endif %}
+            {% if show.progress %} · {{ show.progress }}{% endif %}
+            {% if show.rating %} · Rating: {{ show.rating }}{% endif %}
+            {% if show.year %} · {{ show.year }}{% endif %}
+          </p>
+          {% if show.review %}
+          <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">"{{ show.review }}"</p>
+          {% endif %}
+          {% if show.link %}
+          <p class="mt-2 text-xs">
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ show.link }}" target="_blank" rel="noopener noreferrer">details &raquo;</a>
+          </p>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+      No TV shows added yet. TV shows added via the admin panel will appear here.
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 <p class="mt-6"><a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a></p>
