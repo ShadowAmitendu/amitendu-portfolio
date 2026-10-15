@@ -40,6 +40,19 @@
       {
         "url": "https://www.instagram.com/shadowamitendu/",
         "label": "Instagram"
+      },
+      {
+        "url": "https://dev.to/shadowamitendu",
+        "label": "Dev.to"
+      },
+      {
+        "label": "Hashnode",
+        "url": "https://hashnode.com/@amitendu"
+      },
+      {
+        "label": "MasterJi",
+        "url": "https://www.masterji.co/shadowamitendu/codes",
+        "icon": ""
       }
     ]
   },
