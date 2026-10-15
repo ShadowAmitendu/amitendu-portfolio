@@ -15,17 +15,19 @@
       "icon": "/images/macos-gi.webp",
       "link": "https://hoyoplay.hoyoverse.com/",
       "image": "/images/genshin-impact-hqdph.avif",
+      "publisher": "Hoyoverse / MiHoYo",
       "description": "Started playing in 28th Feb of 2022 and never looked back!"
     },
     {
       "playingRightNow": false,
       "name": "Honkai: Star Rail",
-      "status": "Currently Playing",
+      "status": "Playing right now",
       "platform": "PC",
       "tags": [],
       "icon": "/images/macos-hsr.webp",
       "link": "https://hoyoplay.hoyoverse.com/",
       "image": "/images/honkai-star-rail-7pyn7.webp",
+      "publisher": "Hoyoverse / MiHoYo",
       "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!"
     },
     {
