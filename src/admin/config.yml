@@ -807,6 +807,7 @@ collections:
         format: "json"
         fields:
           - { label: "Site title", name: "title", widget: "string" }
+          - { label: "Site URL", name: "url", widget: "string", default: "https://amitendu.me" }
           - { label: "Header tagline", name: "tagline", widget: "string" }
           - {
               label: "Default Header Banner Image",

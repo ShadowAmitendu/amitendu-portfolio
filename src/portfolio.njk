@@ -1,13 +1,12 @@
 ---
 layout: base.njk
 pagination:
-data: collections.portfolio
-size: 25
-alias: projects
-reverse: true
-generatePageOnEmptyData: true
-permalink:
-"{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+  data: collections.portfolio
+  size: 25
+  alias: projects
+  reverse: true
+  generatePageOnEmptyData: true
+permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
 <h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
   {{ portfolioPage.heading or heading or 'My work' }}</h2>
