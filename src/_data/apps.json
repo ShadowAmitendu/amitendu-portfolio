@@ -1,0 +1,89 @@
+{
+  "title": "Games & Apps",
+  "headerTagline": "SOFTWARE & GAMING",
+  "heading": "Games & Apps I Use",
+  "intro": "A collection of video games I play and personal software applications, development tools, and utilities installed on my workstations.",
+  "gamesHeading": "Games I Play",
+  "gamesIntro": "Games currently in my active rotation, all-time favorites, and PC/mobile titles.",
+  "appsHeading": "Software & Tools",
+  "appsIntro": "The primary applications, text editors, frameworks, and daily drivers powering my workflow.",
+  "games": [
+    {
+      "name": "Genshin Impact",
+      "icon": "/images/icon-genshin.svg",
+      "platform": "PC / Mobile",
+      "status": "Currently Playing",
+      "genre": "Open World Action RPG",
+      "description": "Exploration of Teyvat, team synergy optimization, and listening to HoYo-MiX symphonic orchestrations.",
+      "link": "https://genshin.hoyoverse.com/"
+    },
+    {
+      "name": "Honkai: Star Rail",
+      "icon": "/images/icon-starrail.svg",
+      "platform": "PC / Mobile",
+      "status": "Currently Playing",
+      "genre": "Space Fantasy Turn-Based RPG",
+      "description": "Trailblazing across space stations, Penacony storylines, and strategic turn-based mechanics.",
+      "link": "https://hsr.hoyoverse.com/"
+    },
+    {
+      "name": "Cyberpunk 2077",
+      "icon": "",
+      "platform": "PC",
+      "status": "Favorite",
+      "genre": "Sci-Fi Action RPG",
+      "description": "Night City immersion, retro-futuristic dystopia aesthetics, and gripping branching narratives.",
+      "link": "https://www.cyberpunk.net/"
+    }
+  ],
+  "apps": [
+    {
+      "name": "Visual Studio Code",
+      "icon": "/assets/icons/macos-terminal.png",
+      "category": "Development",
+      "status": "Daily Driver",
+      "description": "Primary code editor for JavaScript, React, Java, HTML/CSS, and Eleventy development.",
+      "link": "https://code.visualstudio.com/"
+    },
+    {
+      "name": "Figma",
+      "icon": "/assets/icons/macos-figma.png",
+      "category": "Design",
+      "status": "Daily Driver",
+      "description": "User interface design, typography testing, component mockups, and wireframing.",
+      "link": "https://www.figma.com/"
+    },
+    {
+      "name": "Obsidian",
+      "icon": "/assets/icons/macos-notes.png",
+      "category": "Productivity",
+      "status": "Daily Driver",
+      "description": "Personal knowledge management, second brain notes, and technical markdown logs.",
+      "link": "https://obsidian.md/"
+    },
+    {
+      "name": "IntelliJ IDEA",
+      "icon": "",
+      "category": "Development",
+      "status": "Tool",
+      "description": "Heavyweight Java and Spring Boot development IDE for backend services.",
+      "link": "https://www.jetbrains.com/idea/"
+    },
+    {
+      "name": "Git & GitHub Desktop",
+      "icon": "/assets/icons/macos-github.png",
+      "category": "Version Control",
+      "status": "Daily Driver",
+      "description": "Repository management, commit tracking, and open-source contributions.",
+      "link": "https://desktop.github.com/"
+    },
+    {
+      "name": "Discord",
+      "icon": "/assets/icons/macos-discord.png",
+      "category": "Communication",
+      "status": "Daily Driver",
+      "description": "Developer communities, study groups, gaming chats, and voice calls.",
+      "link": "https://discord.com/"
+    }
+  ]
+}

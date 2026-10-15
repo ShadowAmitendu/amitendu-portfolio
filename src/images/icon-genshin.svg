@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#14324f" rx="0"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#60a5fa" stroke-width="2"/>
+  <path d="M32 8 L42 28 L62 32 L42 36 L32 56 L22 36 L2 32 L22 28 Z" fill="#93c5fd"/>
+  <circle cx="32" cy="32" r="5" fill="#ffffff"/>
+  <text x="32" y="60" font-family="sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">GENSHIN</text>
+</svg>

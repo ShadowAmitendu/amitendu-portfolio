@@ -12,7 +12,7 @@ eleventyExcludeFromCollections: true
     <lastmod>{{ item.date | isoDate }}</lastmod>
     {% endif %}
     <changefreq>{% if item.url == '/' %}daily{% elif '/blog/' in item.url %}weekly{% else %}monthly{% endif %}</changefreq>
-    <priority>{% if item.url == '/' %}1.0{% elif item.url == '/about/' or item.url == '/portfolio/' or item.url == '/resume/' %}0.8{% else %}0.6{% endif %}</priority>
+    <priority>{% if item.url == '/' %}1.0{% elif item.url == '/about/' or item.url == '/portfolio/' or item.url == '/resume/' or item.url == '/shelf/' or item.url == '/apps/' %}0.8{% else %}0.6{% endif %}</priority>
   </url>
   {% endif %}
 {% endfor %}

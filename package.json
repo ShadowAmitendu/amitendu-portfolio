@@ -4,10 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"sync:icons": "node scripts/sync-icons.js",
 		"build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/assets/styles.css --minify",
-		"prebuild": "npm run build:css",
+		"prebuild": "node scripts/sync-icons.js && npm run build:css",
 		"build": "eleventy",
-		"prestart": "npm run build:css",
+		"prestart": "node scripts/sync-icons.js && npm run build:css",
 		"start": "eleventy --serve",
 		"watch:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/assets/styles.css --watch",
 		"remark:check": "remark .",

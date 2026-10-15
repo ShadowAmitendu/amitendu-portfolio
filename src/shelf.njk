@@ -1,0 +1,306 @@
+---
+layout: base.njk
+title: Books & Movies
+headerTagline: READING & WATCHING
+permalink: /shelf/
+---
+<div class="site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4">
+  <h2 class="text-xl font-bold text-[#164b70]">
+    {{ shelf.heading or 'Books & Movies' }}
+  </h2>
+  <p class="mt-2 text-sm leading-relaxed text-[#3b4d57]">
+    {{ shelf.intro or 'A personal collection of books I am reading, have completed, or plan to read, alongside movies, series, and anime that I enjoy and recommend.' }}
+  </p>
+</div>
+
+{# Currently Active Spotlight #}
+{% set activeBook = null %}
+{% for b in shelf.books %}
+  {% if b.status == "currently-reading" and not activeBook %}
+    {% set activeBook = b %}
+  {% endif %}
+{% endfor %}
+
+{% set activeMovie = null %}
+{% for m in shelf.movies %}
+  {% if m.status == "currently-watching" and not activeMovie %}
+    {% set activeMovie = m %}
+  {% endif %}
+{% endfor %}
+
+{% if activeBook or activeMovie %}
+<div class="mb-8 border border-[#7892a3] bg-[#eef4f7] p-4 shadow-[inset_0_1px_0_#fff]">
+  <div class="border-b border-[#b7cbd6] pb-1.5 mb-3">
+    <span class="inline-block bg-[#164b70] text-white text-[11px] font-bold px-2 py-0.5 tracking-wider uppercase">
+      Active Logs
+    </span>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% if activeBook %}
+    <div class="border border-[#b7cbd6] bg-white p-3 flex gap-3.5 items-start">
+      {% if activeBook.image %}
+      <img class="site-profile-frame h-24 w-16 shrink-0 object-cover" src="{{ activeBook.image }}" alt="{{ activeBook.title }}" />
+      {% else %}
+      <div class="h-24 w-16 shrink-0 border border-[#b7cbd6] bg-[#dce9ef] flex flex-col items-center justify-center p-1 text-center">
+        <span class="text-[10px] font-bold text-[#164b70] uppercase">Book</span>
+      </div>
+      {% endif %}
+      <div class="min-w-0 flex-1">
+        <span class="inline-block bg-[#2e7d32] text-white text-[10px] font-bold px-1.5 py-0.2 tracking-wider">
+          CURRENTLY READING
+        </span>
+        <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-snug">
+          {% if activeBook.link %}
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ activeBook.link }}" target="_blank" rel="noopener noreferrer">{{ activeBook.title }}</a>
+          {% else %}
+          {{ activeBook.title }}
+          {% endif %}
+        </h3>
+        <p class="text-xs text-[#556b78] mt-0.5">by {{ activeBook.author }}</p>
+        {% if activeBook.progress %}
+        <p class="mt-1 text-[11px] font-semibold text-[#164b70] bg-[#eef4f7] inline-block px-1.5 py-0.5 border border-[#b7cbd6]">
+          Progress: {{ activeBook.progress }}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if activeMovie %}
+    <div class="border border-[#b7cbd6] bg-white p-3 flex gap-3.5 items-start">
+      {% if activeMovie.image %}
+      <img class="site-profile-frame h-24 w-16 shrink-0 object-cover" src="{{ activeMovie.image }}" alt="{{ activeMovie.title }}" />
+      {% else %}
+      <div class="h-24 w-16 shrink-0 border border-[#b7cbd6] bg-[#dce9ef] flex flex-col items-center justify-center p-1 text-center">
+        <span class="text-[10px] font-bold text-[#164b70] uppercase">{{ activeMovie.type or 'Cinema' }}</span>
+      </div>
+      {% endif %}
+      <div class="min-w-0 flex-1">
+        <span class="inline-block bg-[#00695c] text-white text-[10px] font-bold px-1.5 py-0.2 tracking-wider">
+          CURRENTLY WATCHING
+        </span>
+        <h3 class="font-bold text-[#164b70] text-sm mt-1 leading-snug">
+          {% if activeMovie.link %}
+          <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ activeMovie.link }}" target="_blank" rel="noopener noreferrer">{{ activeMovie.title }}</a>
+          {% else %}
+          {{ activeMovie.title }}
+          {% endif %}
+        </h3>
+        {% if activeMovie.director %}
+        <p class="text-xs text-[#556b78] mt-0.5">{{ activeMovie.director }}</p>
+        {% endif %}
+        {% if activeMovie.progress %}
+        <p class="mt-1 text-[11px] font-semibold text-[#164b70] bg-[#eef4f7] inline-block px-1.5 py-0.5 border border-[#b7cbd6]">
+          Status: {{ activeMovie.progress }}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{# Bookshelf Section #}
+<div class="mt-8">
+  <div class="flex items-baseline justify-between border-b border-[#b7cbd6] pb-1">
+    <h2 class="text-lg font-bold text-[#164b70]">
+      {{ shelf.booksHeading or 'Bookshelf' }}
+    </h2>
+    <span class="text-xs text-[#71828b]">Total: {{ shelf.books.length or 0 }}</span>
+  </div>
+  {% if shelf.booksIntro %}
+  <p class="mt-2 text-xs text-[#556b78]">{{ shelf.booksIntro }}</p>
+  {% endif %}
+
+  <div class="mt-4 space-y-4">
+    {% if shelf.books and shelf.books.length > 0 %}
+    {% for book in shelf.books %}
+    <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-4">
+      <div class="flex flex-col sm:flex-row items-start gap-4">
+        {% if book.image %}
+        <img class="site-profile-frame h-32 w-24 shrink-0 object-cover shadow-sm" src="{{ book.image }}" alt="{{ book.title }}" />
+        {% else %}
+        <div class="h-32 w-24 shrink-0 border border-[#b7cbd6] bg-[#dce9ef] shadow-[inset_1px_1px_0_#fff] flex flex-col justify-between p-2 text-center">
+          <span class="text-[10px] font-bold text-[#164b70] tracking-wider uppercase">Book</span>
+          <span class="text-[11px] font-bold leading-tight text-[#26343d] line-clamp-3">{{ book.title }}</span>
+          <span class="text-[9px] text-[#556b78]">Cover n/a</span>
+        </div>
+        {% endif %}
+
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-2">
+            {% if book.status == "currently-reading" %}
+            <span class="inline-block bg-[#2e7d32] text-white text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              CURRENTLY READING
+            </span>
+            {% elif book.status == "read" %}
+            <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              COMPLETED
+            </span>
+            {% elif book.status == "to-read" %}
+            <span class="inline-block bg-[#e2ecf2] border border-[#b7cbd6] text-[#556b78] text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              PLAN TO READ
+            </span>
+            {% endif %}
+
+            {% if book.rating %}
+            <span class="text-xs font-bold text-[#c0392b]">
+              ★ {{ book.rating }}
+            </span>
+            {% endif %}
+
+            {% if book.year %}
+            <span class="text-xs text-[#71828b]">({{ book.year }})</span>
+            {% endif %}
+          </div>
+
+          <h3 class="font-bold text-[#164b70] text-base mt-1.5">
+            {% if book.link %}
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">
+              {{ book.title }}
+            </a>
+            {% else %}
+            {{ book.title }}
+            {% endif %}
+          </h3>
+
+          <p class="text-xs text-[#556b78] font-medium mt-0.5">by {{ book.author }}</p>
+
+          {% if book.progress %}
+          <p class="mt-2 text-xs font-semibold text-[#164b70] bg-[#e2ecf2] inline-block px-2 py-0.5 border border-[#b7cbd6]">
+            Progress: {{ book.progress }}
+          </p>
+          {% endif %}
+
+          {% if book.review %}
+          <p class="mt-2.5 text-sm leading-relaxed text-[#26343d] border-l-2 border-[#b7cbd6] pl-3 italic">
+            "{{ book.review }}"
+          </p>
+          {% endif %}
+
+          {% if book.link %}
+          <div class="mt-3">
+            <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="{{ book.link }}" target="_blank" rel="noopener noreferrer">
+              View Book Reference &raquo;
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <div class="border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b]">
+      <p class="font-bold text-[#164b70]">No Books Listed</p>
+      <p class="mt-1">Add your favorite books from the admin panel!</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{# Cinema & Shows Section #}
+<div class="mt-10">
+  <div class="flex items-baseline justify-between border-b border-[#b7cbd6] pb-1">
+    <h2 class="text-lg font-bold text-[#164b70]">
+      {{ shelf.moviesHeading or 'Cinema & Shows' }}
+    </h2>
+    <span class="text-xs text-[#71828b]">Total: {{ shelf.movies.length or 0 }}</span>
+  </div>
+  {% if shelf.moviesIntro %}
+  <p class="mt-2 text-xs text-[#556b78]">{{ shelf.moviesIntro }}</p>
+  {% endif %}
+
+  <div class="mt-4 space-y-4">
+    {% if shelf.movies and shelf.movies.length > 0 %}
+    {% for movie in shelf.movies %}
+    <article class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-4">
+      <div class="flex flex-col sm:flex-row items-start gap-4">
+        {% if movie.image %}
+        <img class="site-profile-frame h-32 w-24 shrink-0 object-cover shadow-sm" src="{{ movie.image }}" alt="{{ movie.title }}" />
+        {% else %}
+        <div class="h-32 w-24 shrink-0 border border-[#b7cbd6] bg-[#dce9ef] shadow-[inset_1px_1px_0_#fff] flex flex-col justify-between p-2 text-center">
+          <span class="text-[10px] font-bold text-[#164b70] tracking-wider uppercase">{{ movie.type or 'Film' }}</span>
+          <span class="text-[11px] font-bold leading-tight text-[#26343d] line-clamp-3">{{ movie.title }}</span>
+          <span class="text-[9px] text-[#556b78]">Poster n/a</span>
+        </div>
+        {% endif %}
+
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-2">
+            {% if movie.type %}
+            <span class="inline-block bg-[#e2ecf2] border border-[#b7cbd6] text-[#164b70] text-[10px] font-bold px-1.5 py-0.5 tracking-wider uppercase">
+              {{ movie.type }}
+            </span>
+            {% endif %}
+
+            {% if movie.status == "currently-watching" %}
+            <span class="inline-block bg-[#00695c] text-white text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              CURRENTLY WATCHING
+            </span>
+            {% elif movie.status == "watched" %}
+            <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              WATCHED
+            </span>
+            {% elif movie.status == "plan-to-watch" %}
+            <span class="inline-block bg-[#e2ecf2] border border-[#b7cbd6] text-[#556b78] text-[10px] font-bold px-1.5 py-0.5 tracking-wider">
+              PLAN TO WATCH
+            </span>
+            {% endif %}
+
+            {% if movie.rating %}
+            <span class="text-xs font-bold text-[#c0392b]">
+              ★ {{ movie.rating }}
+            </span>
+            {% endif %}
+
+            {% if movie.year %}
+            <span class="text-xs text-[#71828b]">({{ movie.year }})</span>
+            {% endif %}
+          </div>
+
+          <h3 class="font-bold text-[#164b70] text-base mt-1.5">
+            {% if movie.link %}
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">
+              {{ movie.title }}
+            </a>
+            {% else %}
+            {{ movie.title }}
+            {% endif %}
+          </h3>
+
+          {% if movie.director %}
+          <p class="text-xs text-[#556b78] font-medium mt-0.5">{{ movie.director }}</p>
+          {% endif %}
+
+          {% if movie.progress %}
+          <p class="mt-2 text-xs font-semibold text-[#164b70] bg-[#e2ecf2] inline-block px-2 py-0.5 border border-[#b7cbd6]">
+            Status: {{ movie.progress }}
+          </p>
+          {% endif %}
+
+          {% if movie.review %}
+          <p class="mt-2.5 text-sm leading-relaxed text-[#26343d] border-l-2 border-[#b7cbd6] pl-3 italic">
+            "{{ movie.review }}"
+          </p>
+          {% endif %}
+
+          {% if movie.link %}
+          <div class="mt-3">
+            <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="{{ movie.link }}" target="_blank" rel="noopener noreferrer">
+              View Details / Reviews &raquo;
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <div class="border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b]">
+      <p class="font-bold text-[#164b70]">No Movies or Shows Listed</p>
+      <p class="mt-1">Add your favorite movies or shows from the admin panel!</p>
+    </div>
+    {% endif %}
+  </div>
+</div>

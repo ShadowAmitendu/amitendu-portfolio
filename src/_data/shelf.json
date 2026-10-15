@@ -1,0 +1,83 @@
+{
+  "title": "Books & Movies",
+  "headerTagline": "READING & WATCHING",
+  "heading": "Books & Movies",
+  "intro": "A personal collection of books I'm reading or have finished, alongside movies, series, and anime that I've enjoyed or recommend.",
+  "booksHeading": "Bookshelf",
+  "booksIntro": "Books I am currently reading, finished, or have queued up next on my reading list.",
+  "moviesHeading": "Cinema & Shows",
+  "moviesIntro": "Films, series, and anime that left a lasting impression on me.",
+  "books": [
+    {
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "image": "/images/shadow-amitendu.jpg",
+      "status": "currently-reading",
+      "progress": "Chapter 6 (Page 134)",
+      "rating": "5/5",
+      "year": "2026",
+      "review": "An insightful breakdown of how microscopic habits compound into massive personal and professional transformations. Currently implementing the two-minute rule.",
+      "link": "https://jamesclear.com/atomic-habits"
+    },
+    {
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "image": "",
+      "status": "read",
+      "progress": "Finished",
+      "rating": "5/5",
+      "year": "2025",
+      "review": "Incredible deep dive into distributed data systems, replication, partitioning, and transaction models. Mandatory reading for software engineers.",
+      "link": "https://dataintensive.net/"
+    },
+    {
+      "title": "The Pragmatic Programmer",
+      "author": "David Thomas & Andrew Hunt",
+      "image": "",
+      "status": "to-read",
+      "progress": "Queued",
+      "rating": "",
+      "year": "2026",
+      "review": "On my upcoming queue to sharpen my software engineering philosophy and daily craftsmanship.",
+      "link": "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/"
+    }
+  ],
+  "movies": [
+    {
+      "title": "Interstellar",
+      "director": "Christopher Nolan",
+      "image": "",
+      "status": "watched",
+      "type": "Movie",
+      "progress": "Completed",
+      "rating": "10/10",
+      "year": "2014",
+      "review": "A masterclass in sci-fi cinema, human emotion, and theoretical physics. Hans Zimmer's soundtrack elevates every single sequence.",
+      "link": "https://www.imdb.com/title/tt0816692/"
+    },
+    {
+      "title": "Steins;Gate",
+      "director": "White Fox / Hiroshi Hamasaki",
+      "image": "",
+      "status": "watched",
+      "type": "Anime",
+      "progress": "Finished (24 Episodes)",
+      "rating": "10/10",
+      "year": "2011",
+      "review": "The pinnacle of time-travel narratives. Starts as a quirky otaku lab experiment in Akihabara and turns into an unforgettable, high-stakes thriller.",
+      "link": "https://myanimelist.net/anime/9253/Steins_Gate"
+    },
+    {
+      "title": "Severance",
+      "director": "Ben Stiller & Dan Erickson",
+      "image": "",
+      "status": "currently-watching",
+      "type": "TV Series",
+      "progress": "Season 1, Episode 7",
+      "rating": "9.5/10",
+      "year": "2022",
+      "review": "A chilling, retro-futuristic exploration of corporate alienation and identity bifurcation. The sterile 1980s computer terminal aesthetic is breathtaking.",
+      "link": "https://www.imdb.com/title/tt11280740/"
+    }
+  ]
+}
