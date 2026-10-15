@@ -24,6 +24,34 @@ md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 	return defaultLinkRender(tokens, idx, options, env, self);
 };
 
+// Render markdown images as lightbox-enabled figures with bottom title caption
+const defaultImageRender =
+	md.renderer.rules.image ||
+	function (tokens, idx, options, env, self) {
+		return self.renderToken(tokens, idx, options);
+	};
+
+md.renderer.rules.image = function (tokens, idx, options, env, self) {
+	const token = tokens[idx];
+	const srcIndex = token.attrIndex("src");
+	const titleIndex = token.attrIndex("title");
+	const alt = token.content || "";
+	const src = srcIndex >= 0 ? token.attrs[srcIndex][1] : "";
+	const title = titleIndex >= 0 ? token.attrs[titleIndex][1] : "";
+	const captionText = title || alt;
+
+	const captionHtml = captionText
+		? `<figcaption class="site-image-caption mt-1.5 text-center text-xs italic text-[#556b78] border-t border-dashed border-[#b7cbd6] pt-1.5">${md.utils.escapeHtml(captionText)}</figcaption>`
+		: "";
+
+	return `<figure class="site-image-figure my-5 text-center">
+  <a class="site-lightbox-trigger inline-block cursor-zoom-in" href="${md.utils.escapeHtml(src)}" data-lightbox="true" data-caption="${md.utils.escapeHtml(captionText)}" title="${md.utils.escapeHtml(captionText || 'Click to view full image')}">
+    <img src="${md.utils.escapeHtml(src)}" alt="${md.utils.escapeHtml(alt)}" class="site-entry-image block mx-auto max-w-full h-auto" />
+  </a>
+  ${captionHtml}
+</figure>`;
+};
+
 export default function (eleventyConfig) {
 	syncConfigIcons();
 	eleventyConfig.on("eleventy.before", () => {

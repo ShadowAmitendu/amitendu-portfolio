@@ -647,7 +647,7 @@ a[id^="IDShowCommentLink"]:hover {
 	font-family: inherit;
 }
 
-/* Blog Entry Images: full/max natural height */
+/* Blog Entry Images & Figures */
 .site-entry-image-frame img {
 	width: 100%;
 	height: auto;
@@ -656,16 +656,484 @@ a[id^="IDShowCommentLink"]:hover {
 	display: block;
 }
 
-.site-entry-body img {
+.site-entry-body img,
+.site-entry-image {
 	max-width: 100%;
 	height: auto;
 	max-height: none;
-	margin: 1.25rem auto;
 	border: 1px solid #7892a3;
 	background: #ffffff;
 	padding: 4px;
 	box-shadow: 2px 2px 0 #b8c5cc;
 	display: block;
+}
+
+/* Blog Entry Hero Overlay Title */
+.site-entry-hero-overlay .site-entry-title,
+.site-entry-hero .site-entry-title {
+	color: #ffffff !important;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95);
+}
+
+.site-image-figure {
+	margin: 1.5rem auto;
+	max-width: 100%;
+	display: inline-block;
+}
+
+.site-image-caption {
+	font-family: "Barlow Condensed", Verdana, Tahoma, sans-serif;
+	font-size: 0.8rem;
+	color: #556b78;
+	line-height: 1.35;
+	margin-top: 0.4rem;
+	text-align: center;
+}
+
+.site-lightbox-trigger {
+	position: relative;
+	display: inline-block;
+	text-decoration: none !important;
+	cursor: zoom-in;
+}
+
+.site-lightbox-trigger:hover img {
+	border-color: #164b70;
+	box-shadow: 3px 3px 0 #7892a3;
+}
+
+/* ========================================================
+   Frutiger Aero / Windows 7 Aero Glass Lightbox System
+   ======================================================== */
+
+.site-lightbox-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	background: radial-gradient(
+		ellipse at 50% 35%,
+		rgba(45, 125, 185, 0.42) 0%,
+		rgba(15, 45, 75, 0.78) 55%,
+		rgba(5, 18, 32, 0.92) 100%
+	);
+	backdrop-filter: blur(8px) saturate(135%);
+	-webkit-backdrop-filter: blur(8px) saturate(135%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-lightbox-overlay.is-active {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+/* Windows 7 Aero Glass Window Shell */
+.site-lightbox-window,
+.win7-aero-window {
+	position: relative;
+	border-radius: 6px !important;
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
+	mask-image: -webkit-radial-gradient(white, black);
+	overflow: hidden !important;
+	padding: 0 6px 7px 6px;
+	max-width: 92vw;
+	max-height: 92vh;
+	display: flex;
+	flex-direction: column;
+	background: linear-gradient(
+		180deg,
+		rgba(235, 246, 255, 0.65) 0%,
+		rgba(180, 220, 250, 0.45) 12%,
+		rgba(140, 195, 238, 0.35) 45%,
+		rgba(110, 175, 225, 0.4) 100%
+	);
+	border: 1px solid rgba(255, 255, 255, 0.85);
+	box-shadow:
+		0 0 0 1px rgba(10, 35, 60, 0.5),
+		0 18px 45px rgba(0, 12, 28, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.95),
+		inset 0 0 16px rgba(255, 255, 255, 0.35);
+	backdrop-filter: blur(16px) saturate(160%);
+	-webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+/* Frutiger Aero Top Specular Reflection */
+.win7-aero-glass-shine {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 38px;
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.6) 0%,
+		rgba(255, 255, 255, 0.2) 48%,
+		rgba(255, 255, 255, 0) 52%
+	);
+	pointer-events: none;
+	border-top-left-radius: 11px;
+	border-top-right-radius: 11px;
+}
+
+/* Windows 7 Titlebar */
+.win7-aero-titlebar {
+	height: 33px;
+	padding: 4px 0 4px 6px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	user-select: none;
+	position: relative;
+	z-index: 2;
+}
+
+/* Aero Glowing Title Text */
+.win7-title-text {
+	font-family: "Segoe UI", Tahoma, "Barlow Condensed", sans-serif;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: #0c273c;
+	text-shadow:
+		0 0 10px rgba(255, 255, 255, 0.95),
+		0 0 5px rgba(255, 255, 255, 0.9),
+		0 1px 2px rgba(255, 255, 255, 0.8);
+	max-width: 60vw;
+}
+
+/* Iconic Windows 7 Glowing Red Close Button (From Top to Center) */
+.win7-btn-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 48px;
+	height: 20px;
+	border: 1px solid rgba(135, 20, 20, 0.75);
+	border-top: 0;
+	border-right: 0;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	background: linear-gradient(
+		180deg,
+		rgba(240, 130, 130, 0.9) 0%,
+		rgba(214, 55, 55, 0.95) 48%,
+		rgba(180, 20, 20, 0.98) 52%,
+		rgba(202, 35, 35, 0.95) 100%
+	);
+	color: #ffffff;
+	font-family: ui-monospace, "Segoe UI", Arial, sans-serif;
+	font-size: 0.72rem;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	outline: none;
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.65),
+		inset 1px 0 0 rgba(255, 255, 255, 0.35),
+		inset -1px 0 0 rgba(255, 255, 255, 0.35),
+		0 1px 3px rgba(0, 20, 40, 0.35);
+	transition:
+		background 0.1s ease,
+		box-shadow 0.1s ease;
+	z-index: 10;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.win7-btn-close:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 125, 125, 1) 0%,
+		rgba(235, 40, 40, 1) 48%,
+		rgba(195, 12, 12, 1) 52%,
+		rgba(225, 28, 28, 1) 100%
+	);
+	box-shadow:
+		0 0 12px rgba(245, 60, 60, 0.9),
+		inset 0 1px 0 rgba(255, 255, 255, 0.85);
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.win7-btn-close:active {
+	background: linear-gradient(
+		180deg,
+		rgba(175, 25, 25, 1) 0%,
+		rgba(150, 15, 15, 1) 100%
+	);
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+.win7-btn-close span {
+	line-height: 1;
+	transform: translateY(-0.5px);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Windows 7 Inner Client Area (White Frame) - NO border-radius as requested */
+.win7-client-area {
+	position: relative;
+	background: #ffffff;
+	border: 1px solid rgba(85, 135, 175, 0.55);
+	border-radius: 6px !important;
+	padding: 8px;
+	box-shadow:
+		inset 0 1px 3px rgba(0, 25, 50, 0.18),
+		0 1px 0 rgba(255, 255, 255, 0.7);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	overflow: auto;
+}
+
+.win7-image-stage {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 4px;
+	border-radius: 6px !important;
+	background: linear-gradient(180deg, #f7fafc 0%, #edf3f7 100%);
+	border: 1px solid #c7d8e2;
+	border-radius: 0 !important;
+	box-shadow: inset 0 1px 4px rgba(0, 20, 40, 0.08);
+}
+
+.win7-image-stage img {
+	max-width: 88vw;
+	max-height: 76vh;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	display: block;
+	background: #ffffff;
+	border: 1px solid #9fb4c2;
+	border-radius: 0 !important;
+	padding: 3px;
+	box-shadow: 0 4px 14px rgba(0, 20, 40, 0.18);
+}
+
+.win7-caption {
+	margin-top: 0.6rem;
+	padding: 0.25rem 0.75rem;
+	font-family: "Segoe UI", Tahoma, "Barlow Condensed", sans-serif;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #143e5c;
+	background: rgba(230, 242, 250, 0.65);
+	border: 1px solid rgba(175, 205, 225, 0.7);
+	border-radius: 0 !important;
+	text-align: center;
+	max-width: 85vw;
+	box-shadow: inset 0 1px 0 #ffffff;
+}
+
+/* Windows 7 Menubar (File, Print, E-mail, Burn, Open) */
+.win7-menubar {
+	height: 26px;
+	background: linear-gradient(180deg, #fdfefe 0%, #edf4f8 100%);
+	border-bottom: 1px solid #d4e2ed;
+}
+
+.win7-menu-item {
+	padding: 0.1rem 0.45rem;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	color: #1e395b;
+	cursor: pointer;
+	font-family: "Segoe UI", Tahoma, sans-serif;
+	font-size: 0.72rem;
+	transition: all 0.1s ease;
+}
+
+.win7-menu-item:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(235, 245, 255, 0.9) 0%,
+		rgba(200, 225, 250, 0.8) 100%
+	);
+	border-color: rgba(125, 175, 220, 0.7);
+	box-shadow: inset 0 1px 0 #ffffff;
+}
+
+.win7-menu-arrow {
+	font-size: 0.6rem;
+	opacity: 0.7;
+	margin-left: 1px;
+}
+
+.win7-help-circle {
+	width: 17px;
+	height: 17px;
+	border-radius: 50%;
+	background: linear-gradient(180deg, #3a93d8 0%, #1a629b 100%);
+	color: #ffffff;
+	font-family: "Segoe UI", Arial, sans-serif;
+	font-size: 0.68rem;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #144e7c;
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.6),
+		0 1px 2px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+/* Windows 7 Photo Viewer Bottom Toolbar */
+.win7-bottom-bar {
+	padding: 0.4rem 0.5rem 0.2rem 0.5rem;
+}
+
+.win7-toolbar-pill {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.75) 0%,
+		rgba(220, 238, 252, 0.65) 45%,
+		rgba(175, 215, 245, 0.7) 50%,
+		rgba(195, 228, 252, 0.85) 100%
+	);
+	border: 1px solid rgba(85, 140, 190, 0.65);
+	border-radius: 24px;
+	box-shadow:
+		0 2px 6px rgba(0, 25, 55, 0.25),
+		inset 0 1px 0 rgba(255, 255, 255, 0.9),
+		inset 0 0 8px rgba(255, 255, 255, 0.4);
+	backdrop-filter: blur(8px);
+}
+
+.win7-tool-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: 1px solid transparent;
+	background: transparent;
+	color: #1a4f78;
+	cursor: pointer;
+	outline: none;
+	transition: all 0.12s ease;
+}
+
+.win7-tool-btn:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.95) 0%,
+		rgba(225, 242, 255, 0.85) 50%,
+		rgba(185, 220, 248, 0.9) 100%
+	);
+	border-color: rgba(100, 160, 210, 0.75);
+	box-shadow:
+		0 0 6px rgba(130, 195, 250, 0.8),
+		inset 0 1px 0 #ffffff;
+	color: #0c3352;
+}
+
+.win7-tool-btn:active {
+	background: linear-gradient(
+		180deg,
+		rgba(170, 210, 245, 0.9) 0%,
+		rgba(205, 235, 255, 0.95) 100%
+	);
+	box-shadow: inset 0 1px 2px rgba(0, 30, 60, 0.3);
+}
+
+.win7-tool-btn-close:hover {
+	background: linear-gradient(
+		180deg,
+		#ff8a8a 0%,
+		#ea2a2a 50%,
+		#c41818 100%
+	) !important;
+	border-color: #9c1515 !important;
+	color: #ffffff !important;
+}
+
+.win7-tool-btn-close:hover svg path {
+	stroke: #ffffff;
+}
+
+/* Center Navigation Sub-Pill */
+.win7-nav-pill {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.6) 0%,
+		rgba(200, 228, 250, 0.5) 50%,
+		rgba(165, 210, 245, 0.6) 100%
+	);
+	border: 1px solid rgba(95, 150, 195, 0.6);
+	border-radius: 20px;
+	padding: 2px 4px;
+	box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* The Iconic Windows 7 Center Blue Orb */
+.win7-orb-btn {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 2px;
+	border: 2px solid #5aa5d8;
+	background: radial-gradient(
+		circle at 50% 30%,
+		#60c4ff 0%,
+		#2185d0 45%,
+		#0c5fa5 80%,
+		#07447a 100%
+	);
+	box-shadow:
+		0 0 12px rgba(35, 140, 235, 0.85),
+		0 2px 5px rgba(0, 20, 45, 0.45),
+		inset 0 2px 3px rgba(255, 255, 255, 0.95),
+		inset 0 -2px 3px rgba(0, 40, 80, 0.6);
+	cursor: pointer;
+	outline: none;
+	transition:
+		transform 0.1s ease,
+		box-shadow 0.12s ease;
+	position: relative;
+	z-index: 3;
+}
+
+.win7-orb-btn:hover {
+	transform: scale(1.06);
+	box-shadow:
+		0 0 18px rgba(70, 175, 255, 1),
+		0 2px 6px rgba(0, 20, 45, 0.5),
+		inset 0 2px 4px rgba(255, 255, 255, 1),
+		inset 0 -2px 4px rgba(0, 40, 80, 0.5);
+}
+
+.win7-orb-btn:active {
+	transform: scale(0.96);
+	box-shadow:
+		0 0 8px rgba(35, 140, 235, 0.8),
+		inset 0 2px 4px rgba(0, 30, 60, 0.8);
+}
+
+.win7-tool-divider {
+	display: inline-block;
+	width: 1px;
+	height: 18px;
+	background: rgba(110, 160, 200, 0.5);
+	box-shadow: 1px 0 0 rgba(255, 255, 255, 0.8);
+	margin: 0 2px;
 }
 
 /* About Directory Listing Rows (Books, Movies, Games, Software) */
@@ -746,4 +1214,3 @@ a[id^="IDShowCommentLink"]:hover {
 .site-listing-placeholder.is-app {
 	min-height: 4rem;
 }
-

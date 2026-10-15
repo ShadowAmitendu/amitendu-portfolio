@@ -65,6 +65,8 @@
   {% set pageDesc = games.intro or "Video games played by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
   {% elif aboutTab == 'software' %}
   {% set pageDesc = software.intro or "Software, developer tools, and applications used by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+  {% elif aboutTab == 'friends' %}
+  {% set pageDesc = friends.intro or "Friends, fellow developers, and creative homepages recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
   {% else %}
   {% set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast." %}
   {% endif %}
@@ -193,7 +195,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/styles.css?v=20261015b" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="/favicon.ico" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -202,7 +204,7 @@
 <body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
   <main class="site-shell mx-auto max-w-6xl p-1">
     <header class="site-header relative overflow-hidden text-white">
-      {% set pageHeaderBanner = headerBanner or banner or pageBanner or (about and about.headerBanner) or (home and home.headerBanner) or (portfolioPage and portfolioPage.headerBanner) or (blogPage and blogPage.headerBanner) or (resume and resume.headerBanner) or (books and books.headerBanner) or (movies and movies.headerBanner) or (games and games.headerBanner) or (software and software.headerBanner) or (site and site.headerBanner) or '/images/header-banner.jpg' %}
+      {% set pageHeaderBanner = headerBanner or banner or pageBanner or (about and about.headerBanner) or (home and home.headerBanner) or (portfolioPage and portfolioPage.headerBanner) or (blogPage and blogPage.headerBanner) or (resume and resume.headerBanner) or (books and books.headerBanner) or (movies and movies.headerBanner) or (games and games.headerBanner) or (software and software.headerBanner) or (friends and friends.headerBanner) or (site and site.headerBanner) or '/images/header-banner.jpg' %}
       <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="{{ pageHeaderBanner }}"
         alt="" />
       <div class="relative px-5 py-4">
@@ -539,6 +541,36 @@
         </div>
         {% endif %}
 
+        {# Friends Section in Right Sidebar #}
+        {% set sidebarFriends = friends.items %}
+        {% if sidebarFriends and sidebarFriends.length > 0 %}
+        <div class="mt-5 border-t border-[#b7cbd6] pt-3">
+          <h2>Friends &amp; Allies</h2>
+          <div class="mt-2 space-y-2">
+            {% for f in sidebarFriends.slice(0, 4) %}
+            <div class="flex items-center gap-2">
+              {% if f.avatar %}
+              <img class="h-5 w-5 shrink-0 object-cover border border-[#7892a3] bg-white p-0.5" src="{{ f.avatar }}" alt="{{ f.name }}" width="20" height="20" />
+              {% else %}
+              <span class="h-5 w-5 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]">✦</span>
+              {% endif %}
+              <div class="min-w-0 flex-1 truncate">
+                <a class="text-[13px] leading-snug text-[#064f83] underline hover:text-[#c0392b]"
+                  href="{{ f.url or '/about/friends/' }}"
+                  {% if f.url and f.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ f.name }}</a>
+                {% if f.relationship %}
+                <span class="block text-[10px] text-[#71828b] leading-tight truncate">{{ f.relationship }}</span>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mt-2 text-right text-xs">
+            <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/friends/">All friends &raquo;</a>
+          </div>
+        </div>
+        {% endif %}
+
       </aside>
     </div>
     <footer class="site-footer px-5 py-4 text-center text-[14px] text-[#71828b]">
@@ -669,6 +701,166 @@
             }
           }
         } );
+      } );
+    } )();
+  </script>
+
+  {# Windows 7 / Frutiger Aero Lightbox Modal Dialog (Windows Photo Viewer) #}
+  <div id="siteLightbox" class="site-lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="site-lightbox-window win7-aero-window" style="border-radius: 14px !important; overflow: hidden !important; -webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: -webkit-radial-gradient(white, black);" role="document">
+      {# Top Specular Aero Glass Reflection #}
+      <div class="win7-aero-glass-shine"></div>
+
+      {# Windows 7 Titlebar with Aero Glow & Close Button #}
+      <div class="site-lightbox-titlebar win7-aero-titlebar">
+        <div class="win7-title-group flex items-center gap-1.5 min-w-0 pr-14">
+          {# Official Windows Photo Viewer Icon #}
+          <img src="/images/windows-photo-viewer.png" alt="" class="h-4 w-4 shrink-0 drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)] object-contain select-none" />
+          <span id="siteLightboxTitle" class="win7-title-text truncate">Windows Photo Viewer</span>
+        </div>
+
+        {# Windows 7 Glowing Red Close Button (From Top to Center) #}
+        <button type="button" class="site-lightbox-close win7-btn-close" aria-label="Close image viewer" onclick="closeSiteLightbox()">
+          <span>✕</span>
+        </button>
+      </div>
+
+      {# Inner Client Area (White Stage with rounded corners) #}
+      <div class="site-lightbox-body win7-client-area">
+        <div class="win7-image-stage">
+          <img id="siteLightboxImg" src="" alt="" />
+        </div>
+        <div id="siteLightboxCaption" class="site-lightbox-caption win7-caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    ( function ()
+    {
+      var overlay = document.getElementById( 'siteLightbox' );
+      var modalImg = document.getElementById( 'siteLightboxImg' );
+      var modalCaption = document.getElementById( 'siteLightboxCaption' );
+      var modalTitle = document.getElementById( 'siteLightboxTitle' );
+      if ( !overlay || !modalImg ) return;
+
+      var currentRotation = 0;
+      var isZoomed = false;
+
+      function applyTransform() {
+        var scale = isZoomed ? 'scale(1.4)' : 'scale(1)';
+        var rot = 'rotate(' + currentRotation + 'deg)';
+        modalImg.style.transform = rot + ' ' + scale;
+        modalImg.style.transition = 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+      }
+
+      window.openSiteLightbox = function ( src, caption )
+      {
+        currentRotation = 0;
+        isZoomed = false;
+        modalImg.style.transform = 'none';
+        modalImg.src = src;
+        modalImg.alt = caption || 'Expanded image';
+        modalCaption.textContent = caption || '';
+        modalCaption.style.display = caption ? 'block' : 'none';
+        modalTitle.textContent = ( caption ? caption + ' - ' : '' ) + 'Windows Photo Viewer';
+        overlay.classList.add( 'is-active' );
+        overlay.setAttribute( 'aria-hidden', 'false' );
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.rotateLightbox = function ( deg )
+      {
+        currentRotation = ( currentRotation + deg ) % 360;
+        applyTransform();
+      };
+
+      window.toggleLightboxZoom = function ()
+      {
+        isZoomed = !isZoomed;
+        applyTransform();
+      };
+
+      window.toggleLightboxFit = function ()
+      {
+        isZoomed = false;
+        currentRotation = 0;
+        applyTransform();
+      };
+
+      window.resetLightboxTransform = function ()
+      {
+        currentRotation = 0;
+        isZoomed = false;
+        applyTransform();
+      };
+
+      window.closeSiteLightbox = function ()
+      {
+        overlay.classList.remove( 'is-active' );
+        overlay.setAttribute( 'aria-hidden', 'true' );
+        modalImg.src = '';
+        currentRotation = 0;
+        isZoomed = false;
+        modalImg.style.transform = 'none';
+        document.body.style.overflow = '';
+      };
+
+      overlay.addEventListener( 'click', function ( e )
+      {
+        if ( e.target === overlay )
+        {
+          window.closeSiteLightbox();
+        }
+      } );
+
+      document.addEventListener( 'keydown', function ( e )
+      {
+        if ( overlay.classList.contains( 'is-active' ) )
+        {
+          if ( e.key === 'Escape' )
+          {
+            window.closeSiteLightbox();
+          }
+          else if ( e.key === 'ArrowRight' || e.key === '.' )
+          {
+            window.rotateLightbox( 90 );
+          }
+          else if ( e.key === 'ArrowLeft' || e.key === ',' )
+          {
+            window.rotateLightbox( -90 );
+          }
+        }
+      } );
+
+      // Event delegation for lightbox clicks anywhere in site-entry-body or with data-lightbox
+      document.addEventListener( 'click', function ( e )
+      {
+        var trigger = e.target && e.target.closest ? e.target.closest( 'a[data-lightbox="true"], .site-lightbox-trigger' ) : null;
+        if ( trigger )
+        {
+          e.preventDefault();
+          var href = trigger.getAttribute( 'href' );
+          var caption = trigger.getAttribute( 'data-caption' ) || trigger.getAttribute( 'title' ) || '';
+          if ( href )
+          {
+            window.openSiteLightbox( href, caption );
+          }
+          return;
+        }
+
+        // Also allow direct clicking of any image inside .site-entry-body, .site-entry-image-frame, or .site-entry-hero to zoom
+        var bodyImg = e.target && e.target.closest ? e.target.closest( '.site-entry-body img, .site-entry-image-frame img, .site-entry-hero img, .site-entry-header img' ) : null;
+        if ( bodyImg && !bodyImg.closest( 'a' ) )
+        {
+          e.preventDefault();
+          var src = bodyImg.getAttribute( 'src' );
+          var cap = bodyImg.getAttribute( 'alt' ) || bodyImg.getAttribute( 'title' ) || '';
+          if ( src )
+          {
+            window.openSiteLightbox( src, cap );
+          }
+        }
       } );
     } )();
   </script>

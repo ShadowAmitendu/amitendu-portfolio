@@ -1,18 +1,21 @@
-<nav class="site-subnav mb-4 border border-[#b7cbd6] px-2 py-1 text-xs">
-  <div class="site-subnav-links flex flex-nowrap items-center justify-center gap-1 sm:gap-1.5 px-1 py-0.5 text-[12px] sm:text-[13px] overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
-    <a class="site-subnav-link shrink-0 px-2.5 py-0.5 {% if aboutTab == 'me' %}active font-bold{% endif %}"
+<nav class="site-subnav mb-4 border border-[#b7cbd6] p-1 sm:px-2 sm:py-1 text-xs">
+  <div class="site-subnav-links grid grid-cols-3 gap-1 sm:flex sm:flex-nowrap sm:items-center sm:justify-center sm:gap-1.5 text-[12px] sm:text-[13px]">
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'me' %}active font-bold{% endif %}"
       href="/about/">me</a>
-    <span class="text-[#8aa2af] shrink-0 select-none">|</span>
-    <a class="site-subnav-link shrink-0 px-2.5 py-0.5 {% if aboutTab == 'books' %}active font-bold{% endif %}"
+    <span class="text-[#8aa2af] shrink-0 select-none hidden sm:inline">|</span>
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'books' %}active font-bold{% endif %}"
       href="/about/books/">books</a>
-    <span class="text-[#8aa2af] shrink-0 select-none">|</span>
-    <a class="site-subnav-link shrink-0 px-2.5 py-0.5 {% if aboutTab == 'movies' %}active font-bold{% endif %}"
+    <span class="text-[#8aa2af] shrink-0 select-none hidden sm:inline">|</span>
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'movies' %}active font-bold{% endif %}"
       href="/about/movies/">movies</a>
-    <span class="text-[#8aa2af] shrink-0 select-none">|</span>
-    <a class="site-subnav-link shrink-0 px-2.5 py-0.5 {% if aboutTab == 'games' %}active font-bold{% endif %}"
+    <span class="text-[#8aa2af] shrink-0 select-none hidden sm:inline">|</span>
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'games' %}active font-bold{% endif %}"
       href="/about/games/">games</a>
-    <span class="text-[#8aa2af] shrink-0 select-none">|</span>
-    <a class="site-subnav-link shrink-0 px-2.5 py-0.5 {% if aboutTab == 'software' %}active font-bold{% endif %}"
+    <span class="text-[#8aa2af] shrink-0 select-none hidden sm:inline">|</span>
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'software' %}active font-bold{% endif %}"
       href="/about/software/">software</a>
+    <span class="text-[#8aa2af] shrink-0 select-none hidden sm:inline">|</span>
+    <a class="site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none {% if aboutTab == 'friends' %}active font-bold{% endif %}"
+      href="/about/friends/">friends</a>
   </div>
 </nav>

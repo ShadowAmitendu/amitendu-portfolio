@@ -492,6 +492,71 @@ collections:
                   required: false,
                 }
 
+      - name: "about-friends"
+        label: "Tab 6: Friends"
+        file: "src/_data/friends.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Friends",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "FRIENDS & ALLIES",
+            }
+          - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Heading",
+              name: "heading",
+              widget: "string",
+              default: "Friends & Web Neighbours",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Friends & Allies List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} [{{fields.relationship}}]"
+            fields:
+              - { label: "Friend / Site Name", name: "name", widget: "string" }
+              - { label: "Website URL", name: "url", widget: "string" }
+              - {
+                  label: "Avatar / Profile Picture",
+                  name: "avatar",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload an avatar or icon (PNG, JPG, WEBP, GIF).",
+                }
+              - {
+                  label: "Relationship / Role",
+                  name: "relationship",
+                  widget: "string",
+                  required: false,
+                  hint: "e.g. Peer / Friend, Colleague, Design Partner, Webring Ally",
+                }
+              - {
+                  label: "Bio / Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                  hint: "Short note on who they are or what their site is about.",
+                }
+
+
   - name: "resume-page"
     label: "Resume / CV"
     files:

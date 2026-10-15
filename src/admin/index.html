@@ -225,8 +225,7 @@
 								h(
 									"h1",
 									{
-										className:
-											"mt-1 text-center tracking-tight",
+										className: "mt-1 text-center tracking-tight",
 									},
 									pageTitle || "Amitendu Bikash Dhusiya",
 								),
@@ -259,7 +258,11 @@
 								h(
 									"div",
 									{ className: "site-sidebar-card mb-4" },
-									h("div", { className: "site-sidebar-card-header" }, "About Me"),
+									h(
+										"div",
+										{ className: "site-sidebar-card-header" },
+										"About Me",
+									),
 									h(
 										"div",
 										{ className: "site-sidebar-card-body" },
@@ -267,7 +270,8 @@
 											"div",
 											{ className: "flex items-center gap-2.5" },
 											h("img", {
-												className: "site-profile-frame h-11 w-11 shrink-0 object-cover",
+												className:
+													"site-profile-frame h-11 w-11 shrink-0 object-cover",
 												src: "/images/shadow-amitendu.jpg",
 												alt: "Amitendu",
 												width: 44,
@@ -276,11 +280,32 @@
 											h(
 												"div",
 												{ className: "min-w-0" },
-												h("p", { className: "truncate font-bold leading-tight text-[#164b70] text-sm" }, "Amitendu"),
-												h("p", { className: "mt-0.5 text-[11px] leading-tight text-[#556b78]" }, "Developer & Maker"),
+												h(
+													"p",
+													{
+														className:
+															"truncate font-bold leading-tight text-[#164b70] text-sm",
+													},
+													"Amitendu",
+												),
+												h(
+													"p",
+													{
+														className:
+															"mt-0.5 text-[11px] leading-tight text-[#556b78]",
+													},
+													"Developer & Maker",
+												),
 											),
 										),
-										h("p", { className: "mt-2.5 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2" }, "Building small things for the web."),
+										h(
+											"p",
+											{
+												className:
+													"mt-2.5 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2",
+											},
+											"Building small things for the web.",
+										),
 										h(
 											"div",
 											{ className: "mt-2.5" },
@@ -304,7 +329,11 @@
 									h(
 										"div",
 										{ className: "mt-2 space-y-2" },
-										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No posts yet."),
+										h(
+											"p",
+											{ className: "text-[12px] italic text-[#71828b]" },
+											"No posts yet.",
+										),
 									),
 								),
 								h(
@@ -314,7 +343,11 @@
 									h(
 										"div",
 										{ className: "mt-2 space-y-2" },
-										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No favorites tagged yet."),
+										h(
+											"p",
+											{ className: "text-[12px] italic text-[#71828b]" },
+											"No favorites tagged yet.",
+										),
 									),
 								),
 							),
@@ -497,18 +530,19 @@
 					var articleContent = h(
 						"article",
 						{ className: "site-entry" },
-						// Header
+						// Header (Merged hero card)
 						h(
 							"header",
 							{
 								className:
-									"site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]",
+									"site-entry-header border border-[#b2c2cc] bg-white shadow-[2px_2px_0_#cad6de] overflow-hidden",
 							},
+							// 1. Entry date & written by: name
 							h(
 								"div",
 								{
 									className:
-										"flex flex-wrap items-center justify-between gap-2 text-[14px] text-[#536a75]",
+										"border-b border-[#c6d7e0] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[13px] sm:text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]",
 								},
 								h(
 									"div",
@@ -517,7 +551,7 @@
 										"span",
 										{
 											className:
-												"inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase",
+												"inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase select-none",
 										},
 										"ENTRY",
 									),
@@ -526,7 +560,7 @@
 												"span",
 												{
 													className:
-														"inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase",
+														"inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase select-none",
 												},
 												"DRAFT",
 											)
@@ -539,23 +573,76 @@
 								),
 								h(
 									"div",
-									{ className: "text-[14px]" },
-									"written by ",
-									h("span", { className: "font-bold text-[#164b70]" }, author),
+									{ className: "text-[13px] sm:text-[14px]" },
+									author
+										? [
+												"written by: ",
+												h(
+													"span",
+													{
+														key: "author",
+														className: "font-bold text-[#164b70]",
+													},
+													author,
+												),
+											]
+										: null,
 								),
 							),
-							h(
-								"h1",
-								{
-									className:
-										"site-entry-title mt-2 font-bold tracking-tight text-[#164b70]",
-								},
-								title,
-							),
+							// 2. Image with Title Overlaid (or standard title if no image)
+							imageSrc
+								? h(
+										"div",
+										{
+											className:
+												"site-entry-hero relative bg-[#0a1926] border-b border-[#c6d7e0] overflow-hidden group",
+										},
+										h("img", {
+											className:
+												"block w-full h-auto max-h-[540px] object-cover sm:object-contain mx-auto",
+											src: imageSrc,
+											alt: title,
+										}),
+										h(
+											"div",
+											{
+												className:
+													"site-entry-hero-overlay absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a1f2e] from-55% via-[#0a1f2e]/85 to-transparent pt-16 pb-3.5 px-4 sm:px-5 pointer-events-none",
+											},
+											h(
+												"h1",
+												{
+													className:
+														"site-entry-title text-white font-bold tracking-tight text-xl sm:text-2xl md:text-3xl leading-tight uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] m-0 pointer-events-auto select-text",
+													style: { color: "#ffffff" },
+												},
+												title,
+											),
+										),
+									)
+								: h(
+										"div",
+										{
+											className:
+												"p-3.5 sm:p-4 bg-gradient-to-b from-[#ffffff] to-[#edf4f8] border-b border-[#c6d7e0]",
+										},
+										h(
+											"h1",
+											{
+												className:
+													"site-entry-title font-bold tracking-tight text-[#22608a] text-xl sm:text-2xl md:text-3xl leading-tight uppercase m-0",
+											},
+											title,
+										),
+									),
+							// 3. Description then after
 							description
 								? h(
-										"p",
-										{ className: "mt-1 text-xs italic text-[#71828b]" },
+										"div",
+										{
+											className:
+												"site-entry-desc p-3.5 bg-[#f8fbfc] text-xs sm:text-sm text-[#3b4d57] leading-relaxed italic border-t border-[#edf3f6]",
+										},
 										description,
 									)
 								: null,
@@ -569,22 +656,6 @@
 											"my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]",
 									},
 									"DRAFT - This post is saved as a draft and is hidden from public blog listings.",
-								)
-							: null,
-
-						// Featured image
-						imageSrc
-							? h(
-									"div",
-									{
-										className:
-											"site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]",
-									},
-									h("img", {
-										className: "h-auto w-full object-contain",
-										src: imageSrc,
-										alt: title,
-									}),
 								)
 							: null,
 
@@ -1190,8 +1261,7 @@
 								h(
 									"p",
 									{
-										className:
-											"text-xl font-bold text-[#164b70]",
+										className: "text-xl font-bold text-[#164b70]",
 									},
 									greeting,
 								),
@@ -1211,7 +1281,7 @@
 										alt: "Waving stickman",
 										width: 80,
 										height: 80,
-								  })
+									})
 								: null,
 						),
 
@@ -1436,6 +1506,7 @@
 					{ key: "movies", label: "movies" },
 					{ key: "games", label: "games" },
 					{ key: "software", label: "software" },
+					{ key: "friends", label: "friends" },
 				];
 				var children = [];
 				tabs.forEach(function (tab, idx) {
@@ -1445,7 +1516,8 @@
 								"span",
 								{
 									key: "sep-" + idx,
-									className: "text-[#8aa2af] shrink-0 select-none",
+									className:
+										"text-[#8aa2af] shrink-0 select-none hidden sm:inline",
 								},
 								"|",
 							),
@@ -1458,8 +1530,8 @@
 							{
 								key: tab.key,
 								className:
-									"site-subnav-link shrink-0 px-2.5 py-0.5 " +
-									(isActive ? "active font-bold" : ""),
+									"site-subnav-link block text-center py-1 px-1 sm:inline sm:py-0.5 sm:px-2.5 border border-[#b7cbd6]/70 sm:border-0 bg-[#f4f8fa] sm:bg-transparent shadow-[inset_0_1px_0_#fff] sm:shadow-none" +
+									(isActive ? " active font-bold" : ""),
 							},
 							tab.label,
 						),
@@ -1468,13 +1540,14 @@
 				return h(
 					"nav",
 					{
-						className: "site-subnav mb-4 border border-[#b7cbd6] px-2 py-1 text-xs",
+						className:
+							"site-subnav mb-4 border border-[#b7cbd6] p-1 sm:px-2 sm:py-1 text-xs",
 					},
 					h(
 						"div",
 						{
 							className:
-								"site-subnav-links flex flex-nowrap items-center justify-center gap-1 sm:gap-1.5 px-1 py-0.5 text-[12px] sm:text-[13px] overflow-x-auto whitespace-nowrap",
+								"site-subnav-links grid grid-cols-3 gap-1 sm:flex sm:flex-nowrap sm:items-center sm:justify-center sm:gap-1.5 text-[12px] sm:text-[13px]",
 						},
 						children,
 					),
@@ -1495,8 +1568,7 @@
 					var profileAlt =
 						entry.getIn(["data", "profileAlt"]) || "Profile photo";
 					var contentWidget =
-						this.props.widgetFor("content") ||
-						this.props.widgetFor("body");
+						this.props.widgetFor("content") || this.props.widgetFor("body");
 					var paragraphs = entry.getIn(["data", "paragraphs"]);
 
 					var aboutContent = h(
@@ -1521,8 +1593,7 @@
 								? h(
 										"div",
 										{
-											className:
-												"float-right ml-4 mb-3 shrink-0",
+											className: "float-right ml-4 mb-3 shrink-0",
 										},
 										h(
 											"div",
@@ -1537,14 +1608,10 @@
 												alt: profileAlt,
 											}),
 										),
-								  )
+									)
 								: null,
 							intro
-								? h(
-										"p",
-										{ className: "text-sm text-[#536a75] mb-3" },
-										intro,
-								  )
+								? h("p", { className: "text-sm text-[#536a75] mb-3" }, intro)
 								: null,
 							contentWidget
 								? h("div", { className: "mt-3" }, contentWidget)
@@ -1619,7 +1686,10 @@
 										{ className: "flex items-baseline gap-1.5" },
 										h(
 											"span",
-											{ className: "text-xs font-bold text-[#556b78] select-none" },
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
 											"#" + (idx + 1),
 										),
 										h(
@@ -1634,8 +1704,7 @@
 											? h(
 													"span",
 													{
-														className:
-															"text-xs text-[#556b78] font-normal",
+														className: "text-xs text-[#556b78] font-normal",
 													},
 													"(" + book.author + ")",
 												)
@@ -1861,11 +1930,7 @@
 									intro,
 								)
 							: null,
-						h(
-							"div",
-							{ className: "mt-4 space-y-4" },
-							itemsListElements,
-						),
+						h("div", { className: "mt-4 space-y-4" }, itemsListElements),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -1884,15 +1949,12 @@
 			var AboutMoviesPreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
-					var heading =
-						entry.getIn(["data", "heading"]) || "Cinema & TV Shows";
+					var heading = entry.getIn(["data", "heading"]) || "Cinema & TV Shows";
 					var intro = entry.getIn(["data", "intro"]) || "";
 					var rawMovies = entry.getIn(["data", "movies"]);
-					var moviesList =
-						rawMovies && rawMovies.toJS ? rawMovies.toJS() : [];
+					var moviesList = rawMovies && rawMovies.toJS ? rawMovies.toJS() : [];
 					var rawShows = entry.getIn(["data", "shows"]);
-					var showsList =
-						rawShows && rawShows.toJS ? rawShows.toJS() : [];
+					var showsList = rawShows && rawShows.toJS ? rawShows.toJS() : [];
 					var rawItems = entry.getIn(["data", "items"]);
 					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
 					var getAsset = this.props.getAsset;
@@ -1948,7 +2010,10 @@
 										{ className: "flex items-baseline gap-1.5" },
 										h(
 											"span",
-											{ className: "text-xs font-bold text-[#556b78] select-none" },
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
 											"#" + (idx + 1),
 										),
 										h(
@@ -1963,8 +2028,7 @@
 											? h(
 													"span",
 													{
-														className:
-															"text-xs text-[#556b78] font-normal",
+														className: "text-xs text-[#556b78] font-normal",
 													},
 													"(" + movie.director + ")",
 												)
@@ -2188,7 +2252,10 @@
 										{ className: "flex items-baseline gap-1.5" },
 										h(
 											"span",
-											{ className: "text-xs font-bold text-[#556b78] select-none" },
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
 											"#" + (idx + 1),
 										),
 										h(
@@ -2203,8 +2270,7 @@
 											? h(
 													"span",
 													{
-														className:
-															"text-xs text-[#556b78] font-normal",
+														className: "text-xs text-[#556b78] font-normal",
 													},
 													"(" + show.creator + ")",
 												)
@@ -2492,10 +2558,7 @@
 						);
 					} else {
 						itemsListElements = items.map(function (game, idx) {
-							var coverSrc = resolveAssetUrl(
-								getAsset,
-								game.image || game.icon,
-							);
+							var coverSrc = resolveAssetUrl(getAsset, game.image || game.icon);
 
 							return h(
 								"div",
@@ -2516,7 +2579,10 @@
 										{ className: "flex items-baseline gap-1.5" },
 										h(
 											"span",
-											{ className: "text-xs font-bold text-[#556b78] select-none" },
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
 											"#" + (idx + 1),
 										),
 										h(
@@ -2531,8 +2597,7 @@
 											? h(
 													"span",
 													{
-														className:
-															"text-xs text-[#556b78] font-normal",
+														className: "text-xs text-[#556b78] font-normal",
 													},
 													"(" + game.publisher + ")",
 												)
@@ -2540,8 +2605,7 @@
 												? h(
 														"span",
 														{
-															className:
-																"text-xs text-[#556b78] font-normal",
+															className: "text-xs text-[#556b78] font-normal",
 														},
 														"(" + game.platform + ")",
 													)
@@ -2550,8 +2614,7 @@
 									h(
 										"div",
 										null,
-										game.playingRightNow ||
-											game.status === "Playing right now"
+										game.playingRightNow || game.status === "Playing right now"
 											? h(
 													"span",
 													{
@@ -2564,8 +2627,7 @@
 												? h(
 														"span",
 														{
-															className:
-																"text-[11px] font-bold text-[#556b78]",
+															className: "text-[11px] font-bold text-[#556b78]",
 														},
 														game.status,
 													)
@@ -2743,11 +2805,7 @@
 									intro,
 								)
 							: null,
-						h(
-							"div",
-							{ className: "mt-4 space-y-4" },
-							itemsListElements,
-						),
+						h("div", { className: "mt-4 space-y-4" }, itemsListElements),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -2805,7 +2863,10 @@
 										{ className: "flex items-baseline gap-1.5" },
 										h(
 											"span",
-											{ className: "text-xs font-bold text-[#556b78] select-none" },
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
 											"#" + (idx + 1),
 										),
 										h(
@@ -2820,8 +2881,7 @@
 											? h(
 													"span",
 													{
-														className:
-															"text-xs text-[#556b78] font-normal",
+														className: "text-xs text-[#556b78] font-normal",
 													},
 													"(" + item.category + ")",
 												)
@@ -2938,7 +2998,10 @@
 															),
 															h(
 																"td",
-																{ className: "py-1 text-[#26343d] leading-relaxed" },
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed",
+																},
 																item.description,
 															),
 														)
@@ -3000,6 +3063,249 @@
 				},
 			});
 
+			var AboutFriendsPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading =
+						entry.getIn(["data", "heading"]) || "Friends & Web Neighbours";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawItems = entry.getIn(["data", "items"]);
+					var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var itemsListElements;
+					if (!items || items.length === 0) {
+						itemsListElements = h(
+							"div",
+							{
+								className:
+									"border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]",
+							},
+							"No friends added yet. Friends added via this form will appear here.",
+						);
+					} else {
+						itemsListElements = items.map(function (item, idx) {
+							var avatarSrc = resolveAssetUrl(getAsset, item.avatar);
+
+							return h(
+								"div",
+								{
+									key: idx,
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
+								},
+								// 2005 Window Header
+								h(
+									"div",
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h(
+										"div",
+										{ className: "flex items-baseline gap-1.5" },
+										h(
+											"span",
+											{
+												className:
+													"text-xs font-bold text-[#556b78] select-none",
+											},
+											"#" + (idx + 1),
+										),
+										h(
+											"h3",
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
+											},
+											item.name || "Untitled Friend",
+										),
+										item.relationship
+											? h(
+													"span",
+													{
+														className: "text-xs text-[#556b78] font-normal",
+													},
+													"(" + item.relationship + ")",
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										item.url
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] font-bold text-[#164b70] bg-[#e1ebf0] px-1.5 py-0.5 border border-[#c6d7e0]",
+													},
+													"Visit Site »",
+												)
+											: null,
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className: "site-listing-body p-3 bg-[#f8fbfc]",
+									},
+									// Avatar / Badge
+									h(
+										"div",
+										{
+											className: "site-listing-image-col is-app",
+										},
+										avatarSrc
+											? h(
+													"div",
+													{
+														className: "site-listing-frame is-app",
+													},
+													h("img", {
+														src: avatarSrc,
+														alt: item.name || "",
+													}),
+												)
+											: h(
+													"div",
+													{
+														className: "site-listing-placeholder is-app",
+													},
+													"FRIEND",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												item.relationship
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Relationship:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																item.relationship,
+															),
+														)
+													: null,
+												item.url
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Website:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#064f83] truncate" },
+																item.url,
+															),
+														)
+													: null,
+												item.description
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Notes:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed italic",
+																},
+																'"' + item.description + '"',
+															),
+														)
+													: null,
+											),
+										),
+										item.url
+											? h(
+													"div",
+													{ className: "pt-2 flex justify-end" },
+													h(
+														"span",
+														{
+															className:
+																"site-button-2007 inline-block px-3 py-1 text-xs",
+														},
+														"Visit Homepage »",
+													),
+												)
+											: null,
+									),
+								),
+							);
+						});
+					}
+
+					var friendsContent = h(
+						"div",
+						null,
+						renderInPageSubnav("friends"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+								)
+							: null,
+						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"p",
+							{ className: "mt-6" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(friendsContent);
+				},
+			});
+
 			var AboutSectionRouter = createClass({
 				render: function () {
 					var entry = this.props.entry;
@@ -3021,6 +3327,9 @@
 					) {
 						return h(AboutSoftwarePreview, this.props);
 					}
+					if (file.indexOf("friends.json") !== -1 || slug === "about-friends") {
+						return h(AboutFriendsPreview, this.props);
+					}
 					return h(AboutMePreview, this.props);
 				},
 			});
@@ -3031,6 +3340,7 @@
 			CMS.registerPreviewTemplate("about-movies", AboutMoviesPreview);
 			CMS.registerPreviewTemplate("about-games", AboutGamesPreview);
 			CMS.registerPreviewTemplate("about-software", AboutSoftwarePreview);
+			CMS.registerPreviewTemplate("about-friends", AboutFriendsPreview);
 			CMS.registerPreviewTemplate("about-page", AboutMePreview);
 
 			// 7. Custom Blog Landing Page Preview in Full Site Shell

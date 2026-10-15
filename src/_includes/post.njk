@@ -4,39 +4,57 @@ isPost: true
 ---
 {% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
 <article class="site-entry">
-  {# 2005-era Weblog Entry Header Bar #}
+  {# 2005-era Weblog Entry Hero & Header Bar (Merged) #}
   <header
-    class="site-entry-header border border-[#b2c2cc] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] p-3.5 shadow-[inset_0_1px_0_#fff]">
-    <div class="flex flex-wrap items-center justify-between gap-2 text-[14px] text-[#536a75]">
+    class="site-entry-header border border-[#b2c2cc] bg-white shadow-[2px_2px_0_#cad6de] overflow-hidden">
+    {# 1. Entry date & written by: name #}
+    <div
+      class="border-b border-[#c6d7e0] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[13px] sm:text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
       <div class="flex items-center gap-2">
         <span
-          class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">ENTRY</span>
+          class="inline-block bg-[#164b70] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase select-none">ENTRY</span>
         {% if isDraft %}<span
-          class="inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">DRAFT</span>{% endif %}
+          class="inline-block bg-[#d97706] px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase select-none">DRAFT</span>{% endif %}
         <time class="font-bold text-[#164b70]" datetime="{{ date }}">{{ date | shortDate }}</time>
       </div>
-      <div class="text-[14px]">
-        {% if author %}written by <span class="font-bold text-[#164b70]">{{ author }}</span>{% endif %}
+      <div class="text-[13px] sm:text-[14px]">
+        {% if author %}written by: <span class="font-bold text-[#164b70]">{{ author }}</span>{% endif %}
       </div>
     </div>
-    <h1 class="site-entry-title mt-2 font-bold tracking-tight text-[#164b70]">
-      {{ title }}
-    </h1>
+
+    {# 2. Image with Title Overlaid #}
+    {% if image %}
+    <div class="site-entry-hero relative bg-[#0a1926] border-b border-[#c6d7e0] overflow-hidden group">
+      <img class="block w-full h-auto max-h-[540px] object-cover sm:object-contain mx-auto cursor-zoom-in"
+        src="{{ image }}" alt="{{ title }}" />
+      <div
+        class="site-entry-hero-overlay absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0a1f2e] from-55% via-[#0a1f2e]/85 to-transparent pt-16 pb-3.5 px-4 sm:px-5 pointer-events-none">
+        <h1
+          class="site-entry-title text-white font-bold tracking-tight text-xl sm:text-2xl md:text-3xl leading-tight uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] m-0 pointer-events-auto select-text"
+          style="color: #ffffff !important;">
+          {{ title }}
+        </h1>
+      </div>
+    </div>
+    {% else %}
+    <div class="p-3.5 sm:p-4 bg-gradient-to-b from-[#ffffff] to-[#edf4f8] border-b border-[#c6d7e0]">
+      <h1 class="site-entry-title font-bold tracking-tight text-[#22608a] text-xl sm:text-2xl md:text-3xl leading-tight uppercase m-0">
+        {{ title }}
+      </h1>
+    </div>
+    {% endif %}
+
+    {# 3. Description then after #}
     {% if description %}
-    <p class="mt-1 text-xs italic text-[#71828b]">{{ description }}</p>
+    <div class="site-entry-desc p-3.5 bg-[#f8fbfc] text-xs sm:text-sm text-[#3b4d57] leading-relaxed italic border-t border-[#edf3f6]">
+      {{ description }}
+    </div>
     {% endif %}
   </header>
 
   {% if isDraft %}
   <div class="my-3 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
     DRAFT - This post is saved as a draft and is hidden from public blog listings.
-  </div>
-  {% endif %}
-
-  {# Featured Image in Retro Beveled Frame #}
-  {% if image %}
-  <div class="site-entry-image-frame my-4 border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#b8c5cc]">
-    <img class="h-auto w-full object-contain" src="{{ image }}" alt="{{ title }}" />
   </div>
   {% endif %}
 
