@@ -6,25 +6,39 @@
   "items": [
     {
       "playingRightNow": true,
+      "name": "Genshin Impact",
       "status": "Playing right now",
+      "platform": "PC",
       "tags": [
         "Playing right now"
       ],
-      "name": "Genshin Impact",
-      "platform": "PC",
       "icon": "/images/macos-gi.webp",
-      "description": "Started playing in 28th Feb of 2022 and never looked back!",
-      "link": "https://hoyoplay.hoyoverse.com/"
+      "link": "https://hoyoplay.hoyoverse.com/",
+      "image": "/images/genshin-impact-hqdph.avif",
+      "description": "Started playing in 28th Feb of 2022 and never looked back!"
     },
     {
       "playingRightNow": false,
-      "status": "Currently Playing",
-      "tags": [],
       "name": "Honkai: Star Rail",
-      "icon": "/images/macos-hsr.webp",
+      "status": "Currently Playing",
       "platform": "PC",
-      "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!",
-      "link": "https://hoyoplay.hoyoverse.com/"
+      "tags": [],
+      "icon": "/images/macos-hsr.webp",
+      "link": "https://hoyoplay.hoyoverse.com/",
+      "image": "/images/honkai-star-rail-7pyn7.webp",
+      "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!"
+    },
+    {
+      "playingRightNow": false,
+      "name": "Minecraft",
+      "status": "On Hold",
+      "platform": "PC",
+      "tags": [],
+      "icon": "/images/macos-mc.webp",
+      "link": "https://www.minecraft.net/en-us",
+      "image": "/images/118499.webp",
+      "publisher": "Mojang",
+      "description": "\"Bought but never complely played till end! will do in a few years while streaming\""
     }
   ]
 }
