@@ -6,11 +6,18 @@
   "headerBanner": "/images/header-banner.jpg",
   "items": [
     {
-      "relationship": "Best Friend",
+      "relationship": "Best Friend but HATES Theo",
       "name": "Aritra Kumar aka cyphenstyne",
       "url": "https://cyphenstyne.tech/",
       "description": "Bro hates Theo!",
       "avatar": "/images/20241105_133840.avif"
+    },
+    {
+      "name": "Deep Koley",
+      "avatar": "/images/20241029_114454.avif",
+      "url": "https://deepkoley.github.io/",
+      "relationship": "Friend - Last Moment Helper",
+      "description": "Bro is the life saver of many!"
     }
   ]
 }
