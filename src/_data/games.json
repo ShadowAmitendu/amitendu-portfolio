@@ -3,5 +3,22 @@
   "headerTagline": "WHAT I'M PLAYING",
   "heading": "Games",
   "intro": "Video games I play, love, or am currently exploring.",
-  "items": []
+  "items": [
+    {
+      "status": "Currently Playing",
+      "name": "Genshin Impact",
+      "platform": "PC",
+      "icon": "/images/macos-gi.webp",
+      "description": "Started playing in 28th Feb of 2022 and never looked back!",
+      "link": "https://hoyoplay.hoyoverse.com/"
+    },
+    {
+      "status": "Currently Playing",
+      "name": "Honkai: Star Rail",
+      "icon": "/images/macos-hsr.webp",
+      "platform": "PC",
+      "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!",
+      "link": "https://hoyoplay.hoyoverse.com/"
+    }
+  ]
 }
