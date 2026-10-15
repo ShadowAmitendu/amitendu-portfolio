@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   {% set isHome = (page.url == '/' or page.url == '') %}
   {% set isAbout = ('/about/' in page.url) %}
   {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
   {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
   {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
+  {% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
 
   {% set displayTitle = title %}
   {% set displayTagline = headerTagline %}
@@ -32,13 +34,133 @@
 
   {% if not displayTitle %}{% set displayTitle = site.title %}{% endif %}
   {% if not displayTagline %}{% set displayTagline = site.tagline %}{% endif %}
-  <title>
-    {% if displayTitle and displayTitle != site.title %}{{ displayTitle }}{% if pagination.pageNumber and pagination.pageNumber > 0 %}
-    (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+  {# Computed SEO Variables #}
+  {% set canonicalUrl = site.url ~ (page.url or '/') %}
+
+  {% set pageDesc = description %}
+  {% if not pageDesc %}
+    {% if isAbout and not isPost %}
+      {% set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast." %}
+    {% elif isResume and not isPost %}
+      {% set pageDesc = resume.intro or "Curriculum Vitae and resume of Amitendu Bikash Dhusiya — Skills, experience, education, and technical background." %}
+    {% elif isPortfolio and page.url == '/portfolio/' %}
+      {% set pageDesc = portfolioPage.intro or "Web and software development portfolio projects by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+    {% elif isBlog and page.url == '/blog/' %}
+      {% set pageDesc = blogPage.intro or "Articles, thoughts, and development logs by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
+    {% elif isHome %}
+      {% set pageDesc = site.description %}
+    {% else %}
+      {% set pageDesc = site.description %}
+    {% endif %}
+  {% endif %}
+
+  {% set socialImage = image or site.ogImage %}
+  {% if socialImage and not socialImage.startsWith('http') %}
+    {% set socialImageUrl = site.url ~ socialImage %}
+  {% else %}
+    {% set socialImageUrl = socialImage %}
+  {% endif %}
+
+  <title>{% if isHome %}{{ site.title }} - {{ site.tagline }}{% elif displayTitle and displayTitle != site.title %}{{ displayTitle }}{% if pagination.pageNumber and pagination.pageNumber > 0 %} (Page {{ pagination.pageNumber + 1 }}){% endif %} : : {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+  {# Primary Search Engine Meta Tags #}
+  <meta name="description" content="{{ pageDesc | escape }}" />
+  <meta name="keywords" content="{{ site.keywords | escape }}" />
+  <meta name="author" content="{{ author or site.name }}" />
+  <meta name="robots" content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
+  <meta name="googlebot" content="{% if isDraft %}noindex, nofollow{% else %}index, follow{% endif %}" />
+  <link rel="canonical" href="{{ canonicalUrl }}" />
+  <meta name="generator" content="Eleventy" />
+  <meta name="theme-color" content="#164b70" />
+  <meta name="color-scheme" content="light" />
+
+  {# Open Graph / Social Media Meta Tags #}
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:type" content="{{ 'article' if isPost else 'website' }}" />
+  <meta property="og:title" content="{{ displayTitle }}" />
+  <meta property="og:description" content="{{ pageDesc | escape }}" />
+  <meta property="og:url" content="{{ canonicalUrl }}" />
+  <meta property="og:image" content="{{ socialImageUrl }}" />
+  <meta property="og:image:alt" content="{{ displayTitle }}" />
+  <meta property="og:locale" content="en_US" />
+  {% if isPost %}
+  {% if date %}<meta property="article:published_time" content="{{ date | isoDate }}" />{% endif %}
+  <meta property="article:author" content="{{ author or site.name }}" />
+  {% if tags %}
+    {% for tag in tags %}
+      {% if tag != "blog" and tag != "post" %}<meta property="article:tag" content="{{ tag }}" />{% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endif %}
+
+  {# Twitter / X Card Meta Tags #}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="{{ site.twitter }}" />
+  <meta name="twitter:creator" content="{{ site.twitter }}" />
+  <meta name="twitter:title" content="{{ displayTitle }}" />
+  <meta name="twitter:description" content="{{ pageDesc | escape }}" />
+  <meta name="twitter:image" content="{{ socialImageUrl }}" />
+  <meta name="twitter:image:alt" content="{{ displayTitle }}" />
+
+  {# JSON-LD Structured Data Schema #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "url": "{{ site.url }}/",
+        "name": {{ site.title | dump | safe }},
+        "alternateName": {{ (site.handle or "ShadowAmitendu") | dump | safe }},
+        "description": {{ site.description | dump | safe }},
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Person",
+        "@id": "{{ site.url }}/#person",
+        "name": {{ site.name | dump | safe }},
+        "alternateName": {{ (site.handle or "ShadowAmitendu") | dump | safe }},
+        "url": "{{ site.url }}/",
+        "image": "{{ site.url }}{{ site.author.avatar }}",
+        "jobTitle": {{ site.author.role | dump | safe }},
+        "email": "mailto:{{ site.email }}",
+        "sameAs": [
+          "https://github.com/ShadowAmitendu",
+          "https://www.youtube.com/@ShadowAmitendu",
+          "https://x.com/shadow_amitendu",
+          "https://www.linkedin.com/in/amitendu/",
+          "https://peerlist.io/amitendu"
+        ]
+      }{% if isPost %},
+      {
+        "@type": "BlogPosting",
+        "@id": "{{ canonicalUrl }}#article",
+        "headline": {{ title | dump | safe }},
+        "description": {{ pageDesc | dump | safe }},
+        "url": "{{ canonicalUrl }}",
+        {% if date %}"datePublished": "{{ date | isoDate }}",{% endif %}
+        "author": {
+          "@type": "Person",
+          "name": {{ (author or site.name) | dump | safe }}
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": {{ site.name | dump | safe }}
+        },
+        "image": "{{ socialImageUrl }}",
+        "inLanguage": "en-US"
+      }
+      {% endif %}
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -53,26 +175,26 @@
         alt="" />
       <div class="relative px-5 py-4">
         <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ displayTagline }}</p>
-        <h1 class="mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] tracking-tight">
+        <h1 class="mt-1 text-center tracking-tight">
           {{ displayTitle }}</h1>
       </div>
     </header>
 
     <nav class="site-nav text-xs">
-      <div class="site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5">
-        <a class="site-nav-link {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+      <div class="site-nav-links flex flex-nowrap items-center justify-center gap-0.5 sm:gap-1 px-1 sm:px-5 py-1 text-[11px] sm:text-xs overflow-x-auto whitespace-nowrap [scrollbar-width:none]">
+        <a class="site-nav-link shrink-0 {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/">home</a>
-        <span class="px-1 text-[#8aa2af]">|</span>
-        <a class="site-nav-link {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+        <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+        <a class="site-nav-link shrink-0 {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/about/">about</a>
-        <span class="px-1 text-[#8aa2af]">|</span>
-        <a class="site-nav-link {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+        <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+        <a class="site-nav-link shrink-0 {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/portfolio/">portfolio</a>
-        <span class="px-1 text-[#8aa2af]">|</span>
-        <a class="site-nav-link {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+        <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+        <a class="site-nav-link shrink-0 {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/blog/">blog</a>
-        <span class="px-1 text-[#8aa2af]">|</span>
-        <a class="site-nav-link {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-2 py-0.5"
+        <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+        <a class="site-nav-link shrink-0 {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
           href="/resume/">resume</a>
       </div>
       {% if not isHome %}
@@ -173,11 +295,43 @@
         </p>
         {% endfor %}
         <div class="mt-5 border-t border-[#b7cbd6] pt-3 text-center">
-          <a href='https://www.acadoo.de/leistungen/ghostwriter-doktorarbeit/'>Dissertation Unterstützung</a>
-          <script type='text/javascript'
-            src='https://www.freevisitorcounters.com/auth.php?id=6c686d026fc4d2924a3282e7be0e6fe32bd5922c'></script>
-          <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1668210/t/0"></script>
+          <h2 class="text-left">Visitors</h2>
+          <div class="mt-2 flex flex-col items-center justify-center min-h-[30px] overflow-hidden">
+            <span id="adblock-notice" style="display: none;" class="text-xs font-bold text-[#c0392b]">Please Turn off your browser ad-blocker</span>
+            <div id="visitor-counter-box" class="flex flex-col items-center justify-center">
+              <script>
+                function handleAdBlock() {
+                  var notice = document.getElementById('adblock-notice');
+                  var box = document.getElementById('visitor-counter-box');
+                  if (notice) notice.style.display = 'inline-block';
+                  if (box) box.style.display = 'none';
+                }
+              </script>
+              <script type='text/javascript'
+                src='https://www.freevisitorcounters.com/auth.php?id=6c686d026fc4d2924a3282e7be0e6fe32bd5922c' onerror="handleAdBlock()"></script>
+              <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1668210/t/0" onerror="handleAdBlock()"></script>
+            </div>
+          </div>
         </div>
+        <script>
+          (function() {
+            function verifyCounter() {
+              var img = document.querySelector('img.counterimg') || document.querySelector('img[src*="freevisitorcounters.com"]');
+              if (!img) {
+                handleAdBlock();
+              } else if (img.complete && (img.naturalWidth === 0 || img.offsetHeight === 0)) {
+                handleAdBlock();
+              } else {
+                img.addEventListener('error', handleAdBlock);
+              }
+            }
+            if (document.readyState === 'complete') {
+              setTimeout(verifyCounter, 700);
+            } else {
+              window.addEventListener('load', function() { setTimeout(verifyCounter, 700); });
+            }
+          })();
+        </script>
       </aside>
       <section class="site-content px-5 py-6 text-sm leading-6">
         {% if draft and not isPost %}
@@ -228,7 +382,7 @@
           {% endif %}
           {% endif %}
           <div>
-            <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}">
+            <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}" {% if item.url and item.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
               <img class="site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]"
                 src="/assets/icons/macos-{{ itemIcon }}.png" alt="" width="20" height="20" />
               <span class="underline">{{ item.label }}</span>
@@ -310,6 +464,49 @@
         }
       } );
     }
+  </script>
+  <script>
+    (function () {
+      function openExternalLinksInNewTab() {
+        var links = document.querySelectorAll('a[href]');
+        for (var i = 0; i < links.length; i++) {
+          var a = links[i];
+          var href = a.getAttribute('href');
+          if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) continue;
+          var isInternal = (
+            href.charAt(0) === '/' ||
+            href.indexOf('./') === 0 ||
+            href.indexOf('../') === 0 ||
+            a.hostname === window.location.hostname
+          );
+          if (!isInternal) {
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+          }
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', openExternalLinksInNewTab);
+      } else {
+        openExternalLinksInNewTab();
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+        var isInternal = (
+          href.charAt(0) === '/' ||
+          href.indexOf('./') === 0 ||
+          href.indexOf('../') === 0 ||
+          a.hostname === window.location.hostname
+        );
+        if (!isInternal) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+    })();
   </script>
 </body>
 

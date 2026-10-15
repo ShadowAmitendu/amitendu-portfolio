@@ -70,6 +70,13 @@ h6 {
 	line-height: 1.5rem;
 }
 
+html,
+body {
+	overflow-x: hidden;
+	width: 100%;
+	max-width: 100%;
+}
+
 body {
 	font-family: "Barlow Condensed", Verdana, Tahoma, sans-serif;
 	background: linear-gradient(
@@ -123,12 +130,19 @@ body {
 
 .site-content {
 	background: linear-gradient(to bottom, #ffffff 0, #ffffff 82%, #f4f7f8 100%);
+	min-width: 0;
+	max-width: 100%;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
 
 .site-columns {
 	display: grid;
 	grid-template-columns: 170px minmax(0, 1fr) 170px;
 	align-items: stretch;
+	min-width: 0;
+	width: 100%;
+	max-width: 100%;
 }
 
 .site-sidebar {
@@ -255,23 +269,41 @@ body {
 
 @media (max-width: 768px) {
 	.site-body {
-		padding: 1.5rem 0.75rem;
+		padding: 1rem 0.5rem;
+		overflow-x: hidden;
 	}
 
 	.site-shell {
 		width: 100%;
+		max-width: 100%;
+		overflow: hidden;
 	}
 
 	.site-header,
-	.site-nav,
 	.site-footer {
 		padding-left: 1rem;
 		padding-right: 1rem;
 	}
 
 	.site-nav {
-		line-height: 1.75rem;
-		overflow-wrap: anywhere;
+		padding-left: 0.25rem;
+		padding-right: 0.25rem;
+		line-height: normal;
+		overflow: hidden;
+	}
+
+	.site-nav-links {
+		overflow-x: auto;
+		flex-wrap: nowrap !important;
+		justify-content: center;
+		padding-left: 0.25rem;
+		padding-right: 0.25rem;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+
+	.site-nav-links::-webkit-scrollbar {
+		display: none;
 	}
 
 	.site-card-row {
@@ -279,11 +311,15 @@ body {
 	}
 
 	.site-columns {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
+		width: 100%;
+		max-width: 100%;
 	}
 
 	.site-sidebar {
 		padding: 0.75rem 1rem;
+		min-width: 0;
+		max-width: 100%;
 	}
 
 	.site-sidebar-left {
@@ -292,10 +328,15 @@ body {
 
 	.site-content {
 		order: 2;
+		min-width: 0;
+		max-width: 100%;
+		padding: 1.25rem 0.75rem;
 	}
 
 	.site-sidebar-right {
 		order: 3;
+		min-width: 0;
+		max-width: 100%;
 	}
 }
 
@@ -351,14 +392,23 @@ body {
 	}
 
 	.site-nav {
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
-		font-size: 0.7rem;
+		padding: 0.25rem 0.15rem;
+		font-size: 0.72rem;
+	}
+
+	.site-nav-links {
+		gap: 0.15rem !important;
+		padding-left: 0.1rem !important;
+		padding-right: 0.1rem !important;
+	}
+
+	.site-nav-link {
+		padding: 0.1rem 0.3rem !important;
+		font-size: 0.72rem !important;
 	}
 
 	.site-content {
-		padding-top: 1.5rem;
-		padding-bottom: 1.5rem;
+		padding: 1rem 0.65rem;
 	}
 
 	.site-card {

@@ -40,7 +40,11 @@
 						navElements.push(
 							h(
 								"span",
-								{ key: "sep-" + idx, className: "px-1 text-[#8aa2af]" },
+								{
+									key: "sep-" + idx,
+									className:
+										"px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none",
+								},
 								"|",
 							),
 						);
@@ -52,7 +56,7 @@
 							{
 								key: item.key,
 								className:
-									"site-nav-link px-2 py-0.5 " +
+									"site-nav-link shrink-0 px-1.5 sm:px-2 py-0.5 " +
 									(isActive
 										? "bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline"
 										: "text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]"),
@@ -183,7 +187,7 @@
 									"h1",
 									{
 										className:
-											"mt-1 text-center font-[Trebuchet_MS,Verdana,sans-serif] tracking-tight",
+											"mt-1 text-center tracking-tight",
 									},
 									pageTitle || "Amitendu Bikash Dhusiya",
 								),
@@ -198,7 +202,7 @@
 								"div",
 								{
 									className:
-										"site-nav-links flex flex-wrap items-center justify-center gap-1 px-5 py-1.5",
+										"site-nav-links flex flex-nowrap items-center justify-center gap-0.5 sm:gap-1 px-1 sm:px-5 py-1 text-[11px] sm:text-xs overflow-x-auto whitespace-nowrap [scrollbar-width:none]",
 								},
 								navElements,
 							),
@@ -626,7 +630,7 @@
 								"h3",
 								{
 									className:
-										"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+										"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
 								},
 								"Comments",
 							),
@@ -816,7 +820,7 @@
 										"h2",
 										{
 											className:
-												"font-[Trebuchet_MS,Verdana,sans-serif] text-xl font-bold tracking-tight text-[#164b70]",
+												"text-xl font-bold tracking-tight text-[#164b70]",
 										},
 										heading,
 									),
@@ -897,7 +901,7 @@
 										"h3",
 										{
 											className:
-												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+												"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
 										},
 										"Experience",
 									),
@@ -964,7 +968,7 @@
 										"h3",
 										{
 											className:
-												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+												"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
 										},
 										"Education",
 									),
@@ -1028,7 +1032,7 @@
 										"h3",
 										{
 											className:
-												"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-base font-bold text-[#164b70]",
+												"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
 										},
 										"Skills & Expertise",
 									),
@@ -1132,22 +1136,28 @@
 					var homeContent = h(
 						"div",
 						null,
-						// Intro Callout
+						// 2005 Intro Box
 						h(
 							"div",
 							{
 								className:
-									"site-intro border-l-4 border-[#e1a62a] bg-[#fff9e6] px-4 py-3",
+									"site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4",
 							},
 							h(
 								"p",
 								{
 									className:
-										"font-[Trebuchet_MS,Verdana,sans-serif] font-bold text-[#164b70]",
+										"text-xl font-bold text-[#164b70]",
 								},
 								greeting,
 							),
-							h("p", { className: "mt-1" }, welcome),
+							h(
+								"p",
+								{
+									className: "mt-1 text-sm text-[#3b4d57]",
+								},
+								welcome,
+							),
 						),
 
 						// About Section
@@ -1155,7 +1165,7 @@
 							"h2",
 							{
 								className:
-									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							aboutTitle,
 						),
@@ -1178,7 +1188,7 @@
 							"h2",
 							{
 								className:
-									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							currentlyTitle,
 						),
@@ -1199,7 +1209,7 @@
 							"h2",
 							{
 								className:
-									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							statusTitle,
 						),
@@ -1232,7 +1242,7 @@
 							"h2",
 							{
 								className:
-									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							"Quick links",
 						),
@@ -1262,13 +1272,68 @@
 							"h2",
 							{
 								className:
-									"mt-6 border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							"Skills",
 						),
 						skills && skills.size
 							? h("p", { className: "mt-3" }, skills.toArray().join(" · "))
 							: null,
+
+						// GitHub Contributions
+						h(
+							"h2",
+							{
+								className:
+									"mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							"GitHub Contributions",
+						),
+						h(
+							"div",
+							{
+								className:
+									"mt-3 w-full max-w-full overflow-x-auto border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+							},
+							h(
+								"div",
+								{
+									className:
+										"mb-2 flex items-center justify-between text-xs text-[#556b78]",
+								},
+								h(
+									"span",
+									{ className: "font-bold text-[#164b70]" },
+									"@ShadowAmitendu on GitHub",
+								),
+								h(
+									"a",
+									{
+										className: "text-[#064f83] underline hover:text-[#c0392b]",
+										href: "https://github.com/ShadowAmitendu",
+										target: "_blank",
+										rel: "noopener noreferrer",
+									},
+									"View Profile",
+								),
+							),
+							h(
+								"a",
+								{
+									className: "block min-w-0",
+									href: "https://github.com/ShadowAmitendu",
+									target: "_blank",
+									rel: "noopener noreferrer",
+								},
+								h("img", {
+									className: "block max-w-none",
+									style: { minWidth: "640px", width: "640px" },
+									src: "https://ghchart.rshah.org/ShadowAmitendu",
+									alt: "ShadowAmitendu's GitHub Contributions Calendar",
+									loading: "lazy",
+								}),
+							),
+						),
 					);
 
 					return renderFullSiteShell(
@@ -1309,7 +1374,7 @@
 							"h2",
 							{
 								className:
-									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							heading,
 						),
@@ -1386,7 +1451,7 @@
 							"h2",
 							{
 								className:
-									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							heading,
 						),
@@ -1440,7 +1505,7 @@
 							"h2",
 							{
 								className:
-									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							heading,
 						),
@@ -1491,7 +1556,7 @@
 							"h2",
 							{
 								className:
-									"border-b border-[#b7cbd6] pb-1 font-[Trebuchet_MS,Verdana,sans-serif] text-lg font-bold text-[#164b70]",
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
 							},
 							"Author Profile: " + name,
 						),

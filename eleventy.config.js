@@ -2,14 +2,40 @@ import markdownIt from "markdown-it";
 
 const md = markdownIt({ html: true, breaks: true, linkify: true });
 
+const defaultLinkRender =
+	md.renderer.rules.link_open ||
+	function (tokens, idx, options, env, self) {
+		return self.renderToken(tokens, idx, options);
+	};
+
+md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+	const hrefIndex = tokens[idx].attrIndex("href");
+	if (hrefIndex >= 0) {
+		const href = tokens[idx].attrs[hrefIndex][1];
+		if (/^(https?:)?\/\//i.test(href) || href.startsWith("mailto:")) {
+			tokens[idx].attrSet("target", "_blank");
+			tokens[idx].attrSet("rel", "noopener noreferrer");
+		}
+	}
+	return defaultLinkRender(tokens, idx, options, env, self);
+};
+
 export default function (eleventyConfig) {
+	eleventyConfig.setLibrary("md", md);
 	eleventyConfig.addPassthroughCopy("src/assets");
 	eleventyConfig.addPassthroughCopy({ "src/images": "images" });
 	eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
+	eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
 	eleventyConfig.addFilter("markdown", (content) => {
 		return md.render(content || "");
+	});
+	eleventyConfig.addFilter("isoDate", (value) => {
+		const date = new Date(value);
+		return Number.isNaN(date.getTime())
+			? ""
+			: date.toISOString().split("T")[0];
 	});
 	eleventyConfig.addFilter("shortDate", (value) => {
 		const date = new Date(value);
