@@ -20,8 +20,8 @@ aboutTab: friends
     {# 2005 Window Header #}
     <div
       class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
-      <div class="flex items-baseline gap-1.5">
-        <span class="text-xs font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
+      <div class="flex items-baseline gap-1.5 text-sm">
+        <span class="text-sm font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
         <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline">
           {% if friend.url %}
           <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ friend.url }}" target="_blank"
@@ -31,7 +31,7 @@ aboutTab: friends
           {% endif %}
         </h3>
         {% if friend.relationship %}
-        <span class="text-xs text-[#556b78] font-normal">({{ friend.relationship }})</span>
+        <span class="text-sm text-[#556b78] font-normal">({{ friend.relationship }})</span>
         {% endif %}
       </div>
       <div>
@@ -44,15 +44,15 @@ aboutTab: friends
 
     {# Body #}
     <div class="site-listing-body p-3 bg-[#f8fbfc]">
-      {# Left Avatar / Badge Frame #}
-      <div class="site-listing-image-col is-app">
+      {# Left Portrait Image Frame (Full Height of the Area, Cropped) #}
+      <div class="site-listing-image-col shrink-0 self-stretch w-28 sm:w-28 md:w-32 mx-auto sm:mx-0 flex flex-col justify-stretch">
         {% if friend.avatar %}
-        <div class="site-listing-frame is-app">
-          <img src="{{ friend.avatar }}" alt="{{ friend.name }}" />
+        <div class="site-listing-frame is-friend-portrait h-full w-full min-h-[8.5rem] p-0.5 overflow-hidden bg-white border border-[#7892a3] shadow-[2px_2px_0_#cad6de] flex items-stretch">
+          <img src="{{ friend.avatar }}" alt="{{ friend.name }}" class="w-full h-full object-cover object-center block" />
         </div>
         {% else %}
-        <div class="site-listing-placeholder is-app">
-          FRIEND
+        <div class="site-listing-placeholder is-friend-portrait h-full w-full min-h-[8.5rem] text-[11px] flex items-center justify-center bg-[#dce9ef] border border-[#7892a3] shadow-[2px_2px_0_#cad6de] font-bold text-[#164b70] tracking-wider select-none">
+          PORTRAIT
         </div>
         {% endif %}
       </div>

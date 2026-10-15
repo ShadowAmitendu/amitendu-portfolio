@@ -97,14 +97,7 @@ isPost: true
         {% endfor %}
       </div>
       <div class="flex items-center gap-2 text-[14px]">
-        <span class="site-comment-link inline-block">
-          <script>
-            var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
-            var idcomments_post_id = '{{ page.fileSlug | safeId }}';
-            var idcomments_post_url;
-          </script>
-          <script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
-        </span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments</a>
         <span>·</span>
         <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">permalink</a>
         <span>·</span>
@@ -113,23 +106,224 @@ isPost: true
     </div>
   </footer>
 
-  {# IntenseDebate Comments Section #}
+  {# Retro 2000s Weblog Comments & Guestbook Section (Powered by Netlify Forms, zero trackers) #}
   <section id="comments" class="site-comments mt-8 p-4">
-    <h3
-      class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
-      Comments</h3>
-    <div class="mt-3">
-      <script>
-        var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
-        var idcomments_post_id = '{{ page.fileSlug | safeId }}';
-        var idcomments_post_url;
-      </script>
-      <span id="IDCommentsPostTitle" style="display:none">{{ title }}</span>
-      <script type='text/javascript' src='https://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
-      <noscript>
-        <p class="mt-2 text-xs text-[#71828b]">Please enable JavaScript to view comments powered by IntenseDebate.</p>
-      </noscript>
+    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#b7cbd6] pb-1.5">
+      <h3 class="text-base font-bold text-[#164b70] flex items-center gap-1.5">
+        <span>💬</span>
+        <span>Comments & Guestbook</span>
+      </h3>
+      <span class="text-[11px] text-[#71828b] italic">100% private · no third-party trackers</span>
     </div>
+
+    {# Retro Post-a-Comment Form #}
+    <div class="mt-4">
+      <form
+        name="blog-comments"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="retro-comment-form space-y-3"
+        id="retroCommentForm"
+      >
+        <input type="hidden" name="form-name" value="blog-comments" />
+        <input type="hidden" name="post-title" value="{{ title }}" />
+        <input type="hidden" name="post-url" value="{{ permalink or page.url }}" />
+        <input type="hidden" name="post-slug" value="{{ page.fileSlug }}" />
+        
+        {# Honeypot field for bot spam prevention #}
+        <p class="hidden" style="display:none">
+          <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="comment-name" class="block text-xs font-bold text-[#164b70] mb-1">
+              Name / Handle <span class="text-[#c0392b]">*</span>:
+            </label>
+            <input
+              type="text"
+              id="comment-name"
+              name="name"
+              required
+              placeholder="e.g. Rahul, ShadowGuest"
+              class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="comment-email" class="block text-xs font-bold text-[#164b70] mb-1">
+              Email / Contact <span class="text-[10px] font-normal text-[#71828b]">(optional, never published)</span>:
+            </label>
+            <input
+              type="text"
+              id="comment-email"
+              name="contact"
+              placeholder="e.g. you@example.com or @handle"
+              class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="comment-message" class="block text-xs font-bold text-[#164b70] mb-1">
+            Message <span class="text-[#c0392b]">*</span>:
+          </label>
+          <textarea
+            id="comment-message"
+            name="message"
+            rows="4"
+            required
+            placeholder="Leave a comment, feedback, or greeting..."
+            class="w-full border border-[#7892a3] bg-white p-2.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none font-sans"
+          ></textarea>
+        </div>
+
+        {# Anti-Spam CAPTCHA Verification #}
+        <div class="border border-[#c6d7e0] bg-[#f4f8fa] p-3 shadow-[inset_0_1px_0_#fff]">
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-1.5">
+            <label for="comment-captcha" class="block text-xs font-bold text-[#164b70]">
+              Anti-Spam Verification (CAPTCHA) <span class="text-[#c0392b]">*</span>:
+            </label>
+            <span class="text-[10px] text-[#71828b]">Math challenge to stop automated bots</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="flex items-center border border-[#7892a3] bg-gradient-to-b from-[#ffffff] to-[#e4eef2] px-3 py-1 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.08)]">
+              <span id="captchaQuestion" class="font-mono text-sm font-bold text-[#164b70] select-none tracking-wider">
+                <!-- e.g. 5 + 3 = ? -->
+              </span>
+            </div>
+            <button
+              type="button"
+              id="refreshCaptchaBtn"
+              class="text-xs text-[#064f83] underline hover:text-[#c0392b] cursor-pointer"
+              title="Generate a new question"
+            >
+              ↻ Change
+            </button>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-bold text-[#556b78]">=</span>
+              <input
+                type="text"
+                id="comment-captcha"
+                name="captcha-answer"
+                required
+                autocomplete="off"
+                placeholder="Answer"
+                class="w-20 border border-[#7892a3] bg-white px-2 py-1 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
+              />
+            </div>
+          </div>
+          <p id="captchaError" class="hidden mt-1 text-[11px] font-bold text-[#c0392b]">
+            ⚠ Incorrect answer. Please enter the correct sum to prove you are human.
+          </p>
+        </div>
+
+        {# Netlify native reCAPTCHA container for server-side verification #}
+        <div data-netlify-recaptcha="true"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <p class="text-[11px] text-[#71828b]">
+            🔒 Protected by CAPTCHA & Netlify. Submissions are moderated.
+          </p>
+          <button
+            type="submit"
+            id="commentSubmitBtn"
+            class="border border-[#14486d] bg-gradient-to-b from-[#2a6b98] to-[#164b70] px-4 py-1.5 text-xs font-bold text-white shadow-[1px_1px_0_#0c2e47] hover:from-[#357ea7] hover:to-[#1b5680] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+          >
+            Sign Guestbook / Post Comment »
+          </button>
+        </div>
+
+        {# Instant Feedback Message #}
+        <div id="commentStatus" class="hidden mt-3 border border-[#48bb78] bg-[#f0fff4] p-3 text-xs text-[#22543d] shadow-[inset_0_1px_0_#fff]">
+          <p class="font-bold flex items-center gap-1.5 text-sm text-[#22543d]">
+            <span>✓</span>
+            <span>Thank you for signing the guestbook!</span>
+          </p>
+          <p class="mt-1 text-[11px] text-[#276749]">
+            Your comment has been submitted successfully to the guestbook log.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      (function() {
+        var form = document.getElementById('retroCommentForm');
+        var status = document.getElementById('commentStatus');
+        var submitBtn = document.getElementById('commentSubmitBtn');
+        var captchaQuestionEl = document.getElementById('captchaQuestion');
+        var captchaInput = document.getElementById('comment-captcha');
+        var captchaError = document.getElementById('captchaError');
+        var refreshBtn = document.getElementById('refreshCaptchaBtn');
+        if (!form || !status) return;
+
+        var currentCaptchaSum = 0;
+
+        function generateCaptcha() {
+          var a = Math.floor(Math.random() * 8) + 2;
+          var b = Math.floor(Math.random() * 8) + 1;
+          currentCaptchaSum = a + b;
+          if (captchaQuestionEl) {
+            captchaQuestionEl.textContent = a + ' + ' + b + ' = ?';
+          }
+          if (captchaInput) {
+            captchaInput.value = '';
+          }
+          if (captchaError) {
+            captchaError.classList.add('hidden');
+          }
+        }
+
+        generateCaptcha();
+
+        if (refreshBtn) {
+          refreshBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            generateCaptcha();
+            if (captchaInput) captchaInput.focus();
+          });
+        }
+
+        form.addEventListener('submit', function(e) {
+          var rawAnswer = (captchaInput ? captchaInput.value : '').trim();
+          var userAnswer = parseInt(rawAnswer, 10);
+          if (!rawAnswer || isNaN(userAnswer) || userAnswer !== currentCaptchaSum) {
+            e.preventDefault();
+            if (captchaError) captchaError.classList.remove('hidden');
+            if (captchaInput) {
+              captchaInput.focus();
+              captchaInput.select();
+            }
+            return;
+          }
+
+          if (!window.fetch) return;
+          e.preventDefault();
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+
+          var formData = new FormData(form);
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          })
+          .then(function() {
+            status.classList.remove('hidden');
+            form.reset();
+            generateCaptcha();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Post Another Comment »';
+          })
+          .catch(function() {
+            form.submit();
+          });
+        });
+      })();
+    </script>
   </section>
 
   {# Bottom Navigation #}

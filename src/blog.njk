@@ -22,15 +22,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pag
       <p class="mt-2 text-xs text-[#71828b]">
         {{ post.data.date | shortDate }}{% if post.data.author %} · by {{ post.data.author }}{% endif %}
         ·
-        <span class="site-comment-link inline-block">
-          <span id="IDCommentsPostTitle{{ post.fileSlug | safeId }}" style="display:none">{{ post.data.title }}</span>
-          <script>
-            var idcomments_acct = 'b7e853c21b4a75847089752f6a167758';
-            var idcomments_post_id = '{{ post.fileSlug | safeId }}';
-            var idcomments_post_url = '{{ post.url }}';
-          </script>
-          <script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
-        </span>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ post.url }}#comments">comments</a>
       </p>
       <p class="mt-2 text-sm leading-relaxed">{{ post.data.description }}</p>
     </div>

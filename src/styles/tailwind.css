@@ -622,29 +622,19 @@ body {
 	text-decoration: none !important;
 }
 
-/* IntenseDebate Comments Container & Links */
+/* Retro 2000s Weblog Comments & Guestbook */
 .site-comments {
 	border: 1px solid #b2c2cc;
 	background: linear-gradient(to bottom, #ffffff 0%, #edf3f6 100%);
 	box-shadow:
 		inset 0 1px 0 #fff,
-		2px 2px 0 #d4dde2;
+		2px 2px 0 #cad6de;
 }
 
-.site-comment-link a,
-a[id^="IDShowCommentLink"] {
-	color: #064f83 !important;
-	text-decoration: underline !important;
-}
-
-.site-comment-link a:hover,
-a[id^="IDShowCommentLink"]:hover {
-	color: #c0392b !important;
-}
-
-#idc-container {
-	margin-top: 0.5rem;
-	font-family: inherit;
+.retro-comment-form input:focus,
+.retro-comment-form textarea:focus {
+	background-color: #fcfeff;
+	box-shadow: inset 1px 1px 3px rgba(0, 50, 100, 0.2);
 }
 
 /* Blog Entry Images & Figures */
@@ -1195,6 +1185,27 @@ a[id^="IDShowCommentLink"]:hover {
 	min-height: 4rem;
 }
 
+.site-listing-frame.is-friend,
+.site-listing-frame.is-friend-portrait {
+	width: 100%;
+	height: 100%;
+	min-height: 8.5rem;
+	padding: 2px;
+	overflow: hidden;
+	display: flex;
+	align-items: stretch;
+}
+
+.site-listing-frame.is-friend img,
+.site-listing-frame.is-friend-portrait img {
+	width: 100% !important;
+	height: 100% !important;
+	max-height: none !important;
+	object-fit: cover !important;
+	object-position: center !important;
+	display: block;
+}
+
 .site-listing-placeholder {
 	border: 1px solid #7892a3;
 	background: #dce9ef;
@@ -1213,4 +1224,11 @@ a[id^="IDShowCommentLink"]:hover {
 
 .site-listing-placeholder.is-app {
 	min-height: 4rem;
+}
+
+.site-listing-placeholder.is-friend,
+.site-listing-placeholder.is-friend-portrait {
+	width: 100%;
+	height: 100%;
+	min-height: 8.5rem;
 }
