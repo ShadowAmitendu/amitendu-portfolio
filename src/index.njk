@@ -3,13 +3,19 @@ layout: base.njk
 title: Home
 ---
 {% set h = home %}
-<div class="site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4">
-  <p class="text-xl font-bold text-[#164b70]">
-    {{ h.greeting or greeting }}
-  </p>
-  <p class="mt-1 text-sm text-[#3b4d57]">
-    {{ h.welcome or welcome }}
-  </p>
+<div class="site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 flex items-center justify-between gap-4">
+  <div class="min-w-0">
+    <p class="text-xl font-bold text-[#164b70]">
+      {{ h.greeting or greeting }}
+    </p>
+    <p class="mt-1 text-sm text-[#3b4d57]">
+      {{ h.welcome or welcome }}
+    </p>
+  </div>
+  {% set introGif = h.greetingGif or greetingGif or '/images/hi.gif' %}
+  {% if introGif %}
+  <img class="h-16 w-16 sm:h-20 sm:w-20 shrink-0 object-contain" src="{{ introGif }}" alt="Waving stickman" width="80" height="80" />
+  {% endif %}
 </div>
 
 <h2 id="about" class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">

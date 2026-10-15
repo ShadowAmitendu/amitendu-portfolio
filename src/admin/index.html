@@ -296,6 +296,26 @@
 								),
 								h("h2", null, "Navigate"),
 								sidebarLinks,
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, "Recent Posts"),
+									h(
+										"div",
+										{ className: "mt-2 space-y-2" },
+										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No posts yet."),
+									),
+								),
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, "Favorites"),
+									h(
+										"div",
+										{ className: "mt-2 space-y-2" },
+										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No favorites tagged yet."),
+									),
+								),
 							),
 
 							// Main Article / Content
@@ -354,26 +374,6 @@
 											}),
 											h("span", { className: "underline" }, "YouTube"),
 										),
-									),
-								),
-								h(
-									"div",
-									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
-									h("h2", null, "Recent Posts"),
-									h(
-										"div",
-										{ className: "mt-2 space-y-2" },
-										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No posts yet."),
-									),
-								),
-								h(
-									"div",
-									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
-									h("h2", null, "Favorites"),
-									h(
-										"div",
-										{ className: "mt-2 space-y-2" },
-										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No favorites tagged yet."),
 									),
 								),
 							),
@@ -1159,6 +1159,13 @@
 					var links = entry.getIn(["data", "links"]);
 					var skills = entry.getIn(["data", "skills"]);
 
+					var rawGreetingGif =
+						entry.getIn(["data", "greetingGif"]) || "/images/hi.gif";
+					var greetingGifSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawGreetingGif,
+					);
+
 					var homeContent = h(
 						"div",
 						null,
@@ -1167,23 +1174,37 @@
 							"div",
 							{
 								className:
-									"site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4",
+									"site-intro mb-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 flex items-center justify-between gap-4",
 							},
 							h(
-								"p",
-								{
-									className:
-										"text-xl font-bold text-[#164b70]",
-								},
-								greeting,
+								"div",
+								{ className: "min-w-0" },
+								h(
+									"p",
+									{
+										className:
+											"text-xl font-bold text-[#164b70]",
+									},
+									greeting,
+								),
+								h(
+									"p",
+									{
+										className: "mt-1 text-sm text-[#3b4d57]",
+									},
+									welcome,
+								),
 							),
-							h(
-								"p",
-								{
-									className: "mt-1 text-sm text-[#3b4d57]",
-								},
-								welcome,
-							),
+							greetingGifSrc
+								? h("img", {
+										className:
+											"h-16 w-16 sm:h-20 sm:w-20 shrink-0 object-contain",
+										src: greetingGifSrc,
+										alt: "Waving stickman",
+										width: 80,
+										height: 80,
+								  })
+								: null,
 						),
 
 						// About Section
@@ -1545,77 +1566,247 @@
 							if (book.status === "currently-reading") {
 								statusLabel = "[Currently Reading]";
 							} else if (book.status === "read") {
-								statusLabel = "[Read]";
+								statusLabel = "[Finished / Read]";
 							}
 
 							return h(
-								"article",
+								"div",
 								{
 									key: idx,
-									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
 								},
+								// 2005 Window Header
 								h(
 									"div",
-									{ className: "flex items-start gap-3" },
-									coverSrc
-										? h("img", {
-												className:
-													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
-												src: coverSrc,
-												alt: book.title || "",
-											})
-										: h(
-												"div",
-												{
-													className:
-														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
-												},
-												"BOOK",
-											),
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
 									h(
 										"div",
-										{ className: "min-w-0 flex-1" },
+										{ className: "flex items-center gap-2" },
+										h(
+											"span",
+											{ className: "text-xs font-bold text-[#556b78]" },
+											"#" + (idx + 1),
+										),
 										h(
 											"h3",
-											{ className: "font-bold text-[#164b70]" },
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+											},
 											book.title || "Untitled Book",
-											book.author
-												? h(
+										),
+										book.author
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] text-[#556b78] font-normal",
+													},
+													"by " + book.author,
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										h(
+											"span",
+											{
+												className:
+													book.status === "currently-reading"
+														? "inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
+														: "text-[11px] font-bold text-[#164b70]",
+											},
+											statusLabel,
+										),
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className:
+											"p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5",
+									},
+									// Cover
+									h(
+										"div",
+										{
+											className:
+												"shrink-0 flex flex-col items-center mx-auto sm:mx-0",
+										},
+										coverSrc
+											? h(
+													"div",
+													{
+														className:
+															"border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]",
+													},
+													h("img", {
+														className: "h-28 w-20 object-contain block",
+														src: coverSrc,
+														alt: book.title || "",
+													}),
+												)
+											: h(
+													"div",
+													{
+														className:
+															"h-24 w-16 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]",
+													},
+													"BOOK",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												book.author
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Author:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																book.author,
+															),
+														)
+													: null,
+												h(
+													"tr",
+													{ className: "border-b border-[#e1ebf0]" },
+													h(
+														"td",
+														{
+															className:
+																"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+														},
+														"Status:",
+													),
+													h(
+														"td",
+														{ className: "py-1 text-[#3b4d57]" },
+														statusLabel,
+													),
+												),
+												book.progress
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Current Page:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#164b70] font-semibold",
+																},
+																book.progress,
+															),
+														)
+													: null,
+												book.rating
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Score:",
+															),
+															h(
+																"td",
+																{
+																	className: "py-1 text-[#c0392b] font-bold",
+																},
+																book.rating,
+															),
+														)
+													: null,
+												book.year
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Year:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#556b78]" },
+																book.year,
+															),
+														)
+													: null,
+												book.review
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Reader Notes:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed italic",
+																},
+																'"' + book.review + '"',
+															),
+														)
+													: null,
+											),
+										),
+										book.link
+											? h(
+													"div",
+													{ className: "pt-2 flex justify-end" },
+													h(
 														"span",
 														{
 															className:
-																"font-normal text-xs text-[#556b78] ml-1.5",
+																"site-button-2007 inline-block px-3 py-1 text-xs",
 														},
-														"by " + book.author,
-													)
-												: null,
-										),
-										h(
-											"p",
-											{ className: "mt-1 text-xs text-[#71828b]" },
-											h("strong", null, statusLabel),
-											book.progress ? " · " + book.progress : null,
-											book.rating ? " · Rating: " + book.rating : null,
-											book.year ? " · " + book.year : null,
-										),
-										book.review
-											? h(
-													"p",
-													{
-														className:
-															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
-													},
-													'"' + book.review + '"',
-												)
-											: null,
-										book.link
-											? h(
-													"p",
-													{ className: "mt-2 text-xs" },
-													h(
-														"span",
-														{ className: "text-[#064f83] underline" },
-														"details »",
+														"Book Details / Page »",
 													),
 												)
 											: null,
@@ -1644,7 +1835,34 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"div",
+							{ className: "mt-4 space-y-4" },
+							items && items.length > 0
+								? h(
+										"div",
+										{
+											className:
+												"border border-[#b7cbd6] bg-[#edf4f7] px-3 py-1.5 text-xs text-[#536a75] flex items-center justify-between shadow-[inset_0_1px_0_#fff]",
+										},
+										h(
+											"span",
+											{ className: "font-bold text-[#164b70]" },
+											"BOOKSHELF // " +
+												items.length +
+												" BOOK" +
+												(items.length !== 1 ? "S" : "") +
+												" LOGGED",
+										),
+										h(
+											"span",
+											{ className: "text-[11px] text-[#71828b]" },
+											"GENRE: TECH & LITERATURE",
+										),
+									)
+								: null,
+							itemsListElements,
+						),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -1703,78 +1921,227 @@
 							var posterSrc = resolveAssetUrl(getAsset, movie.image);
 							var statusLabel = "[Plan to Watch]";
 							if (movie.status === "currently-watching") {
-								statusLabel = "[Watching]";
+								statusLabel = "[Watching Now]";
 							} else if (movie.status === "watched") {
 								statusLabel = "[Watched]";
 							}
 
 							return h(
-								"article",
+								"div",
 								{
 									key: idx,
-									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
 								},
+								// 2005 Window Header
 								h(
 									"div",
-									{ className: "flex items-start gap-3" },
-									posterSrc
-										? h("img", {
-												className:
-													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
-												src: posterSrc,
-												alt: movie.title || "",
-											})
-										: h(
-												"div",
-												{
-													className:
-														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
-												},
-												"CINEMA",
-											),
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
 									h(
 										"div",
-										{ className: "min-w-0 flex-1" },
+										{ className: "flex items-center gap-2" },
+										h(
+											"span",
+											{ className: "text-xs font-bold text-[#556b78]" },
+											"#" + (idx + 1),
+										),
 										h(
 											"h4",
-											{ className: "font-bold text-[#164b70] text-sm" },
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+											},
 											movie.title || "Untitled Movie",
-											movie.director
-												? h(
+										),
+										movie.director
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] text-[#556b78] font-normal",
+													},
+													"(" + movie.director + ")",
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										h(
+											"span",
+											{
+												className:
+													movie.status === "currently-watching"
+														? "inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
+														: "text-[11px] font-bold text-[#164b70]",
+											},
+											statusLabel,
+										),
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className:
+											"p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5",
+									},
+									// Poster
+									h(
+										"div",
+										{
+											className:
+												"shrink-0 flex flex-col items-center mx-auto sm:mx-0",
+										},
+										posterSrc
+											? h(
+													"div",
+													{
+														className:
+															"border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]",
+													},
+													h("img", {
+														className: "h-28 w-20 object-contain block",
+														src: posterSrc,
+														alt: movie.title || "",
+													}),
+												)
+											: h(
+													"div",
+													{
+														className:
+															"h-24 w-16 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]",
+													},
+													"CINEMA",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												movie.director
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Director:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																movie.director,
+															),
+														)
+													: null,
+												h(
+													"tr",
+													{ className: "border-b border-[#e1ebf0]" },
+													h(
+														"td",
+														{
+															className:
+																"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+														},
+														"Status:",
+													),
+													h(
+														"td",
+														{ className: "py-1 text-[#3b4d57]" },
+														statusLabel,
+													),
+												),
+												movie.rating
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Rating:",
+															),
+															h(
+																"td",
+																{
+																	className: "py-1 text-[#c0392b] font-bold",
+																},
+																movie.rating,
+															),
+														)
+													: null,
+												movie.year
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Release Year:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#556b78]" },
+																movie.year,
+															),
+														)
+													: null,
+												movie.review
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Mini Review:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed italic",
+																},
+																'"' + movie.review + '"',
+															),
+														)
+													: null,
+											),
+										),
+										movie.link
+											? h(
+													"div",
+													{ className: "pt-2 flex justify-end" },
+													h(
 														"span",
 														{
 															className:
-																"font-normal text-xs text-[#556b78] ml-1.5",
+																"site-button-2007 inline-block px-3 py-1 text-xs",
 														},
-														"(" + movie.director + ")",
-													)
-												: null,
-										),
-										h(
-											"p",
-											{ className: "mt-1 text-xs text-[#71828b]" },
-											h("strong", null, statusLabel),
-											movie.rating ? " · Rating: " + movie.rating : null,
-											movie.year ? " · " + movie.year : null,
-										),
-										movie.review
-											? h(
-													"p",
-													{
-														className:
-															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
-													},
-													'"' + movie.review + '"',
-												)
-											: null,
-										movie.link
-											? h(
-													"p",
-													{ className: "mt-2 text-xs" },
-													h(
-														"span",
-														{ className: "text-[#064f83] underline" },
-														"details »",
+														"Movie Details / IMDb »",
 													),
 												)
 											: null,
@@ -1799,79 +2166,249 @@
 							var posterSrc = resolveAssetUrl(getAsset, show.image);
 							var statusLabel = "[Plan to Watch]";
 							if (show.status === "currently-watching") {
-								statusLabel = "[Watching]";
+								statusLabel = "[Watching Now]";
 							} else if (show.status === "watched") {
-								statusLabel = "[Finished]";
+								statusLabel = "[Completed]";
 							}
 
 							return h(
-								"article",
+								"div",
 								{
 									key: idx,
-									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
 								},
+								// 2005 Window Header
 								h(
 									"div",
-									{ className: "flex items-start gap-3" },
-									posterSrc
-										? h("img", {
-												className:
-													"h-24 w-16 shrink-0 object-cover border border-[#7892a3]",
-												src: posterSrc,
-												alt: show.title || "",
-											})
-										: h(
-												"div",
-												{
-													className:
-														"h-24 w-16 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70]",
-												},
-												"SERIES",
-											),
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
 									h(
 										"div",
-										{ className: "min-w-0 flex-1" },
+										{ className: "flex items-center gap-2" },
+										h(
+											"span",
+											{ className: "text-xs font-bold text-[#556b78]" },
+											"#" + (idx + 1),
+										),
 										h(
 											"h4",
-											{ className: "font-bold text-[#164b70] text-sm" },
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+											},
 											show.title || "Untitled Show",
-											show.creator
-												? h(
+										),
+										show.creator
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] text-[#556b78] font-normal",
+													},
+													"(" + show.creator + ")",
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										h(
+											"span",
+											{
+												className:
+													show.status === "currently-watching"
+														? "inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
+														: "text-[11px] font-bold text-[#164b70]",
+											},
+											statusLabel,
+										),
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className:
+											"p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5",
+									},
+									// Poster
+									h(
+										"div",
+										{
+											className:
+												"shrink-0 flex flex-col items-center mx-auto sm:mx-0",
+										},
+										posterSrc
+											? h(
+													"div",
+													{
+														className:
+															"border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]",
+													},
+													h("img", {
+														className: "h-28 w-20 object-contain block",
+														src: posterSrc,
+														alt: show.title || "",
+													}),
+												)
+											: h(
+													"div",
+													{
+														className:
+															"h-24 w-16 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]",
+													},
+													"SERIES",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												show.creator
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Creator/Network:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																show.creator,
+															),
+														)
+													: null,
+												h(
+													"tr",
+													{ className: "border-b border-[#e1ebf0]" },
+													h(
+														"td",
+														{
+															className:
+																"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+														},
+														"Status:",
+													),
+													h(
+														"td",
+														{ className: "py-1 text-[#3b4d57]" },
+														statusLabel,
+													),
+												),
+												show.progress
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Progress:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#164b70] font-semibold",
+																},
+																show.progress,
+															),
+														)
+													: null,
+												show.rating
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Score:",
+															),
+															h(
+																"td",
+																{
+																	className: "py-1 text-[#c0392b] font-bold",
+																},
+																show.rating,
+															),
+														)
+													: null,
+												show.year
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Year:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#556b78]" },
+																show.year,
+															),
+														)
+													: null,
+												show.review
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Series Notes:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed italic",
+																},
+																'"' + show.review + '"',
+															),
+														)
+													: null,
+											),
+										),
+										show.link
+											? h(
+													"div",
+													{ className: "pt-2 flex justify-end" },
+													h(
 														"span",
 														{
 															className:
-																"font-normal text-xs text-[#556b78] ml-1.5",
+																"site-button-2007 inline-block px-3 py-1 text-xs",
 														},
-														"(" + show.creator + ")",
-													)
-												: null,
-										),
-										h(
-											"p",
-											{ className: "mt-1 text-xs text-[#71828b]" },
-											h("strong", null, statusLabel),
-											show.progress ? " · " + show.progress : null,
-											show.rating ? " · Rating: " + show.rating : null,
-											show.year ? " · " + show.year : null,
-										),
-										show.review
-											? h(
-													"p",
-													{
-														className:
-															"mt-1.5 text-xs leading-relaxed text-[#26343d]",
-													},
-													'"' + show.review + '"',
-												)
-											: null,
-										show.link
-											? h(
-													"p",
-													{ className: "mt-2 text-xs" },
-													h(
-														"span",
-														{ className: "text-[#064f83] underline" },
-														"details »",
+														"Series Details »",
 													),
 												)
 											: null,
@@ -1968,95 +2505,222 @@
 							);
 
 							return h(
-								"article",
+								"div",
 								{
 									key: idx,
-									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
 								},
+								// 2005 Window Header
 								h(
 									"div",
-									{ className: "flex items-start gap-3" },
-									coverSrc
-										? h("img", {
-												className:
-													(game.image
-														? "h-20 w-14 object-cover"
-														: "h-10 w-10 object-contain") +
-													" shrink-0 border border-[#7892a3] bg-white p-0.5",
-												src: coverSrc,
-												alt: game.name || "",
-											})
-										: h(
-												"div",
-												{
-													className:
-														"h-16 w-12 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]",
-												},
-												"GAME",
-											),
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
 									h(
 										"div",
-										{ className: "min-w-0 flex-1" },
+										{ className: "flex items-center gap-2" },
+										h(
+											"span",
+											{ className: "text-xs font-bold text-[#556b78]" },
+											"#" + (idx + 1),
+										),
 										h(
 											"h3",
-											{ className: "font-bold text-[#164b70]" },
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+											},
 											game.name || "Untitled Game",
-											game.platform
+										),
+										game.platform
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] text-[#556b78] font-normal",
+													},
+													"(" + game.platform + ")",
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										game.playingRightNow ||
+											game.status === "Playing right now"
+											? h(
+													"span",
+													{
+														className:
+															"inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]",
+													},
+													"[PLAYING RIGHT NOW]",
+												)
+											: game.status
 												? h(
 														"span",
 														{
 															className:
-																"font-normal text-xs text-[#556b78] ml-1.5",
+																"text-[11px] font-bold text-[#556b78]",
 														},
-														"(" + game.platform + ")",
+														"[" + game.status + "]",
 													)
 												: null,
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className:
+											"p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5",
+									},
+									// Box art / icon
+									h(
+										"div",
+										{
+											className:
+												"shrink-0 flex flex-col items-center mx-auto sm:mx-0",
+										},
+										coverSrc
+											? h(
+													"div",
+													{
+														className:
+															"border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]",
+													},
+													h("img", {
+														className:
+															(game.image
+																? "h-24 w-16 object-cover"
+																: "h-14 w-14 object-contain") + " block",
+														src: coverSrc,
+														alt: game.name || "",
+													}),
+												)
+											: h(
+													"div",
+													{
+														className:
+															"h-16 w-14 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]",
+													},
+													"GAME",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												game.publisher
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Publisher:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																game.publisher,
+															),
+														)
+													: null,
+												game.platform
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Platform:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																game.platform,
+															),
+														)
+													: null,
+												game.status
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Status:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																h("strong", null, game.status),
+																game.tags && game.tags.length
+																	? " (" +
+																			(Array.isArray(game.tags)
+																				? game.tags.join(", ")
+																				: game.tags) +
+																			")"
+																	: null,
+															),
+														)
+													: null,
+												game.description
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Notes:",
+															),
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 text-[#26343d] leading-relaxed italic",
+																},
+																'"' + game.description + '"',
+															),
+														)
+													: null,
+											),
 										),
-										game.publisher
-											? h(
-													"p",
-													{ className: "text-xs text-[#556b78] mt-0.5" },
-													game.publisher,
-												)
-											: null,
-										game.playingRightNow || game.status === "Playing right now"
-											? h(
-													"p",
-													{ className: "mt-1 text-xs text-[#71828b]" },
-													h(
-														"strong",
-														{ className: "text-[#164b70]" },
-														"[Playing right now]",
-													),
-													game.tags && game.tags.length
-														? " · " + (Array.isArray(game.tags) ? game.tags.join(", ") : game.tags)
-														: null,
-												)
-											: game.status
-												? h(
-														"p",
-														{ className: "mt-1 text-xs text-[#71828b]" },
-														h("strong", null, "[" + game.status + "]"),
-														game.tags && game.tags.length
-															? " · " + (Array.isArray(game.tags) ? game.tags.join(", ") : game.tags)
-															: null,
-													)
-												: null,
-										game.description
-											? h(
-													"p",
-													{ className: "mt-1 text-xs text-[#26343d]" },
-													game.description,
-												)
-											: null,
 										game.link
 											? h(
-													"p",
-													{ className: "mt-1.5 text-xs" },
+													"div",
+													{ className: "pt-2 flex justify-end" },
 													h(
 														"span",
-														{ className: "text-[#064f83] underline" },
-														"official link »",
+														{
+															className:
+																"site-button-2007 inline-block px-3 py-1 text-xs",
+														},
+														"Visit Official Website »",
 													),
 												)
 											: null,
@@ -2085,7 +2749,34 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h(
+							"div",
+							{ className: "mt-4 space-y-4" },
+							items && items.length > 0
+								? h(
+										"div",
+										{
+											className:
+												"border border-[#b7cbd6] bg-[#edf4f7] px-3 py-1.5 text-xs text-[#536a75] flex items-center justify-between shadow-[inset_0_1px_0_#fff]",
+										},
+										h(
+											"span",
+											{ className: "font-bold text-[#164b70]" },
+											"DIRECTORY // " +
+												items.length +
+												" GAME" +
+												(items.length !== 1 ? "S" : "") +
+												" LISTED",
+										),
+										h(
+											"span",
+											{ className: "text-[11px] text-[#71828b]" },
+											"SYSTEM: PC & CONSOLES",
+										),
+									)
+								: null,
+							itemsListElements,
+						),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -2125,69 +2816,182 @@
 							var iconSrc = resolveAssetUrl(getAsset, item.icon);
 
 							return h(
-								"article",
+								"div",
 								{
 									key: idx,
-									className: "site-card border border-[#b7cbd6] bg-[#f4f8fa] p-3",
+									className:
+										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
 								},
+								// 2005 Window Header
 								h(
 									"div",
-									{ className: "flex items-start gap-3" },
-									iconSrc
-										? h("img", {
-												className:
-													"h-10 w-10 shrink-0 object-contain border border-[#7892a3] bg-white p-0.5",
-												src: iconSrc,
-												alt: item.name || "",
-											})
-										: h(
-												"div",
-												{
-													className:
-														"h-10 w-10 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]",
-												},
-												"APP",
-											),
+									{
+										className:
+											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+									},
 									h(
 										"div",
-										{ className: "min-w-0 flex-1" },
+										{ className: "flex items-center gap-2" },
+										h(
+											"span",
+											{ className: "text-xs font-bold text-[#556b78]" },
+											"#" + (idx + 1),
+										),
 										h(
 											"h3",
-											{ className: "font-bold text-[#164b70]" },
+											{
+												className:
+													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+											},
 											item.name || "Untitled Software",
-											item.category
-												? h(
+										),
+										item.category
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] text-[#556b78] font-normal",
+													},
+													"(" + item.category + ")",
+												)
+											: null,
+									),
+									h(
+										"div",
+										null,
+										item.platform
+											? h(
+													"span",
+													{
+														className:
+															"text-[11px] font-bold text-[#164b70] bg-[#e1ebf0] px-1.5 py-0.5 border border-[#c6d7e0]",
+													},
+													"[" + item.platform + "]",
+												)
+											: null,
+									),
+								),
+								// Body
+								h(
+									"div",
+									{
+										className:
+											"p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5",
+									},
+									// Icon
+									h(
+										"div",
+										{
+											className:
+												"shrink-0 flex flex-col items-center mx-auto sm:mx-0",
+										},
+										iconSrc
+											? h(
+													"div",
+													{
+														className:
+															"border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]",
+													},
+													h("img", {
+														className: "h-12 w-12 object-contain block",
+														src: iconSrc,
+														alt: item.name || "",
+														width: 48,
+														height: 48,
+													}),
+												)
+											: h(
+													"div",
+													{
+														className:
+															"h-12 w-12 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]",
+													},
+													"APP",
+												),
+									),
+									// Table
+									h(
+										"div",
+										{ className: "min-w-0 flex-1 w-full text-xs" },
+										h(
+											"table",
+											{
+												className:
+													"w-full text-xs text-[#26343d] border-collapse",
+											},
+											h(
+												"tbody",
+												null,
+												item.category
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Category:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																item.category,
+															),
+														)
+													: null,
+												item.platform
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Platform:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#3b4d57]" },
+																item.platform,
+															),
+														)
+													: null,
+												item.description
+													? h(
+															"tr",
+															{ className: "border-b border-[#e1ebf0]" },
+															h(
+																"td",
+																{
+																	className:
+																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																},
+																"Usage & Notes:",
+															),
+															h(
+																"td",
+																{ className: "py-1 text-[#26343d] leading-relaxed" },
+																item.description,
+															),
+														)
+													: null,
+											),
+										),
+										item.link
+											? h(
+													"div",
+													{ className: "pt-2 flex justify-end" },
+													h(
 														"span",
 														{
 															className:
-																"font-normal text-xs text-[#556b78] ml-1.5",
+																"site-button-2007 inline-block px-3 py-1 text-xs",
 														},
-														"(" + item.category + ")",
-													)
-												: null,
-										),
-										item.platform
-											? h(
-													"p",
-													{ className: "mt-1 text-xs text-[#71828b]" },
-													h("strong", null, "[" + item.platform + "]"),
-												)
-											: null,
-										item.description
-											? h(
-													"p",
-													{ className: "mt-1 text-xs text-[#26343d]" },
-													item.description,
-												)
-											: null,
-										item.link
-											? h(
-													"p",
-													{ className: "mt-1.5 text-xs" },
-													h(
-														"span",
-														{ className: "text-[#064f83] underline" },
-														"official link »",
+														"Visit Official Website »",
 													),
 												)
 											: null,

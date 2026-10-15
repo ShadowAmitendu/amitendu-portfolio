@@ -574,6 +574,13 @@ collections:
         fields:
           - { label: "Greeting", name: "greeting", widget: "string" }
           - { label: "Welcome text", name: "welcome", widget: "string" }
+          - {
+              label: "Greeting GIF",
+              name: "greetingGif",
+              widget: "image",
+              required: false,
+              default: "/images/hi.gif",
+            }
           - { label: "About heading", name: "aboutTitle", widget: "string" }
           - { label: "About text", name: "about", widget: "text" }
           - {
