@@ -1,6 +1,7 @@
 {
 	"title": "Blog",
 	"headerTagline": "MY WEB LOG",
+	"headerBanner": "/images/header-banner.jpg",
 	"heading": "Web log",
 	"intro": "Notes from my corner of the web."
 }

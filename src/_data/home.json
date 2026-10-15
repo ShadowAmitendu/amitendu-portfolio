@@ -42,6 +42,7 @@
   ],
   "greeting": "Hello, Stranger!",
   "greetingGif": "/images/hi.gif",
+  "headerBanner": "/images/header-banner.jpg",
   "links": [
     {
       "label": "GitHub",

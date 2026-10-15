@@ -15,49 +15,45 @@ aboutTab: games
 
 <div class="mt-4 space-y-4">
   {% if games.items and games.items.length > 0 %}
-  {# Retro directory toolbar #}
-  <div class="border border-[#b7cbd6] bg-[#edf4f7] px-3 py-1.5 text-xs text-[#536a75] flex items-center justify-between shadow-[inset_0_1px_0_#fff]">
-    <span class="font-bold text-[#164b70]">DIRECTORY // {{ games.items.length }} GAME{% if games.items.length != 1 %}S{% endif %} LISTED</span>
-    <span class="text-[11px] text-[#71828b]">SYSTEM: PC &amp; CONSOLES</span>
-  </div>
-
   {% for game in games.items %}
   <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
     {# 2005 Window Header #}
     <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-bold text-[#556b78]">#{{ loop.index }}</span>
-        <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0">
+      <div class="flex items-baseline gap-1.5">
+        <span class="text-xs font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
+        <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline">
           {% if game.link %}
           <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ game.link }}" target="_blank" rel="noopener noreferrer">{{ game.name }}</a>
           {% else %}
           {{ game.name }}
           {% endif %}
         </h3>
-        {% if game.platform %}
-        <span class="text-[11px] text-[#556b78] font-normal">({{ game.platform }})</span>
+        {% if game.publisher %}
+        <span class="text-xs text-[#556b78] font-normal">({{ game.publisher }})</span>
+        {% elif game.platform %}
+        <span class="text-xs text-[#556b78] font-normal">({{ game.platform }})</span>
         {% endif %}
       </div>
       <div>
         {% if game.playingRightNow or game.playingNow or game.status == "Playing right now" %}
-        <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">[PLAYING RIGHT NOW]</span>
+        <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">PLAYING RIGHT NOW</span>
         {% elif game.status %}
-        <span class="text-[11px] font-bold text-[#556b78]">[{{ game.status }}]</span>
+        <span class="text-[11px] font-bold text-[#556b78]">{{ game.status }}</span>
         {% endif %}
       </div>
     </div>
 
     {# Body #}
-    <div class="p-3 bg-[#f8fbfc] flex flex-col sm:flex-row items-start gap-3.5">
+    <div class="site-listing-body p-3 bg-[#f8fbfc]">
       {# Left Icon / Box Art #}
       {% set gameImg = game.image or game.icon %}
-      <div class="shrink-0 flex flex-col items-center mx-auto sm:mx-0">
+      <div class="site-listing-image-col">
         {% if gameImg %}
-        <div class="border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]">
-          <img class="{% if game.image %}h-24 w-16 object-cover{% else %}h-14 w-14 object-contain{% endif %} block" src="{{ gameImg }}" alt="{{ game.name }}" />
+        <div class="site-listing-frame">
+          <img src="{{ gameImg }}" alt="{{ game.name }}" />
         </div>
         {% else %}
-        <div class="h-16 w-14 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[10px] font-bold text-[#164b70] shadow-[2px_2px_0_#cad6de]">
+        <div class="site-listing-placeholder">
           GAME
         </div>
         {% endif %}

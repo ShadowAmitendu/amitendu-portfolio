@@ -153,7 +153,7 @@ title: Home
     <div
       class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
       <span>Games I play</span>
-      {% if ongoingGame %}<span class="text-[10px] text-[#556b78] font-normal">[Ongoing]</span>{% endif %}
+      {% if ongoingGame %}<span class="text-[10px] text-[#556b78] font-normal">Ongoing</span>{% endif %}
     </div>
 
     {% if ongoingGame %}
@@ -179,7 +179,7 @@ title: Home
       </p>
     </div>
     {% else %}
-    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[110px]">
+    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-27.5">
       <p class="font-bold text-[#556b78]">Nothing to show</p>
       <p class="text-[11px] text-[#8aa2af] mt-0.5">No ongoing game added yet.</p>
     </div>
@@ -191,7 +191,7 @@ title: Home
     <div
       class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
       <span>Book I am reading</span>
-      {% if ongoingBook %}<span class="text-[10px] text-[#556b78] font-normal">[Reading]</span>{% endif %}
+      {% if ongoingBook %}<span class="text-[10px] text-[#556b78] font-normal">Reading</span>{% endif %}
     </div>
 
     {% if ongoingBook %}
@@ -218,7 +218,7 @@ title: Home
       {% endif %}
     </div>
     {% else %}
-    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-[110px]">
+    <div class="p-4 text-center text-xs text-[#71828b] flex flex-col items-center justify-center flex-1 min-h-27.5">
       <p class="font-bold text-[#556b78]">Nothing to show</p>
       <p class="text-[11px] text-[#8aa2af] mt-0.5">No book being read right now.</p>
     </div>
@@ -249,8 +249,8 @@ title: Home
       </div>
       {% endif %}
       <div class="min-w-0 flex-1">
-        <p class="text-xs text-[#71828b]">[Movie / Show: {% if previewMovie.status == 'currently-watching' %}Currently
-          Watching{% elif previewMovie.status == 'watched' %}Watched{% else %}Plan to Watch{% endif %}]</p>
+        <p class="text-xs text-[#71828b]">Movie / Show: {% if previewMovie.status == 'currently-watching' %}Currently
+          Watching{% elif previewMovie.status == 'watched' %}Watched{% else %}Plan to Watch{% endif %}</p>
         <h3 class="font-bold text-[#164b70] text-sm mt-0.5">
           <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/movies/">{{ previewMovie.title }}</a>
         </h3>
@@ -292,7 +292,7 @@ title: Home
         {% endif %}
       </span>
       {% if s.category %}<span class="text-[#71828b]">({{ s.category }})</span>{% endif %}
-      {% if s.platform %}<span class="text-[#556b78]">[{{ s.platform }}]</span>{% endif %}
+      {% if s.platform %}<span class="text-[#556b78]">({{ s.platform }})</span>{% endif %}
     </li>
     {% endfor %}
   </ul>

@@ -37,6 +37,12 @@ collections:
               default: "ABOUT THIS PERSON",
             }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
               label: "Heading",
               name: "heading",
               widget: "string",
@@ -89,6 +95,12 @@ collections:
               name: "headerTagline",
               widget: "string",
               default: "WHAT I'M READING",
+            }
+          - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
             }
           - {
               label: "Heading",
@@ -171,6 +183,12 @@ collections:
               name: "headerTagline",
               widget: "string",
               default: "WHAT I'M WATCHING",
+            }
+          - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
             }
           - {
               label: "Heading",
@@ -312,6 +330,12 @@ collections:
               default: "WHAT I'M PLAYING",
             }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
               label: "Heading",
               name: "heading",
               widget: "string",
@@ -413,6 +437,12 @@ collections:
               default: "TOOLS & APPS I USE",
             }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
               label: "Heading",
               name: "heading",
               widget: "string",
@@ -481,6 +511,12 @@ collections:
               name: "headerTagline",
               widget: "string",
               default: "CURRICULUM VITAE",
+            }
+          - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
             }
           - {
               label: "Heading",
@@ -575,6 +611,13 @@ collections:
           - { label: "Greeting", name: "greeting", widget: "string" }
           - { label: "Welcome text", name: "welcome", widget: "string" }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+              default: "/images/header-banner.jpg",
+            }
+          - {
               label: "Greeting GIF",
               name: "greetingGif",
               widget: "image",
@@ -643,6 +686,12 @@ collections:
               default: "MY WEB LOG",
             }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
               label: "Heading",
               name: "heading",
               widget: "string",
@@ -667,6 +716,12 @@ collections:
               default: "MY WEB PORTFOLIO",
             }
           - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+            }
+          - {
               label: "Heading",
               name: "heading",
               widget: "string",
@@ -680,6 +735,13 @@ collections:
         fields:
           - { label: "Site title", name: "title", widget: "string" }
           - { label: "Header tagline", name: "tagline", widget: "string" }
+          - {
+              label: "Default Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+              default: "/images/header-banner.jpg",
+            }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Footer text", name: "footer", widget: "string" }
           - { label: "Footer title", name: "footerTitle", widget: "string" }

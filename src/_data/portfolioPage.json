@@ -1,6 +1,7 @@
 {
 	"title": "Portfolio",
 	"headerTagline": "MY WEB PORTFOLIO",
+	"headerBanner": "/images/header-banner.jpg",
 	"heading": "My work",
 	"intro": "A few things I have made on the internet."
 }

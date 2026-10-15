@@ -9,17 +9,23 @@ aboutTab: me
 
 <h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
   {{ about.heading or heading or 'About me' }}</h2>
-<div class="site-about-intro mt-4 flex items-start gap-4">
-  {% if about.profileImage %}<img class="site-about-image h-auto w-28 shrink-0 object-contain"
-    src="{{ about.profileImage }}" alt="{{ about.profileAlt }}" />{% endif %}
-  <div class="site-entry-body min-w-0 flex-1 text-sm leading-relaxed text-[#26343d]">
-    {% if about.intro or intro %}<p>{{ about.intro or intro }}</p>{% endif %}
-    {% if about.content or about.body %}
-      {{ (about.content or about.body) | markdown | safe }}
-    {% elif about.paragraphs %}
-      {% for paragraph in about.paragraphs %}<p class="mt-3">{{ paragraph }}</p>{% endfor %}
-    {% endif %}
+<div class="site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]">
+  {% if about.profileImage %}
+  <div class="float-right ml-4 mb-3 shrink-0">
+    <div class="border border-[#7892a3] bg-white p-1 shadow-[2px_2px_0_#cad6de]">
+      <img class="h-32 w-32 sm:h-40 sm:w-40 object-cover block"
+        src="{{ about.profileImage }}" alt="{{ about.profileAlt or 'Profile photo' }}" />
+    </div>
   </div>
+  {% endif %}
+  {% if about.intro or intro %}
+  <p class="text-sm text-[#536a75] mb-3">{{ about.intro or intro }}</p>
+  {% endif %}
+  {% if about.content or about.body %}
+    {{ (about.content or about.body) | markdown | safe }}
+  {% elif about.paragraphs %}
+    {% for paragraph in about.paragraphs %}<p class="mt-3">{{ paragraph }}</p>{% endfor %}
+  {% endif %}
 </div>
 
 <p class="mt-6"><a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a></p>

@@ -1,6 +1,7 @@
 {
   "title": "About",
   "headerTagline": "ABOUT MYSELF",
+  "headerBanner": "/images/header-banner.jpg",
   "heading": "About Me!",
   "intro": "A little more about the person behind this homepage.",
   "profileImage": "/images/shadow-amitendu.jpg",

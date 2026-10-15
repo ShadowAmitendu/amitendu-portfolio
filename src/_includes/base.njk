@@ -202,7 +202,8 @@
 <body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
   <main class="site-shell mx-auto max-w-6xl p-1">
     <header class="site-header relative overflow-hidden text-white">
-      <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="/images/header-banner.jpg"
+      {% set pageHeaderBanner = headerBanner or banner or pageBanner or (about and about.headerBanner) or (home and home.headerBanner) or (portfolioPage and portfolioPage.headerBanner) or (blogPage and blogPage.headerBanner) or (resume and resume.headerBanner) or (books and books.headerBanner) or (movies and movies.headerBanner) or (games and games.headerBanner) or (software and software.headerBanner) or (site and site.headerBanner) or '/images/header-banner.jpg' %}
+      <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="{{ pageHeaderBanner }}"
         alt="" />
       <div class="relative px-5 py-4">
         <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ displayTagline }}</p>
@@ -426,7 +427,7 @@
           <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
             <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
               <span>Book I am reading</span>
-              <span class="text-[10px] text-[#556b78] font-normal">[Reading]</span>
+              <span class="text-[10px] text-[#556b78] font-normal">Reading</span>
             </div>
             <div class="p-2.5 text-center flex flex-col items-center">
               <a class="my-1 block hover:opacity-90" href="/about/books/" title="{{ sidebarBook.title }} - view on bookshelf">
@@ -475,7 +476,7 @@
           <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
             <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
               <span>Games I play</span>
-              <span class="text-[10px] text-[#556b78] font-normal">[Ongoing]</span>
+              <span class="text-[10px] text-[#556b78] font-normal">Ongoing</span>
             </div>
             {% if sidebarGame %}
             {% set sGameImg = sidebarGame.image or sidebarGame.icon %}
@@ -620,6 +621,54 @@
           a.setAttribute( 'target', '_blank' );
           a.setAttribute( 'rel', 'noopener noreferrer' );
         }
+      } );
+    } )();
+  </script>
+
+  {# Modern fluid smooth scrolling using Lenis #}
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    ( function ()
+    {
+      if ( typeof Lenis === 'undefined' ) return;
+      // Respect accessibility preferences for reduced motion
+      var prefersReducedMotion = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+      if ( prefersReducedMotion ) return;
+
+      var lenis = new Lenis( {
+        duration: 1.2,
+        easing: function ( t ) { return Math.min( 1, 1.001 - Math.pow( 2, -10 * t ) ); },
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false
+      } );
+
+      function raf( time )
+      {
+        lenis.raf( time );
+        requestAnimationFrame( raf );
+      }
+      requestAnimationFrame( raf );
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll( 'a[href^="#"]' ).forEach( function ( anchor )
+      {
+        anchor.addEventListener( 'click', function ( e )
+        {
+          var targetId = this.getAttribute( 'href' );
+          if ( targetId && targetId.length > 1 )
+          {
+            var targetEl = document.querySelector( targetId );
+            if ( targetEl )
+            {
+              e.preventDefault();
+              lenis.scrollTo( targetEl, { offset: -20 } );
+            }
+          }
+        } );
       } );
     } )();
   </script>
