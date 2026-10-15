@@ -330,11 +330,25 @@ collections:
             fields:
               - { label: "Game Name", name: "name", widget: "string" }
               - {
-                  label: "Icon / Cover Image",
+                  label: "Cover / Box Art Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                  hint: "Upload a game cover image or box art (JPG, PNG, WEBP).",
+                }
+              - {
+                  label: "Icon / Mini Logo (Optional)",
                   name: "icon",
                   widget: "image",
                   required: false,
-                  hint: "Upload a game icon or box art (PNG, SVG, WEBP, JPG).",
+                  hint: "Upload a small game icon (PNG, SVG, WEBP).",
+                }
+              - {
+                  label: "Publisher / Developer",
+                  name: "publisher",
+                  widget: "string",
+                  required: false,
+                  hint: "e.g. Nintendo, FromSoftware, Valve, Sony, etc.",
                 }
               - {
                   label: "Platform (e.g. PC, Switch, PS5, Steam Deck)",
