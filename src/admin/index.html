@@ -213,6 +213,59 @@
 							h(
 								"aside",
 								{ className: "site-sidebar site-sidebar-left" },
+								h(
+									"div",
+									{ className: "site-sidebar-card mb-4" },
+									h("div", { className: "site-sidebar-card-header" }, "About Me"),
+									h(
+										"div",
+										{ className: "site-sidebar-card-body" },
+										h(
+											"div",
+											{ className: "flex items-center gap-2.5" },
+											h("img", {
+												className: "site-profile-frame h-11 w-11 shrink-0 object-cover",
+												src: "/images/shadow-amitendu.jpg",
+												alt: "Amitendu",
+												width: 44,
+												height: 44,
+											}),
+											h(
+												"div",
+												{ className: "min-w-0" },
+												h("p", { className: "truncate font-bold leading-tight text-[#164b70] text-sm" }, "Amitendu"),
+												h("p", { className: "mt-0.5 text-[11px] leading-tight text-[#556b78]" }, "Developer & Maker"),
+											),
+										),
+										h("p", { className: "mt-2.5 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2" }, "Building small things for the web."),
+										h(
+											"div",
+											{ className: "mt-2.5" },
+											h(
+												"a",
+												{
+													className:
+														"site-button-2007 flex items-center justify-center gap-1.5",
+													href: "/resume/",
+												},
+												h(
+													"svg",
+													{
+														className: "h-3.5 w-3.5 shrink-0 text-[#164b70]",
+														viewBox: "0 0 20 20",
+														fill: "currentColor",
+													},
+													h("path", {
+														fillRule: "evenodd",
+														d: "M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z",
+														clipRule: "evenodd",
+													}),
+												),
+												h("span", null, "View Resume →"),
+											),
+										),
+									),
+								),
 								h("h2", null, "Navigate"),
 								sidebarLinks,
 							),
@@ -240,7 +293,7 @@
 											{
 												className:
 													"flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
-												href: "https://github.com/",
+												href: "https://github.com/ShadowAmitendu",
 											},
 											h("img", {
 												className:
@@ -261,18 +314,38 @@
 											{
 												className:
 													"flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
-												href: "mailto:amitendubikashdhusiya@gmail.com",
+												href: "https://www.youtube.com/@ShadowAmitendu",
 											},
 											h("img", {
 												className:
 													"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]",
-												src: "/assets/icons/macos-mail.png",
+												src: "/assets/icons/macos-youtube.png",
 												alt: "",
 												width: 20,
 												height: 20,
 											}),
-											h("span", { className: "underline" }, "Email"),
+											h("span", { className: "underline" }, "YouTube"),
 										),
+									),
+								),
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, "Recent Posts"),
+									h(
+										"div",
+										{ className: "mt-2 space-y-2" },
+										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No posts yet."),
+									),
+								),
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, "Favorites"),
+									h(
+										"div",
+										{ className: "mt-2 space-y-2" },
+										h("p", { className: "text-[12px] italic text-[#71828b]" }, "No favorites tagged yet."),
 									),
 								),
 							),

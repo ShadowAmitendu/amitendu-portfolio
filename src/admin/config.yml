@@ -327,6 +327,22 @@ collections:
                       - { label: "Discord", value: "discord" }
                       - { label: "YouTube", value: "youtube" }
                       - { label: "Notes", value: "notes" }
+          - label: "Author Profile"
+            name: "author"
+            widget: "object"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / Subtitle", name: "role", widget: "string" }
+              - { label: "Avatar", name: "avatar", widget: "image" }
+              - { label: "Mini Bio", name: "bio", widget: "string" }
+              - { label: "Resume URL", name: "resumeUrl", widget: "string" }
+          - label: "Sidebar Settings"
+            name: "sidebar"
+            widget: "object"
+            fields:
+              - { label: "Recent Posts Title", name: "recentPostsTitle", widget: "string", default: "Recent Posts" }
+              - { label: "Recent Posts Limit", name: "recentPostsLimit", widget: "number", value_type: "int", default: 3 }
+              - { label: "Favorites Title", name: "favoritesTitle", widget: "string", default: "Favorites" }
           - {
               label: "Featured item limit",
               name: "featuredLimit",
@@ -344,6 +360,9 @@ collections:
       - label: "Published"
         field: "tags"
         pattern: "post"
+      - label: "Favorites"
+        field: "tags"
+        pattern: "fav"
       - label: "Drafts"
         field: "tags"
         pattern: "draft"
@@ -361,8 +380,9 @@ collections:
         options:
           - { label: "Post (Published)", value: "post" }
           - { label: "Draft (Hidden from site)", value: "draft" }
+          - { label: "Favorite / Starred", value: "fav" }
         default: ["post"]
-        hint: "Choose 'post' to publish on blog, or 'draft' to save as draft."
+        hint: "Choose 'post' to publish on blog, 'fav' for starred favorite, or 'draft' to save as draft."
       - { label: "Title", name: "title", widget: "string" }
       - {
           label: "Header tagline",
@@ -410,6 +430,9 @@ collections:
       - label: "Published"
         field: "tags"
         pattern: "portfolio"
+      - label: "Favorites"
+        field: "tags"
+        pattern: "fav"
       - label: "Drafts"
         field: "tags"
         pattern: "draft"
@@ -427,8 +450,9 @@ collections:
         options:
           - { label: "Portfolio (Published)", value: "portfolio" }
           - { label: "Draft (Hidden from site)", value: "draft" }
+          - { label: "Favorite / Starred", value: "fav" }
         default: ["portfolio"]
-        hint: "Choose 'portfolio' to publish, or 'draft' to save as draft."
+        hint: "Choose 'portfolio' to publish, 'fav' for starred favorite, or 'draft' to save as draft."
       - { label: "Title", name: "title", widget: "string" }
       - {
           label: "Header tagline",

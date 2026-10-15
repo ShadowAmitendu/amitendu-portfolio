@@ -1,23 +1,24 @@
 {
-  "rightSidebar": {
-    "title": "Elsewhere",
-    "items": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/ShadowAmitendu",
-        "icon": "github"
-      },
-      {
-        "icon": "youtube",
-        "url": "https://www.youtube.com/@ShadowAmitendu",
-        "label": "YouTube"
-      }
-    ]
-  },
+  "title": "Amitendu Bikash Dhusiya",
+  "tagline": "WELCOME TO MY HOMEPAGE",
+  "email": "amitendubikashdhusiya@gmail.com",
+  "footerTitle": "Thanks for stopping by!",
+  "footer": "All rights reserved.",
   "visitorCount": "you are visitor #000042",
   "footerBadge": "made with HTML, CSS & Eleventy",
   "featuredLimit": 4,
-  "tagline": "WELCOME TO MY HOMEPAGE",
+  "author": {
+    "name": "Amitendu",
+    "role": "Developer & Maker",
+    "avatar": "/images/shadow-amitendu.jpg",
+    "bio": "Building small things for the web.",
+    "resumeUrl": "/resume/"
+  },
+  "sidebar": {
+    "recentPostsTitle": "Recent Posts",
+    "recentPostsLimit": 3,
+    "favoritesTitle": "Favorites"
+  },
   "leftSidebar": {
     "title": "Navigate",
     "items": [
@@ -43,8 +44,19 @@
       }
     ]
   },
-  "title": "Amitendu Bikash Dhusiya",
-  "footer": "All rights reserved.",
-  "email": "amitendubikashdhusiya@gmail.com",
-  "footerTitle": "Thanks for stopping by!"
+  "rightSidebar": {
+    "title": "Elsewhere",
+    "items": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/ShadowAmitendu",
+        "icon": "github"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@ShadowAmitendu",
+        "icon": "youtube"
+      }
+    ]
+  }
 }

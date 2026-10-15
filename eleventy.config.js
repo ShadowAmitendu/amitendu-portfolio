@@ -54,6 +54,13 @@ export default function (eleventyConfig) {
 		return false;
 	};
 
+	const isFav = (item) => {
+		const tags = item.data.tags;
+		if (Array.isArray(tags)) return tags.includes("fav");
+		if (typeof tags === "string") return tags === "fav";
+		return false;
+	};
+
 	eleventyConfig.addCollection("blog", (collectionApi) =>
 		collectionApi
 			.getAll()
@@ -64,6 +71,12 @@ export default function (eleventyConfig) {
 		collectionApi
 			.getAll()
 			.filter((item) => isPortfolioProject(item) && !isDraft(item))
+			.sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0)),
+	);
+	eleventyConfig.addCollection("fav", (collectionApi) =>
+		collectionApi
+			.getAll()
+			.filter((item) => isFav(item) && !isDraft(item))
 			.sort((a, b) => new Date(b.data.date || 0) - new Date(a.data.date || 0)),
 	);
 	eleventyConfig.addCollection("updates", (collectionApi) =>
