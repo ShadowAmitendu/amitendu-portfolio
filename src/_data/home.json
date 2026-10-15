@@ -1,36 +1,74 @@
 {
-	"profileAlt": "Amitendu Bikash Dhusiya",
-	"skills": ["HTML", "CSS", "JavaScript", "Eleventy", "Nunjucks", "Markdown"],
-	"welcome": "You Found Out a Hidden Gem!",
-	"currently": [
-		"learning something new",
-		"building useful little projects",
-		"listening to music while I work"
-	],
-	"statusTitle": "Status",
-	"aboutTitle": "About this site & MySelf",
-	"about": "I am Amitendu Bikash Dhusiya, a developer who enjoys making things for the web. This is a small, quiet homepage built with Eleventy and Nunjucks.",
-	"profileImage": "/images/shadow-amitendu.jpg",
-	"currentlyTitle": "Currently",
-	"status": [
-		{
-			"label": "Currently",
-			"value": "building small websites"
-		},
-		{
-			"label": "Listening to",
-			"value": "music while I work"
-		},
-		{
-			"label": "Status",
-			"value": "online"
-		}
-	],
-	"greeting": "Hello, Stranger!",
-	"links": [
-		{
-			"label": "GitHub",
-			"url": "https://github.com/ShadowAmitendu"
-		}
-	]
+  "profileAlt": "Amitendu Bikash Dhusiya",
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Angular",
+    "React",
+    "Markdown",
+    "Java",
+    "Python",
+    "C",
+    "PHP",
+    "MySQL",
+    "Oracle SQL Plus",
+    "TypeScript"
+  ],
+  "welcome": "You Found Out a Hidden Gem!",
+  "currently": [
+    "Learning React and SpringBoot with PostGreSQL.",
+    "Building a small scale home inventory management system.",
+    "Listening to HoYo-MiX Albums."
+  ],
+  "statusTitle": "Status",
+  "aboutTitle": "About this site & MySelf",
+  "about": "Hey, I'm Amitendu Bikash Dhusiya, a BCA student and Web Development Intern passionate about coding, software development, and UI/UX design.\n\nBeyond coding, I enjoy anime, HoYoverse games, PC hardware, photography, and occasionally streaming on YouTube.\n\nWelcome to my little corner of the internet!",
+  "profileImage": "/images/shadow-amitendu.jpg",
+  "currentlyTitle": "Currently",
+  "status": [
+    {
+      "label": "Working on",
+      "value": "Personal projects for Portfolio and Refactoring the old projects with newer skills"
+    },
+    {
+      "label": "Playing",
+      "value": "Genshin Impact and Honkai: Star Rail"
+    },
+    {
+      "label": "Availability",
+      "value": "Very rarely streaming on YouTube"
+    }
+  ],
+  "greeting": "Hello, Stranger!",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/ShadowAmitendu"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@ShadowAmitendu"
+    },
+    {
+      "label": "X (Formerly Twitter)",
+      "url": "https://x.com/shadow_amitendu"
+    },
+    {
+      "url": "https://www.linkedin.com/in/amitendu/",
+      "label": "LinkedIn"
+    },
+    {
+      "label": "Peerlist",
+      "url": "https://peerlist.io/amitendu"
+    },
+    {
+      "label": "Discord",
+      "url": "https://discord.com/users/553845371131002891"
+    },
+    {
+      "label": "Figma",
+      "url": "https://www.figma.com/@shadow_amitendu"
+    }
+  ]
 }
