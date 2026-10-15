@@ -3,6 +3,28 @@
   "headerTagline": "WHAT I'M WATCHING",
   "heading": "Cinema & TV Shows",
   "intro": "Films and television series that I enjoy and recommend.",
-  "movies": [],
-  "shows": []
+  "movies": [
+    {
+      "status": "watched",
+      "title": "Interstellar",
+      "director": "Christopher Nolan",
+      "image": "/images/intersetllar.webp",
+      "rating": "5/5",
+      "year": "2014",
+      "review": "Just Epic!",
+      "link": "https://www.imdb.com/title/tt0816692/"
+    }
+  ],
+  "shows": [
+    {
+      "status": "watched",
+      "title": "Loki ",
+      "creator": "Marvel Studios",
+      "rating": "5/5",
+      "link": "https://www.imdb.com/title/tt9140554/",
+      "review": "Character Development is Insane in my opinion, from a Villan to Glorious Purpose!",
+      "year": "2021-2023",
+      "progress": "Season 1 & 2"
+    }
+  ]
 }
