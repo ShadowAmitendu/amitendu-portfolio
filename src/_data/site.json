@@ -25,7 +25,7 @@
       {
         "label": "Peerlist",
         "url": "https://peerlist.io/amitendu",
-        "icon": ""
+        "icon": null
       },
       {
         "label": "Discord",
@@ -35,7 +35,11 @@
       {
         "label": "Figma",
         "url": "https://www.figma.com/@shadow_amitendu",
-        "icon": ""
+        "icon": null
+      },
+      {
+        "url": "https://www.instagram.com/shadowamitendu/",
+        "label": "Instagram"
       }
     ]
   },
