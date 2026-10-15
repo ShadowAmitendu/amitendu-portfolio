@@ -311,22 +311,27 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "URL", name: "url", widget: "string" }
-                  - label: "macOS Icon"
+                  - label: "Website Icon"
                     name: "icon"
                     widget: "select"
                     required: false
                     options:
                       - { label: "Auto (Detect from URL/Label)", value: "" }
+                      - { label: "Discord", value: "discord" }
+                      - { label: "Figma", value: "figma" }
+                      - { label: "Finder", value: "finder" }
                       - { label: "GitHub", value: "github" }
+                      - { label: "Instagram", value: "instagram" }
+                      - { label: "LinkedIn", value: "linkedin" }
                       - { label: "Apple Mail", value: "mail" }
+                      - { label: "Medium", value: "medium" }
+                      - { label: "Notes", value: "notes" }
+                      - { label: "Peerlist", value: "peerlist" }
                       - { label: "Safari / Web", value: "safari" }
                       - { label: "Terminal", value: "terminal" }
-                      - { label: "Finder", value: "finder" }
-                      - { label: "LinkedIn", value: "linkedin" }
                       - { label: "Twitter / X", value: "twitter" }
-                      - { label: "Discord", value: "discord" }
+                      - { label: "X (Twitter)", value: "x" }
                       - { label: "YouTube", value: "youtube" }
-                      - { label: "Notes", value: "notes" }
           - label: "Author Profile"
             name: "author"
             widget: "object"
@@ -340,9 +345,25 @@ collections:
             name: "sidebar"
             widget: "object"
             fields:
-              - { label: "Recent Posts Title", name: "recentPostsTitle", widget: "string", default: "Recent Posts" }
-              - { label: "Recent Posts Limit", name: "recentPostsLimit", widget: "number", value_type: "int", default: 3 }
-              - { label: "Favorites Title", name: "favoritesTitle", widget: "string", default: "Favorites" }
+              - {
+                  label: "Recent Posts Title",
+                  name: "recentPostsTitle",
+                  widget: "string",
+                  default: "Recent Posts",
+                }
+              - {
+                  label: "Recent Posts Limit",
+                  name: "recentPostsLimit",
+                  widget: "number",
+                  value_type: "int",
+                  default: 3,
+                }
+              - {
+                  label: "Favorites Title",
+                  name: "favoritesTitle",
+                  widget: "string",
+                  default: "Favorites",
+                }
           - {
               label: "Featured item limit",
               name: "featuredLimit",

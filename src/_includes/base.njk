@@ -317,32 +317,7 @@
         <h2>{{ site.rightSidebar.title }}</h2>
         <div class="mt-2 space-y-2">
           {% for item in site.rightSidebar.items %}
-          {% set itemIcon = item.icon %}
-          {% if not itemIcon %}
-          {% set itemUrl = item.url | lower %}
-          {% set itemLabel = item.label | lower %}
-          {% if 'github' in itemUrl or 'github' in itemLabel %}
-          {% set itemIcon = 'github' %}
-          {% elif 'mailto' in itemUrl or 'email' in itemLabel or 'mail' in itemLabel %}
-          {% set itemIcon = 'mail' %}
-          {% elif 'twitter' in itemUrl or 'twitter' in itemLabel or 'x.com' in itemUrl %}
-          {% set itemIcon = 'twitter' %}
-          {% elif 'linkedin' in itemUrl or 'linkedin' in itemLabel %}
-          {% set itemIcon = 'linkedin' %}
-          {% elif 'discord' in itemUrl or 'discord' in itemLabel %}
-          {% set itemIcon = 'discord' %}
-          {% elif 'youtube' in itemUrl or 'youtube' in itemLabel %}
-          {% set itemIcon = 'youtube' %}
-          {% elif 'terminal' in itemLabel or 'code' in itemLabel %}
-          {% set itemIcon = 'terminal' %}
-          {% elif 'finder' in itemLabel %}
-          {% set itemIcon = 'finder' %}
-          {% elif 'notes' in itemLabel %}
-          {% set itemIcon = 'notes' %}
-          {% else %}
-          {% set itemIcon = 'safari' %}
-          {% endif %}
-          {% endif %}
+          {% set itemIcon = item.url | resolveIcon(item.label, item.icon) %}
           <div>
             <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}" {% if item.url and item.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}>
               <img class="site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]"

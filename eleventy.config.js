@@ -1,4 +1,102 @@
+import fs from "node:fs";
+import path from "node:path";
 import markdownIt from "markdown-it";
+
+function getAvailableIcons() {
+	const iconsDir = path.resolve("src/assets/icons");
+	if (!fs.existsSync(iconsDir)) return [];
+	const files = fs.readdirSync(iconsDir);
+	const icons = new Set();
+	for (const file of files) {
+		const match = file.match(/^macos-([a-z0-9_-]+)\.(png|svg)$/i);
+		if (match) {
+			icons.add(match[1].toLowerCase());
+		}
+	}
+	return Array.from(icons);
+}
+
+function resolveIcon(itemUrl = "", itemLabel = "", explicitIcon = "") {
+	const available = getAvailableIcons();
+	if (explicitIcon && available.includes(explicitIcon.toLowerCase())) {
+		return explicitIcon.toLowerCase();
+	}
+
+	const urlLower = String(itemUrl || "").toLowerCase();
+	const labelLower = String(itemLabel || "").toLowerCase();
+
+	if (urlLower.includes("x.com") || labelLower.includes("twitter") || labelLower.includes("x (")) {
+		if (available.includes("twitter")) return "twitter";
+		if (available.includes("x")) return "x";
+	}
+	if (urlLower.startsWith("mailto:") || labelLower.includes("email") || labelLower.includes("mail")) {
+		if (available.includes("mail")) return "mail";
+	}
+
+	for (const icon of available) {
+		if (icon === "safari") continue;
+		if (urlLower.includes(icon) || labelLower.includes(icon)) {
+			return icon;
+		}
+	}
+
+	return available.includes("safari") ? "safari" : (available[0] || "safari");
+}
+
+function formatIconLabel(iconName) {
+	const knownLabels = {
+		github: "GitHub",
+		youtube: "YouTube",
+		linkedin: "LinkedIn",
+		twitter: "Twitter / X",
+		x: "X (Twitter)",
+		discord: "Discord",
+		figma: "Figma",
+		peerlist: "Peerlist",
+		safari: "Safari / Web",
+		mail: "Apple Mail",
+		terminal: "Terminal",
+		finder: "Finder",
+		notes: "Notes",
+		steam: "Steam",
+		spotify: "Spotify",
+		slack: "Slack",
+		reddit: "Reddit",
+		instagram: "Instagram",
+		twitch: "Twitch",
+		facebook: "Facebook",
+		threads: "Threads",
+		dribbble: "Dribbble",
+		behance: "Behance",
+	};
+	if (knownLabels[iconName]) return knownLabels[iconName];
+	return iconName.charAt(0).toUpperCase() + iconName.slice(1);
+}
+
+function syncConfigIcons() {
+	const configPath = path.resolve("src/admin/config.yml");
+	if (!fs.existsSync(configPath)) return;
+
+	const content = fs.readFileSync(configPath, "utf8");
+	const available = getAvailableIcons().sort();
+
+	let optionsYaml = `                    options:\n                      - { label: "Auto (Detect from URL/Label)", value: "" }`;
+	for (const icon of available) {
+		const label = formatIconLabel(icon);
+		optionsYaml += `\n                      - { label: "${label}", value: "${icon}" }`;
+	}
+
+	const iconOptionsRegex = /(name:\s*["']icon["'][\s\S]*?options:\s*\n)(?:\s+-\s*\{[^\n]+\}\n?)+/;
+	if (iconOptionsRegex.test(content)) {
+		const updated = content.replace(iconOptionsRegex, `$1${optionsYaml.replace("                    options:\n", "")}\n`);
+		if (updated !== content) {
+			fs.writeFileSync(configPath, updated, "utf8");
+		}
+	}
+}
+
+// Automatically sync config.yml on startup
+syncConfigIcons();
 
 const md = markdownIt({ html: true, breaks: true, linkify: true });
 
@@ -21,6 +119,10 @@ md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 };
 
 export default function (eleventyConfig) {
+	syncConfigIcons();
+	eleventyConfig.on("eleventy.before", () => {
+		syncConfigIcons();
+	});
 	eleventyConfig.setLibrary("md", md);
 	eleventyConfig.addPassthroughCopy("src/assets");
 	eleventyConfig.addPassthroughCopy({ "src/images": "images" });
@@ -28,6 +130,9 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
 	eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+	eleventyConfig.addFilter("resolveIcon", (url, label, explicitIcon) => {
+		return resolveIcon(url, label, explicitIcon);
+	});
 	eleventyConfig.addFilter("markdown", (content) => {
 		return md.render(content || "");
 	});
