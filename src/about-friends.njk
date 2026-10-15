@@ -44,13 +44,17 @@ aboutTab: friends
     {# Body #}
     <div class="site-listing-body p-3 bg-[#f8fbfc]">
       {# Left Portrait Image Frame (Full Height of the Area, Cropped) #}
-      <div class="site-listing-image-col shrink-0 self-stretch w-28 sm:w-28 md:w-32 mx-auto sm:mx-0 flex flex-col justify-stretch">
+      <div
+        class="site-listing-image-col shrink-0 self-stretch w-28 sm:w-28 md:w-32 mx-auto sm:mx-0 flex flex-col justify-stretch">
         {% if friend.avatar %}
-        <div class="site-listing-frame is-friend-portrait h-full w-full min-h-[8.5rem] p-0.5 overflow-hidden bg-white border border-[#7892a3] shadow-[2px_2px_0_#cad6de] flex items-stretch">
-          <img src="{{ friend.avatar }}" alt="{{ friend.name }}" class="w-full h-full object-cover object-center block" />
+        <div
+          class="site-listing-frame is-friend-portrait h-full w-full min-h-34 p-0.5 overflow-hidden bg-white border border-[#7892a3] shadow-[2px_2px_0_#cad6de] flex items-stretch">
+          <img src="{{ friend.avatar }}" alt="{{ friend.name }}"
+            class="w-full h-full object-cover object-center block" />
         </div>
         {% else %}
-        <div class="site-listing-placeholder is-friend-portrait h-full w-full min-h-[8.5rem] text-[11px] flex items-center justify-center bg-[#dce9ef] border border-[#7892a3] shadow-[2px_2px_0_#cad6de] font-bold text-[#164b70] tracking-wider select-none">
+        <div
+          class="site-listing-placeholder is-friend-portrait h-full w-full min-h-34 text-[11px] flex items-center justify-center bg-[#dce9ef] border border-[#7892a3] shadow-[2px_2px_0_#cad6de] font-bold text-[#164b70] tracking-wider select-none">
           PORTRAIT
         </div>
         {% endif %}

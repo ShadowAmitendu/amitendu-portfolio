@@ -92,40 +92,6 @@ export default function (eleventyConfig) {
 		const cleaned = slug.replace(/[^a-zA-Z0-9_]/g, "_");
 		return /^[a-zA-Z_]/.test(cleaned) ? cleaned : `post_${cleaned}`;
 	});
-	eleventyConfig.addFilter("getComments", (commentsData, postSlug, filePathStem) => {
-		if (!commentsData) return [];
-		const cleanSlug = String(postSlug || "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
-		const fullSlug = String(postSlug || "");
-		const stemSlug = filePathStem ? String(filePathStem).replace(/^\/?blog\//, "") : "";
-
-		const list = Array.isArray(commentsData)
-			? commentsData
-			: Array.isArray(commentsData.items)
-				? commentsData.items
-				: null;
-
-		if (list) {
-			return list.filter((item) => {
-				if (!item || !item.postSlug) return false;
-				const itemSlug = String(item.postSlug).trim();
-				const itemClean = itemSlug.replace(/^\d{4}-\d{2}-\d{2}-/, "");
-				return (
-					itemSlug === cleanSlug ||
-					itemClean === cleanSlug ||
-					itemSlug === fullSlug ||
-					(stemSlug && itemSlug === stemSlug)
-				);
-			});
-		}
-
-		if (typeof commentsData === "object") {
-			if (Array.isArray(commentsData[cleanSlug])) return commentsData[cleanSlug];
-			if (Array.isArray(commentsData[fullSlug])) return commentsData[fullSlug];
-			if (stemSlug && Array.isArray(commentsData[stemSlug])) return commentsData[stemSlug];
-		}
-
-		return [];
-	});
 	eleventyConfig.addGlobalData("buildDate", () => new Date());
 	eleventyConfig.addShortcode(
 		"currentYear",

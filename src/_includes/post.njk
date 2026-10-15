@@ -5,8 +5,7 @@ isPost: true
 {% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
 <article class="site-entry">
   {# 2005-era Weblog Entry Hero & Header Bar (Merged) #}
-  <header
-    class="site-entry-header border border-[#b2c2cc] bg-white shadow-[2px_2px_0_#cad6de] overflow-hidden">
+  <header class="site-entry-header border border-[#b2c2cc] bg-white shadow-[2px_2px_0_#cad6de] overflow-hidden">
     {# 1. Entry date & written by: name #}
     <div
       class="border-b border-[#c6d7e0] bg-gradient-to-b from-[#f8fbfc] to-[#dce8ee] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-[13px] sm:text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
@@ -38,7 +37,8 @@ isPost: true
     </div>
     {% else %}
     <div class="p-3.5 sm:p-4 bg-gradient-to-b from-[#ffffff] to-[#edf4f8] border-b border-[#c6d7e0]">
-      <h1 class="site-entry-title font-bold tracking-tight text-[#22608a] text-xl sm:text-2xl md:text-3xl leading-tight uppercase m-0">
+      <h1
+        class="site-entry-title font-bold tracking-tight text-[#22608a] text-xl sm:text-2xl md:text-3xl leading-tight uppercase m-0">
         {{ title }}
       </h1>
     </div>
@@ -46,7 +46,8 @@ isPost: true
 
     {# 3. Description then after #}
     {% if description %}
-    <div class="site-entry-desc p-3.5 bg-[#f8fbfc] text-xs sm:text-sm text-[#3b4d57] leading-relaxed italic border-t border-[#edf3f6]">
+    <div
+      class="site-entry-desc p-3.5 bg-[#f8fbfc] text-xs sm:text-sm text-[#3b4d57] leading-relaxed italic border-t border-[#edf3f6]">
       {{ description }}
     </div>
     {% endif %}
@@ -96,9 +97,8 @@ isPost: true
         {% endif %}
         {% endfor %}
       </div>
-      {% set postCommentsList = (comments | getComments(page.fileSlug, page.filePathStem)) or postComments or [] %}
       <div class="flex items-center gap-2 text-[14px]">
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments ({{ postCommentsList.length }})</a>
+        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="#comments">comments</a>
         <span>·</span>
         <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ permalink or page.url }}">permalink</a>
         <span>·</span>
@@ -108,241 +108,402 @@ isPost: true
   </footer>
 
   {# Comments Section #}
-  <section id="comments" class="site-comments mt-8 p-4">
-    <div class="border-b border-[#b7cbd6] pb-1.5 flex items-baseline justify-between gap-2">
-      <h3 class="text-base font-bold text-[#164b70]">
-        Comments ({{ postCommentsList.length }})
-      </h3>
-      <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="#postAComment">Leave a comment »</a>
-    </div>
-
-    {# Display Approved Comments #}
-    {% if postCommentsList.length > 0 %}
-    <div class="mt-4 space-y-3">
-      {% for item in postCommentsList %}
-      <div class="site-comment-item border border-[#c6d7e0] bg-white p-3 shadow-[1px_1px_0_#cad6de]">
-        <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-[#edf3f6] pb-1 text-xs">
-          <div class="flex items-baseline gap-1.5">
-            <span class="font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
-            <span class="font-bold text-[#164b70]">{{ item.name }}</span>
-          </div>
-          {% if item.date %}
-          <time class="text-[#71828b] text-[11px]">{{ item.date | shortDate }}</time>
-          {% endif %}
-        </div>
-        <div class="mt-2 text-xs leading-relaxed text-[#26343d] whitespace-pre-line">
-          {{ item.message }}
-        </div>
+  <section id="comments" class="site-comments mt-8 border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
+    {# 2005 Window Header #}
+    <div
+      class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
+      <div class="flex items-baseline gap-2">
+        <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline">
+          Comments
+        </h3>
+        <span class="text-xs text-[#556b78] font-normal">Leave a reply</span>
       </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="mt-3 py-2 text-xs text-[#71828b] italic">
-      No comments posted yet. Be the first to leave a comment!
-    </div>
-    {% endif %}
-
-    {# Post-a-Comment Form #}
-    <div id="postAComment" class="mt-6 pt-4 border-t border-[#b7cbd6]">
-      <h4 class="text-sm font-bold text-[#164b70] mb-3">
-        Leave a Comment
-      </h4>
-      <form
-        name="blog-comments"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="retro-comment-form space-y-3"
-        id="retroCommentForm"
-      >
-        <input type="hidden" name="form-name" value="blog-comments" />
-        <input type="hidden" name="post-title" value="{{ title }}" />
-        <input type="hidden" name="post-url" value="{{ permalink or page.url }}" />
-        <input type="hidden" name="post-slug" value="{{ page.fileSlug }}" />
-        
-        {# Honeypot field for bot spam prevention #}
-        <p class="hidden" style="display:none">
-          <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label for="comment-name" class="block text-xs font-bold text-[#164b70] mb-1">
-              Name <span class="text-[#c0392b]">*</span>:
-            </label>
-            <input
-              type="text"
-              id="comment-name"
-              name="name"
-              required
-              placeholder="Your name"
-              class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label for="comment-email" class="block text-xs font-bold text-[#164b70] mb-1">
-              Email <span class="text-[10px] font-normal text-[#71828b]">(optional, not shown)</span>:
-            </label>
-            <input
-              type="text"
-              id="comment-email"
-              name="contact"
-              placeholder="your@email.com"
-              class="w-full border border-[#7892a3] bg-white px-2.5 py-1.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label for="comment-message" class="block text-xs font-bold text-[#164b70] mb-1">
-            Comment <span class="text-[#c0392b]">*</span>:
-          </label>
-          <textarea
-            id="comment-message"
-            name="message"
-            rows="4"
-            required
-            placeholder="Write your comment here..."
-            class="w-full border border-[#7892a3] bg-white p-2.5 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none font-sans"
-          ></textarea>
-        </div>
-
-        {# Security Code / Anti-Spam #}
-        <div class="border border-[#c6d7e0] bg-[#f4f8fa] p-2.5 shadow-[inset_0_1px_0_#fff]">
-          <label for="comment-captcha" class="block text-xs font-bold text-[#164b70] mb-1.5">
-            Security code <span class="text-[#c0392b]">*</span>:
-          </label>
-
-          <div class="flex flex-wrap items-center gap-2">
-            <div class="flex items-center border border-[#7892a3] bg-gradient-to-b from-[#ffffff] to-[#e4eef2] px-3 py-1 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.08)]">
-              <span id="captchaQuestion" class="font-mono text-sm font-bold text-[#164b70] select-none tracking-wider">
-                <!-- e.g. 5 + 3 = ? -->
-              </span>
-            </div>
-            <button
-              type="button"
-              id="refreshCaptchaBtn"
-              class="text-xs text-[#064f83] underline hover:text-[#c0392b] cursor-pointer"
-              title="Generate a new question"
-            >
-              [Refresh]
-            </button>
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold text-[#556b78]">=</span>
-              <input
-                type="text"
-                id="comment-captcha"
-                name="captcha-answer"
-                required
-                autocomplete="off"
-                placeholder="Answer"
-                class="w-20 border border-[#7892a3] bg-white px-2 py-1 text-xs text-[#1e395b] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.15)] focus:border-[#164b70] focus:outline-none"
-              />
-            </div>
-          </div>
-          <p id="captchaError" class="hidden mt-1 text-[11px] font-bold text-[#c0392b]">
-            Incorrect code. Please try again.
-          </p>
-        </div>
-
-        {# Netlify native reCAPTCHA container for server-side verification #}
-        <div data-netlify-recaptcha="true"></div>
-
-        <div class="pt-1">
-          <button
-            type="submit"
-            id="commentSubmitBtn"
-            class="border border-[#14486d] bg-gradient-to-b from-[#2a6b98] to-[#164b70] px-4 py-1.5 text-xs font-bold text-white shadow-[1px_1px_0_#0c2e47] hover:from-[#357ea7] hover:to-[#1b5680] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
-          >
-            Post Comment
-          </button>
-        </div>
-
-        {# Confirmation Message #}
-        <div id="commentStatus" class="hidden mt-3 border border-[#48bb78] bg-[#f0fff4] p-3 text-xs text-[#22543d] shadow-[inset_0_1px_0_#fff]">
-          <p class="font-bold text-xs text-[#22543d]">
-            Your comment has been submitted. Thank you.
-          </p>
-        </div>
-      </form>
+      <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="#top">top ↑</a>
     </div>
 
-    <script>
-      (function() {
-        var form = document.getElementById('retroCommentForm');
-        var status = document.getElementById('commentStatus');
-        var submitBtn = document.getElementById('commentSubmitBtn');
-        var captchaQuestionEl = document.getElementById('captchaQuestion');
-        var captchaInput = document.getElementById('comment-captcha');
-        var captchaError = document.getElementById('captchaError');
-        var refreshBtn = document.getElementById('refreshCaptchaBtn');
-        if (!form || !status) return;
+    {# Window Body #}
+    <div class="p-4 bg-[#f8fbfc]">
+      <!-- begin wwww.htmlcommentbox.com -->
+      <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...
+      </div>
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
-        var currentCaptchaSum = 0;
-
-        function generateCaptcha() {
-          var a = Math.floor(Math.random() * 8) + 2;
-          var b = Math.floor(Math.random() * 8) + 1;
-          currentCaptchaSum = a + b;
-          if (captchaQuestionEl) {
-            captchaQuestionEl.textContent = a + ' + ' + b + ' = ?';
-          }
-          if (captchaInput) {
-            captchaInput.value = '';
-          }
-          if (captchaError) {
-            captchaError.classList.add('hidden');
-          }
+        #HCB_comment_box {
+          font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+          font-size: 13.5px;
+          line-height: 1.5;
+          letter-spacing: 0.01em;
+          color: #26343d;
+          display: block;
+          width: 100%;
         }
 
-        generateCaptcha();
-
-        if (refreshBtn) {
-          refreshBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            generateCaptcha();
-            if (captchaInput) captchaInput.focus();
-          });
+        /* Hide ads, RSS, settings, duplicate headers, and old bevel shadows */
+        #HCB_comment_box>h3,
+        #HCB_comment_box .home-desc,
+        #HCB_comment_box .admin-link,
+        #HCB_comment_box #hcb_settings,
+        #HCB_comment_box a[href*="rss_clean"],
+        #HCB_comment_box .hcb-shadow-t,
+        #HCB_comment_box .hcb-shadow-b,
+        #HCB_comment_box .hcb-shadow-tl,
+        #HCB_comment_box .hcb-shadow-tr,
+        #HCB_comment_box .hcb-shadow-bl,
+        #HCB_comment_box .hcb-shadow-br {
+          display: none !important;
         }
 
-        form.addEventListener('submit', function(e) {
-          var rawAnswer = (captchaInput ? captchaInput.value : '').trim();
-          var userAnswer = parseInt(rawAnswer, 10);
-          if (!rawAnswer || isNaN(userAnswer) || userAnswer !== currentCaptchaSum) {
-            e.preventDefault();
-            if (captchaError) captchaError.classList.remove('hidden');
-            if (captchaInput) {
-              captchaInput.focus();
-              captchaInput.select();
-            }
-            return;
-          }
+        #HCB_comment_box .hcb-shadow-clear {
+          clear: both;
+        }
 
-          if (!window.fetch) return;
-          e.preventDefault();
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Submitting...';
+        /* Form Container */
+        #HCB_comment_box #HCB_comment_form_box {
+          margin-bottom: 22px;
+          padding-bottom: 18px;
+          border-bottom: 1px dashed #b7cbd6;
+        }
 
-          var formData = new FormData(form);
-          fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-          })
-          .then(function() {
-            status.classList.remove('hidden');
-            form.reset();
-            generateCaptcha();
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Post Comment';
-          })
-          .catch(function() {
-            form.submit();
-          });
-        });
-      })();
-    </script>
+        #HCB_comment_box #hcb_form textarea,
+        #HCB_comment_box #hcb_form #hcb_form_name {
+          font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+          font-size: 13px;
+          color: #1e293b;
+          background: #ffffff;
+          border: 1px solid #c5d4dc;
+          border-radius: 4px;
+          padding: 9px 12px;
+          outline: none;
+          box-sizing: border-box;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        #HCB_comment_box #hcb_form #hcb_form_name {
+          width: 100%;
+          max-width: 320px;
+          margin-bottom: 10px;
+        }
+
+        #HCB_comment_box #hcb_form textarea {
+          display: block;
+          width: 100%;
+          min-height: 85px;
+          resize: vertical;
+          margin-bottom: 12px;
+        }
+
+        #HCB_comment_box #hcb_form #hcb_form_name:focus,
+        #HCB_comment_box #hcb_form textarea:focus {
+          border-color: #164b70;
+          box-shadow: 0 0 0 3px rgba(22, 75, 112, 0.14);
+        }
+
+        /* Action Buttons */
+        #HCB_comment_box #hcb_form .btn,
+        #HCB_comment_box #HCB_comment_form_box .btn {
+          font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #164b70;
+          background-color: #164b70;
+          color: #ffffff;
+          border-radius: 4px;
+          padding: 8px 18px;
+          margin-right: 8px;
+          cursor: pointer;
+          text-decoration: none;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+          transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+
+        #HCB_comment_box #hcb_form .btn:hover,
+        #HCB_comment_box #HCB_comment_form_box .btn:hover {
+          background-color: #0f3956;
+          border-color: #0b2c44;
+        }
+
+        #HCB_comment_box #hcb_form .btn-secondary,
+        #HCB_comment_box #HCB_comment_form_box .btn-secondary {
+          border: 1px solid #b7cbd6;
+          background-color: #ffffff;
+          color: #164b70;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        #HCB_comment_box #hcb_form .btn-secondary:hover,
+        #HCB_comment_box #HCB_comment_form_box .btn-secondary:hover {
+          background-color: #edf5f8;
+          border-color: #9cb5c2;
+          color: #0d324c;
+        }
+
+        /* File upload */
+        #HCB_comment_box input[type="file"] {
+          display: none;
+        }
+
+        #HCB_comment_box input.inputfile {
+          width: .1px;
+          height: .1px;
+          opacity: 0;
+          overflow: hidden;
+          position: absolute;
+          z-index: -1;
+        }
+
+        #HCB_comment_box input.inputfile+label {
+          display: inline;
+        }
+
+        /* Subscribe & Reply Indicators */
+        #HCB_comment_box #hcb_form #hcb_subscribe {
+          margin-top: 10px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          color: #536a75;
+          cursor: pointer;
+        }
+
+        #HCB_comment_box #hcb_form #hcb_subscribe input {
+          margin: 0;
+        }
+
+        #HCB_comment_box #hcb_form #replying_to_container {
+          font-size: 12px;
+          color: #064f83;
+          margin-bottom: 8px;
+          font-weight: 500;
+        }
+
+        /* Notifications & Messages */
+        #HCB_comment_box #hcb_msg {
+          display: block;
+          background-color: #dff0d8;
+          border: 1px solid #d6e9c6;
+          color: #3c763d;
+          padding: 8px 14px;
+          margin-bottom: 14px;
+          border-radius: 4px;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        #HCB_comment_box #hcb_msg:empty {
+          display: none;
+        }
+
+        #HCB_comment_box .hcb-err {
+          color: #c0392b;
+          font-size: 12px;
+          margin-top: 4px;
+        }
+
+        #HCB_comment_box .approval-msg {
+          color: #b94a48;
+          font-style: italic;
+          font-size: 12px;
+        }
+
+        /* Comments List */
+        #HCB_comment_box #comments_list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          width: 100%;
+        }
+
+        /* Individual Comment Card */
+        #HCB_comment_box .comment {
+          position: relative;
+          background: #ffffff;
+          border: 1px solid #d5e2e8;
+          border-radius: 6px;
+          padding: 14px 16px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+          transition: border-color 0.15s ease;
+        }
+
+        #HCB_comment_box .comment:hover {
+          border-color: #b0c7d4;
+        }
+
+        #HCB_comment_box blockquote {
+          margin: 0;
+          padding: 0;
+          border: none;
+          font-style: normal;
+        }
+
+        #HCB_comment_box .author-name {
+          font-size: 13.5px;
+          font-weight: 700;
+          color: #164b70;
+        }
+
+        #HCB_comment_box .author.hcb-mod .author-name {
+          color: #164b70;
+        }
+
+        #HCB_comment_box .date {
+          font-size: 12px;
+          color: #71828b;
+          text-decoration: none;
+          margin-left: 6px;
+        }
+
+        #HCB_comment_box .hcb-comment-body {
+          font-size: 13.5px;
+          line-height: 1.55;
+          color: #26343d;
+          margin: 8px 0 10px 0;
+          padding: 0;
+          word-break: break-word;
+        }
+
+        /* Comment Action Toolbar */
+        #HCB_comment_box .hcb-comment-tb {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          margin: 0;
+          padding-top: 6px;
+          border-top: 1px dotted #e6edf1;
+        }
+
+        #HCB_comment_box .hcb-comment-tb button {
+          font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #064f83;
+          background: none;
+          border: none;
+          padding: 3px 6px;
+          border-radius: 3px;
+          cursor: pointer;
+          transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        #HCB_comment_box .hcb-comment-tb button:hover {
+          background-color: #e8f3f8;
+          color: #c0392b;
+        }
+
+        /* Likes Badge */
+        #HCB_comment_box .comment .likes {
+          position: absolute !important;
+          top: auto !important;
+          bottom: 10px !important;
+          right: 14px !important;
+          height: auto !important;
+          min-height: 0 !important;
+          max-height: 24px !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px !important;
+          font-size: 11px !important;
+          font-weight: 600 !important;
+          color: #536a75 !important;
+          background: #f0f5f8 !important;
+          border: 1px solid #d5e2e8 !important;
+          border-radius: 12px !important;
+          padding: 2px 8px !important;
+          z-index: 2 !important;
+          box-sizing: border-box !important;
+        }
+
+        #HCB_comment_box .comment .likes img {
+          width: 12px !important;
+          height: 12px !important;
+          vertical-align: middle !important;
+          margin: 0 !important;
+        }
+
+        /* Moderator Delete Button */
+        #HCB_comment_box .hcb-link.del {
+          position: absolute !important;
+          top: 12px !important;
+          right: 14px !important;
+          bottom: auto !important;
+          height: auto !important;
+          min-height: 0 !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 5px !important;
+          padding: 3px 9px !important;
+          border-radius: 4px !important;
+          background-color: #fff1f0 !important;
+          border: 1px solid #ffccc7 !important;
+          color: #cf1322 !important;
+          font-family: 'Montserrat', system-ui, -apple-system, sans-serif !important;
+          font-size: 11px !important;
+          font-weight: 600 !important;
+          letter-spacing: 0.02em !important;
+          text-decoration: none !important;
+          cursor: pointer !important;
+          box-shadow: 0 1px 2px rgba(207, 19, 34, 0.06) !important;
+          transition: all 0.15s ease-in-out !important;
+          line-height: 1 !important;
+          white-space: nowrap !important;
+          z-index: 10 !important;
+        }
+
+        #HCB_comment_box .hcb-link.del:hover {
+          background-color: #ff4d4f !important;
+          border-color: #ff4d4f !important;
+          color: #ffffff !important;
+          box-shadow: 0 2px 6px rgba(255, 77, 79, 0.28) !important;
+        }
+
+        #HCB_comment_box .hcb-link.del img {
+          width: 11px !important;
+          height: 11px !important;
+          vertical-align: middle !important;
+          opacity: 0.8 !important;
+          margin: 0 !important;
+          transition: filter 0.15s ease, opacity 0.15s ease !important;
+        }
+
+        #HCB_comment_box .hcb-link.del:hover img {
+          filter: brightness(0) invert(1) !important;
+          opacity: 1 !important;
+        }
+
+        #HCB_comment_box .hcb-link.del::after {
+          content: "Delete" !important;
+          font-size: 11px !important;
+          font-weight: 600 !important;
+        }
+
+        #HCB_comment_box .gravatar {
+          padding-right: 4px;
+          vertical-align: middle;
+          border-radius: 3px;
+        }
+      </style>
+      <script type="text/javascript" id="hcb"> /*<!--*/
+        if ( !window.hcb_user ) { hcb_user = {}; }
+        hcb_user.comments_header = '';
+        hcb_user.submit = 'Post Comment';
+        hcb_user.no_comments_msg = 'No comments posted yet. Be the first to leave a comment!';
+        ( function ()
+        {
+          var s = document.createElement( "script" ), l = hcb_user.PAGE || ( "" + window.location ).replace( /'/g, "%27" ), h = "https://www.htmlcommentbox.com";
+          s.setAttribute( "type", "text/javascript" );
+          s.setAttribute( "src", h + "/jread?page=" + encodeURIComponent( l ).replace( "+", "%2B" ) + "&mod=%241%24wq1rdBcg%24wD7hhSbX5wfQALjrppJ%2Fn0" + "&opts=16798&num=10&ts=1792089577979" );
+          if ( typeof s != "undefined" ) document.getElementsByTagName( "head" )[ 0 ].appendChild( s );
+        } )(); /*-->*/
+      </script>
+      <!-- end www.htmlcommentbox.com -->
+    </div>
   </section>
 
   {# Bottom Navigation #}
