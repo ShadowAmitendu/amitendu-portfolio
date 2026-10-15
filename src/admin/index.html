@@ -17,7 +17,45 @@
 			);
 			CMS.registerPreviewStyle("/assets/styles.css");
 
-			// Helper function to render the full site shell (header banner, nav, sidebars, footer)
+			// Universal asset URL resolver for Decap CMS previews
+			// Resolves unpublished local File objects (blob URLs), AssetProxy, or path strings
+			function resolveAssetUrl(getAsset, val) {
+				if (!val) return null;
+				if (
+					typeof val === "string" &&
+					(val.indexOf("blob:") === 0 || val.indexOf("data:") === 0)
+				) {
+					return val;
+				}
+				if (typeof val === "object" && val && val.fileObj) {
+					try {
+						return window.URL.createObjectURL(val.fileObj);
+					} catch (e) {}
+				}
+				if (!getAsset) return typeof val === "string" ? val : null;
+				try {
+					var asset = getAsset(val);
+					if (!asset) return typeof val === "string" ? val : null;
+					if (asset.fileObj) {
+						try {
+							return window.URL.createObjectURL(asset.fileObj);
+						} catch (e) {}
+					}
+					if (asset.url && typeof asset.url === "string") {
+						return asset.url;
+					}
+					if (typeof asset.toString === "function") {
+						var str = asset.toString();
+						if (str && str !== "[object Object]") {
+							return str;
+						}
+					}
+				} catch (err) {
+					console.warn("Asset resolve error:", err);
+				}
+				return typeof val === "string" ? val : null;
+			}
+
 			// Helper function to render the full site shell (header banner, nav, sidebars, footer)
 			function renderFullSiteShell(
 				headerTagline,
@@ -435,7 +473,7 @@
 						entry.getIn(["data", "author"]) || "Amitendu Bikash Dhusiya";
 					var description = entry.getIn(["data", "description"]);
 					var rawImage = entry.getIn(["data", "image"]);
-					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var imageSrc = resolveAssetUrl(this.props.getAsset, rawImage);
 					var body = this.props.widgetFor("body");
 					var tags = entry.getIn(["data", "tags"]);
 					var isDraft =
@@ -534,7 +572,7 @@
 							: null,
 
 						// Featured image
-						image
+						imageSrc
 							? h(
 									"div",
 									{
@@ -543,7 +581,7 @@
 									},
 									h("img", {
 										className: "h-auto w-full object-contain",
-										src: image.toString(),
+										src: imageSrc,
 										alt: title,
 									}),
 								)
@@ -667,7 +705,7 @@
 						entry.getIn(["data", "headerTagline"]) || "PORTFOLIO PROJECT";
 					var description = entry.getIn(["data", "description"]);
 					var rawImage = entry.getIn(["data", "image"]);
-					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var imageSrc = resolveAssetUrl(this.props.getAsset, rawImage);
 					var body = this.props.widgetFor("body");
 					var tags = entry.getIn(["data", "tags"]);
 					var isDraft =
@@ -726,7 +764,7 @@
 									"DRAFT - This project is saved as a draft and is hidden from public listings.",
 								)
 							: null,
-						image
+						imageSrc
 							? h(
 									"div",
 									{
@@ -735,7 +773,7 @@
 									},
 									h("img", {
 										className: "h-auto w-full object-contain",
-										src: image.toString(),
+										src: imageSrc,
 										alt: title,
 									}),
 								)
@@ -1107,9 +1145,10 @@
 						entry.getIn(["data", "aboutTitle"]) || "About this site";
 					var about = entry.getIn(["data", "about"]) || "";
 					var rawProfileImage = entry.getIn(["data", "profileImage"]);
-					var profileImage = rawProfileImage
-						? this.props.getAsset(rawProfileImage)
-						: null;
+					var profileSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawProfileImage,
+					);
 					var profileAlt =
 						entry.getIn(["data", "profileAlt"]) || "Profile photo";
 					var currentlyTitle =
@@ -1160,11 +1199,11 @@
 							"div",
 							{ className: "mt-3 flex items-start gap-4" },
 							h("p", { className: "flex-1" }, about),
-							profileImage
+							profileSrc
 								? h("img", {
 										className:
 											"site-profile-frame h-24 w-24 shrink-0 object-cover",
-										src: profileImage.toString(),
+										src: profileSrc,
 										alt: profileAlt,
 									})
 								: null,
@@ -1413,9 +1452,10 @@
 					var heading = entry.getIn(["data", "heading"]) || "About me";
 					var intro = entry.getIn(["data", "intro"]) || "";
 					var rawProfileImage = entry.getIn(["data", "profileImage"]);
-					var profileImage = rawProfileImage
-						? this.props.getAsset(rawProfileImage)
-						: null;
+					var profileSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawProfileImage,
+					);
 					var profileAlt =
 						entry.getIn(["data", "profileAlt"]) || "Profile photo";
 					var contentWidget =
@@ -1438,11 +1478,11 @@
 						h(
 							"div",
 							{ className: "site-about-intro mt-4 flex items-start gap-4" },
-							profileImage
+							profileSrc
 								? h("img", {
 										className:
 											"site-about-image h-auto w-28 shrink-0 object-contain",
-										src: profileImage.toString(),
+										src: profileSrc,
 										alt: profileAlt,
 									})
 								: null,
@@ -1500,11 +1540,7 @@
 						);
 					} else {
 						itemsListElements = items.map(function (book, idx) {
-							var coverSrc = null;
-							if (book.image) {
-								var asset = getAsset(book.image);
-								coverSrc = asset ? asset.toString() : book.image;
-							}
+							var coverSrc = resolveAssetUrl(getAsset, book.image);
 							var statusLabel = "[Want to Read]";
 							if (book.status === "currently-reading") {
 								statusLabel = "[Currently Reading]";
@@ -1664,11 +1700,7 @@
 						);
 					} else {
 						moviesElements = moviesList.map(function (movie, idx) {
-							var posterSrc = null;
-							if (movie.image) {
-								var asset = getAsset(movie.image);
-								posterSrc = asset ? asset.toString() : movie.image;
-							}
+							var posterSrc = resolveAssetUrl(getAsset, movie.image);
 							var statusLabel = "[Plan to Watch]";
 							if (movie.status === "currently-watching") {
 								statusLabel = "[Watching]";
@@ -1764,11 +1796,7 @@
 						);
 					} else {
 						showsElements = showsList.map(function (show, idx) {
-							var posterSrc = null;
-							if (show.image) {
-								var asset = getAsset(show.image);
-								posterSrc = asset ? asset.toString() : show.image;
-							}
+							var posterSrc = resolveAssetUrl(getAsset, show.image);
 							var statusLabel = "[Plan to Watch]";
 							if (show.status === "currently-watching") {
 								statusLabel = "[Watching]";
@@ -1934,12 +1962,10 @@
 						);
 					} else {
 						itemsListElements = items.map(function (game, idx) {
-							var coverSrc = null;
-							var imgProp = game.image || game.icon;
-							if (imgProp) {
-								var asset = getAsset(imgProp);
-								coverSrc = asset ? asset.toString() : imgProp;
-							}
+							var coverSrc = resolveAssetUrl(
+								getAsset,
+								game.image || game.icon,
+							);
 
 							return h(
 								"article",
@@ -2080,11 +2106,7 @@
 						);
 					} else {
 						itemsListElements = items.map(function (item, idx) {
-							var iconSrc = null;
-							if (item.icon) {
-								var asset = getAsset(item.icon);
-								iconSrc = asset ? asset.toString() : item.icon;
-							}
+							var iconSrc = resolveAssetUrl(getAsset, item.icon);
 
 							return h(
 								"article",
@@ -2341,7 +2363,7 @@
 					var entry = this.props.entry;
 					var name = entry.getIn(["data", "name"]) || "Author";
 					var rawImage = entry.getIn(["data", "image"]);
-					var image = rawImage ? this.props.getAsset(rawImage) : null;
+					var imageSrc = resolveAssetUrl(this.props.getAsset, rawImage);
 					var bio = entry.getIn(["data", "bio"]) || "";
 
 					var authorContent = h(
@@ -2361,11 +2383,11 @@
 								className:
 									"mt-4 flex items-start gap-4 border border-[#b7cbd6] bg-[#f8fbfc] p-4 shadow-[inset_0_1px_0_#fff]",
 							},
-							image
+							imageSrc
 								? h("img", {
 										className:
 											"site-profile-frame h-20 w-20 shrink-0 object-cover",
-										src: image.toString(),
+										src: imageSrc,
 										alt: name,
 									})
 								: null,
