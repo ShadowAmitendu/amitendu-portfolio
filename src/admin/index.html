@@ -1658,257 +1658,137 @@
 							"No books added yet. Books added via this form will appear here.",
 						);
 					} else {
-						itemsListElements = items.map(function (book, idx) {
-							var coverSrc = resolveAssetUrl(getAsset, book.image);
-							var statusLabel = "Want to Read";
-							if (book.status === "currently-reading") {
-								statusLabel = "Currently Reading";
-							} else if (book.status === "read") {
-								statusLabel = "Finished / Read";
-							}
+						itemsListElements = h(
+							"div",
+							{ className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" },
+							items.map(function (book, idx) {
+								var coverSrc = resolveAssetUrl(getAsset, book.image);
+								var statusLabel = "Plan";
+								var statusBg = "bg-[#556b78]";
+								if (book.status === "currently-reading") {
+									statusLabel = "Reading";
+									statusBg = "bg-[#164b70]";
+								} else if (book.status === "read") {
+									statusLabel = "Finished";
+									statusBg = "bg-[#2e7d32]";
+								}
 
-							return h(
-								"div",
-								{
-									key: idx,
-									className:
-										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
-								},
-								// 2005 Window Header
-								h(
+								return h(
 									"div",
 									{
+										key: idx,
 										className:
-											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+											"site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de]",
 									},
 									h(
 										"div",
-										{ className: "flex items-baseline gap-1.5" },
+										{ className: "flex flex-col h-full" },
+										// Cover Frame
 										h(
-											"span",
+											"div",
 											{
 												className:
-													"text-xs font-bold text-[#556b78] select-none",
+													"relative w-full aspect-[2/3] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center",
 											},
-											"#" + (idx + 1),
-										),
-										h(
-											"h3",
-											{
-												className:
-													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
-											},
-											book.title || "Untitled Book",
-										),
-										book.author
-											? h(
-													"span",
-													{
-														className: "text-xs text-[#556b78] font-normal",
-													},
-													"(" + book.author + ")",
-												)
-											: null,
-									),
-									h(
-										"div",
-										null,
-										h(
-											"span",
-											{
-												className:
-													book.status === "currently-reading"
-														? "inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
-														: "text-[11px] font-bold text-[#164b70]",
-											},
-											statusLabel,
-										),
-									),
-								),
-								// Body
-								h(
-									"div",
-									{
-										className: "site-listing-body p-3 bg-[#f8fbfc]",
-									},
-									// Cover
-									h(
-										"div",
-										{
-											className: "site-listing-image-col",
-										},
-										coverSrc
-											? h(
-													"div",
-													{
-														className: "site-listing-frame",
-													},
-													h("img", {
+											coverSrc
+												? h("img", {
 														src: coverSrc,
 														alt: book.title || "",
-													}),
-												)
-											: h(
-													"div",
-													{
-														className: "site-listing-placeholder",
-													},
-													"BOOK",
-												),
-									),
-									// Table
-									h(
-										"div",
-										{ className: "min-w-0 flex-1 w-full text-xs" },
-										h(
-											"table",
-											{
-												className:
-													"w-full text-xs text-[#26343d] border-collapse",
-											},
-											h(
-												"tbody",
-												null,
-												book.author
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Author:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#3b4d57]" },
-																book.author,
-															),
-														)
-													: null,
-												h(
-													"tr",
-													{ className: "border-b border-[#e1ebf0]" },
-													h(
-														"td",
+														className: "w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]",
+													})
+												: h(
+														"div",
 														{
 															className:
-																"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
+																"w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]",
 														},
-														"Status:",
+														h(
+															"span",
+															{
+																className:
+																	"text-xs font-bold text-[#164b70] uppercase",
+															},
+															"BOOK",
+														),
 													),
-													h(
-														"td",
-														{ className: "py-1 text-[#3b4d57]" },
-														statusLabel,
-													),
+											h(
+												"div",
+												{
+													className:
+														"absolute top-1.5 right-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]",
+												},
+												h(
+													"span",
+													{
+														className:
+															"inline-block text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase " +
+															statusBg,
+													},
+													statusLabel,
 												),
-												book.progress
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Current Page:",
-															),
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 text-[#164b70] font-semibold",
-																},
-																book.progress,
-															),
-														)
-													: null,
-												book.rating
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Score:",
-															),
-															h(
-																"td",
-																{
-																	className: "py-1 text-[#c0392b] font-bold",
-																},
-																book.rating,
-															),
-														)
-													: null,
-												book.year
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Year:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#556b78]" },
-																book.year,
-															),
-														)
-													: null,
-												book.review
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Reader Notes:",
-															),
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 text-[#26343d] leading-relaxed italic",
-																},
-																'"' + book.review + '"',
-															),
-														)
-													: null,
 											),
 										),
-										book.link
-											? h(
-													"div",
-													{ className: "pt-2 flex justify-end" },
-													h(
-														"span",
-														{
-															className:
-																"site-button-2007 inline-block px-3 py-1 text-xs",
-														},
-														"Book Details / Page »",
-													),
-												)
-											: null,
+										// Meta
+										h(
+											"div",
+											{ className: "mt-2.5 flex-1 flex flex-col justify-between" },
+											h(
+												"div",
+												null,
+												h(
+													"span",
+													{
+														className:
+															"text-[10px] font-bold text-[#71828b] block select-none",
+													},
+													"#" + (idx + 1),
+												),
+												h(
+													"h3",
+													{
+														className:
+															"font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-2 min-h-[2rem] flex items-start mt-0.5",
+													},
+													book.title || "Untitled Book",
+												),
+												h(
+													"p",
+													{
+														className:
+															"text-[11px] text-[#556b78] line-clamp-1 min-h-[1.1rem] flex items-center mt-0.5",
+													},
+													book.author ? "by " + book.author : "",
+												),
+											),
+											h(
+												"div",
+												{
+													className:
+														"mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]",
+												},
+												book.rating
+													? h(
+															"span",
+															{
+																className: "text-[#c0392b] font-bold text-[10px]",
+															},
+															"★ " + book.rating,
+														)
+													: h("span", null),
+												h(
+													"span",
+													{
+														className:
+															"text-[#064f83] font-semibold text-[10px]",
+													},
+													"Details »",
+												),
+											),
+										),
 									),
-								),
-							);
-						});
+								);
+							}),
+						);
 					}
 
 					var booksContent = h(
@@ -1930,7 +1810,7 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-4" }, itemsListElements),
+						h("div", { className: "mt-6" }, itemsListElements),
 						h(
 							"p",
 							{ className: "mt-6" },
@@ -2951,191 +2831,114 @@
 							"No friends added yet. Friends added via this form will appear here.",
 						);
 					} else {
-						itemsListElements = items.map(function (item, idx) {
-							var avatarSrc = resolveAssetUrl(getAsset, item.avatar);
+						itemsListElements = h(
+							"div",
+							{ className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" },
+							items.map(function (friend, idx) {
+								var avatarSrc = resolveAssetUrl(getAsset, friend.avatar);
 
-							return h(
-								"div",
-								{
-									key: idx,
-									className:
-										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
-								},
-								// 2005 Window Header
-								h(
+								return h(
 									"div",
 									{
+										key: idx,
 										className:
-											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+											"site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de]",
 									},
 									h(
 										"div",
-										{ className: "flex items-baseline gap-1.5" },
+										{ className: "flex flex-col h-full" },
+										// Portrait Frame
 										h(
-											"span",
+											"div",
 											{
 												className:
-													"text-xs font-bold text-[#556b78] select-none",
+													"relative w-full aspect-[3/4] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center",
 											},
-											"#" + (idx + 1),
+											avatarSrc
+												? h("img", {
+														src: avatarSrc,
+														alt: friend.name || "",
+														className:
+															"w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]",
+												  })
+												: h(
+														"div",
+														{
+															className:
+																"w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]",
+														},
+														h(
+															"span",
+															{
+																className:
+																	"text-xs font-bold text-[#164b70] uppercase",
+															},
+															"PORTRAIT",
+														),
+														h(
+															"span",
+															{
+																className:
+																	"text-[10px] text-[#556b78] mt-1 line-clamp-2",
+															},
+															friend.name || "",
+														),
+												  ),
 										),
+										// Meta
 										h(
-											"h3",
-											{
-												className:
-													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
-											},
-											item.name || "Untitled Friend",
-										),
-										item.relationship
-											? h(
-													"span",
+											"div",
+											{ className: "mt-2.5 flex-1 flex flex-col justify-between" },
+											h(
+												"div",
+												null,
+												h(
+													"h3",
 													{
-														className: "text-xs text-[#556b78] font-normal",
+														className:
+															"font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-2 min-h-[2rem] flex items-start",
 													},
-													"(" + item.relationship + ")",
-												)
-											: null,
-									),
-									h(
-										"div",
-										null,
-										item.url
-											? h(
+													friend.name || "Untitled Friend",
+												),
+												h(
+													"p",
+													{
+														className:
+															"text-[11px] text-[#556b78] line-clamp-1 min-h-[1.1rem] flex items-center mt-0.5",
+													},
+													friend.relationship || "",
+												),
+											),
+											h(
+												"div",
+												{
+													className:
+														"mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]",
+												},
+												friend.url && friend.url !== "#" && friend.url !== "example.com"
+													? h(
+															"span",
+															{
+																className:
+																	"text-[#2e7d32] font-semibold text-[10px]",
+															},
+															"● Online",
+													  )
+													: h("span", null),
+												h(
 													"span",
 													{
 														className:
-															"text-[11px] font-bold text-[#164b70] bg-[#e1ebf0] px-1.5 py-0.5 border border-[#c6d7e0]",
+															"text-[#064f83] font-semibold text-[10px]",
 													},
-													"Visit Site »",
-												)
-											: null,
-									),
-								),
-								// Body
-								h(
-									"div",
-									{
-										className: "site-listing-body p-3 bg-[#f8fbfc]",
-									},
-									// Avatar / Badge
-									h(
-										"div",
-										{
-											className: "site-listing-image-col",
-										},
-										avatarSrc
-											? h(
-													"div",
-													{
-														className: "site-listing-frame is-friend",
-													},
-													h("img", {
-														src: avatarSrc,
-														alt: item.name || "",
-													}),
-												)
-											: h(
-													"div",
-													{
-														className: "site-listing-placeholder is-friend",
-													},
-													"FRIEND",
+													"Details »",
 												),
-									),
-									// Table
-									h(
-										"div",
-										{ className: "min-w-0 flex-1 w-full text-xs" },
-										h(
-											"table",
-											{
-												className:
-													"w-full text-xs text-[#26343d] border-collapse",
-											},
-											h(
-												"tbody",
-												null,
-												item.relationship
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Relationship:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#3b4d57]" },
-																item.relationship,
-															),
-														)
-													: null,
-												item.url
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Website:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#064f83] truncate" },
-																item.url,
-															),
-														)
-													: null,
-												item.description
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Notes:",
-															),
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 text-[#26343d] leading-relaxed italic",
-																},
-																'"' + item.description + '"',
-															),
-														)
-													: null,
 											),
 										),
-										item.url
-											? h(
-													"div",
-													{ className: "pt-2 flex justify-end" },
-													h(
-														"span",
-														{
-															className:
-																"site-button-2007 inline-block px-3 py-1 text-xs",
-														},
-														"Visit Homepage »",
-													),
-												)
-											: null,
 									),
-								),
-							);
-						});
+								);
+							}),
+						);
 					}
 
 					var friendsContent = h(
@@ -3157,7 +2960,7 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h("div", { className: "mt-6" }, itemsListElements),
 						h(
 							"p",
 							{ className: "mt-6" },

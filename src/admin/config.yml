@@ -165,12 +165,6 @@ collections:
                   widget: "text",
                   required: false,
                 }
-              - {
-                  label: "Link (Goodreads, Amazon, or Official Site)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
 
       - name: "about-movies"
         label: "Tab 3: Movies"
@@ -850,6 +844,7 @@ collections:
                       - { label: "Twitter / X", value: "twitter" }
                       - { label: "X (Twitter)", value: "x" }
                       - { label: "YouTube", value: "youtube" }
+
           - label: "Author Profile"
             name: "author"
             widget: "object"
