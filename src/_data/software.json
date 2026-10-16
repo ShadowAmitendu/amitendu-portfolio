@@ -77,6 +77,41 @@
       "name": "Docker Desktop",
       "icon": "/images/docker_xyaaoh6nqx_lowrespng-1f86d24d95.webp",
       "link": "https://www.docker.com/products/docker-desktop/"
+    },
+    {
+      "name": "TexStudio",
+      "icon": "/images/texstudio_logo_wnybamkky7_lowrespng-3876223fc7.webp",
+      "link": "https://www.texstudio.org/"
+    },
+    {
+      "name": "Blip",
+      "icon": "/images/low_res_blip__macos_27__mnhp0s8xwy-9e5348ef90.webp",
+      "link": "https://blip.net/"
+    },
+    {
+      "name": "PostMan",
+      "icon": "/images/postman_onmvwslmrl_lowrespng-b67b5aa678.webp",
+      "link": "https://www.postman.com/"
+    },
+    {
+      "name": "Figma",
+      "icon": "/images/figma_f3vbvrfuez_lowrespng-1e04034dc0.webp",
+      "link": "http://figma.com/"
+    },
+    {
+      "name": "Zoltero",
+      "icon": "/images/low_res_zotero_t8gxyokv8j-bb8dae2ee7.webp",
+      "link": "https://www.zotero.org/"
+    },
+    {
+      "name": "OnlyOffice",
+      "icon": "/images/onlyoffice_ihohny5gcv_lowrespng-d9757d2148.webp",
+      "link": "https://www.onlyoffice.com/"
+    },
+    {
+      "name": "NetBeans",
+      "icon": "/images/netbeans_gvfwqfn7vq_lowrespng-0632ed1fc3.webp",
+      "link": "https://netbeans.apache.org/front/main/index.html"
     }
   ],
   "headerBanner": ""
