@@ -13,6 +13,15 @@
       "year": "2026",
       "review": "This book is really a very good approach to MySQL for Beginners",
       "link": "https://amzn.in/d/0ds2lWF2"
+    },
+    {
+      "status": "currently-reading",
+      "title": "Pandas For Everyone - 2nd edition",
+      "author": "Daniel Y. Chen",
+      "rating": "4.5",
+      "year": "2026",
+      "review": "Book's content is very damn good but the printing and the paper is very very bad like worse than ever!",
+      "image": "/images/71xyt0qlwal._ac_uf350-350_ql50_.webp"
     }
   ]
 }
