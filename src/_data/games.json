@@ -26,7 +26,7 @@
       "tags": [],
       "icon": "/images/macos-hsr.webp",
       "link": "https://hoyoplay.hoyoverse.com/",
-      "image": "/images/honkai-star-rail-7pyn7.webp",
+      "image": "/images/hsr.webp",
       "publisher": "Hoyoverse / MiHoYo",
       "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!"
     },
@@ -41,6 +41,17 @@
       "image": "/images/118499.webp",
       "publisher": "Mojang",
       "description": "\"Bought but never complely played till end! will do in a few years while streaming\""
+    },
+    {
+      "playingRightNow": false,
+      "name": "Clash Of Clans",
+      "status": "Dropped",
+      "platform": "Mobile",
+      "tags": [],
+      "icon": "/images/200x200bb-75.webp",
+      "image": "/images/coc.webp",
+      "publisher": "SUPERCELL",
+      "description": "Left due to too much of a change and too new features that are always pay to win!"
     }
   ]
 }
