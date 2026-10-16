@@ -19,16 +19,27 @@
       "description": "Started playing in 28th Feb of 2022 and never looked back!"
     },
     {
-      "playingRightNow": false,
+      "playingRightNow": true,
       "name": "Honkai: Star Rail",
       "status": "Playing right now",
       "platform": "PC",
       "tags": [],
       "icon": "/images/macos-hsr.webp",
       "link": "https://hoyoplay.hoyoverse.com/",
-      "image": "/images/honkai-star-rail-7pyn7.webp",
+      "image": "/images/hsr.webp",
       "publisher": "Hoyoverse / MiHoYo",
       "description": "Started playing when it got released, had a damn good story of Penacony and Amphoreus!"
+    },
+    {
+      "playingRightNow": false,
+      "name": "Zenless Zone Zero",
+      "status": "Backlog",
+      "platform": "PC",
+      "icon": "/images/zzzlogo.webp",
+      "link": "https://hoyoplay.hoyoverse.com/",
+      "image": "/images/zzz.webp",
+      "publisher": "Hoyoverse / MiHoYo",
+      "description": "It's a very different game from the other ones but its damn good!"
     },
     {
       "playingRightNow": false,
@@ -41,6 +52,27 @@
       "image": "/images/118499.webp",
       "publisher": "Mojang",
       "description": "\"Bought but never complely played till end! will do in a few years while streaming\""
+    },
+    {
+      "playingRightNow": false,
+      "name": "Clash Of Clans",
+      "status": "Dropped",
+      "platform": "Mobile",
+      "tags": [],
+      "icon": "/images/200x200bb-75.webp",
+      "image": "/images/coc.webp",
+      "publisher": "SUPERCELL",
+      "description": "Left due to too much of a change and too new features that are always pay to win!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Clash Royale",
+      "image": "/images/cr.webp",
+      "icon": "/images/cr-log.webp",
+      "publisher": "SUPERCELL",
+      "platform": "Mobile",
+      "description": "Not fun as nothing is new all is same repetitive!"
     }
   ]
 }

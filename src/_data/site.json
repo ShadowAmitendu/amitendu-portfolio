@@ -1,6 +1,6 @@
 {
   "rightSidebar": {
-    "title": "Elsewhere",
+    "title": "Outlinks",
     "items": [
       {
         "label": "GitHub",
@@ -55,6 +55,11 @@
         "label": "MasterJi",
         "url": "https://www.masterji.co/shadowamitendu/codes",
         "icon": ""
+      },
+      {
+        "label": "Medium",
+        "url": "https://medium.com/@shadowamitendu",
+        "icon": "medium"
       }
     ]
   },

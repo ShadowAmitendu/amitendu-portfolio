@@ -22,6 +22,7 @@
     "Listening to HoYo-MiX Albums."
   ],
   "statusTitle": "Status",
+  "greetingGif": "/images/hi.gif",
   "aboutTitle": "About this site & MySelf",
   "about": "Hey, I'm Amitendu Bikash Dhusiya, a BCA student and Web Development Intern passionate about coding, software development, and UI/UX design.\n\nBeyond coding, I enjoy anime, HoYoverse games, PC hardware, photography, and occasionally streaming on YouTube.\n\nWelcome to my little corner of the internet!",
   "profileImage": "/images/shadow-amitendu.jpg",
@@ -40,9 +41,8 @@
       "value": "Very rarely streaming on YouTube"
     }
   ],
-  "greeting": "Hello, Stranger!",
-  "greetingGif": "/images/hi.gif",
   "headerBanner": "/images/header-banner.jpg",
+  "greeting": "Hello, Stranger!",
   "links": [
     {
       "label": "GitHub",
@@ -71,6 +71,10 @@
     {
       "label": "Figma",
       "url": "https://www.figma.com/@shadow_amitendu"
+    },
+    {
+      "label": "Medium",
+      "url": "https://medium.com/@shadowamitendu"
     }
   ]
 }
