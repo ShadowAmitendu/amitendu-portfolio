@@ -17,6 +17,66 @@
       "name": "Zed",
       "icon": "/images/zed.webp",
       "link": "https://zed.dev/"
+    },
+    {
+      "name": "Antigravity",
+      "icon": "/images/low_res_antigraivty_macos_27_icon_yde4shbpho-3b39874a9e.webp",
+      "link": "https://antigravity.google/product/antigravity-ide/"
+    },
+    {
+      "name": "Git",
+      "icon": "/images/git_4ek9rpjpoh_lowrespng-a98ec6932c.webp",
+      "link": "https://git-scm.com/"
+    },
+    {
+      "name": "Rust Desk",
+      "icon": "/images/rd.webp",
+      "link": "https://rustdesk.com/"
+    },
+    {
+      "name": "GitHub",
+      "icon": "/images/gh.webp",
+      "link": "https://github.com/"
+    },
+    {
+      "name": "GitHub Desktop",
+      "icon": "/images/low_res_github_desktop_tcfxowk4a6-6f835b9541.webp",
+      "link": "https://github.com/apps/desktop"
+    },
+    {
+      "name": "GitHub CLI",
+      "icon": "/images/gh.webp",
+      "link": "https://cli.github.com/"
+    },
+    {
+      "name": "IntelliJ IDEA",
+      "link": "https://www.jetbrains.com/idea/",
+      "icon": "/images/intellij_idea__liquid_glass__bel5pbxt9x_lowrespng-7036655f64.webp"
+    },
+    {
+      "link": "https://www.jetbrains.com/webstorm/",
+      "name": "WebStorm",
+      "icon": "/images/jetbrains_webstorm_pnqhzwmjm8_lowrespng-df82b8d54a.webp"
+    },
+    {
+      "name": "PhpStorm",
+      "link": "https://www.jetbrains.com/phpstorm/",
+      "icon": "/images/jetbrains_phpstorm_nlp81fuugk_lowrespng-b883498c9c.webp"
+    },
+    {
+      "link": "https://www.jetbrains.com/pycharm/",
+      "name": "PyCharm",
+      "icon": "/images/jetbrains_pycharm_nnadn7q7cs_lowrespng-8de8e963fd.webp"
+    },
+    {
+      "name": "Affinity",
+      "link": "https://www.affinity.studio/",
+      "icon": "/images/affinity__default___macos_26.2___aatdgrtuw8_lowrespng-1f8a1f1d88.webp"
+    },
+    {
+      "name": "Docker Desktop",
+      "icon": "/images/docker_xyaaoh6nqx_lowrespng-1f86d24d95.webp",
+      "link": "https://www.docker.com/products/docker-desktop/"
     }
   ],
   "headerBanner": ""
