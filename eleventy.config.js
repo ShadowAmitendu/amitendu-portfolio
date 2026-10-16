@@ -64,6 +64,14 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({ "src/admin": "admin" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 	eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-16.png": "favicon-16.png" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-32.png": "favicon-32.png" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-48.png": "favicon-48.png" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-96.png": "favicon-96.png" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-192.png": "favicon-192.png" });
+	eleventyConfig.addPassthroughCopy({ "src/favicon-512.png": "favicon-512.png" });
+	eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
+	eleventyConfig.addPassthroughCopy({ "src/site.webmanifest": "site.webmanifest" });
 	eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
 	eleventyConfig.addFilter("resolveIcon", (url, label, explicitIcon) => {
 		return resolveIcon(url, label, explicitIcon);
