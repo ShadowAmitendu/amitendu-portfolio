@@ -4,69 +4,93 @@ permalink: /resume/
 ---
 {% set r = resume %}
 <div class="site-resume">
-  {# Header / Title #}
-  <div class="border-b border-[#b7cbd6] pb-3">
-    <div class="flex flex-wrap items-baseline justify-between gap-2">
-      <div>
-        <h2 class="text-xl font-bold tracking-tight text-[#164b70]">
-          {{ r.heading }}</h2>
-        {% if r.subheading %}
-        <p class="mt-1 text-sm font-bold text-[#536a75]">{{ r.subheading }}</p>
-        {% endif %}
-      </div>
+  {# Document Control Bar / Retro Toolbar #}
+  <div class="site-resume-toolbar border border-[#9bb0be] bg-gradient-to-b from-[#ffffff] to-[#edf4f8] px-3 py-1.5 shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] flex flex-wrap items-center justify-between gap-2 mb-4">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 bg-[#2e7d32] shadow-[0_0_3px_#2e7d32]"></span>
+      <span class="text-xs font-bold text-[#164b70] uppercase tracking-wider">DOCUMENT :: CURRICULUM VITAE</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="window.print()" class="site-button-2007 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs cursor-pointer" title="Print CV or Save as PDF">
+        <svg class="w-3.5 h-3.5 fill-current text-[#164b70]" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        <span>Print / Save PDF</span>
+      </button>
       {% if r.pdfUrl %}
-      <div>
-        <a class="site-badge inline-block border border-[#7892a3] px-3 py-1 text-xs font-bold text-[#064f83] hover:text-[#c0392b] shadow-[1px_1px_0_#b8c5cc]"
-          href="{{ r.pdfUrl }}" target="_blank" rel="noopener">Download PDF</a>
-      </div>
+      <a href="{{ r.pdfUrl }}" target="_blank" rel="noopener" class="site-button-2007 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs" title="Download official PDF version">
+        <svg class="w-3.5 h-3.5 fill-current text-[#164b70]" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <span>Download PDF</span>
+      </a>
       {% endif %}
     </div>
   </div>
 
-  {# Professional Summary #}
-  {% if r.intro %}
-  <div class="mt-4 border-l-4 border-[#164b70] bg-[#f4f8fa] px-4 py-3 text-sm leading-relaxed text-[#26343d]">
-    <p>{{ r.intro }}</p>
-  </div>
-  {% endif %}
-
-  {# Contact Details Box #}
-  {% if r.contactDetails and r.contactDetails.length > 0 %}
-  <div class="mt-4 border border-[#b7cbd6] bg-[#f8fbfc] px-4 py-2.5 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
-    <div class="flex flex-wrap items-center gap-x-6 gap-y-1">
-      {% for item in r.contactDetails %}
-      <p>
-        <span class="font-bold text-[#164b70]">{{ item.label }}:</span>
-        {% if item.url %}
-        <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.value }}</a>
-        {% else %}
-        <span>{{ item.value }}</span>
+  {# Header / Title #}
+  <div class="border-b-2 border-[#164b70] pb-3 mb-4">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight text-[#164b70] uppercase sm:text-3xl">
+          {{ r.heading }}</h2>
+        {% if r.subheading %}
+        <p class="mt-1 text-sm font-bold text-[#536a75] tracking-wide">{{ r.subheading }}</p>
         {% endif %}
-      </p>
+      </div>
+    </div>
+  </div>
+
+  {# Contact Details Strip #}
+  {% if r.contactDetails and r.contactDetails.length > 0 %}
+  <div class="border border-[#9bb0be] bg-gradient-to-b from-[#f8fbfc] to-[#edf4f8] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] mb-6">
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+      {% for item in r.contactDetails %}
+      <div class="flex items-center gap-1.5">
+        <span class="font-bold text-[#164b70] uppercase text-[11px] tracking-wider">{{ item.label }}:</span>
+        {% if item.url %}
+        <a class="text-[#064f83] font-semibold underline hover:text-[#c0392b] transition-colors" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.value }}</a>
+        {% else %}
+        <span class="text-[#26343d] font-semibold">{{ item.value }}</span>
+        {% endif %}
+      </div>
       {% endfor %}
     </div>
   </div>
   {% endif %}
 
+  {# Professional Summary #}
+  {% if r.intro %}
+  <section class="mb-6">
+    <div class="border-l-4 border-[#164b70] bg-[#f8fbfc] p-3.5 shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de]">
+      <div class="flex items-center gap-1.5 mb-1.5 pb-1 border-b border-[#e1ebf0]">
+        <span class="text-[10px] font-bold text-[#164b70] uppercase tracking-wider font-sans">PROFILE OVERVIEW</span>
+      </div>
+      <p class="text-xs sm:text-[13px] leading-relaxed text-[#26343d]">{{ r.intro }}</p>
+    </div>
+  </section>
+  {% endif %}
+
   {# Experience Section #}
   {% if r.experience and r.experience.length > 0 %}
-  <section class="mt-8">
-    <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
-      Experience</h3>
-    <div class="mt-4 space-y-5">
+  <section class="mb-6">
+    <div class="site-sidebar-card-header flex items-center justify-between">
+      <span>WORK EXPERIENCE & PRACTICAL TRAINING</span>
+      <span class="text-[10px] font-sans font-normal opacity-80 select-none">[{{ r.experience.length }} records]</span>
+    </div>
+    <div class="mt-3 space-y-3">
       {% for job in r.experience %}
-      <div class="site-resume-item">
-        <div class="flex flex-wrap items-baseline justify-between gap-2">
-          <h4 class="font-bold text-sm text-[#164b70]">{{ job.role }}</h4>
+      <div class="site-card border border-[#9bb0be] bg-white p-3.5 shadow-[2px_2px_0_#cad6de]">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-[#e1ebf0] pb-1.5 mb-2">
+          <h4 class="font-bold text-sm text-[#164b70] m-0">{{ job.role }}</h4>
           {% if job.period %}
-          <span class="text-xs text-[#71828b]">{{ job.period }}</span>
+          <span class="site-badge border border-[#7892a3] px-2 py-0.5 text-[11px] font-bold text-[#164b70] shadow-[1px_1px_0_#cad6de] shrink-0">{{ job.period }}</span>
           {% endif %}
         </div>
         {% if job.company %}
-        <p class="text-xs font-semibold text-[#536a75]">{{ job.company }}</p>
+        <p class="text-xs font-semibold text-[#536a75] mb-1.5 flex items-center gap-1">
+          <span class="text-[#7892a3]">🏢</span>
+          <span>{{ job.company }}</span>
+        </p>
         {% endif %}
         {% if job.description %}
-        <p class="mt-1.5 text-xs leading-relaxed text-[#26343d]">{{ job.description }}</p>
+        <p class="text-xs leading-relaxed text-[#26343d] mt-1">{{ job.description }}</p>
         {% endif %}
       </div>
       {% endfor %}
@@ -76,23 +100,30 @@ permalink: /resume/
 
   {# Education Section #}
   {% if r.education and r.education.length > 0 %}
-  <section class="mt-8">
-    <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
-      Education</h3>
-    <div class="mt-4 space-y-4">
+  <section class="mb-6">
+    <div class="site-sidebar-card-header flex items-center justify-between">
+      <span>EDUCATION & ACADEMICS</span>
+      <span class="text-[10px] font-sans font-normal opacity-80 select-none">[{{ r.education.length }} records]</span>
+    </div>
+    <div class="mt-3 space-y-3">
       {% for edu in r.education %}
-      <div class="site-resume-item">
-        <div class="flex flex-wrap items-baseline justify-between gap-2">
-          <h4 class="font-bold text-sm text-[#164b70]">{{ edu.degree }}</h4>
+      <div class="site-card border border-[#9bb0be] bg-white p-3.5 shadow-[2px_2px_0_#cad6de]">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-[#e1ebf0] pb-1.5 mb-2">
+          <h4 class="font-bold text-sm text-[#164b70] m-0">{{ edu.degree }}</h4>
           {% if edu.period %}
-          <span class="text-xs text-[#71828b]">{{ edu.period }}</span>
+          <span class="site-badge border border-[#7892a3] px-2 py-0.5 text-[11px] font-bold text-[#164b70] shadow-[1px_1px_0_#cad6de] shrink-0">{{ edu.period }}</span>
           {% endif %}
         </div>
         {% if edu.institution %}
-        <p class="text-xs font-semibold text-[#536a75]">{{ edu.institution }}</p>
+        <p class="text-xs font-semibold text-[#536a75] mb-1.5 flex items-center gap-1">
+          <span class="text-[#7892a3]">🎓</span>
+          <span>{{ edu.institution }}</span>
+        </p>
         {% endif %}
         {% if edu.details %}
-        <p class="mt-1 text-xs text-[#71828b]">{{ edu.details }}</p>
+        <div class="mt-2 bg-[#f4f8fa] border border-[#d8e3ea] px-2.5 py-1 text-xs text-[#536a75] inline-block font-medium">
+          {{ edu.details }}
+        </div>
         {% endif %}
       </div>
       {% endfor %}
@@ -100,12 +131,47 @@ permalink: /resume/
   </section>
   {% endif %}
 
-  {# Certifications & Credentials Section #}
+  {# Technical Skills Section #}
+  {% if r.skillsList and r.skillsList.length > 0 %}
+  <section class="mb-6">
+    <div class="site-sidebar-card-header flex items-center justify-between">
+      <span>TECHNICAL SKILLS & COMPETENCIES</span>
+      <span class="text-[10px] font-sans font-normal opacity-80 select-none">[{{ r.skillsList.length }} categories]</span>
+    </div>
+    <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {% for cat in r.skillsList %}
+      <div class="site-card border border-[#9bb0be] bg-white p-3 shadow-[2px_2px_0_#cad6de] flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1.5 border-b border-[#d8e3ea] pb-1.5 mb-2">
+            <span class="w-1.5 h-1.5 bg-[#164b70] shrink-0"></span>
+            <h4 class="text-xs font-bold text-[#164b70] tracking-wider uppercase m-0">{{ cat.category }}</h4>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            {% set skillItems = cat.items.split(',') %}
+            {% for skill in skillItems %}
+              {% set trimmedSkill = skill | trim %}
+              {% if trimmedSkill.length > 0 %}
+              <span class="inline-block bg-[#f8fbfc] border border-[#b7cbd6] px-2 py-0.5 text-[11px] font-semibold text-[#164b70] shadow-[1px_1px_0_#cad6de] hover:border-[#164b70] hover:bg-[#edf5f8] transition-colors">
+                {{ trimmedSkill }}
+              </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {# Certifications & Credentials Section (Renders only when real certifications exist) #}
   {% if r.certifications and r.certifications.length > 0 %}
-  <section class="mt-8">
-    <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
-      Certifications & Credentials</h3>
-    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <section class="mb-6">
+    <div class="site-sidebar-card-header flex items-center justify-between">
+      <span>CERTIFICATIONS & CREDENTIALS</span>
+      <span class="text-[10px] font-sans font-normal opacity-80 select-none">[{{ r.certifications.length }} records]</span>
+    </div>
+    <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
       {% for cert in r.certifications %}
       <div class="site-card border border-[#9bb0be] bg-white p-3 shadow-[2px_2px_0_#cad6de] flex items-start gap-3">
         {% if cert.badge %}
@@ -151,31 +217,16 @@ permalink: /resume/
   </section>
   {% endif %}
 
-  {# Technical Skills Section #}
-  {% if r.skillsList and r.skillsList.length > 0 %}
-  <section class="mt-8">
-    <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
-      Skills & Expertise</h3>
-    <div class="mt-4 space-y-2.5">
-      {% for cat in r.skillsList %}
-      <div class="text-xs">
-        <span class="font-bold text-[#164b70]">{{ cat.category }}:</span>
-        <span class="ml-1 text-[#26343d]">{{ cat.items }}</span>
-      </div>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
   {# Additional Notes #}
   {% if r.additionalNotes %}
-  <section class="mt-8 border-t border-dashed border-[#b7cbd6] pt-4 text-xs text-[#536a75]">
-    <p><span class="font-bold text-[#164b70]">Note:</span> {{ r.additionalNotes }}</p>
+  <section class="mb-6 border border-[#b7cbd6] bg-[#f8fbfc] p-3 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+    <p><span class="font-bold text-[#164b70] uppercase text-[11px] tracking-wider">AVAILABILITY &amp; NOTES:</span> <span class="text-[#26343d] ml-1">{{ r.additionalNotes }}</span></p>
   </section>
   {% endif %}
 
   {# Back link #}
-  <p class="mt-8 border-t border-[#b7cbd6] pt-4 text-xs">
+  <p class="site-resume-back-link mt-6 border-t border-[#b7cbd6] pt-4 text-xs">
     <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a>
   </p>
 </div>
+

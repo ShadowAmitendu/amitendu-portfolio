@@ -1227,3 +1227,102 @@ body {
 	gap: 0.875rem 1.75rem;
 	width: 100%;
 }
+
+/* Retro Resume styling */
+.site-resume-timeline-item {
+	position: relative;
+	padding-left: 1.25rem;
+}
+
+.site-resume-timeline-item::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.35rem;
+	width: 7px;
+	height: 7px;
+	background: #164b70;
+	border: 1px solid #7892a3;
+	box-shadow: 1px 1px 0 #cad6de;
+}
+
+.site-resume-timeline-item::after {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 1.1rem;
+	bottom: -1rem;
+	width: 1px;
+	background: #cad6de;
+}
+
+.site-resume-timeline-item:last-child::after {
+	display: none;
+}
+
+/* Print optimization for CV / Resume and site pages */
+@media print {
+	.site-header,
+	.site-nav,
+	.site-sidebar,
+	.site-sidebar-left,
+	.site-sidebar-right,
+	.site-footer,
+	.site-announcement-banner,
+	.site-resume-toolbar,
+	.site-resume-back-link {
+		display: none !important;
+	}
+
+	body {
+		background: #ffffff !important;
+		color: #1a1a1a !important;
+	}
+
+	.site-shell {
+		border: none !important;
+		box-shadow: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+
+	.site-columns {
+		display: block !important;
+		width: 100% !important;
+	}
+
+	.site-content {
+		padding: 0 !important;
+		background: #ffffff !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+
+	.site-resume {
+		padding: 0 !important;
+	}
+
+	.site-card,
+	.site-resume-item,
+	.site-resume-timeline-item {
+		page-break-inside: avoid;
+		break-inside: avoid;
+		box-shadow: none !important;
+		border-color: #cbd5e1 !important;
+		background: #ffffff !important;
+	}
+
+	.site-badge {
+		box-shadow: none !important;
+		background: #f1f5f9 !important;
+		border-color: #cbd5e1 !important;
+	}
+
+	a {
+		text-decoration: underline !important;
+		color: #164b70 !important;
+	}
+}
+
