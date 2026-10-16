@@ -151,6 +151,60 @@
       "name": "Typedown",
       "icon": "/images/apps.25462.14085711452561131.7d5fc75c-9c78-48bb-beb2-23ad07f700d0.webp",
       "link": "https://apps.microsoft.com/detail/9p8tcw4h2hb4?hl=en-GB&gl=IN"
+    },
+    {
+      "name": "Nvidia - ShadowPlay",
+      "icon": "/images/low_res_nvidia_macos27_lx875h9gxd-54d404724a.webp",
+      "link": "https://www.nvidia.com/en-us/software/nvidia-app/"
+    },
+    {
+      "name": "DaVinchi Resolve",
+      "icon": "/images/low_res_davinci_resolve_igupdvr9fx-22b4b5e84f.webp",
+      "link": "https://www.blackmagicdesign.com/in/products/davinciresolve"
+    },
+    {
+      "name": "Fedora",
+      "icon": "/images/fedora_eagoa6ha6e_lowrespng-b1c140520d.webp",
+      "link": "https://fedoraproject.org/"
+    },
+    {
+      "name": "CentOS",
+      "icon": "/images/centos_d271erf0dr_lowrespng-1eeb15b983.webp",
+      "link": "https://www.centos.org/"
+    },
+    {
+      "name": "Ubuntu Desktop",
+      "icon": "/images/ubuntu_kvieumrzfr_lowrespng-4660f5a799.webp",
+      "link": "https://ubuntu.com/"
+    },
+    {
+      "name": "RedHat Linux",
+      "icon": "/images/red_hat_light_qfpfizvfzw_lowrespng-ed69cfc948.webp",
+      "link": "https://www.redhat.com/en"
+    },
+    {
+      "name": "Arch Linux",
+      "icon": "/images/low_res_arch_linux_light_-_macos_27_pjc7khs2kd-c6205b949a.webp",
+      "link": "https://archlinux.org/"
+    },
+    {
+      "name": "Linux Mint",
+      "icon": "/images/linux_mint_kadruhzruf_lowrespng-2bd4bf944f.webp"
+    },
+    {
+      "name": "Debian Linux",
+      "icon": "/images/low_res_debian_icon_minimal_ekwusqchkb-371afd3df0.webp",
+      "link": "https://www.debian.org/"
+    },
+    {
+      "name": "Windows 11 Professional",
+      "icon": "/images/windows_11_kplkb49u8t_lowrespng-ddf036a3d9.webp",
+      "link": "https://www.microsoft.com/en-us/software-download/windows11"
+    },
+    {
+      "name": "OBS Studio",
+      "icon": "/images/obs_studio_macos_tahoe_dark__e85win7rad_lowrespng-175490ed8c.webp",
+      "link": "https://obsproject.com/"
     }
   ],
   "headerBanner": ""
