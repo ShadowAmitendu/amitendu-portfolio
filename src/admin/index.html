@@ -884,6 +884,7 @@
 			var ResumePreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
+					var getAsset = this.props.getAsset;
 					var title = entry.getIn(["data", "title"]) || "Resume";
 					var headerTagline =
 						entry.getIn(["data", "headerTagline"]) || "CURRICULUM VITAE";
@@ -894,6 +895,7 @@
 					var contactDetails = entry.getIn(["data", "contactDetails"]);
 					var experience = entry.getIn(["data", "experience"]);
 					var education = entry.getIn(["data", "education"]);
+					var certifications = entry.getIn(["data", "certifications"]);
 					var skillsList = entry.getIn(["data", "skillsList"]);
 					var additionalNotes = entry.getIn(["data", "additionalNotes"]);
 
@@ -1118,6 +1120,148 @@
 											.toArray(),
 									),
 								)
+							: null,
+
+						// Certifications
+						certifications && certifications.size
+							? h(
+									"section",
+									{ className: "mt-8" },
+									h(
+										"h3",
+										{
+											className:
+												"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
+										},
+										"Certifications & Credentials",
+									),
+									h(
+										"div",
+										{ className: "mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3" },
+										certifications
+											.map(function (cert, idx) {
+												var badgeSrc = resolveAssetUrl(
+													getAsset,
+													cert.get("badge"),
+												);
+												return h(
+													"div",
+													{
+														key: idx,
+														className:
+															"site-card border border-[#9bb0be] bg-white p-3 shadow-[2px_2px_0_#cad6de] flex items-start gap-3",
+													},
+													badgeSrc
+														? h(
+																"div",
+																{
+																	className:
+																		"shrink-0 w-12 h-12 p-0.5 bg-[#f4f8fa] border border-[#b7cbd6] flex items-center justify-center",
+																},
+																h("img", {
+																	src: badgeSrc,
+																	alt: cert.get("name") || "",
+																	className: "w-full h-full object-contain",
+																}),
+														  )
+														: h(
+																"div",
+																{
+																	className:
+																		"shrink-0 w-10 h-10 bg-[#e4eef2] border border-[#7892a3] flex items-center justify-center text-[#164b70] font-bold text-xs select-none",
+																},
+																"★",
+														  ),
+													h(
+														"div",
+														{ className: "min-w-0 flex-1 text-xs" },
+														h(
+															"div",
+															{
+																className:
+																	"flex items-baseline justify-between gap-2",
+															},
+															h(
+																"h4",
+																{
+																	className:
+																		"font-bold text-[#164b70] text-xs leading-snug",
+																},
+																cert.get("name") || "Untitled Credential",
+															),
+															cert.get("date")
+																? h(
+																		"span",
+																		{
+																			className:
+																				"text-[11px] text-[#71828b] shrink-0",
+																		},
+																		cert.get("date"),
+																  )
+																: null,
+														),
+														cert.get("issuer")
+															? h(
+																	"p",
+																	{
+																		className:
+																			"text-[11px] font-semibold text-[#536a75] mt-0.5",
+																	},
+																	cert.get("issuer"),
+															  )
+															: null,
+														cert.get("skills")
+															? h(
+																	"p",
+																	{
+																		className:
+																			"text-[11px] text-[#71828b] mt-1",
+																	},
+																	h(
+																		"span",
+																		{
+																			className:
+																				"font-semibold text-[#556b78]",
+																		},
+																		"Skills: ",
+																	),
+																	cert.get("skills"),
+															  )
+															: null,
+														cert.get("credentialUrl")
+															? h(
+																	"div",
+																	{
+																		className:
+																			"mt-2 pt-1 border-t border-dashed border-[#e1ebf0] flex items-center justify-between",
+																	},
+																	cert.get("credentialId")
+																		? h(
+																				"span",
+																				{
+																					className:
+																						"text-[10px] text-[#71828b]",
+																				},
+																				"ID: " +
+																					cert.get("credentialId"),
+																		  )
+																		: h("span", null),
+																	h(
+																		"span",
+																		{
+																			className:
+																				"text-[11px] text-[#064f83] font-semibold underline",
+																		},
+																		"Verify Credential »",
+																	),
+															  )
+															: null,
+													),
+												);
+											})
+											.toArray(),
+									),
+							  )
 							: null,
 
 						// Skills
@@ -1507,6 +1651,7 @@
 					{ key: "games", label: "games" },
 					{ key: "software", label: "software" },
 					{ key: "friends", label: "friends" },
+					{ key: "gear", label: "gear" },
 				];
 				var children = [];
 				tabs.forEach(function (tab, idx) {
@@ -2976,6 +3121,227 @@
 				},
 			});
 
+			var AboutGearPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var heading =
+						entry.getIn(["data", "heading"]) || "Hardware, Desk Setup & Photography";
+					var intro = entry.getIn(["data", "intro"]) || "";
+					var rawGallery = entry.getIn(["data", "gallery"]);
+					var gallery = rawGallery && rawGallery.toJS ? rawGallery.toJS() : [];
+					var rawCategories = entry.getIn(["data", "categories"]);
+					var categories = rawCategories && rawCategories.toJS ? rawCategories.toJS() : [];
+					var getAsset = this.props.getAsset;
+
+					var galleryElements = null;
+					if (gallery && gallery.length > 0) {
+						galleryElements = h(
+							"div",
+							{ className: "mt-6" },
+							h(
+								"h3",
+								{
+									className:
+										"border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider",
+								},
+								"Desk & Setup Gallery",
+							),
+							h(
+								"div",
+								{ className: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4" },
+								gallery.map(function (photo, idx) {
+									var photoSrc = resolveAssetUrl(getAsset, photo.image);
+									return h(
+										"div",
+										{
+											key: idx,
+											className:
+												"site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de]",
+										},
+										h(
+											"div",
+											{
+												className:
+													"relative w-full aspect-[4/3] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center",
+											},
+											photoSrc
+												? h("img", {
+														src: photoSrc,
+														alt: photo.title || "",
+														className:
+															"w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]",
+												  })
+												: h(
+														"span",
+														{ className: "text-xs font-bold text-[#164b70]" },
+														"PHOTO",
+												  ),
+										),
+										h(
+											"div",
+											{ className: "mt-2.5" },
+											h(
+												"h4",
+												{
+													className:
+														"font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-1 min-h-[1.1rem]",
+												},
+												photo.title || "Desk Photo",
+											),
+											photo.caption
+												? h(
+														"p",
+														{
+															className:
+																"text-[11px] text-[#556b78] line-clamp-2 min-h-[2rem] mt-0.5",
+														},
+														photo.caption,
+												  )
+												: null,
+										),
+									);
+								}),
+							),
+						);
+					}
+
+					var categoriesElements = null;
+					if (categories && categories.length > 0) {
+						categoriesElements = h(
+							"div",
+							{ className: "mt-8" },
+							h(
+								"h3",
+								{
+									className:
+										"border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider",
+								},
+								"Hardware & Specifications",
+							),
+							h(
+								"div",
+								{ className: "mt-4 space-y-4" },
+								categories.map(function (cat, cIdx) {
+									var items = cat.items || [];
+									return h(
+										"div",
+										{
+											key: cIdx,
+											className:
+												"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
+										},
+										h(
+											"div",
+											{
+												className:
+													"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 shadow-[inset_0_1px_0_#fff]",
+											},
+											h(
+												"h4",
+												{
+													className:
+														"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0",
+												},
+												cat.category || "Hardware",
+											),
+										),
+										h(
+											"div",
+											{ className: "p-3 bg-[#f8fbfc]" },
+											h(
+												"table",
+												{
+													className:
+														"w-full text-xs text-[#26343d] border-collapse",
+												},
+												h(
+													"tbody",
+													null,
+													items.map(function (item, iIdx) {
+														return h(
+															"tr",
+															{
+																key: iIdx,
+																className:
+																	"border-b border-[#e1ebf0] last:border-b-0",
+															},
+															h(
+																"td",
+																{
+																	className:
+																		"py-2 font-bold text-[#164b70] w-36 sm:w-48 shrink-0 align-top",
+																},
+																item.name,
+															),
+															h(
+																"td",
+																{ className: "py-2 text-[#26343d] align-top" },
+																h(
+																	"div",
+																	{
+																		className:
+																			"font-semibold text-[#164b70]",
+																	},
+																	item.specs,
+																),
+																item.notes
+																	? h(
+																			"p",
+																			{
+																				className:
+																					"text-[11px] text-[#556b78] mt-0.5 leading-relaxed",
+																			},
+																			item.notes,
+																	  )
+																	: null,
+															),
+														);
+													}),
+												),
+											),
+										),
+									);
+								}),
+							),
+						);
+					}
+
+					var gearContent = h(
+						"div",
+						null,
+						renderInPageSubnav("gear"),
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							heading,
+						),
+						intro
+							? h(
+									"p",
+									{ className: "mt-3 text-sm leading-relaxed text-[#26343d]" },
+									intro,
+							  )
+							: null,
+						galleryElements,
+						categoriesElements,
+						h(
+							"p",
+							{ className: "mt-8" },
+							h(
+								"span",
+								{ className: "text-[#064f83] underline" },
+								"← back to home",
+							),
+						),
+					);
+
+					return renderMainContentContainer(gearContent);
+				},
+			});
+
 			var AboutSectionRouter = createClass({
 				render: function () {
 					var entry = this.props.entry;
@@ -3000,6 +3366,9 @@
 					if (file.indexOf("friends.json") !== -1 || slug === "about-friends") {
 						return h(AboutFriendsPreview, this.props);
 					}
+					if (file.indexOf("gear.json") !== -1 || slug === "about-gear") {
+						return h(AboutGearPreview, this.props);
+					}
 					return h(AboutMePreview, this.props);
 				},
 			});
@@ -3011,6 +3380,7 @@
 			CMS.registerPreviewTemplate("about-games", AboutGamesPreview);
 			CMS.registerPreviewTemplate("about-software", AboutSoftwarePreview);
 			CMS.registerPreviewTemplate("about-friends", AboutFriendsPreview);
+			CMS.registerPreviewTemplate("about-gear", AboutGearPreview);
 			CMS.registerPreviewTemplate("about-page", AboutMePreview);
 
 			// 7. Custom Blog Landing Page Preview in Full Site Shell

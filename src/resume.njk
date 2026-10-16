@@ -100,6 +100,57 @@ permalink: /resume/
   </section>
   {% endif %}
 
+  {# Certifications & Credentials Section #}
+  {% if r.certifications and r.certifications.length > 0 %}
+  <section class="mt-8">
+    <h3 class="border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]">
+      Certifications & Credentials</h3>
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {% for cert in r.certifications %}
+      <div class="site-card border border-[#9bb0be] bg-white p-3 shadow-[2px_2px_0_#cad6de] flex items-start gap-3">
+        {% if cert.badge %}
+        <div class="shrink-0 w-12 h-12 p-0.5 bg-[#f4f8fa] border border-[#b7cbd6] flex items-center justify-center">
+          <img src="{{ cert.badge }}" alt="{{ cert.name }}" class="w-full h-full object-contain" />
+        </div>
+        {% else %}
+        <div class="shrink-0 w-10 h-10 bg-[#e4eef2] border border-[#7892a3] flex items-center justify-center text-[#164b70] font-bold text-xs select-none">
+          ★
+        </div>
+        {% endif %}
+        <div class="min-w-0 flex-1 text-xs">
+          <div class="flex items-baseline justify-between gap-2">
+            <h4 class="font-bold text-[#164b70] text-xs leading-snug">
+              {{ cert.name }}
+            </h4>
+            {% if cert.date %}
+            <span class="text-[11px] text-[#71828b] shrink-0">{{ cert.date }}</span>
+            {% endif %}
+          </div>
+          {% if cert.issuer %}
+          <p class="text-[11px] font-semibold text-[#536a75] mt-0.5">{{ cert.issuer }}</p>
+          {% endif %}
+          {% if cert.skills %}
+          <p class="text-[11px] text-[#71828b] mt-1"><span class="font-semibold text-[#556b78]">Skills:</span> {{ cert.skills }}</p>
+          {% endif %}
+          {% if cert.credentialUrl and cert.credentialUrl != '#' %}
+          <div class="mt-2 pt-1 border-t border-dashed border-[#e1ebf0] flex items-center justify-between">
+            {% if cert.credentialId %}
+            <span class="text-[10px] text-[#71828b]">ID: {{ cert.credentialId }}</span>
+            {% else %}
+            <span></span>
+            {% endif %}
+            <a href="{{ cert.credentialUrl }}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-[#064f83] font-semibold underline hover:text-[#c0392b]">
+              Verify Credential &raquo;
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   {# Technical Skills Section #}
   {% if r.skillsList and r.skillsList.length > 0 %}
   <section class="mt-8">

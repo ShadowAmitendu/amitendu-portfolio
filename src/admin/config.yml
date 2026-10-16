@@ -2,6 +2,10 @@ backend:
   name: git-gateway
   branch: main
 
+publish_mode: editorial_workflow
+display_url: "https://amitendu.me"
+logo_url: "/favicon.svg"
+
 media_folder: "src/images"
 public_folder: "/images"
 max_file_size: 10485760
@@ -17,7 +21,7 @@ media_processing:
 
 collections:
   - name: "about-section"
-    label: "About (Me, Books, Movies, Games, Software)"
+    label: "About (Me, Books, Movies, Games, Software, Friends, Gear)"
     files:
       - name: "about-me"
         label: "Tab 1: Me"
@@ -541,6 +545,67 @@ collections:
                   required: false,
                   hint: "Short note on who they are or what their site is about.",
                 }
+      - name: "about-gear"
+        label: "Tab 7: Gear & Setup"
+        file: "src/_data/gear.json"
+        format: "json"
+        fields:
+          - {
+              label: "Page title",
+              name: "title",
+              widget: "string",
+              default: "Gear",
+            }
+          - {
+              label: "Header tagline",
+              name: "headerTagline",
+              widget: "string",
+              default: "MY DESK & DAILY DRIVERS",
+            }
+          - {
+              label: "Header Banner Image",
+              name: "headerBanner",
+              widget: "image",
+              required: false,
+              default: "/images/header-banner.jpg",
+            }
+          - {
+              label: "Section heading",
+              name: "heading",
+              widget: "string",
+              default: "Hardware, Desk Setup & Photography",
+            }
+          - {
+              label: "Page intro text",
+              name: "intro",
+              widget: "text",
+              required: false,
+            }
+          - label: "Desk & Setup Photo Gallery"
+            name: "gallery"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}} [{{fields.date}}]"
+            fields:
+              - { label: "Photo Title", name: "title", widget: "string", default: "Desk Setup" }
+              - { label: "Photo Image", name: "image", widget: "image" }
+              - { label: "Caption / Description", name: "caption", widget: "string", required: false }
+              - { label: "Date / Year", name: "date", widget: "string", required: false }
+          - label: "Hardware & Peripheral Categories"
+            name: "categories"
+            widget: "list"
+            required: false
+            summary: "{{fields.category}}"
+            fields:
+              - { label: "Category Name", name: "category", widget: "string" }
+              - label: "Hardware Items"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.name}}: {{fields.specs}}"
+                fields:
+                  - { label: "Item / Component Name", name: "name", widget: "string" }
+                  - { label: "Key Specifications", name: "specs", widget: "string" }
+                  - { label: "Notes / Experience", name: "notes", widget: "text", required: false }
 
   - name: "resume-page"
     label: "Resume / CV"
@@ -636,6 +701,18 @@ collections:
                   widget: "string",
                   required: false,
                 }
+          - label: "Certifications & Credentials"
+            name: "certifications"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Certificate / Credential Name", name: "name", widget: "string" }
+              - { label: "Issuing Organization", name: "issuer", widget: "string" }
+              - { label: "Issue Date / Year", name: "date", widget: "string", required: false }
+              - { label: "Credential ID / License #", name: "credentialId", widget: "string", required: false }
+              - { label: "Verification URL", name: "credentialUrl", widget: "string", required: false }
+              - { label: "Badge / Certificate Image", name: "badge", widget: "image", required: false }
+              - { label: "Skills Covered", name: "skills", widget: "string", required: false }
           - label: "Skill Categories"
             name: "skillsList"
             widget: "list"
@@ -884,6 +961,24 @@ collections:
               value_type: "int",
               default: 4,
             }
+          - label: "Announcement Banner"
+            name: "announcement"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Enable Announcement", name: "enabled", widget: "boolean", default: false }
+              - { label: "Announcement ID / Version Tag", name: "id", widget: "string", default: "welcome-2026", hint: "Change this tag whenever you post a new announcement so visitors who previously dismissed it will see it." }
+              - label: "Banner Style / Color"
+                name: "type"
+                widget: "select"
+                default: "info"
+                options:
+                  - { label: "Aero Blue (General / Welcome)", value: "info" }
+                  - { label: "Gold / Amber (Alert / Important)", value: "alert" }
+                  - { label: "Emerald Green (Update / Special)", value: "success" }
+              - { label: "Announcement Message", name: "message", widget: "string", default: "Welcome to my portfolio! Check out the newly updated retro workspace & books." }
+              - { label: "Action Button Text", name: "linkText", widget: "string", required: false, default: "Check it out »" }
+              - { label: "Action Button URL", name: "linkUrl", widget: "string", required: false, default: "/about/gear/" }
 
   - name: "blog"
     label: "Blog posts"
