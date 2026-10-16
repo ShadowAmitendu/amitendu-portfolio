@@ -22,6 +22,14 @@
       "year": "2026",
       "review": "Book's content is very damn good but the printing and the paper is very very bad like worse than ever!",
       "image": "/images/71xyt0qlwal._ac_uf350-350_ql50_.webp"
+    },
+    {
+      "status": "to-read",
+      "title": "Introduction to Data Science",
+      "author": "Davy Cielen, Arno D. B. Meysman, Mohamed Ali",
+      "image": "/images/cielen-ids-hi.webp",
+      "rating": "Not Yet Rated / 5",
+      "year": "2026"
     }
   ]
 }
