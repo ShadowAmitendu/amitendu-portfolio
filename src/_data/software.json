@@ -126,6 +126,21 @@
     {
       "name": "Obsidian",
       "icon": "/images/low_res_obsidian_gfaggm9ioe-12beab5f67.webp"
+    },
+    {
+      "name": "Microsoft PowerToys",
+      "icon": "/images/powertoys_jav9ck3tzs_lowrespng-8fc72e66f6.webp",
+      "link": "https://github.com/microsoft/powertoys"
+    },
+    {
+      "name": "WinRAR",
+      "icon": "/images/winrar_o3mbluxbhf_lowrespng-0e687c076c.webp",
+      "link": "https://www.win-rar.com/"
+    },
+    {
+      "name": "Cloudflare WARP",
+      "icon": "/images/cloudflare_warp__liquid_glass__gvjpbmp1fn_lowrespng-e9f34e02ed.webp",
+      "link": "https://one.one.one.one/"
     }
   ],
   "headerBanner": ""
