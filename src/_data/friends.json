@@ -58,7 +58,8 @@
       "name": "Dipanjan Gure",
       "relationship": "Best Friend",
       "description": "Bro acts like he fears gay but he likes them!\nalso teto gure",
-      "url": "#"
+      "url": "#",
+      "avatar": "/images/20250801_141346.heic"
     },
     {
       "name": "Arit Hazra",
@@ -71,7 +72,14 @@
       "name": "Indranil Ganguly",
       "relationship": "Best Friend - Hacker in IRL",
       "description": "Bro is a damn hacker as bro uses a poco mobile and has rooted it uses OxygenOS!",
-      "url": "#"
+      "url": "#",
+      "avatar": "/images/20250423_152013.webp"
+    },
+    {
+      "name": "Ayan Bhattacharyya",
+      "url": "None",
+      "avatar": "/images/20250616_124242.avif",
+      "relationship": "Best Bro - Makes the Funniest Poses"
     }
   ]
 }
