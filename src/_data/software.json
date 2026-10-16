@@ -112,6 +112,20 @@
       "name": "NetBeans",
       "icon": "/images/netbeans_gvfwqfn7vq_lowrespng-0632ed1fc3.webp",
       "link": "https://netbeans.apache.org/front/main/index.html"
+    },
+    {
+      "name": "TailScale",
+      "icon": "/images/low_res_tailscale_0um3uqkveu-c186297f92.webp",
+      "link": "https://tailscale.com/"
+    },
+    {
+      "name": "Eclispe IDE for Java Developers",
+      "icon": "/images/eclipse_medium_z4c4qt76d0_lowrespng-bb7f05cfad.webp",
+      "link": "https://eclipseide.org/"
+    },
+    {
+      "name": "Obsidian",
+      "icon": "/images/low_res_obsidian_gfaggm9ioe-12beab5f67.webp"
     }
   ],
   "headerBanner": ""
