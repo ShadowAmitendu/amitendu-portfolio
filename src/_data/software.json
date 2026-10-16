@@ -141,6 +141,16 @@
       "name": "Cloudflare WARP",
       "icon": "/images/cloudflare_warp__liquid_glass__gvjpbmp1fn_lowrespng-e9f34e02ed.webp",
       "link": "https://one.one.one.one/"
+    },
+    {
+      "name": "WinSCP",
+      "link": "https://winscp.net/eng/index.php",
+      "icon": "/images/winscp_alt_dtgutymtbh_lowrespng-276f3cf314.webp"
+    },
+    {
+      "name": "Typedown",
+      "icon": "/images/apps.25462.14085711452561131.7d5fc75c-9c78-48bb-beb2-23ad07f700d0.webp",
+      "link": "https://apps.microsoft.com/detail/9p8tcw4h2hb4?hl=en-GB&gl=IN"
     }
   ],
   "headerBanner": ""
