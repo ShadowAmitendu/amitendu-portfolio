@@ -483,24 +483,6 @@ collections:
                   required: false,
                   hint: "Link opened when clicking the software name.",
                 }
-              - {
-                  label: "Category (Optional)",
-                  name: "category",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Platform / OS (Optional)",
-                  name: "platform",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Description / Notes (Optional)",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
 
       - name: "about-friends"
         label: "Tab 6: Friends"
