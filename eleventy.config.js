@@ -73,6 +73,7 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
 	eleventyConfig.addPassthroughCopy({ "src/site.webmanifest": "site.webmanifest" });
 	eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+	eleventyConfig.addPassthroughCopy({ "src/f5c6b98e721a48c4842e19d7a31b6728.txt": "f5c6b98e721a48c4842e19d7a31b6728.txt" });
 	eleventyConfig.addFilter("resolveIcon", (url, label, explicitIcon) => {
 		return resolveIcon(url, label, explicitIcon);
 	});
@@ -88,10 +89,10 @@ export default function (eleventyConfig) {
 		return Number.isNaN(date.getTime())
 			? value
 			: new Intl.DateTimeFormat("en-US", {
-					month: "short",
-					day: "numeric",
-					year: "numeric",
-				}).format(date);
+				month: "short",
+				day: "numeric",
+				year: "numeric",
+			}).format(date);
 	});
 	eleventyConfig.addFilter("safeId", (value) => {
 		const slug = String(value || "post");

@@ -98,10 +98,14 @@
   <meta name="author" content="{{ author or site.name }}" />
   <meta name="robots"
     content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
-  <meta name="googlebot" content="{% if isDraft %}noindex, nofollow{% else %}index, follow{% endif %}" />
+  <meta name="googlebot" content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
+  <meta name="bingbot" content="{% if isDraft %}noindex, nofollow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}" />
   <link rel="canonical" href="{{ canonicalUrl }}" />
   <meta name="generator" content="Eleventy" />
   <meta name="theme-color" content="#164b70" />
+  <meta name="msapplication-TileColor" content="#164b70" />
+  <meta name="msapplication-TileImage" content="/favicon-192.png?v=2" />
+  <meta name="application-name" content="{{ site.title }}" />
   <meta name="color-scheme" content="light" />
 
   {# Open Graph / Social Media Meta Tags #}
@@ -112,6 +116,9 @@
   <meta property="og:url" content="{{ canonicalUrl }}" />
   <meta property="og:image" content="{{ socialImageUrl }}" />
   <meta property="og:image:alt" content="{{ displayTitle }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:locale" content="en_US" />
   {% if isPost %}
   {% if date %}
@@ -134,7 +141,7 @@
   <meta name="twitter:image" content="{{ socialImageUrl }}" />
   <meta name="twitter:image:alt" content="{{ displayTitle }}" />
 
-  {# JSON-LD Structured Data Schema #}
+  {# JSON-LD Structured Data Schema (Bing & Google compliant) #}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -146,7 +153,10 @@
         "name": {{ site.title | dump | safe }},
         "alternateName": {{ (site.handle or "ShadowAmitendu") | dump | safe }},
         "description": {{ site.description | dump | safe }},
-        "inLanguage": "en-US"
+        "inLanguage": "en-US",
+        "publisher": {
+          "@id": "{{ site.url }}/#person"
+        }
       },
       {
         "@type": "Person",
@@ -156,6 +166,12 @@
         "url": "{{ site.url }}/",
         "image": "{{ site.url }}{{ site.author.avatar }}",
         "jobTitle": {{ site.author.role | dump | safe }},
+        "description": {{ site.description | dump | safe }},
+        "knowsAbout": ["Web Development", "React", "Java", "Spring Boot", "JavaScript", "UI/UX Design", "Full Stack Development"],
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "Techno India Hooghly"
+        },
         "email": "mailto:{{ site.email }}",
         "sameAs": [
           "https://github.com/ShadowAmitendu",
@@ -164,21 +180,85 @@
           "https://www.linkedin.com/in/amitendu/",
           "https://peerlist.io/amitendu"
         ]
-      }{% if isPost %},
+      }
+      {% if not isHome %},
+      {
+        "@type": "BreadcrumbList",
+        "@id": "{{ canonicalUrl }}#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ site.url }}/"
+          }
+          {% if isBlog and (isPost or (tags and 'blog' in tags and page.url != '/blog/')) %},
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "{{ site.url }}/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ title | dump | safe }},
+            "item": "{{ canonicalUrl }}"
+          }
+          {% elif isPortfolio and tags and 'portfolio' in tags and page.url != '/portfolio/' %},
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "{{ site.url }}/portfolio/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ title | dump | safe }},
+            "item": "{{ canonicalUrl }}"
+          }
+          {% elif isAbout and page.url != '/about/' %},
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About",
+            "item": "{{ site.url }}/about/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ (aboutTab or title) | dump | safe }},
+            "item": "{{ canonicalUrl }}"
+          }
+          {% else %},
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ (displayTitle or title) | dump | safe }},
+            "item": "{{ canonicalUrl }}"
+          }
+          {% endif %}
+        ]
+      }
+      {% endif %}
+      {% if isPost %},
       {
         "@type": "BlogPosting",
         "@id": "{{ canonicalUrl }}#article",
+        "mainEntityOfPage": "{{ canonicalUrl }}",
         "headline": {{ title | dump | safe }},
         "description": {{ pageDesc | dump | safe }},
         "url": "{{ canonicalUrl }}",
         {% if date %}"datePublished": "{{ date | isoDate }}",{% endif %}
+        "dateModified": "{{ (dateModified or date or buildDate) | isoDate }}",
         "author": {
           "@type": "Person",
-          "name": {{ (author or site.name) | dump | safe }}
+          "name": {{ (author or site.name) | dump | safe }},
+          "url": "{{ site.url }}/"
         },
         "publisher": {
-          "@type": "Person",
-          "name": {{ site.name | dump | safe }}
+          "@id": "{{ site.url }}/#person"
         },
         "image": "{{ socialImageUrl }}",
         "inLanguage": "en-US"
@@ -194,14 +274,14 @@
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css?v=20261015b" />
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
-  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+  <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png?v=2" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest?v=2" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
