@@ -462,7 +462,7 @@ collections:
           - label: "Software List"
             name: "items"
             widget: "list"
-            summary: "{{fields.name}} [{{fields.category}}]"
+            summary: "{{fields.name}}"
             fields:
               - {
                   label: "Software / Tool Name",
@@ -474,30 +474,31 @@ collections:
                   name: "icon",
                   widget: "image",
                   required: false,
-                  hint: "Upload an app icon or logo (PNG, SVG, WEBP, JPG).",
+                  hint: "Upload a small app icon (PNG, SVG, WEBP, ICO).",
                 }
               - {
-                  label: "Category (e.g. Code Editor, Terminal, Productivity, Browser)",
+                  label: "Website / Download Link",
+                  name: "link",
+                  widget: "string",
+                  required: false,
+                  hint: "Link opened when clicking the software name.",
+                }
+              - {
+                  label: "Category (Optional)",
                   name: "category",
                   widget: "string",
                   required: false,
                 }
               - {
-                  label: "Platform / OS (e.g. macOS, Linux, Windows, Web)",
+                  label: "Platform / OS (Optional)",
                   name: "platform",
                   widget: "string",
                   required: false,
                 }
               - {
-                  label: "Description / Why I Use It",
+                  label: "Description / Notes (Optional)",
                   name: "description",
                   widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (Official Website or Download Page)",
-                  name: "link",
-                  widget: "string",
                   required: false,
                 }
 

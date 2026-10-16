@@ -2841,191 +2841,58 @@
 							"No software or tools added yet. Software added via this form will appear here.",
 						);
 					} else {
-						itemsListElements = items.map(function (item, idx) {
-							var iconSrc = resolveAssetUrl(getAsset, item.icon);
+						itemsListElements = h(
+							"div",
+							{
+								className: "site-software-grid",
+							},
+							items.map(function (item, idx) {
+								var iconSrc = resolveAssetUrl(getAsset, item.icon);
 
-							return h(
-								"div",
-								{
-									key: idx,
-									className:
-										"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
-								},
-								// 2005 Window Header
-								h(
+								return h(
 									"div",
 									{
-										className:
-											"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+										key: idx,
+										className: "flex items-center gap-2.5 min-w-0",
 									},
-									h(
-										"div",
-										{ className: "flex items-baseline gap-1.5" },
-										h(
-											"span",
-											{
-												className:
-													"text-xs font-bold text-[#556b78] select-none",
-											},
-											"#" + (idx + 1),
-										),
-										h(
-											"h3",
-											{
-												className:
-													"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
-											},
-											item.name || "Untitled Software",
-										),
-										item.category
-											? h(
-													"span",
+									iconSrc
+										? h("img", {
+												src: iconSrc,
+												alt: "",
+												className: "w-5 h-5 object-contain shrink-0",
+										  })
+										: h(
+												"span",
+												{
+													className:
+														"w-5 h-5 flex items-center justify-center shrink-0 text-[#556b78]",
+												},
+												h(
+													"svg",
 													{
-														className: "text-xs text-[#556b78] font-normal",
+														className: "w-4 h-4 fill-current",
+														viewBox: "0 0 16 16",
 													},
-													"(" + item.category + ")",
-												)
-											: null,
-									),
-									h(
-										"div",
-										null,
-										item.platform
-											? h(
-													"span",
-													{
-														className:
-															"text-[11px] font-bold text-[#164b70] bg-[#e1ebf0] px-1.5 py-0.5 border border-[#c6d7e0]",
-													},
-													item.platform,
-												)
-											: null,
-									),
-								),
-								// Body
-								h(
-									"div",
-									{
-										className: "site-listing-body p-3 bg-[#f8fbfc]",
-									},
-									// Icon
-									h(
-										"div",
-										{
-											className: "site-listing-image-col is-app",
-										},
-										iconSrc
-											? h(
-													"div",
-													{
-														className: "site-listing-frame is-app",
-													},
-													h("img", {
-														src: iconSrc,
-														alt: item.name || "",
+													h("path", {
+														d: "M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3zm1 1v2h10V4H3zm10 3H3v6h10V7z",
 													}),
-												)
-											: h(
-													"div",
-													{
-														className: "site-listing-placeholder is-app",
-													},
-													"APP",
 												),
-									),
-									// Table
+										  ),
 									h(
-										"div",
-										{ className: "min-w-0 flex-1 w-full text-xs" },
-										h(
-											"table",
-											{
-												className:
-													"w-full text-xs text-[#26343d] border-collapse",
-											},
-											h(
-												"tbody",
-												null,
-												item.category
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Category:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#3b4d57]" },
-																item.category,
-															),
-														)
-													: null,
-												item.platform
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Platform:",
-															),
-															h(
-																"td",
-																{ className: "py-1 text-[#3b4d57]" },
-																item.platform,
-															),
-														)
-													: null,
-												item.description
-													? h(
-															"tr",
-															{ className: "border-b border-[#e1ebf0]" },
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-																},
-																"Usage & Notes:",
-															),
-															h(
-																"td",
-																{
-																	className:
-																		"py-1 text-[#26343d] leading-relaxed",
-																},
-																item.description,
-															),
-														)
-													: null,
-											),
-										),
-										item.link
-											? h(
-													"div",
-													{ className: "pt-2 flex justify-end" },
-													h(
-														"span",
-														{
-															className:
-																"site-button-2007 inline-block px-3 py-1 text-xs",
-														},
-														"Visit Official Website »",
-													),
-												)
-											: null,
+										item.link ? "a" : "span",
+										{
+											className:
+												"text-[#064f83] underline hover:text-[#c0392b] text-[14px] leading-snug truncate",
+											href: item.link || undefined,
+											target: item.link ? "_blank" : undefined,
+											rel: item.link ? "noopener noreferrer" : undefined,
+											title: item.name || "",
+										},
+										item.name || "Untitled Software",
 									),
-								),
-							);
-						});
+								);
+							}),
+						);
 					}
 
 					var softwareContent = h(
@@ -3047,10 +2914,10 @@
 									intro,
 								)
 							: null,
-						h("div", { className: "mt-4 space-y-3" }, itemsListElements),
+						h("div", { className: "mt-6" }, itemsListElements),
 						h(
 							"p",
-							{ className: "mt-6" },
+							{ className: "mt-8" },
 							h(
 								"span",
 								{ className: "text-[#064f83] underline" },
