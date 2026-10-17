@@ -29,6 +29,23 @@
       "image": "/images/cielen-ids-hi.webp",
       "rating": "Not Yet Rated / 5",
       "year": "2026"
+    },
+    {
+      "status": "to-read",
+      "title": "How Linux Works",
+      "author": "Brian Ward",
+      "image": "/images/71bcgtbmhdl.webp",
+      "year": "2026"
+    },
+    {
+      "status": "currently-reading",
+      "title": "Algorithms - 4th Edition",
+      "author": "Robert Sedgewick and Kevin Wayne",
+      "progress": "Chapter 2",
+      "rating": "4.9/5",
+      "year": "2026",
+      "review": "This book is a mini course on DSA and CS",
+      "image": "/images/61-8zu7x3ul.webp"
     }
   ]
 }
