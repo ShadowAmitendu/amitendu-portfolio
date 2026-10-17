@@ -178,6 +178,38 @@ export default function (eleventyConfig) {
 	eleventyConfig.addFilter("resolveIcon", (url, label, explicitIcon) => {
 		return resolveIcon(url, label, explicitIcon);
 	});
+	eleventyConfig.addFilter("skillIcon", (skillName = "") => {
+		const map = {
+			html: "html.svg",
+			html5: "html.svg",
+			css: "css.svg",
+			css3: "css.svg",
+			javascript: "javascript.svg",
+			js: "javascript.svg",
+			angular: "angular.svg",
+			angularjs: "angular.svg",
+			react: "react.svg",
+			reactjs: "react.svg",
+			markdown: "markdown.svg",
+			md: "markdown.svg",
+			java: "java.svg",
+			python: "python.svg",
+			c: "c.svg",
+			cpp: "c.svg",
+			"c++": "c.svg",
+			php: "php.svg",
+			mysql: "mysql.svg",
+			"oracle sql plus": "oracle.svg",
+			"oracle sql": "oracle.svg",
+			oracle: "oracle.svg",
+			sql: "oracle.svg",
+			plsql: "oracle.svg",
+			typescript: "typescript.svg",
+			ts: "typescript.svg",
+		};
+		const key = String(skillName || "").toLowerCase().trim();
+		return map[key] || "";
+	});
 	eleventyConfig.addFilter("ratingStars", (rating) => {
 		const r = Math.max(1, Math.min(5, Math.round(Number(rating) || 0)));
 		if (!r) return "";

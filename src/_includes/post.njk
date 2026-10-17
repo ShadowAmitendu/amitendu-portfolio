@@ -548,6 +548,75 @@ isPost: true
   border-radius: 3px;
 }
 
+/* Discord & WhatsApp Style Reply Header & Mention Pills */
+#HCB_comment_box .hcb-reply-context {
+  margin: 2px 0 8px 0;
+  display: block;
+}
+
+#HCB_comment_box .hcb-reply-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #edf5f9;
+  border-left: 3px solid #164b70;
+  border-radius: 0 4px 4px 0;
+  padding: 3px 9px 3px 7px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: #556b78;
+  box-shadow: 0 1px 2px rgba(22, 75, 112, 0.04);
+}
+
+#HCB_comment_box .hcb-reply-icon {
+  color: #164b70;
+  flex-shrink: 0;
+}
+
+#HCB_comment_box .hcb-reply-label {
+  color: #71828b;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Discord Style Mention Pill */
+#HCB_comment_box .hcb-reply-pill,
+#HCB_comment_box .hcb-mention-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+  color: #064f83;
+  background-color: #dbe9f1;
+  border: 1px solid #c2dbe8;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 12px;
+  line-height: 1.3;
+  transition: all 0.15s ease;
+  user-select: text;
+}
+
+#HCB_comment_box .hcb-reply-pill:hover,
+#HCB_comment_box .hcb-mention-pill:hover {
+  background-color: #c7deeb;
+  border-color: #164b70;
+  color: #c0392b;
+}
+
+#HCB_comment_box .hcb-comment-content {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #26343d;
+  word-break: break-word;
+}
+
+/* Reply Thread Card Accent (WhatsApp / Discord thread indicator) */
+#HCB_comment_box div[id^="replies_"] .comment {
+  border-left: 3px solid #164b70;
+  background-color: #fbfdfe;
+}
+
 </style>
       <script type="text/javascript" id="hcb">
       /*<!--*/
@@ -571,6 +640,58 @@ hcb_user.no_comments_msg =
     document.getElementsByTagName("head")[0].appendChild(s);
   }
 })(); /*-->*/
+      </script>
+      <script type="text/javascript">
+      (function() {
+        function formatReplyMentions() {
+          var container = document.getElementById("HCB_comment_box");
+          if (!container) return;
+
+          var commentBodies = container.querySelectorAll(".hcb-comment-body:not([data-reply-styled])");
+          if (!commentBodies.length) return;
+
+          var leadingReplyRegex = /^\s*@([A-Za-z0-9_.\s-]+?)(?:,\s*|:\s*|\s*-\s*|\s*\n\s*)/;
+          var replyIconSvg = '<svg class="hcb-reply-icon" width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.5A2.5 2.5 0 0 0 3.5 9h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L12.293 8H3.5A1.5 1.5 0 0 1 2 6.5V2a.5.5 0 0 0-.5-.5z"/></svg>';
+
+          commentBodies.forEach(function(body) {
+            body.setAttribute("data-reply-styled", "true");
+            var rawHtml = body.innerHTML;
+            var match = rawHtml.match(leadingReplyRegex);
+
+            var replyHeader = "";
+            var content = rawHtml;
+
+            if (match) {
+              var targetName = match[1].trim();
+              content = rawHtml.slice(match[0].length).trim();
+              replyHeader = '<div class="hcb-reply-context"><div class="hcb-reply-bar">' +
+                replyIconSvg +
+                '<span class="hcb-reply-label">Replying to</span>' +
+                '<span class="hcb-reply-pill">@' + targetName + '</span>' +
+                '</div></div>';
+            }
+
+            // Also format any remaining inline @mentions (e.g., @Name or @Username)
+            content = content.replace(/(^|\s)@([a-zA-Z0-9_.-]+)(?=[,\s.:!?]|$)/g, '$1<span class="hcb-mention-pill">@$2</span>');
+
+            body.innerHTML = replyHeader + '<div class="hcb-comment-content">' + content + '</div>';
+          });
+        }
+
+        var container = document.getElementById("HCB_comment_box");
+        if (container) {
+          var observer = new MutationObserver(function() {
+            formatReplyMentions();
+          });
+          observer.observe(container, { childList: true, subtree: true });
+          formatReplyMentions();
+          window.addEventListener("load", formatReplyMentions);
+          setTimeout(formatReplyMentions, 300);
+          setTimeout(formatReplyMentions, 800);
+          setTimeout(formatReplyMentions, 1600);
+          setTimeout(formatReplyMentions, 3000);
+        }
+      })();
       </script>
       <!-- end www.htmlcommentbox.com -->
     </div>
