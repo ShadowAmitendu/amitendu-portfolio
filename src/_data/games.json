@@ -199,6 +199,20 @@
       "publisher": "Apex Designs",
       "platform": "Mobile",
       "description": "Was a great game and also was the first game i played from this game i came to know about Clash Royale (via the ingame ads for coins)"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Asphalt Nitro",
+      "publisher": "Gameloft",
+      "platform": "Mobile",
+      "description": "Played day and night!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Playing right now",
+      "name": "Asphalt 8: Airborne",
+      "publisher": "Gameloft SE"
     }
   ]
 }
