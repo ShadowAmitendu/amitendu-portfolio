@@ -7,6 +7,68 @@
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="alternate icon" href="/favicon.ico" />
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<script>
+			// Polyfill / compatibility shim for Decap CMS + Netlify Git Gateway
+			// Fixes 401 Restricted errors in Editorial Workflow:
+			// 1. Author lookups: Git Gateway blocks /.netlify/git/github/users/:login
+			// 2. Editorial notes: Git Gateway blocks general /.netlify/git/github/.../issues
+			//    (while safely allowing /.netlify/git/github/.../issues/:number/labels for PR status)
+			(function () {
+				const originalFetch = window.fetch;
+				if (!originalFetch) return;
+
+				window.fetch = async function (resource, init) {
+					let url = "";
+					if (typeof resource === "string") {
+						url = resource;
+					} else if (resource && typeof resource.url === "string") {
+						url = resource.url;
+					} else if (resource && typeof resource.href === "string") {
+						url = resource.href;
+					} else {
+						url = String(resource || "");
+					}
+
+					// 1. Intercept author lookups: /.netlify/git/github/users/:login
+					const userMatch = url.match(/\/\.netlify\/git\/github\/users\/([^/?#]+)/i);
+					if (userMatch) {
+						const username = decodeURIComponent(userMatch[1]);
+						return new Response(
+							JSON.stringify({
+								login: username,
+								name: username,
+							}),
+							{
+								status: 200,
+								statusText: "OK",
+								headers: { "Content-Type": "application/json" },
+							},
+						);
+					}
+
+					// 2. Intercept Git Gateway issue endpoints not permitted by Netlify Git Gateway proxy
+					if (/\/\.netlify\/git\/github\/.*\/issues\b/i.test(url)) {
+						// Allow PR labels update endpoint to pass through to Git Gateway: /issues/:number/labels
+						if (!/\/issues\/\d+\/labels(\b|\?|$)/i.test(url)) {
+							const method =
+								(init && init.method)
+									? init.method.toUpperCase()
+									: (resource && resource.method)
+										? resource.method.toUpperCase()
+										: "GET";
+							const body = method === "GET" ? "[]" : "{}";
+							return new Response(body, {
+								status: 200,
+								statusText: "OK",
+								headers: { "Content-Type": "application/json" },
+							});
+						}
+					}
+
+					return originalFetch.apply(this, arguments);
+				};
+			})();
+		</script>
 	</head>
 	<body>
 		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
