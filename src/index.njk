@@ -274,7 +274,7 @@ title: Home
   <a class="text-xs text-[#064f83] underline hover:text-[#c0392b]" href="/about/software/">View all &raquo;</a>
 </div>
 <div class="mt-3 site-software-grid">
-  {% for item in homeSoftware.slice(0, 8) %}
+  {% for item in homeSoftware.slice(0, 6) %}
   <div class="flex items-center gap-2.5 min-w-0">
     {% if item.icon %}
     <img src="{{ item.icon }}" alt="" class="w-5 h-5 object-contain shrink-0" loading="lazy" />
@@ -298,15 +298,15 @@ title: Home
 
 <h2 class="mt-6 border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
   Skills</h2>
-<div class="mt-3 flex flex-wrap gap-2">
+<div class="mt-3 site-software-grid">
   {% for skill in (h.skills or skills) %}
   {% set sIcon = skill | skillIcon %}
-  <span class="site-badge inline-flex items-center gap-1.5 border border-[#7892a3] bg-white px-2.5 py-1 text-xs font-semibold text-[#164b70] shadow-[1px_1px_0_#cad6de] hover:border-[#164b70] hover:bg-[#f4f8fa] transition-colors">
+  <div class="flex items-center gap-2.5 min-w-0">
     {% if sIcon %}
-    <img class="h-4 w-4 shrink-0 object-contain" src="/assets/icons/skills/{{ sIcon }}" alt="" width="16" height="16" loading="lazy" />
+    <img src="/assets/icons/skills/{{ sIcon }}" alt="" class="w-5 h-5 object-contain shrink-0" loading="lazy" />
     {% endif %}
-    <span>{{ skill }}</span>
-  </span>
+    <span class="text-[#164b70] text-[14px] leading-snug truncate">{{ skill }}</span>
+  </div>
   {% endfor %}
 </div>
 
