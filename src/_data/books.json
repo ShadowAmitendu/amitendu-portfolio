@@ -202,6 +202,14 @@
       "title": "Java All-in-One for Dummies, 5th Edition",
       "author": "Doug Lowe",
       "image": "/images/51eioo2caml.webp"
+    },
+    {
+      "status": "read",
+      "title": "Learning with Python",
+      "author": "Allen Downey, Jeffrey Elkner, Chris Meyers",
+      "image": "/images/51b5w8av9fl._sl1000_.webp",
+      "rating": "2.9/5",
+      "review": "The book is good but the code and some stuff are outdated like of Python 2 and the book says python 3 thats an issue rather buy the Programming Python by Orielly!"
     }
   ]
 }
