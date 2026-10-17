@@ -215,6 +215,20 @@ export default function (eleventyConfig) {
 		if (!r) return "";
 		return "★".repeat(r) + "☆".repeat(5 - r);
 	});
+	eleventyConfig.addFilter("filterByStatus", (items = [], statusKey = "") => {
+		if (!Array.isArray(items)) return [];
+		const key = String(statusKey || "").toLowerCase().trim();
+		if (key === "reading" || key === "currently-reading") {
+			return items.filter((b) => b && (b.status === "currently-reading" || b.status === "reading"));
+		}
+		if (key === "read" || key === "completed" || key === "finished") {
+			return items.filter((b) => b && (b.status === "read" || b.status === "completed" || b.status === "finished"));
+		}
+		if (key === "to-read" || key === "plan-to-read" || key === "wishlist") {
+			return items.filter((b) => b && (b.status === "to-read" || b.status === "plan-to-read" || b.status === "wishlist"));
+		}
+		return items.filter((b) => b && b.status === key);
+	});
 	eleventyConfig.addFilter("readingTime", (content) => {
 		const text = String(content || "").replace(/<[^>]*>/g, " ");
 		const words = text.trim().split(/\s+/).filter(Boolean).length;
