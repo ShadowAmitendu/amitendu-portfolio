@@ -116,8 +116,8 @@
   "description": "Developer portfolio of Amitendu Bikash Dhusiya — BCA student and web developer specializing in React, Java, Spring Boot, UI/UX design, and full-stack development.",
   "footerTitle": "Thanks for stopping by!",
   "announcement": {
-    "enabled": false,
-    "id": "welcome-2026",
+    "enabled": true,
+    "id": "welcome-2026-books",
     "type": "info",
     "message": "Welcome to my portfolio! Check out the newly updated retro workspace & books.",
     "linkText": "Check it out »",

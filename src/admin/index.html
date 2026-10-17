@@ -73,6 +73,51 @@
 	<body>
 		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 		<script>
+			// 0. Patch Decap CMS's bundled Immutable.List.prototype.toString so that
+			// collection list summaries render arrays (e.g. tags) cleanly as "post, fav"
+			// instead of Immutable's debug format 'List [ "post", "fav" ]'
+			(function () {
+				function patchListProto(List) {
+					if (!List || !List.prototype || List.prototype.__summaryPatched) return;
+					List.prototype.__summaryPatched = true;
+					List.prototype.toString = function () {
+						return this.join(", ");
+					};
+				}
+
+				if (window.webpackChunkDecapCms) {
+					window.webpackChunkDecapCms.push([
+						["decap-summary-list-patch-" + Date.now()],
+						{},
+						function (req) {
+							try {
+								if (typeof req === "function") {
+									try {
+										var mod = req(2002);
+										if (mod && mod.List) patchListProto(mod.List);
+									} catch (e) {}
+
+									if (req.m) {
+										var keys = Object.keys(req.m);
+										for (var i = 0; i < keys.length; i++) {
+											try {
+												var m = req(keys[i]);
+												if (m && m.List && m.Map) {
+													patchListProto(m.List);
+													break;
+												}
+											} catch (e) {}
+										}
+									}
+								}
+							} catch (err) {
+								console.warn("[Decap Summary Patch] Error:", err);
+							}
+						},
+					]);
+				}
+			})();
+
 			// 1. Inject site stylesheet, Barlow Condensed, and Bebas Neue fonts into the preview iframe
 			CMS.registerPreviewStyle(
 				"https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&display=swap",
@@ -126,6 +171,7 @@
 				activeNavKey,
 				breadcrumbs,
 				headerBannerSrc,
+				announcement,
 			) {
 				var navItems = [
 					{ key: "home", label: "home", url: "/" },
@@ -254,6 +300,37 @@
 					);
 				});
 
+				var announcementBar = null;
+				var ann = announcement !== undefined ? announcement : {
+					enabled: true,
+					type: "info",
+					message: "Welcome to my portfolio! Check out the newly updated retro workspace & books.",
+					linkText: "Check it out »",
+					linkUrl: "/about/books/"
+				};
+				if (ann && ann.enabled && ann.message) {
+					var badgeText = ann.type === "alert" ? "NOTICE" : ann.type === "success" ? "UPDATE" : "BULLETIN";
+					var barClass = "mb-1 border px-3 py-1.5 flex items-center justify-between gap-3 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.1)] " +
+						(ann.type === "alert" ? "border-[#d4a017] bg-[#fff8e1] text-[#5d4037]" : ann.type === "success" ? "border-[#66bb6a] bg-[#e8f5e9] text-[#1b5e20]" : "border-[#789bb0] bg-[#e6f2f8] text-[#164b70]");
+					var badgeClass = "font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 border select-none shrink-0 " +
+						(ann.type === "alert" ? "border-[#d4a017] bg-[#ffecb3] text-[#795548]" : ann.type === "success" ? "border-[#66bb6a] bg-[#c8e6c9] text-[#2e7d32]" : "border-[#789bb0] bg-[#d0e5f2] text-[#164b70]");
+
+					announcementBar = h(
+						"aside",
+						{ className: barClass },
+						h(
+							"div",
+							{ className: "flex items-center gap-2 min-w-0" },
+							h("span", { className: badgeClass }, badgeText),
+							h("span", { className: "truncate font-medium text-xs" }, ann.message),
+							ann.linkUrl && ann.linkText
+								? h("a", { className: "shrink-0 underline font-bold hover:text-[#c0392b] ml-1", href: ann.linkUrl }, ann.linkText)
+								: null,
+						),
+						h("span", { className: "px-1.5 py-0.5 border border-[#9bb0be] bg-white text-[10px] font-bold text-[#71828b] select-none" }, "✕"),
+					);
+				}
+
 				return h(
 					"div",
 					{
@@ -263,48 +340,7 @@
 					h(
 						"main",
 						{ className: "site-shell mx-auto max-w-6xl p-1" },
-						// Retro Dismissible Announcement Bar
-						h(
-							"aside",
-							{
-								className:
-									"mb-1 border border-[#789bb0] bg-[#e6f2f8] text-[#164b70] px-3 py-1.5 flex items-center justify-between gap-3 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.1)]",
-							},
-							h(
-								"div",
-								{ className: "flex items-center gap-2 min-w-0" },
-								h(
-									"span",
-									{
-										className:
-											"font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 border border-[#789bb0] bg-[#d0e5f2] text-[#164b70] select-none shrink-0",
-									},
-									"BULLETIN",
-								),
-								h(
-									"span",
-									{ className: "truncate font-medium text-xs" },
-									"Welcome to my portfolio! Check out the newly updated retro workspace & books.",
-								),
-								h(
-									"a",
-									{
-										className:
-											"shrink-0 underline font-bold hover:text-[#c0392b] ml-1",
-										href: "/about/books/",
-									},
-									"Check it out »",
-								),
-							),
-							h(
-								"span",
-								{
-									className:
-										"px-1.5 py-0.5 border border-[#9bb0be] bg-white text-[10px] font-bold text-[#71828b] select-none",
-								},
-								"✕",
-							),
-						),
+						announcementBar,
 
 						// Header with CRT monitors banner
 						h(
@@ -4103,6 +4139,18 @@
 						),
 					);
 
+					var annObj = entry.getIn(["data", "announcement"]);
+					var ann = null;
+					if (annObj) {
+						ann = {
+							enabled: annObj.get ? annObj.get("enabled") : annObj.enabled,
+							type: (annObj.get ? annObj.get("type") : annObj.type) || "info",
+							message: annObj.get ? annObj.get("message") : annObj.message,
+							linkText: annObj.get ? annObj.get("linkText") : annObj.linkText,
+							linkUrl: annObj.get ? annObj.get("linkUrl") : annObj.linkUrl,
+						};
+					}
+
 					return renderFullSiteShell(
 						tagline,
 						title,
@@ -4110,6 +4158,7 @@
 						"home",
 						null,
 						headerBannerSrc,
+						ann,
 					);
 				},
 			});
