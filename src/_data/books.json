@@ -46,6 +46,16 @@
       "year": "2026",
       "review": "This book is a mini course on DSA and CS",
       "image": "/images/61-8zu7x3ul.webp"
+    },
+    {
+      "status": "currently-reading",
+      "title": "REST API Design Handbook",
+      "author": "Mark Masse",
+      "image": "/images/download.webp",
+      "progress": "37th Page",
+      "rating": "4.9/5",
+      "year": "2026",
+      "review": "Good book for reading and understanding the rules and its quite a small book!"
     }
   ]
 }
