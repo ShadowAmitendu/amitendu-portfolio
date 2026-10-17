@@ -4,189 +4,255 @@ title: Books
 headerTagline: WHAT I'M READING
 permalink: /about/books/
 aboutTab: books
+
 ---
 {% include "about-tabs.njk" %}
 
 <h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
-  {{ books.heading or 'Bookshelf' }}</h2>
+  {{ books.heading or 'Bookshelf' }}
+</h2>
 {% if books.intro %}
-<p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ books.intro }}</p>
+  <p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ books.intro }}</p>
 {% endif %}
 
 <div class="mt-6">
   {% if books.items and books.items.length > 0 %}
-  {# Responsive Bookshelf Grid #}
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-    {% for book in books.items %}
-    <article class="site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de] hover:border-[#164b70] transition-colors group">
-      <button type="button" class="w-full text-left cursor-pointer flex flex-col h-full focus:outline-dotted focus:outline-2 focus:outline-[#164b70]"
-        onclick="document.getElementById('book-dialog-{{ loop.index }}').showModal()"
-        aria-haspopup="dialog"
-        aria-controls="book-dialog-{{ loop.index }}"
-        title="Click to view details for {{ book.title }}">
-        {# Book Cover Frame with Book Aspect Ratio #}
-        <div class="relative w-full aspect-[2/3] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
-          {% if book.image %}
-          <img src="{{ book.image }}" alt="{{ book.imageAlt or book.title }}" class="w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]" loading="lazy" />
-          {% else %}
-          <div class="w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]">
-            <span class="text-xs font-bold text-[#164b70] uppercase">BOOK</span>
-            <span class="text-[10px] text-[#556b78] mt-1 line-clamp-2">{{ book.title }}</span>
-          </div>
-          {% endif %}
-
-          {# Status Tag Ribbon #}
-          <div class="absolute top-1.5 right-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]">
-            {% if book.status == "currently-reading" %}
-            <span class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Reading</span>
-            {% elif book.status == "read" %}
-            <span class="inline-block bg-[#2e7d32] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Finished</span>
-            {% elif book.status == "to-read" %}
-            <span class="inline-block bg-[#556b78] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Plan</span>
-            {% endif %}
-          </div>
-        </div>
-
-        {# Book Title & Author (Fixed/uniform heights to align text everywhere) #}
-        <div class="mt-2.5 flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-bold text-[#71828b] block select-none">#{{ loop.index }}</span>
-            <h3 class="font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-2 min-h-[2rem] flex items-start group-hover:text-[#c0392b] group-hover:underline mt-0.5">
-              {{ book.title }}
-            </h3>
-            <p class="text-[11px] text-[#556b78] line-clamp-1 min-h-[1.1rem] flex items-center mt-0.5">
-              {% if book.author %}by {{ book.author }}{% endif %}
-            </p>
-          </div>
-
-          <div class="mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]">
-            {% if book.rating %}
-            <span class="text-[#c0392b] font-bold text-[10px]">{{ book.rating | ratingStars }}</span>
-            {% else %}
-            <span></span>
-            {% endif %}
-            <span class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]">Details &raquo;</span>
-          </div>
-        </div>
-      </button>
-
-      {# Native HTML5 Accessible Modal Dialog #}
-      <dialog id="book-dialog-{{ loop.index }}" class="site-book-dialog p-0 bg-transparent border-0 max-w-xl w-[92vw] m-auto backdrop:bg-black/60 backdrop:backdrop-blur-xs">
-        <div class="win7-aero-window p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-          <div class="win7-aero-glass-shine"></div>
-          
-          {# Dialog Aero Titlebar #}
-          <div class="win7-aero-titlebar pr-14">
-            <div class="win7-title-text truncate">
-              #{{ loop.index }} — {{ book.title }}
-            </div>
-            <button type="button" class="win7-btn-close"
-              onclick="document.getElementById('book-dialog-{{ loop.index }}').close()"
-              aria-label="Close details">
-              <span>✕</span>
-            </button>
-          </div>
-
-          {# Dialog Body #}
-          <div class="win7-client-area bg-[#f8fbfc] p-3 sm:p-4 text-xs">
-            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-              {# Left Cover Frame with full width and auto height #}
-              <div class="shrink-0 w-28 sm:w-32 flex items-start justify-center">
-                {% if book.image %}
-                <div class="site-listing-frame w-full shadow-[2px_2px_0_#cad6de] border border-[#7892a3] bg-white p-1">
-                  <img src="{{ book.image }}" alt="{{ book.imageAlt or book.title }}" class="w-full h-auto object-contain block mx-auto" />
+    {# Responsive Bookshelf Grid #}
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {% for book in books.items %}
+        <article class="site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de] hover:border-[#164b70] transition-colors group">
+          <button
+            type="button"
+            class="w-full text-left cursor-pointer flex flex-col h-full focus:outline-dotted focus:outline-2 focus:outline-[#164b70]"
+            onclick="document.getElementById('book-dialog-{{ loop.index }}').showModal()"
+            aria-haspopup="dialog"
+            aria-controls="book-dialog-{{ loop.index }}"
+            title="Click to view details for {{ book.title }}"
+          >
+            {# Book Cover Frame with Book Aspect Ratio #}
+            <div class="relative w-full aspect-2/3 overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
+              {% if book.image %}
+                <img
+                  src="{{ book.image }}"
+                  alt="{{ book.imageAlt or book.title }}"
+                  class="w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]"
+                  loading="lazy"
+                />
+              {% else %}
+                <div class="w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]">
+                  <span class="text-xs font-bold text-[#164b70] uppercase"
+                  >BOOK</span>
+                  <span class="text-[10px] text-[#556b78] mt-1 line-clamp-2">{{
+                    book.title
+                  }}</span>
                 </div>
-                {% else %}
-                <div class="w-full aspect-[2/3] flex items-center justify-center bg-[#dce9ef] border border-[#7892a3] font-bold text-[#164b70]">
-                  BOOK
-                </div>
+              {% endif %}
+
+              {# Status Tag Ribbon #}
+              <div class="absolute top-1.5 right-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]">
+                {% if book.status == "currently-reading" %}
+                  <span
+                    class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+                  >Reading</span>
+                {% elif book.status == "read" %}
+                  <span
+                    class="inline-block bg-[#2e7d32] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+                  >Finished</span>
+                {% elif book.status == "to-read" %}
+                  <span
+                    class="inline-block bg-[#556b78] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+                  >Plan</span>
                 {% endif %}
               </div>
+            </div>
 
-              {# Right Details Table #}
-              <div class="min-w-0 flex-1 w-full">
-                <h3 class="text-base font-bold text-[#164b70] tracking-tight uppercase leading-snug">
+            {# Book Title & Author (Fixed/uniform heights to align text everywhere) #}
+            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+              <div>
+                <span
+                  class="text-[10px] font-bold text-[#71828b] block select-none"
+                >#{{ loop.index }}</span>
+                <h3 class="font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-2 min-h-8 flex items-start group-hover:text-[#c0392b] group-hover:underline mt-0.5">
                   {{ book.title }}
                 </h3>
-                {% if book.author %}
-                <p class="text-xs text-[#556b78] mt-0.5">by <span class="font-bold text-[#26343d]">{{ book.author }}</span></p>
-                {% endif %}
+                <p class="text-[11px] text-[#556b78] line-clamp-1 min-h-[1.1rem] flex items-center mt-0.5">
+                  {% if book.author %}by {{ book.author }}{% endif %}
+                </p>
+              </div>
 
-                <table class="w-full mt-3 text-xs border-collapse">
-                  <tbody>
-                    {% if book.status %}
-                    <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Status:</td>
-                      <td class="py-1 text-[#26343d]">
-                        {% if book.status == "currently-reading" %}Currently Reading
-                        {% elif book.status == "read" %}Finished / Read
-                        {% elif book.status == "to-read" %}Plan to Read
-                        {% else %}{{ book.status }}
-                        {% endif %}
-                      </td>
-                    </tr>
-                    {% endif %}
-                    {% if book.progress %}
-                    <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Current Page:</td>
-                      <td class="py-1 text-[#164b70] font-semibold">{{ book.progress }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if book.rating %}
-                    <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Rating:</td>
-                      <td class="py-1 text-[#c0392b] font-bold">{{ book.rating | ratingStars }} ({{ book.rating }}/5)</td>
-                    </tr>
-                    {% endif %}
-                    {% if book.year %}
-                    <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Year:</td>
-                      <td class="py-1 text-[#556b78]">{{ book.year }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if book.review %}
-                    <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Reader Notes:</td>
-                      <td class="py-1 text-[#26343d] leading-relaxed italic">"{{ book.review }}"</td>
-                    </tr>
-                    {% endif %}
-                  </tbody>
-                </table>
+              <div class="mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]">
+                {% if book.rating %}
+                  <span class="text-[#c0392b] font-bold text-[10px]">{{
+                    book.rating | ratingStars
+                  }}</span>
+                {% else %}
+                  <span></span>
+                {% endif %}
+                <span
+                  class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]"
+                >Details &raquo;</span>
               </div>
             </div>
+          </button>
 
-            {# Close button hidden on desktop; red close button in titlebar is used #}
-            <div class="mt-3 pt-2 border-t border-[#d8e5ec] flex justify-center sm:hidden">
-              <button type="button" class="site-button-2007 px-4 py-1 cursor-pointer"
-                onclick="document.getElementById('book-dialog-{{ loop.index }}').close()">
-                Close
-              </button>
+          {# Native HTML5 Accessible Modal Dialog #}
+          <dialog
+            id="book-dialog-{{ loop.index }}"
+            class="site-book-dialog p-0 bg-transparent border-0 max-w-xl w-[92vw] m-auto backdrop:backdrop-blur-xs"
+          >
+            <div class="win7-aero-window p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <div class="win7-aero-glass-shine"></div>
+
+              {# Dialog Aero Titlebar #}
+              <div class="win7-aero-titlebar pr-14">
+                <div class="win7-title-text truncate">
+                  #{{ loop.index }} — {{ book.title }}
+                </div>
+                <button
+                  type="button"
+                  class="win7-btn-close"
+                  onclick="document.getElementById('book-dialog-{{ loop.index }}').close()"
+                  aria-label="Close details"
+                >
+                  <span>✕</span>
+                </button>
+              </div>
+
+              {# Dialog Body #}
+              <div class="win7-client-area bg-[#f8fbfc] p-3 sm:p-4 text-xs">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                  {# Left Cover Frame with full width and auto height #}
+                  <div class="shrink-0 w-28 sm:w-32 flex items-start justify-center">
+                    {% if book.image %}
+                      <div class="site-listing-frame w-full shadow-[2px_2px_0_#cad6de] border border-[#7892a3] bg-white p-1">
+                        <img
+                          src="{{ book.image }}"
+                          alt="{{ book.imageAlt or book.title }}"
+                          class="w-full h-auto object-contain block mx-auto"
+                        />
+                      </div>
+                    {% else %}
+                      <div class="w-full aspect-2/3 flex items-center justify-center bg-[#dce9ef] border border-[#7892a3] font-bold text-[#164b70]">
+                        BOOK
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  {# Right Details Table #}
+                  <div class="min-w-0 flex-1 w-full">
+                    <h3 class="text-base font-bold text-[#164b70] tracking-tight uppercase leading-snug">
+                      {{ book.title }}
+                    </h3>
+                    {% if book.author %}
+                      <p class="text-xs text-[#556b78] mt-0.5">
+                        by <span class="font-bold text-[#26343d]">{{
+                          book.author
+                        }}</span>
+                      </p>
+                    {% endif %}
+
+                    <table class="w-full mt-3 text-xs border-collapse">
+                      <tbody>
+                        {% if book.status %}
+                          <tr class="border-b border-[#e1ebf0]">
+                            <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                              Status:
+                            </td>
+                            <td class="py-1 text-[#26343d]">
+                              {%
+                                if book.status == "currently-reading"
+                              %}Currently Reading
+                              {% elif book.status == "read" %}Finished / Read
+                              {% elif book.status == "to-read" %}Plan to Read
+                              {% else %}{{ book.status }}
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endif %}
+                        {% if book.progress %}
+                          <tr class="border-b border-[#e1ebf0]">
+                            <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                              Current Page:
+                            </td>
+                            <td class="py-1 text-[#164b70] font-semibold">
+                              {{ book.progress }}
+                            </td>
+                          </tr>
+                        {% endif %}
+                        {% if book.rating %}
+                          <tr class="border-b border-[#e1ebf0]">
+                            <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                              Rating:
+                            </td>
+                            <td class="py-1 text-[#c0392b] font-bold">
+                              {{ book.rating | ratingStars }} ({{
+                                book.rating
+                              }}/5)
+                            </td>
+                          </tr>
+                        {% endif %}
+                        {% if book.year %}
+                          <tr class="border-b border-[#e1ebf0]">
+                            <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                              Year:
+                            </td>
+                            <td class="py-1 text-[#556b78]">{{ book.year }}</td>
+                          </tr>
+                        {% endif %}
+                        {% if book.review %}
+                          <tr class="border-b border-[#e1ebf0]">
+                            <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                              Reader Notes:
+                            </td>
+                            <td class="py-1 text-[#26343d] leading-relaxed italic">
+                              "{{ book.review }}"
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {# Close button hidden on desktop; red close button in titlebar is used #}
+                <div class="mt-3 pt-2 border-t border-[#d8e5ec] flex justify-center sm:hidden">
+                  <button
+                    type="button"
+                    class="site-button-2007 px-4 py-1 cursor-pointer"
+                    onclick="document.getElementById('book-dialog-{{ loop.index }}').close()"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </dialog>
-    </article>
-    {% endfor %}
-  </div>
+          </dialog>
+        </article>
+      {% endfor %}
+    </div>
   {% else %}
-  <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
-    No books added yet. Books added via the admin panel will appear here.
-  </div>
+    <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+      No books added yet. Books added via the admin panel will appear here.
+    </div>
   {% endif %}
 </div>
 
 <script>
-  // Close dialog when clicking on the backdrop outside the window
-  document.querySelectorAll('dialog.site-book-dialog').forEach(function(dialog) {
-    dialog.addEventListener('click', function(e) {
-      var rect = dialog.getBoundingClientRect();
-      var isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-      if (!isInDialog) {
-        dialog.close();
-      }
-    });
+// Close dialog when clicking on the backdrop outside the window
+document.querySelectorAll("dialog.site-book-dialog").forEach(function(dialog) {
+  dialog.addEventListener("click", function(e) {
+    var rect = dialog.getBoundingClientRect();
+    var isInDialog = rect.top <= e.clientY
+      && e.clientY <= rect.top + rect.height
+      && rect.left <= e.clientX && e.clientX <= rect.left + rect.width;
+    if (!isInDialog) {
+      dialog.close();
+    }
   });
+});
 </script>
 
-<p class="mt-6"><a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a></p>
+<p class="mt-6">
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/"
+  >← back to home</a>
+</p>

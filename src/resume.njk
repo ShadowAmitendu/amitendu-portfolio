@@ -6,7 +6,7 @@ permalink: /resume/
 {% set r = resume %}
 <div class="site-resume">
   {# Document Control Bar / Retro Toolbar #}
-  <div class="site-resume-toolbar border border-[#9bb0be] bg-gradient-to-b from-[#ffffff] to-[#edf4f8] px-3 py-1.5 shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] flex flex-wrap items-center justify-between gap-2 mb-4">
+  <div class="site-resume-toolbar border border-[#9bb0be] bg-linear-to-b from-[#ffffff] to-[#edf4f8] px-3 py-1.5 shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] flex flex-wrap items-center justify-between gap-2 mb-4">
     <div class="flex items-center gap-2">
       <span
         class="inline-block w-2 h-2 bg-[#2e7d32] shadow-[0_0_3px_#2e7d32]"
@@ -67,7 +67,7 @@ permalink: /resume/
 
   {# Contact Details Strip #}
   {% if r.contactDetails and r.contactDetails.length > 0 %}
-    <div class="border border-[#9bb0be] bg-gradient-to-b from-[#f8fbfc] to-[#edf4f8] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] mb-6">
+    <div class="border border-[#9bb0be] bg-linear-to-b from-[#f8fbfc] to-[#edf4f8] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] mb-6">
       <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
         {% for item in r.contactDetails %}
           <div class="flex items-center gap-1.5">

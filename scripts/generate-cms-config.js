@@ -40,7 +40,7 @@ export function buildConfig() {
 				deleteMedia: "media: delete {{path}}",
 			},
 		},
-		publish_mode: "simple",
+		publish_mode: "editorial_workflow",
 		local_backend: true,
 		site_url: "https://amitendu.me",
 		display_url: "https://amitendu.me",

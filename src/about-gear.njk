@@ -4,164 +4,208 @@ title: Gear
 headerTagline: MY DESK & DAILY DRIVERS
 permalink: /about/gear/
 aboutTab: gear
+
 ---
 {% include "about-tabs.njk" %}
 
 <h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
-  {{ gear.heading or 'Hardware, Desk Setup & Photography' }}</h2>
+  {{ gear.heading or 'Hardware, Desk Setup & Photography' }}
+</h2>
 {% if gear.intro %}
-<p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ gear.intro }}</p>
+  <p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ gear.intro }}</p>
 {% endif %}
 
 {# Section 1: Desk & Setup Photo Gallery #}
 {% if gear.gallery and gear.gallery.length > 0 %}
-<section class="mt-6">
-  <h3 class="border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider">
-    Desk & Setup Gallery
-  </h3>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-    {% for photo in gear.gallery %}
-    <article class="site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de] hover:border-[#164b70] transition-colors group">
-      <button type="button" class="w-full text-left cursor-pointer flex flex-col h-full focus:outline-dotted focus:outline-2 focus:outline-[#164b70]"
-        onclick="document.getElementById('gallery-dialog-{{ loop.index }}').showModal()"
-        aria-haspopup="dialog"
-        aria-controls="gallery-dialog-{{ loop.index }}"
-        title="Click to view full photo: {{ photo.title or 'Desk Photo' }}">
-        {# Photo Frame with 4/3 Aspect Ratio #}
-        <div class="relative w-full aspect-[4/3] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
-          {% if photo.image %}
-          <img src="{{ photo.image }}" alt="{{ photo.imageAlt or photo.title or 'Setup Photo' }}" class="w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]" loading="lazy" />
-          {% else %}
-          <div class="w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]">
-            <span class="text-xs font-bold text-[#164b70] uppercase">PHOTO</span>
-            <span class="text-[10px] text-[#556b78] mt-1">{{ photo.title or 'Desk Setup' }}</span>
-          </div>
-          {% endif %}
-        </div>
-
-        {# Title & Caption with uniform height #}
-        <div class="mt-2.5 flex-1 flex flex-col justify-between">
-          <div>
-            <h4 class="font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-1 min-h-[1.1rem] flex items-start group-hover:text-[#c0392b] group-hover:underline">
-              {{ photo.title or 'Desk Setup' }}
-            </h4>
-            <p class="text-[11px] text-[#556b78] line-clamp-2 min-h-[2rem] mt-0.5">
-              {{ photo.caption or '' }}
-            </p>
-          </div>
-
-          <div class="mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]">
-            {% if photo.date %}
-            <span class="text-[#71828b] text-[10px]">{{ photo.date }}</span>
-            {% else %}
-            <span></span>
-            {% endif %}
-            <span class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]">View Photo &raquo;</span>
-          </div>
-        </div>
-      </button>
-
-      {# Native HTML5 Accessible Modal Dialog with Windows 7 Aero styling #}
-      <dialog id="gallery-dialog-{{ loop.index }}" class="site-gear-dialog p-0 bg-transparent border-0 max-w-2xl w-[94vw] m-auto backdrop:bg-black/60 backdrop:backdrop-blur-xs">
-        <div class="win7-aero-window p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-          <div class="win7-aero-glass-shine"></div>
-          
-          {# Dialog Aero Titlebar #}
-          <div class="win7-aero-titlebar pr-14">
-            <div class="win7-title-text truncate">
-              {{ photo.title or 'Setup Photo' }}
-            </div>
-            <button type="button" class="win7-btn-close"
-              onclick="document.getElementById('gallery-dialog-{{ loop.index }}').close()"
-              aria-label="Close photo">
-              <span>✕</span>
-            </button>
-          </div>
-
-          {# Dialog Body #}
-          <div class="win7-client-area bg-[#f8fbfc] p-3 sm:p-4 text-xs">
-            <div class="site-listing-frame w-full shadow-[2px_2px_0_#cad6de] border border-[#7892a3] bg-white p-1">
-              <img src="{{ photo.image }}" alt="{{ photo.imageAlt or photo.title or 'Setup photo' }}" class="w-full max-h-[70vh] object-contain block mx-auto" />
-            </div>
-            <div class="mt-3 flex items-baseline justify-between gap-2 border-t border-[#e1ebf0] pt-2">
-              <div>
-                <h4 class="font-bold text-sm text-[#164b70]">{{ photo.title or 'Desk Photo' }}</h4>
-                {% if photo.caption %}
-                <p class="text-xs text-[#3b4d57] mt-0.5">{{ photo.caption }}</p>
-                {% endif %}
-              </div>
-              {% if photo.date %}
-              <span class="text-xs text-[#71828b] shrink-0 font-medium">{{ photo.date }}</span>
+  <section class="mt-6">
+    <h3 class="border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider">
+      Desk & Setup Gallery
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+      {% for photo in gear.gallery %}
+        <article class="site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de] hover:border-[#164b70] transition-colors group">
+          <button
+            type="button"
+            class="w-full text-left cursor-pointer flex flex-col h-full focus:outline-dotted focus:outline-2 focus:outline-[#164b70]"
+            onclick="document.getElementById('gallery-dialog-{{ loop.index }}').showModal()"
+            aria-haspopup="dialog"
+            aria-controls="gallery-dialog-{{ loop.index }}"
+            title="Click to view full photo: {{ photo.title or 'Desk Photo' }}"
+          >
+            {# Photo Frame with 4/3 Aspect Ratio #}
+            <div class="relative w-full aspect-4/3 overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
+              {% if photo.image %}
+                <img
+                  src="{{ photo.image }}"
+                  alt="{{ photo.imageAlt or photo.title or 'Setup Photo' }}"
+                  class="w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]"
+                  loading="lazy"
+                />
+              {% else %}
+                <div class="w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]">
+                  <span class="text-xs font-bold text-[#164b70] uppercase"
+                  >PHOTO</span>
+                  <span class="text-[10px] text-[#556b78] mt-1">{{
+                    photo.title or 'Desk Setup'
+                  }}</span>
+                </div>
               {% endif %}
             </div>
 
-            {# Close button hidden on desktop #}
-            <div class="mt-3 pt-2 border-t border-[#d8e5ec] flex justify-center sm:hidden">
-              <button type="button" class="site-button-2007 px-4 py-1 cursor-pointer"
-                onclick="document.getElementById('gallery-dialog-{{ loop.index }}').close()">
-                Close
-              </button>
+            {# Title & Caption with uniform height #}
+            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+              <div>
+                <h4 class="font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-1 min-h-[1.1rem] flex items-start group-hover:text-[#c0392b] group-hover:underline">
+                  {{ photo.title or 'Desk Setup' }}
+                </h4>
+                <p class="text-[11px] text-[#556b78] line-clamp-2 min-h-8 mt-0.5">
+                  {{ photo.caption or '' }}
+                </p>
+              </div>
+
+              <div class="mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]">
+                {% if photo.date %}
+                  <span class="text-[#71828b] text-[10px]">{{
+                    photo.date
+                  }}</span>
+                {% else %}
+                  <span></span>
+                {% endif %}
+                <span
+                  class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]"
+                >View Photo &raquo;</span>
+              </div>
             </div>
-          </div>
-        </div>
-      </dialog>
-    </article>
-    {% endfor %}
-  </div>
-</section>
+          </button>
+
+          {# Native HTML5 Accessible Modal Dialog with Windows 7 Aero styling #}
+          <dialog
+            id="gallery-dialog-{{ loop.index }}"
+            class="site-gear-dialog p-0 bg-transparent border-0 max-w-2xl w-[94vw] m-auto backdrop:backdrop-blur-xs"
+          >
+            <div class="win7-aero-window p-1 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <div class="win7-aero-glass-shine"></div>
+
+              {# Dialog Aero Titlebar #}
+              <div class="win7-aero-titlebar pr-14">
+                <div class="win7-title-text truncate">
+                  {{ photo.title or 'Setup Photo' }}
+                </div>
+                <button
+                  type="button"
+                  class="win7-btn-close"
+                  onclick="document.getElementById('gallery-dialog-{{ loop.index }}').close()"
+                  aria-label="Close photo"
+                >
+                  <span>✕</span>
+                </button>
+              </div>
+
+              {# Dialog Body #}
+              <div class="win7-client-area bg-[#f8fbfc] p-3 sm:p-4 text-xs">
+                <div class="site-listing-frame w-full shadow-[2px_2px_0_#cad6de] border border-[#7892a3] bg-white p-1">
+                  <img
+                    src="{{ photo.image }}"
+                    alt="{{ photo.imageAlt or photo.title or 'Setup photo' }}"
+                    class="w-full max-h-[70vh] object-contain block mx-auto"
+                  />
+                </div>
+                <div class="mt-3 flex items-baseline justify-between gap-2 border-t border-[#e1ebf0] pt-2">
+                  <div>
+                    <h4 class="font-bold text-sm text-[#164b70]">
+                      {{ photo.title or 'Desk Photo' }}
+                    </h4>
+                    {% if photo.caption %}
+                      <p class="text-xs text-[#3b4d57] mt-0.5">
+                        {{ photo.caption }}
+                      </p>
+                    {% endif %}
+                  </div>
+                  {% if photo.date %}
+                    <span class="text-xs text-[#71828b] shrink-0 font-medium">{{
+                      photo.date
+                    }}</span>
+                  {% endif %}
+                </div>
+
+                {# Close button hidden on desktop #}
+                <div class="mt-3 pt-2 border-t border-[#d8e5ec] flex justify-center sm:hidden">
+                  <button
+                    type="button"
+                    class="site-button-2007 px-4 py-1 cursor-pointer"
+                    onclick="document.getElementById('gallery-dialog-{{ loop.index }}').close()"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
 {% endif %}
 
 {# Section 2: Hardware & Peripheral Specifications #}
 {% if gear.categories and gear.categories.length > 0 %}
-<section class="mt-8">
-  <h3 class="border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider">
-    Hardware & Specifications
-  </h3>
-  <div class="mt-4 space-y-4">
-    {% for cat in gear.categories %}
-    <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
-      <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 shadow-[inset_0_1px_0_#fff]">
-        <h4 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0">
-          {{ cat.category }}
-        </h4>
-      </div>
-      <div class="p-3 bg-[#f8fbfc]">
-        <table class="w-full text-xs text-[#26343d] border-collapse">
-          <tbody>
-            {% for item in cat.items %}
-            <tr class="border-b border-[#e1ebf0] last:border-b-0">
-              <td class="py-2 font-bold text-[#164b70] w-36 sm:w-48 shrink-0 align-top">
-                {{ item.name }}
-              </td>
-              <td class="py-2 text-[#26343d] align-top">
-                <div class="font-semibold text-[#164b70]">{{ item.specs }}</div>
-                {% if item.notes %}
-                <p class="text-[11px] text-[#556b78] mt-0.5 leading-relaxed">{{ item.notes }}</p>
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+  <section class="mt-8">
+    <h3 class="border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wider">
+      Hardware & Specifications
+    </h3>
+    <div class="mt-4 space-y-4">
+      {% for cat in gear.categories %}
+        <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
+          <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 shadow-[inset_0_1px_0_#fff]">
+            <h4 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0">
+              {{ cat.category }}
+            </h4>
+          </div>
+          <div class="p-3 bg-[#f8fbfc]">
+            <table class="w-full text-xs text-[#26343d] border-collapse">
+              <tbody>
+                {% for item in cat.items %}
+                  <tr class="border-b border-[#e1ebf0]">
+                    <td class="py-2 font-bold text-[#164b70] w-36 sm:w-48 shrink-0 align-top">
+                      {{ item.name }}
+                    </td>
+                    <td class="py-2 text-[#26343d] align-top">
+                      <div class="font-semibold text-[#164b70]">
+                        {{ item.specs }}
+                      </div>
+                      {% if item.notes %}
+                        <p class="text-[11px] text-[#556b78] mt-0.5 leading-relaxed">
+                          {{ item.notes }}
+                        </p>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-</section>
+  </section>
 {% endif %}
 
 <script>
-  // Close dialog when clicking on the backdrop outside the window
-  document.querySelectorAll('dialog.site-gear-dialog').forEach(function(dialog) {
-    dialog.addEventListener('click', function(e) {
-      var rect = dialog.getBoundingClientRect();
-      var isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-        rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-      if (!isInDialog) {
-        dialog.close();
-      }
-    });
+// Close dialog when clicking on the backdrop outside the window
+document.querySelectorAll("dialog.site-gear-dialog").forEach(function(dialog) {
+  dialog.addEventListener("click", function(e) {
+    var rect = dialog.getBoundingClientRect();
+    var isInDialog = rect.top <= e.clientY
+      && e.clientY <= rect.top + rect.height
+      && rect.left <= e.clientX && e.clientX <= rect.left + rect.width;
+    if (!isInDialog) {
+      dialog.close();
+    }
   });
+});
 </script>
 
-<p class="mt-8"><a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a></p>
+<p class="mt-8">
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/"
+  >← back to home</a>
+</p>
