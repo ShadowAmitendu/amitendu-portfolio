@@ -1326,3 +1326,95 @@ body {
 	}
 }
 
+/* Callout & Notice Boxes */
+.site-callout {
+	margin: 1.25rem 0;
+	padding: 0.85rem 1.15rem;
+	border-left-width: 4px;
+	border-radius: 0 0.25rem 0.25rem 0;
+	font-size: 0.95rem;
+	line-height: 1.55;
+}
+.site-callout-info {
+	border-color: #164b70;
+	background-color: #eef5f9;
+	color: #16364d;
+}
+.site-callout-tip {
+	border-color: #2a9d8f;
+	background-color: #f0fdf4;
+	color: #14532d;
+}
+.site-callout-warning {
+	border-color: #f4a261;
+	background-color: #fffbeb;
+	color: #78350f;
+}
+.site-callout-quote {
+	border-color: #64748b;
+	background-color: #f8fafc;
+	color: #334155;
+	font-style: italic;
+}
+.site-callout-title {
+	display: block;
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	letter-spacing: 0.05em;
+}
+
+/* Responsive Video Embeds */
+.site-video-figure {
+	margin: 1.5rem 0;
+	text-align: center;
+}
+.site-video-wrapper {
+	position: relative;
+	width: 100%;
+	padding-top: 56.25%; /* 16:9 Aspect Ratio */
+	overflow: hidden;
+	border-radius: 0.25rem;
+	background: #000;
+	border: 1px solid #b7cbd6;
+}
+.site-video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+/* Code Snippet Cards with Filename */
+.site-code-card {
+	margin: 1.25rem 0;
+	border: 1px solid #b7cbd6;
+	border-radius: 0.25rem;
+	overflow: hidden;
+	background: #fdfdfd;
+}
+.site-code-header {
+	background: #164b70;
+	color: #ffffff;
+	padding: 0.35rem 0.75rem;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.75rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.site-code-lang {
+	opacity: 0.8;
+	text-transform: uppercase;
+	font-size: 0.7rem;
+	font-weight: bold;
+}
+.site-code-card pre {
+	margin: 0;
+	padding: 0.85rem;
+	overflow-x: auto;
+}
+

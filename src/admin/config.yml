@@ -1,6 +1,12 @@
 backend:
   name: git-gateway
   branch: main
+  commit_messages:
+    create: "content({{collection}}): create {{slug}}"
+    update: "content({{collection}}): update {{slug}}"
+    delete: "content({{collection}}): delete {{slug}}"
+    uploadMedia: "media: upload {{path}}"
+    deleteMedia: "media: delete {{path}}"
 
 publish_mode: editorial_workflow
 display_url: "https://amitendu.me"
@@ -152,9 +158,9 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Rating (e.g. 5/5, 9/10, or ★★★★★)",
+                  label: "Rating (Stars 1-5)",
                   name: "rating",
-                  widget: "string",
+                  widget: "star-rating",
                   required: false,
                 }
               - {
@@ -233,9 +239,9 @@ collections:
                   - { label: "Plan to Watch", value: "plan-to-watch" }
                 default: "watched"
               - {
-                  label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
+                  label: "Rating (Stars 1-5)",
                   name: "rating",
-                  widget: "string",
+                  widget: "star-rating",
                   required: false,
                 }
               - {
@@ -291,9 +297,9 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Rating (e.g. 10/10, 5/5, or ★★★★★)",
+                  label: "Rating (Stars 1-5)",
                   name: "rating",
-                  widget: "string",
+                  widget: "star-rating",
                   required: false,
                 }
               - {
@@ -985,6 +991,8 @@ collections:
     folder: "src/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: '{{title}} — {{commit_date | date("YYYY-MM-DD")}} ({{tags}})'
+    sortable_fields: ["date", "title", "commit_date"]
     view_filters:
       - label: "Published"
         field: "tags"
@@ -995,6 +1003,12 @@ collections:
       - label: "Drafts"
         field: "tags"
         pattern: "draft"
+    view_groups:
+      - label: "Year"
+        field: "date"
+        pattern: "\\d{4}"
+      - label: "Status"
+        field: "tags"
     fields:
       - {
           label: "Layout",
@@ -1055,6 +1069,8 @@ collections:
     folder: "src/portfolio"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — ({{tags}})"
+    sortable_fields: ["title", "commit_date"]
     view_filters:
       - label: "Published"
         field: "tags"
@@ -1065,6 +1081,9 @@ collections:
       - label: "Drafts"
         field: "tags"
         pattern: "draft"
+    view_groups:
+      - label: "Status"
+        field: "tags"
     fields:
       - {
           label: "Layout",
@@ -1104,6 +1123,7 @@ collections:
     folder: "src/authors"
     create: true
     slug: "{{slug}}"
+    summary: "{{name}} (@{{slug}})"
     fields:
       - {
           label: "Layout",
