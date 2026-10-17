@@ -2,10 +2,10 @@
 layout: base.njk
 title: Author Profile
 headerTagline: AUTHOR PROFILE
-name: Amitendu Bikash Dhusiya
 slug: shadow-amitendu
+name: Amitendu Bikash Dhusiya
 image: /images/authors/2026-10-14-amitendu-bikash-dhusiya.webp
-bio: Developer and maker of small things for the web.
+bio: A simple and creative developer using niche stuff!
 hideHeroImage: true
 ---
 
