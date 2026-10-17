@@ -5,11 +5,16 @@
 	"main": "index.js",
 	"scripts": {
 		"sync:icons": "node scripts/sync-icons.js",
+		"build:cms": "node scripts/generate-cms-config.js && node scripts/sync-icons.js",
+		"images": "node scripts/optimize-images.mjs",
+		"images:write": "node scripts/optimize-images.mjs --write",
 		"build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/assets/styles.css --minify",
 		"prebuild": "node scripts/sync-icons.js && npm run build:css",
 		"build": "eleventy",
 		"prestart": "node scripts/sync-icons.js && npm run build:css",
 		"start": "eleventy --serve",
+		"cms": "decap-server",
+		"start:cms": "node scripts/start-cms.js",
 		"watch:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/assets/styles.css --watch",
 		"remark:check": "remark .",
 		"remark:write": "remark . --output",
@@ -27,9 +32,12 @@
 	"type": "module",
 	"devDependencies": {
 		"@11ty/eleventy": "^3.1.6",
+		"@11ty/eleventy-img": "^7.0.0",
 		"@tailwindcss/cli": "^4.3.3",
+		"decap-server": "^3.11.5",
 		"remark-cli": "^12.0.1",
 		"remark-frontmatter": "^5.0.0",
+		"sharp": "^0.35.5",
 		"tailwindcss": "^4.3.3"
 	}
 }

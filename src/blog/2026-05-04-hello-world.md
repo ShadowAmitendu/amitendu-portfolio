@@ -1,16 +1,13 @@
 ---
 layout: post.njk
-tags:
-  - post
-title: Hello World!
-headerTagline: NEWS
-description: A small beginning. This is the first post on my blog where I share
-  why I started writing, what this space will focus on, and what you can expect
-  in the future.
+draft: false
+featured: false
+title: "Hello World!"
+headerTagline: "NEWS"
+description: "A small beginning. This is the first post on my blog where I share why I started writing, what this space will focus on, and what you can expect in the future."
 date: 2026-05-05T02:04:00.000+05:30
-author: Amitendu Bikash Dhusiya
-mood: ""
-image: /images/tiu.webp
+author: "Amitendu Bikash Dhusiya"
+image: "/images/blog/2026-10-15-hello-world.webp"
 ---
 
 # Hello World!

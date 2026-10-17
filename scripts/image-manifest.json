@@ -1,0 +1,818 @@
+[
+  {
+    "collection": "authors",
+    "file": "src/images/authors/2026-10-14-amitendu-bikash-dhusiya.webp",
+    "url": "/images/authors/2026-10-14-amitendu-bikash-dhusiya.webp",
+    "sizeBytes": 21652
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-bootcamp-of-sap-2.webp",
+    "url": "/images/blog/2026-10-15-bootcamp-of-sap-2.webp",
+    "sizeBytes": 121440
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-bootcamp-of-sap-3.webp",
+    "url": "/images/blog/2026-10-15-bootcamp-of-sap-3.webp",
+    "sizeBytes": 137086
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-bootcamp-of-sap-4.webp",
+    "url": "/images/blog/2026-10-15-bootcamp-of-sap-4.webp",
+    "sizeBytes": 182432
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-bootcamp-of-sap-5.webp",
+    "url": "/images/blog/2026-10-15-bootcamp-of-sap-5.webp",
+    "sizeBytes": 253656
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-bootcamp-of-sap.webp",
+    "url": "/images/blog/2026-10-15-bootcamp-of-sap.webp",
+    "sizeBytes": 105568
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-first-year-runner-up-2.webp",
+    "url": "/images/blog/2026-10-15-first-year-runner-up-2.webp",
+    "sizeBytes": 133594
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-first-year-runner-up-3.webp",
+    "url": "/images/blog/2026-10-15-first-year-runner-up-3.webp",
+    "sizeBytes": 140564
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-first-year-runner-up-4.webp",
+    "url": "/images/blog/2026-10-15-first-year-runner-up-4.webp",
+    "sizeBytes": 76990
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-first-year-runner-up-5.webp",
+    "url": "/images/blog/2026-10-15-first-year-runner-up-5.webp",
+    "sizeBytes": 88252
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-first-year-runner-up.webp",
+    "url": "/images/blog/2026-10-15-first-year-runner-up.webp",
+    "sizeBytes": 130946
+  },
+  {
+    "collection": "blog",
+    "file": "src/images/blog/2026-10-15-hello-world.webp",
+    "url": "/images/blog/2026-10-15-hello-world.webp",
+    "sizeBytes": 56040
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-15-mysql-crash-course.webp",
+    "url": "/images/books/2026-10-15-mysql-crash-course.webp",
+    "sizeBytes": 55662
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-16-introduction-to-data-science.webp",
+    "url": "/images/books/2026-10-16-introduction-to-data-science.webp",
+    "sizeBytes": 23046
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-16-pandas-for-everyone-2nd-edition.webp",
+    "url": "/images/books/2026-10-16-pandas-for-everyone-2nd-edition.webp",
+    "sizeBytes": 43366
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-101-challenges-in-c-programming.webp",
+    "url": "/images/books/2026-10-17-101-challenges-in-c-programming.webp",
+    "sizeBytes": 46320
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-algorithms-4th-edition.webp",
+    "url": "/images/books/2026-10-17-algorithms-4th-edition.webp",
+    "sizeBytes": 14460
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-automate-the-boring-stuff-with-python-2nd-editio.webp",
+    "url": "/images/books/2026-10-17-automate-the-boring-stuff-with-python-2nd-editio.webp",
+    "sizeBytes": 56456
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-basic-computation-and-programming-with-c.webp",
+    "url": "/images/books/2026-10-17-basic-computation-and-programming-with-c.webp",
+    "sizeBytes": 22792
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-front-end-mastery-html-css-and-javascript-unleas.webp",
+    "url": "/images/books/2026-10-17-front-end-mastery-html-css-and-javascript-unleas.webp",
+    "sizeBytes": 36162
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-how-linux-works-3rd-edition.webp",
+    "url": "/images/books/2026-10-17-how-linux-works-3rd-edition.webp",
+    "sizeBytes": 53712
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-html-css.webp",
+    "url": "/images/books/2026-10-17-html-css.webp",
+    "sizeBytes": 11110
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-introduction-to-machine-learning-with-python.webp",
+    "url": "/images/books/2026-10-17-introduction-to-machine-learning-with-python.webp",
+    "sizeBytes": 63812
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-java-all-in-one-for-dummies-5th-edition.webp",
+    "url": "/images/books/2026-10-17-java-all-in-one-for-dummies-5th-edition.webp",
+    "sizeBytes": 35300
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-java-the-complete-reference-11th-edition.webp",
+    "url": "/images/books/2026-10-17-java-the-complete-reference-11th-edition.webp",
+    "sizeBytes": 52260
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-javascript-jquery.webp",
+    "url": "/images/books/2026-10-17-javascript-jquery.webp",
+    "sizeBytes": 15304
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-javascript-the-definitive-guide.webp",
+    "url": "/images/books/2026-10-17-javascript-the-definitive-guide.webp",
+    "sizeBytes": 84818
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-kotlin-in-depth-volume-1-2.webp",
+    "url": "/images/books/2026-10-17-kotlin-in-depth-volume-1-2.webp",
+    "sizeBytes": 28482
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-learn-c-the-hard-way-1st-edition-with-cd.webp",
+    "url": "/images/books/2026-10-17-learn-c-the-hard-way-1st-edition-with-cd.webp",
+    "sizeBytes": 44100
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-learning-git.webp",
+    "url": "/images/books/2026-10-17-learning-git.webp",
+    "sizeBytes": 52540
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-learning-with-python.webp",
+    "url": "/images/books/2026-10-17-learning-with-python.webp",
+    "sizeBytes": 37796
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-linux-pocket-guide.webp",
+    "url": "/images/books/2026-10-17-linux-pocket-guide.webp",
+    "sizeBytes": 82270
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-machine-learning-with-python-for-everyone.webp",
+    "url": "/images/books/2026-10-17-machine-learning-with-python-for-everyone.webp",
+    "sizeBytes": 45208
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-php-mysql-javascript-all-in-one-for-dummies.webp",
+    "url": "/images/books/2026-10-17-php-mysql-javascript-all-in-one-for-dummies.webp",
+    "sizeBytes": 55628
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-php-mysql-server-side-web-development.webp",
+    "url": "/images/books/2026-10-17-php-mysql-server-side-web-development.webp",
+    "sizeBytes": 12500
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-practical-sql-2nd-edition.webp",
+    "url": "/images/books/2026-10-17-practical-sql-2nd-edition.webp",
+    "sizeBytes": 62862
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-python-distilled.webp",
+    "url": "/images/books/2026-10-17-python-distilled.webp",
+    "sizeBytes": 172170
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-python-interview-questions-you-ll-most-likely-be.webp",
+    "url": "/images/books/2026-10-17-python-interview-questions-you-ll-most-likely-be.webp",
+    "sizeBytes": 87692
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-rest-api-design-handbook.webp",
+    "url": "/images/books/2026-10-17-rest-api-design-handbook.webp",
+    "sizeBytes": 22656
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-sql-all-in-one-for-dummies-3rd-edition.webp",
+    "url": "/images/books/2026-10-17-sql-all-in-one-for-dummies-3rd-edition.webp",
+    "sizeBytes": 41504
+  },
+  {
+    "collection": "books",
+    "file": "src/images/books/2026-10-17-the-intel-microprocessors-4th-edition.webp",
+    "url": "/images/books/2026-10-17-the-intel-microprocessors-4th-edition.webp",
+    "sizeBytes": 84054
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-abhishek-ghosh.webp",
+    "url": "/images/friends/2026-10-15-abhishek-ghosh.webp",
+    "sizeBytes": 13170
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-aritra-kumar.webp",
+    "url": "/images/friends/2026-10-15-aritra-kumar.webp",
+    "sizeBytes": 9846
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-deep-koley.webp",
+    "url": "/images/friends/2026-10-15-deep-koley.webp",
+    "sizeBytes": 7134
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-rounak-saha.webp",
+    "url": "/images/friends/2026-10-15-rounak-saha.webp",
+    "sizeBytes": 6212
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-saumil-maulik.webp",
+    "url": "/images/friends/2026-10-15-saumil-maulik.webp",
+    "sizeBytes": 7852
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-15-soumil-seal.webp",
+    "url": "/images/friends/2026-10-15-soumil-seal.webp",
+    "sizeBytes": 13060
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-akash-sarkar.webp",
+    "url": "/images/friends/2026-10-16-akash-sarkar.webp",
+    "sizeBytes": 7748
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-alekha-kumar.webp",
+    "url": "/images/friends/2026-10-16-alekha-kumar.webp",
+    "sizeBytes": 7856
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-ankit-das.webp",
+    "url": "/images/friends/2026-10-16-ankit-das.webp",
+    "sizeBytes": 10058
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-arit-hazra.webp",
+    "url": "/images/friends/2026-10-16-arit-hazra.webp",
+    "sizeBytes": 16578
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-ayan-bhattacharyya.webp",
+    "url": "/images/friends/2026-10-16-ayan-bhattacharyya.webp",
+    "sizeBytes": 15082
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-debosmita-rit.webp",
+    "url": "/images/friends/2026-10-16-debosmita-rit.webp",
+    "sizeBytes": 11424
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-dipanjan-gure.webp",
+    "url": "/images/friends/2026-10-16-dipanjan-gure.webp",
+    "sizeBytes": 8650
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-evan-chakroborty.webp",
+    "url": "/images/friends/2026-10-16-evan-chakroborty.webp",
+    "sizeBytes": 9646
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-indranil-ganguly.webp",
+    "url": "/images/friends/2026-10-16-indranil-ganguly.webp",
+    "sizeBytes": 10280
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-16-parag-chatterjee.webp",
+    "url": "/images/friends/2026-10-16-parag-chatterjee.webp",
+    "sizeBytes": 17604
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-17-debarghya-kumar.webp",
+    "url": "/images/friends/2026-10-17-debarghya-kumar.webp",
+    "sizeBytes": 10552
+  },
+  {
+    "collection": "friends",
+    "file": "src/images/friends/2026-10-17-hritam-samanta.webp",
+    "url": "/images/friends/2026-10-17-hritam-samanta.webp",
+    "sizeBytes": 10848
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-15-genshin-impact-2.webp",
+    "url": "/images/games/2026-10-15-genshin-impact-2.webp",
+    "sizeBytes": 31416
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-15-genshin-impact.webp",
+    "url": "/images/games/2026-10-15-genshin-impact.webp",
+    "sizeBytes": 42120
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-15-honkai-star-rail.webp",
+    "url": "/images/games/2026-10-15-honkai-star-rail.webp",
+    "sizeBytes": 39440
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-15-minecraft-2.webp",
+    "url": "/images/games/2026-10-15-minecraft-2.webp",
+    "sizeBytes": 28578
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-15-minecraft.webp",
+    "url": "/images/games/2026-10-15-minecraft.webp",
+    "sizeBytes": 38184
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-clash-of-clans-2.webp",
+    "url": "/images/games/2026-10-16-clash-of-clans-2.webp",
+    "sizeBytes": 51736
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-clash-of-clans.webp",
+    "url": "/images/games/2026-10-16-clash-of-clans.webp",
+    "sizeBytes": 29568
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-clash-royale-2.webp",
+    "url": "/images/games/2026-10-16-clash-royale-2.webp",
+    "sizeBytes": 52444
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-clash-royale.webp",
+    "url": "/images/games/2026-10-16-clash-royale.webp",
+    "sizeBytes": 33438
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-honkai-star-rail.webp",
+    "url": "/images/games/2026-10-16-honkai-star-rail.webp",
+    "sizeBytes": 81926
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-zenless-zone-zero-2.webp",
+    "url": "/images/games/2026-10-16-zenless-zone-zero-2.webp",
+    "sizeBytes": 29426
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-16-zenless-zone-zero.webp",
+    "url": "/images/games/2026-10-16-zenless-zone-zero.webp",
+    "sizeBytes": 74608
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-boom-beach-2.webp",
+    "url": "/images/games/2026-10-17-boom-beach-2.webp",
+    "sizeBytes": 47268
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-boom-beach.webp",
+    "url": "/images/games/2026-10-17-boom-beach.webp",
+    "sizeBytes": 29996
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-brawl-stars-2.webp",
+    "url": "/images/games/2026-10-17-brawl-stars-2.webp",
+    "sizeBytes": 49054
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-brawl-stars.webp",
+    "url": "/images/games/2026-10-17-brawl-stars.webp",
+    "sizeBytes": 35458
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-dead-ninja-mortal-shadow.webp",
+    "url": "/images/games/2026-10-17-dead-ninja-mortal-shadow.webp",
+    "sizeBytes": 33868
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-payback-2-2.webp",
+    "url": "/images/games/2026-10-17-payback-2-2.webp",
+    "sizeBytes": 26686
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-payback-2.webp",
+    "url": "/images/games/2026-10-17-payback-2.webp",
+    "sizeBytes": 11470
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-pubg-lite-2.webp",
+    "url": "/images/games/2026-10-17-pubg-lite-2.webp",
+    "sizeBytes": 64612
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-pubg-lite.webp",
+    "url": "/images/games/2026-10-17-pubg-lite.webp",
+    "sizeBytes": 42136
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-pubg-pc-2.webp",
+    "url": "/images/games/2026-10-17-pubg-pc-2.webp",
+    "sizeBytes": 5128
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-pubg-pc.webp",
+    "url": "/images/games/2026-10-17-pubg-pc.webp",
+    "sizeBytes": 85002
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-samurai-ii-vengeance-2.webp",
+    "url": "/images/games/2026-10-17-samurai-ii-vengeance-2.webp",
+    "sizeBytes": 60090
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-samurai-ii-vengeance.webp",
+    "url": "/images/games/2026-10-17-samurai-ii-vengeance.webp",
+    "sizeBytes": 43672
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-shadow-fight-2.webp",
+    "url": "/images/games/2026-10-17-shadow-fight-2.webp",
+    "sizeBytes": 33090
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-shadow-fight-3-2.webp",
+    "url": "/images/games/2026-10-17-shadow-fight-3-2.webp",
+    "sizeBytes": 30462
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-shadow-fight-3.webp",
+    "url": "/images/games/2026-10-17-shadow-fight-3.webp",
+    "sizeBytes": 43250
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-shadow-fight-4-arena-2.webp",
+    "url": "/images/games/2026-10-17-shadow-fight-4-arena-2.webp",
+    "sizeBytes": 46964
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-shadow-fight-4-arena.webp",
+    "url": "/images/games/2026-10-17-shadow-fight-4-arena.webp",
+    "sizeBytes": 27862
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-sky-children-of-the-light-2.webp",
+    "url": "/images/games/2026-10-17-sky-children-of-the-light-2.webp",
+    "sizeBytes": 22728
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-sky-children-of-the-light.webp",
+    "url": "/images/games/2026-10-17-sky-children-of-the-light.webp",
+    "sizeBytes": 53694
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-squat-busters-2.webp",
+    "url": "/images/games/2026-10-17-squat-busters-2.webp",
+    "sizeBytes": 86788
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-squat-busters.webp",
+    "url": "/images/games/2026-10-17-squat-busters.webp",
+    "sizeBytes": 26602
+  },
+  {
+    "collection": "games",
+    "file": "src/images/games/2026-10-17-valorant.webp",
+    "url": "/images/games/2026-10-17-valorant.webp",
+    "sizeBytes": 53456
+  },
+  {
+    "collection": "movies",
+    "file": "src/images/movies/2026-10-15-interstellar.webp",
+    "url": "/images/movies/2026-10-15-interstellar.webp",
+    "sizeBytes": 158202
+  },
+  {
+    "collection": "movies",
+    "file": "src/images/movies/2026-10-15-loki.webp",
+    "url": "/images/movies/2026-10-15-loki.webp",
+    "sizeBytes": 105478
+  },
+  {
+    "collection": "site",
+    "file": "src/images/site/2026-10-15-windows-photo-viewer.webp",
+    "url": "/images/site/2026-10-15-windows-photo-viewer.webp",
+    "sizeBytes": 4880
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-15-visual-studio-code.webp",
+    "url": "/images/software/2026-10-15-visual-studio-code.webp",
+    "sizeBytes": 3382
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-affinity.webp",
+    "url": "/images/software/2026-10-16-affinity.webp",
+    "sizeBytes": 4710
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-antigravity.webp",
+    "url": "/images/software/2026-10-16-antigravity.webp",
+    "sizeBytes": 3490
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-arch-linux.webp",
+    "url": "/images/software/2026-10-16-arch-linux.webp",
+    "sizeBytes": 4074
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-blip.webp",
+    "url": "/images/software/2026-10-16-blip.webp",
+    "sizeBytes": 4068
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-centos.webp",
+    "url": "/images/software/2026-10-16-centos.webp",
+    "sizeBytes": 3088
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-cloudflare-warp.webp",
+    "url": "/images/software/2026-10-16-cloudflare-warp.webp",
+    "sizeBytes": 3384
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-davinchi-resolve.webp",
+    "url": "/images/software/2026-10-16-davinchi-resolve.webp",
+    "sizeBytes": 3734
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-debian-linux.webp",
+    "url": "/images/software/2026-10-16-debian-linux.webp",
+    "sizeBytes": 3976
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-docker-desktop.webp",
+    "url": "/images/software/2026-10-16-docker-desktop.webp",
+    "sizeBytes": 3682
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-eclispe-ide-for-java-developers.webp",
+    "url": "/images/software/2026-10-16-eclispe-ide-for-java-developers.webp",
+    "sizeBytes": 4616
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-fedora.webp",
+    "url": "/images/software/2026-10-16-fedora.webp",
+    "sizeBytes": 3326
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-figma.webp",
+    "url": "/images/software/2026-10-16-figma.webp",
+    "sizeBytes": 2794
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-git.webp",
+    "url": "/images/software/2026-10-16-git.webp",
+    "sizeBytes": 2862
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-github-desktop.webp",
+    "url": "/images/software/2026-10-16-github-desktop.webp",
+    "sizeBytes": 3594
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-github.webp",
+    "url": "/images/software/2026-10-16-github.webp",
+    "sizeBytes": 3480
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-intellij-idea.webp",
+    "url": "/images/software/2026-10-16-intellij-idea.webp",
+    "sizeBytes": 4046
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-linux-mint.webp",
+    "url": "/images/software/2026-10-16-linux-mint.webp",
+    "sizeBytes": 3362
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-microsoft-powertoys.webp",
+    "url": "/images/software/2026-10-16-microsoft-powertoys.webp",
+    "sizeBytes": 3346
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-netbeans.webp",
+    "url": "/images/software/2026-10-16-netbeans.webp",
+    "sizeBytes": 3376
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-nvidia-shadowplay.webp",
+    "url": "/images/software/2026-10-16-nvidia-shadowplay.webp",
+    "sizeBytes": 3028
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-obs-studio.webp",
+    "url": "/images/software/2026-10-16-obs-studio.webp",
+    "sizeBytes": 4346
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-obsidian.webp",
+    "url": "/images/software/2026-10-16-obsidian.webp",
+    "sizeBytes": 3078
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-onlyoffice.webp",
+    "url": "/images/software/2026-10-16-onlyoffice.webp",
+    "sizeBytes": 3420
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-phpstorm.webp",
+    "url": "/images/software/2026-10-16-phpstorm.webp",
+    "sizeBytes": 3468
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-postman.webp",
+    "url": "/images/software/2026-10-16-postman.webp",
+    "sizeBytes": 3640
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-pycharm.webp",
+    "url": "/images/software/2026-10-16-pycharm.webp",
+    "sizeBytes": 3652
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-redhat-linux.webp",
+    "url": "/images/software/2026-10-16-redhat-linux.webp",
+    "sizeBytes": 2926
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-rust-desk.webp",
+    "url": "/images/software/2026-10-16-rust-desk.webp",
+    "sizeBytes": 2530
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-tailscale.webp",
+    "url": "/images/software/2026-10-16-tailscale.webp",
+    "sizeBytes": 3944
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-texstudio.webp",
+    "url": "/images/software/2026-10-16-texstudio.webp",
+    "sizeBytes": 5806
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-typedown.webp",
+    "url": "/images/software/2026-10-16-typedown.webp",
+    "sizeBytes": 900
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-ubuntu-desktop.webp",
+    "url": "/images/software/2026-10-16-ubuntu-desktop.webp",
+    "sizeBytes": 3640
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-webstorm.webp",
+    "url": "/images/software/2026-10-16-webstorm.webp",
+    "sizeBytes": 4052
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-windows-11-professional.webp",
+    "url": "/images/software/2026-10-16-windows-11-professional.webp",
+    "sizeBytes": 2436
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-winrar.webp",
+    "url": "/images/software/2026-10-16-winrar.webp",
+    "sizeBytes": 4174
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-winscp.webp",
+    "url": "/images/software/2026-10-16-winscp.webp",
+    "sizeBytes": 3790
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-zed.webp",
+    "url": "/images/software/2026-10-16-zed.webp",
+    "sizeBytes": 3864
+  },
+  {
+    "collection": "software",
+    "file": "src/images/software/2026-10-16-zoltero.webp",
+    "url": "/images/software/2026-10-16-zoltero.webp",
+    "sizeBytes": 3178
+  }
+]

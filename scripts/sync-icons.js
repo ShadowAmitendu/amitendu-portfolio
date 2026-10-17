@@ -59,8 +59,12 @@ export function formatIconLabel(iconName) {
 
 export function resolveIcon(itemUrl = "", itemLabel = "", explicitIcon = "") {
 	const available = getAvailableIcons();
-	if (explicitIcon && available.includes(explicitIcon.toLowerCase())) {
-		return explicitIcon.toLowerCase();
+	const normalizedExplicit = (explicitIcon || "").toLowerCase().trim();
+	if (normalizedExplicit === "twitter") {
+		return "x";
+	}
+	if (normalizedExplicit && available.includes(normalizedExplicit)) {
+		return normalizedExplicit;
 	}
 
 	const urlLower = String(itemUrl || "").toLowerCase();
@@ -68,11 +72,13 @@ export function resolveIcon(itemUrl = "", itemLabel = "", explicitIcon = "") {
 
 	if (
 		urlLower.includes("x.com") ||
+		urlLower.includes("twitter.com") ||
 		labelLower.includes("twitter") ||
-		labelLower.includes("x (")
+		labelLower.includes("x (") ||
+		labelLower === "x"
 	) {
-		if (available.includes("twitter")) return "twitter";
 		if (available.includes("x")) return "x";
+		if (available.includes("twitter")) return "x";
 	}
 	if (
 		urlLower.startsWith("mailto:") ||
@@ -83,7 +89,7 @@ export function resolveIcon(itemUrl = "", itemLabel = "", explicitIcon = "") {
 	}
 
 	for (const icon of available) {
-		if (icon === "safari") continue;
+		if (icon === "safari" || icon === "twitter") continue;
 		if (urlLower.includes(icon) || labelLower.includes(icon)) {
 			return icon;
 		}
@@ -96,20 +102,20 @@ export function syncConfigIcons() {
 	if (!fs.existsSync(configPath)) return;
 
 	const content = fs.readFileSync(configPath, "utf8");
-	const available = getAvailableIcons().sort();
+	const available = getAvailableIcons().filter((i) => i !== "twitter").sort();
 
-	let optionsYaml = `                    options:\n                      - { label: "Auto (Detect from URL/Label)", value: "" }`;
+	let optionsYaml = `                    required: false\n                    options:`;
 	for (const icon of available) {
 		const label = formatIconLabel(icon);
 		optionsYaml += `\n                      - { label: "${label}", value: "${icon}" }`;
 	}
 
 	const iconOptionsRegex =
-		/(-\s*label:\s*["']Website Icon["'][\s\S]*?options:\s*\n)(?:\s+-\s*\{[^\n]+\}\n?)+/;
+		/(-\s*label:\s*["']Website Icon["'][\s\S]*?name:\s*["']icon["'][\s\S]*?widget:\s*["']select["'][\s\S]*?)(?:required:\s*(?:true|false)\s*\n\s*)?options:\s*\n(?:\s+-\s*\{[^\n]+\}\n?)+/;
 	if (iconOptionsRegex.test(content)) {
 		const updated = content.replace(
 			iconOptionsRegex,
-			`$1${optionsYaml.replace("                    options:\n", "")}\n`,
+			`$1${optionsYaml}\n`,
 		);
 		if (updated !== content) {
 			fs.writeFileSync(configPath, updated, "utf8");
@@ -122,7 +128,7 @@ export function syncConfigIcons() {
 			if (iconOptionsRegex.test(publicContent)) {
 				const publicUpdated = publicContent.replace(
 					iconOptionsRegex,
-					`$1${optionsYaml.replace("                    options:\n", "")}\n`,
+					`$1${optionsYaml}\n`,
 				);
 				if (publicUpdated !== publicContent) {
 					fs.writeFileSync(publicConfigPath, publicUpdated, "utf8");

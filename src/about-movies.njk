@@ -65,7 +65,7 @@ aboutTab: movies
         <div class="site-listing-image-col">
           {% if movie.image %}
           <div class="site-listing-frame">
-            <img src="{{ movie.image }}" alt="{{ movie.title }}" />
+            <img src="{{ movie.image }}" alt="{{ movie.imageAlt or movie.title }}" />
           </div>
           {% else %}
           <div class="site-listing-placeholder">
@@ -96,7 +96,7 @@ aboutTab: movies
               {% if movie.rating %}
               <tr class="border-b border-[#e1ebf0]">
                 <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Rating:</td>
-                <td class="py-1 text-[#c0392b] font-bold">{{ movie.rating }}</td>
+                <td class="py-1 text-[#c0392b] font-bold">{{ movie.rating | ratingStars }} ({{ movie.rating }}/5)</td>
               </tr>
               {% endif %}
               {% if movie.year %}
@@ -186,7 +186,7 @@ aboutTab: movies
         <div class="site-listing-image-col">
           {% if show.image %}
           <div class="site-listing-frame">
-            <img src="{{ show.image }}" alt="{{ show.title }}" />
+            <img src="{{ show.image }}" alt="{{ show.imageAlt or show.title }}" />
           </div>
           {% else %}
           <div class="site-listing-placeholder">
@@ -223,7 +223,7 @@ aboutTab: movies
               {% if show.rating %}
               <tr class="border-b border-[#e1ebf0]">
                 <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Score:</td>
-                <td class="py-1 text-[#c0392b] font-bold">{{ show.rating }}</td>
+                <td class="py-1 text-[#c0392b] font-bold">{{ show.rating | ratingStars }} ({{ show.rating }}/5)</td>
               </tr>
               {% endif %}
               {% if show.year %}

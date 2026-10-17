@@ -4,28 +4,127 @@ pagination:
   data: collections.portfolio
   size: 25
   alias: projects
-  reverse: true
   generatePageOnEmptyData: true
 permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
-<h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
-  {{ portfolioPage.heading or heading or 'My work' }}</h2>
-<p class="mt-3">{{ portfolioPage.intro or intro or 'A few things I have made on the internet.' }}</p>
-{% if projects and projects.length > 0 %}
-{% for project in projects %}
-<article class="site-card mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-0">
-  <a class="site-card-link block p-4 text-inherit no-underline" href="{{ project.url }}">
-    <div class="site-card-row flex items-center justify-between gap-4">
-      <div class="min-w-0">
-        <h3 class="font-bold text-[#164b70]">{{ project.data.title }}</h3>
-        <p class="mt-2">{{ project.data.description }}</p>
-      </div>
-      {% if project.data.image %}<img class="site-card-image h-24 w-28 max-w-full shrink-0 object-cover"
-        src="{{ project.data.image }}" alt="{{ project.data.title }}" />{% endif %}
+{% set typeLabels = {
+  "desktop": "Desktop app",
+  "android": "Android app",
+  "web": "Web app",
+  "tool": "Tool / Script",
+  "academic": "Academic / College"
+} %}
+{% set statusLabels = {
+  "in-progress": "In progress",
+  "completed": "Completed",
+  "maintained": "Maintained",
+  "archived": "Archived",
+  "concept": "Concept"
+} %}
+
+<div class="site-portfolio-header mb-5 border-b border-[#b7cbd6] pb-3">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <div>
+      <h2 class="text-xl sm:text-2xl font-bold text-[#164b70] uppercase tracking-tight m-0">
+        {{ portfolioPage.heading or heading or 'My work' }}
+      </h2>
+      <p class="mt-1 text-xs sm:text-sm text-[#3b4d57]">
+        {{ portfolioPage.intro or intro or 'A few things I have made on the internet.' }}
+      </p>
     </div>
-  </a>
-</article>
-{% endfor %}
+    {% if portfolioPage.ctaText and portfolioPage.ctaUrl %}
+    <div>
+      <a class="site-button-2007 text-xs font-bold px-3 py-1 inline-block" href="{{ portfolioPage.ctaUrl }}">
+        {{ portfolioPage.ctaText }}
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{# Progressive Enhancement Filter Chips #}
+{% if portfolioPage.showFilters and projects and projects.length > 0 %}
+<div class="site-filter-bar mb-5 flex flex-wrap items-center gap-1.5 text-xs select-none" id="portfolio-filter-bar">
+  <span class="font-bold text-[#164b70] mr-1 text-[11px] uppercase tracking-wider">Filter:</span>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#7892a3] bg-[#164b70] text-white font-bold cursor-pointer text-xs shadow-[inset_0_1px_1px_rgba(0,0,0,0.25)]" data-filter="all">All</button>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs" data-filter="desktop">Desktop</button>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs" data-filter="android">Android</button>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs" data-filter="web">Web</button>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs" data-filter="tool">Tools</button>
+  <button type="button" class="site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs" data-filter="academic">Academic</button>
+</div>
+{% endif %}
+
+{% if projects and projects.length > 0 %}
+<div class="site-portfolio-grid space-y-4" id="portfolio-grid">
+  {% for project in projects %}
+  {% set pType = project.data.projectType or "other" %}
+  <article class="portfolio-project-card site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de] hover:border-[#164b70] transition-colors" data-type="{{ pType }}">
+    {# Card Header with Type & Status #}
+    <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
+      <div class="flex items-center gap-1.5">
+        {% if project.data.featured %}
+        <span class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)] select-none">FEATURED</span>
+        {% endif %}
+        <span class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] font-bold text-[#164b70]">
+          {{ typeLabels[pType] or pType }}
+        </span>
+        {% if project.data.projectStatus %}
+        <span class="site-badge border border-[#7892a3] bg-white px-1.5 py-0.5 text-[10px] font-bold text-[#556b78]">
+          {{ statusLabels[project.data.projectStatus] or project.data.projectStatus }}
+        </span>
+        {% endif %}
+      </div>
+      {% if project.data.date %}
+      <time class="text-[11px] text-[#556b78]" datetime="{{ project.data.date }}">{{ project.data.date | shortDate }}</time>
+      {% endif %}
+    </div>
+
+    {# Card Body #}
+    <a class="site-card-link block p-3.5 sm:p-4 text-inherit no-underline group" href="{{ project.url }}">
+      <div class="site-card-row flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="min-w-0 flex-1">
+          <h3 class="font-bold text-base sm:text-lg text-[#164b70] group-hover:text-[#c0392b] group-hover:underline m-0">
+            {{ project.data.title }}
+          </h3>
+          {% if project.data.description %}
+          <p class="mt-1.5 text-xs sm:text-sm text-[#3b4d57] leading-relaxed line-clamp-2">
+            {{ project.data.description }}
+          </p>
+          {% endif %}
+
+          {# Stack chips (first 4) #}
+          {% if project.data.stack and project.data.stack.length > 0 %}
+          <div class="mt-3 flex flex-wrap items-center gap-1">
+            {% for tech in project.data.stack.slice(0, 4) %}
+            <span class="site-badge border border-[#9bb0be] bg-[#f4f8fa] px-1.5 py-0.2 text-[10px] text-[#164b70]">
+              {{ tech }}
+            </span>
+            {% endfor %}
+            {% if project.data.stack.length > 4 %}
+            <span class="text-[10px] text-[#71828b] italic">+{{ project.data.stack.length - 4 }} more</span>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+        {% if project.data.image %}
+        <div class="shrink-0 w-full sm:w-36 h-28 border border-[#7892a3] bg-[#0a1926] p-1 shadow-[1px_1px_2px_rgba(0,0,0,0.15)] flex items-center justify-center overflow-hidden">
+          <img class="max-h-full max-w-full object-contain mx-auto" src="{{ project.data.image }}" alt="{{ project.data.imageAlt or project.data.title }}" loading="lazy" />
+        </div>
+        {% endif %}
+      </div>
+    </a>
+  </article>
+  {% endfor %}
+</div>
+
+{# Filter No-Results Box #}
+<div id="portfolio-no-filter-match" class="hidden mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+  <p class="font-bold text-sm text-[#164b70]">No matching projects</p>
+  <p class="mt-1">No projects found for the selected category.</p>
+</div>
+
 {% if pagination.pages.length > 1 %}
 <nav class="mt-6 flex flex-wrap items-center gap-3 text-xs" aria-label="Portfolio pagination">
   {% if pagination.href.previous %}<a class="text-[#064f83] underline hover:text-[#c0392b]"
@@ -35,10 +134,47 @@ permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/p
     href="{{ pagination.href.next }}">older projects →</a>{% endif %}
 </nav>
 {% endif %}
+
+{# Client-side progressive enhancement script #}
+<script>
+  (function () {
+    var bar = document.getElementById("portfolio-filter-bar");
+    if (!bar) return;
+    var buttons = bar.querySelectorAll(".site-filter-btn");
+    var cards = document.querySelectorAll(".portfolio-project-card");
+    var noMatch = document.getElementById("portfolio-no-filter-match");
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var filter = btn.getAttribute("data-filter");
+        buttons.forEach(function (b) {
+          b.className = "site-filter-btn px-2.5 py-0.5 border border-[#9bb0be] bg-white text-[#164b70] hover:bg-[#eaf2f6] cursor-pointer text-xs";
+        });
+        btn.className = "site-filter-btn px-2.5 py-0.5 border border-[#7892a3] bg-[#164b70] text-white font-bold cursor-pointer text-xs shadow-[inset_0_1px_1px_rgba(0,0,0,0.25)]";
+
+        var visibleCount = 0;
+        cards.forEach(function (card) {
+          var type = card.getAttribute("data-type");
+          if (filter === "all" || type === filter) {
+            card.style.display = "";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (noMatch) {
+          noMatch.style.display = visibleCount === 0 ? "block" : "none";
+        }
+      });
+    });
+  })();
+</script>
+
 {% else %}
 <div
   class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
   <p class="font-bold text-sm text-[#164b70]">No Portfolio</p>
-  <p class="mt-1">There are no portfolio projects published yet. Check back soon!</p>
+  <p class="mt-1">{{ portfolioPage.emptyStateText or 'There are no portfolio projects published yet. Check back soon!' }}</p>
 </div>
 {% endif %}

@@ -1,0 +1,236 @@
+---
+layout: base.njk
+title: Page not found
+headerTagline: PAGE NOT FOUND
+permalink: /404.html
+eleventyExcludeFromCollections: true
+noindex: true
+
+---
+
+{# Classic Error Dialog Window Shell #}
+<div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de] mb-6 overflow-hidden">
+  {# Glossy Blue Window Title Bar #}
+  <div class="border-b border-[#0f3956] bg-linear-to-b from-[#2b678c] to-[#164b70] px-3.5 py-1.5 flex items-center justify-between text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]">
+    <div class="flex items-center gap-2">
+      <svg
+        class="w-3.5 h-3.5 fill-[#ffcc00] shrink-0"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z" />
+      </svg>
+      <span
+        class="font-['Bebas_Neue',Impact,sans-serif] text-base tracking-wide text-white leading-none select-none"
+      >
+        Error 404 – Page not found
+      </span>
+    </div>
+    {# Close Box linking to Home #}
+    <a
+      href="/"
+      class="px-1.5 py-0.5 border border-[#103c5b] bg-[#eaf2f6] hover:bg-[#c0392b] hover:text-white hover:border-[#8b1e13] text-[#164b70] text-[11px] font-bold leading-none inline-flex items-center justify-center no-underline transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+      title="Close dialog and return to home"
+      aria-label="Close error dialog and return to home"
+    >
+      ✕
+    </a>
+  </div>
+
+  {# Dialog Window Body #}
+  <div class="p-4 sm:p-6 bg-gradient-to-b from-[#ffffff] to-[#f4f8fa]">
+    <div class="flex flex-col sm:flex-row items-start gap-4">
+      {# Large Inline-SVG Warning Icon #}
+      <div class="shrink-0 p-2.5 border border-[#b7cbd6] bg-[#fffdf0] shadow-[1px_1px_0_#cad6de]">
+        <svg
+          class="w-12 h-12"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M24 4L2 42H46L24 4Z"
+            fill="#ffecb3"
+            stroke="#d4a017"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24 17V28"
+            stroke="#164b70"
+            stroke-width="3.5"
+            stroke-linecap="round"
+          />
+          <circle cx="24" cy="35" r="2.2" fill="#164b70" />
+        </svg>
+      </div>
+
+      {# Error Message #}
+      <div class="min-w-0 flex-1">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#164b70] uppercase leading-tight m-0">
+          This page doesn't exist
+        </h2>
+        <p class="mt-2 text-sm text-[#26343d] leading-relaxed">
+          The link may be out of date, or the address may have a typo. Try one
+          of the pages below.
+        </p>
+
+        {# Client-side requested path (hidden by default, revealed via JS) #}
+        <p
+          id="error-requested-path-container"
+          hidden
+          class="mt-3 text-xs text-[#536a75] flex flex-wrap items-center gap-1.5"
+        >
+          <span class="font-bold text-[#164b70]">Requested address:</span>
+          <code
+            id="error-requested-path"
+            class="px-1.5 py-0.5 bg-[#e8f3f8] border border-[#b7cbd6] text-[#164b70] font-mono break-all text-[12px]"
+          ></code>
+        </p>
+      </div>
+    </div>
+
+    {# Action Buttons #}
+    <div class="flex flex-wrap items-center gap-2 mt-5 pt-4 border-t border-[#c6d7e0]">
+      <a
+        href="/"
+        class="site-button-2007 inline-flex items-center justify-center px-4 py-1.5 text-xs font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Go to home
+      </a>
+      <button
+        type="button"
+        id="btn-go-back"
+        hidden
+        onclick="history.back()"
+        class="site-button-2007 inline-flex items-center justify-center px-4 py-1.5 text-xs font-bold cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Go back
+      </button>
+    </div>
+  </div>
+
+  {# "Where to go next" Panel #}
+  <div class="border-t border-[#b7cbd6] bg-[#f8fbfc] p-4 sm:p-5">
+    <h3 class="text-base font-bold text-[#164b70] uppercase tracking-wide border-b border-[#b7cbd6] pb-1 m-0">
+      Where to go next
+    </h3>
+
+    {# Key Destinations #}
+    <div class="mt-3 grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+      <a
+        href="/"
+        class="site-card block p-2 text-center text-[#064f83] font-bold no-underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Home
+      </a>
+      <a
+        href="/about/"
+        class="site-card block p-2 text-center text-[#064f83] font-bold no-underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        About
+      </a>
+      <a
+        href="/portfolio/"
+        class="site-card block p-2 text-center text-[#064f83] font-bold no-underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Portfolio
+      </a>
+      <a
+        href="/blog/"
+        class="site-card block p-2 text-center text-[#064f83] font-bold no-underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Blog
+      </a>
+      <a
+        href="/resume/"
+        class="site-card block p-2 text-center text-[#064f83] font-bold no-underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+      >
+        Resume
+      </a>
+    </div>
+
+    {# Latest 3 Blog Posts #}
+    {% if collections.blog and collections.blog.length > 0 %}
+      <div class="mt-5 pt-3 border-t border-[#c6d7e0]">
+        <h4 class="text-xs font-bold text-[#164b70] uppercase tracking-wider mb-2">
+          Latest blog posts
+        </h4>
+        <ul class="space-y-1.5 text-xs m-0 p-0 list-none">
+          {% for post in collections.blog %}
+            {% if loop.index <= 3 %}
+              <li class="flex flex-wrap items-baseline justify-between gap-2 border-b border-dashed border-[#d8e3ea] pb-1">
+                <a
+                  href="{{ post.url }}"
+                  class="text-[#064f83] font-semibold underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+                >
+                  {{ post.data.title }}
+                </a>
+                {% if post.data.date %}
+                  <time
+                    datetime="{{ post.data.date }}"
+                    class="text-[11px] text-[#536a75] shrink-0"
+                  >
+                    {{ post.data.date | shortDate }}
+                  </time>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {# Featured Projects (rendered only if collections.portfolio has items) #}
+    {% if collections.portfolio and collections.portfolio.length > 0 %}
+      <div class="mt-4 pt-3 border-t border-[#c6d7e0]">
+        <h4 class="text-xs font-bold text-[#164b70] uppercase tracking-wider mb-2">
+          Featured projects
+        </h4>
+        <ul class="space-y-1.5 text-xs m-0 p-0 list-none">
+          {% for project in collections.portfolio %}
+            {% if loop.index <= 3 %}
+              <li class="flex flex-wrap items-baseline justify-between gap-2 border-b border-dashed border-[#d8e3ea] pb-1">
+                <a
+                  href="{{ project.url }}"
+                  class="text-[#064f83] font-semibold underline hover:text-[#c0392b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#164b70]"
+                >
+                  {{ project.data.title }}
+                </a>
+                {% if project.data.projectType %}
+                  <span class="text-[10px] text-[#536a75] uppercase">
+                    {{ project.data.projectType }}
+                  </span>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+
+  {# Retro Window Status Bar #}
+  <div class="border-t border-[#c6d7e0] bg-gradient-to-b from-[#edf4f8] to-[#dce8ee] px-3.5 py-1 text-[11px] text-[#536a75] flex items-center justify-between shadow-[inset_0_1px_0_#fff]">
+    <span class="font-mono">Status: HTTP 404 Not Found</span>
+    <span class="font-bold text-[#164b70]">Error code: 404</span>
+  </div>
+</div>
+
+{# Client-side progressive enhancement script #}
+<script>
+(function() {
+  try {
+    var codeEl = document.getElementById("error-requested-path");
+    var containerEl = document.getElementById("error-requested-path-container");
+    if (codeEl && containerEl && window.location && window.location.pathname) {
+      codeEl.textContent = window.location.pathname;
+      containerEl.removeAttribute("hidden");
+    }
+    var backBtn = document.getElementById("btn-go-back");
+    if (backBtn && window.history && window.history.length > 1) {
+      backBtn.removeAttribute("hidden");
+    }
+  } catch (e) {}
+})();
+</script>

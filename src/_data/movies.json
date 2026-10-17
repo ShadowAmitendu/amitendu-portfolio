@@ -8,8 +8,8 @@
       "status": "watched",
       "title": "Interstellar",
       "director": "Christopher Nolan",
-      "image": "/images/intersetllar.webp",
-      "rating": "5/5",
+      "image": "/images/movies/2026-10-15-interstellar.webp",
+      "rating": 5,
       "year": "2014",
       "review": "Just Epic!",
       "link": "https://www.imdb.com/title/tt0816692/"
@@ -23,9 +23,9 @@
       "title": "Loki ",
       "review": "Character Development is Insane in my opinion, from a Villan to Glorious Purpose!",
       "link": "https://www.imdb.com/title/tt9140554/",
-      "image": "/images/mv5byza2yjm2zwqtytzhms00oti3ltlhyzqtzjbizwzkmddlnja5xkeyxkfqcgc-._v1_fmjpg_ux864_.webp",
+      "image": "/images/movies/2026-10-15-loki.webp",
       "year": "2021-2023",
-      "rating": "5/5"
+      "rating": 5
     }
   ]
 }

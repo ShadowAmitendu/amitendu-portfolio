@@ -15,7 +15,7 @@
       {
         "label": "X (Formerly Twitter)",
         "url": "https://x.com/shadow_amitendu",
-        "icon": "twitter"
+        "icon": "x"
       },
       {
         "label": "LinkedIn",
@@ -71,9 +71,8 @@
   "author": {
     "name": "Amitendu",
     "role": "Developer & Maker",
-    "avatar": "/images/shadow-amitendu.jpg",
-    "bio": "Building small things for the web.",
-    "resumeUrl": "/resume/"
+    "avatar": "/images/authors/2026-10-14-amitendu-bikash-dhusiya.webp",
+    "bio": "Building small things for the web."
   },
   "name": "Amitendu Bikash Dhusiya",
   "featuredLimit": 4,

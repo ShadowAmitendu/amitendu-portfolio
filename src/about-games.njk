@@ -37,12 +37,12 @@ aboutTab: games
         {% endif %}
       </div>
       <div>
-        {% if game.playingRightNow or game.playingNow or game.status == "Playing right now" %}
+        {% if game.playingRightNow %}
         <span
           class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">PLAYING
           RIGHT NOW</span>
         {% elif game.status %}
-        <span class="text-[11px] font-bold text-[#556b78]">{{ game.status }}</span>
+        <span class="text-[11px] font-bold text-[#556b78] uppercase">{{ game.status | replace('-', ' ') }}</span>
         {% endif %}
       </div>
     </div>
@@ -51,10 +51,11 @@ aboutTab: games
     <div class="site-listing-body p-3 bg-[#f8fbfc]">
       {# Left Icon / Box Art #}
       {% set gameImg = game.image or game.icon %}
+      {% set gameAlt = game.imageAlt or game.iconAlt or game.name or 'Game cover' %}
       <div class="site-listing-image-col">
         {% if gameImg %}
         <div class="site-listing-frame">
-          <img src="{{ gameImg }}" alt="{{ game.name }}" />
+          <img src="{{ gameImg }}" alt="{{ gameAlt }}" />
         </div>
         {% else %}
         <div class="site-listing-placeholder">
@@ -83,7 +84,7 @@ aboutTab: games
             <tr class="border-b border-[#e1ebf0]">
               <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Status:</td>
               <td class="py-1 text-[#3b4d57]">
-                <strong>{{ game.status }}</strong>
+                <strong class="capitalize">{{ game.status | replace('-', ' ') }}</strong>
                 {% if game.tags and game.tags.length > 0 %}
                 <span class="text-[#71828b] ml-1">({{ game.tags | join(', ') }})</span>
                 {% endif %}

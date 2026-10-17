@@ -1,80 +1,76 @@
+# Note: Netlify Identity / git-gateway is in maintenance mode; the github backend with an OAuth proxy is the long-term option.
 backend:
   name: git-gateway
   branch: main
   commit_messages:
-    create: "content({{collection}}): create {{slug}}"
-    update: "content({{collection}}): update {{slug}}"
-    delete: "content({{collection}}): delete {{slug}}"
-    uploadMedia: "media: upload {{path}}"
-    deleteMedia: "media: delete {{path}}"
-
-publish_mode: editorial_workflow
-display_url: "https://amitendu.me"
-logo_url: "/favicon.svg"
-
-media_folder: "src/images"
-public_folder: "/images"
+    create: 'content({{collection}}): create {{slug}}'
+    update: 'content({{collection}}): update {{slug}}'
+    delete: 'content({{collection}}): delete {{slug}}'
+    uploadMedia: 'media: upload {{path}}'
+    deleteMedia: 'media: delete {{path}}'
+publish_mode: simple
+local_backend: true
+site_url: https://amitendu.me
+display_url: https://amitendu.me
+logo_url: /favicon.svg
+show_preview_links: true
+locale: en
+slug:
+  encoding: ascii
+  clean_accents: true
+media_folder: src/images
+public_folder: /images
 max_file_size: 10485760
-
-media_processing:
-  enabled: true
-  quality: 80
-  width: 1600
-  strip_metadata: true
-  format:
-    enabled: true
-    default: webp
-
 collections:
-  - name: "about"
-    label: "About"
+  - name: about
+    label: About
+    delete: false
     files:
-      - name: "me"
-        label: "Me"
-        file: "src/_data/about.json"
-        format: "json"
+      - name: me
+        label: Me
+        file: src/_data/about.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "About",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "ABOUT THIS PERSON",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "About me",
-            }
-          - { label: "Intro", name: "intro", widget: "text" }
-          - {
-              label: "Profile image",
-              name: "profileImage",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Profile image alt text",
-              name: "profileAlt",
-              widget: "string",
-              required: false,
-            }
-          - label: "Content (Rich Text / Markdown)"
-            name: "content"
-            widget: "markdown"
-            modes: ["rich_text", "raw"]
+          - label: Page title
+            name: title
+            widget: string
+            default: About
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: ABOUT THIS PERSON
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: About me
+          - label: Intro
+            name: intro
+            widget: text
+            required: true
+          - label: Profile image
+            name: profileImage
+            widget: image
+            required: false
+          - label: Profile image alt text
+            name: profileAlt
+            widget: string
+            required: false
+          - label: Content (Rich Text / Markdown)
+            name: content
+            widget: markdown
+            modes:
+              - rich_text
+              - raw
             buttons:
               - bold
               - italic
@@ -88,1073 +84,1418 @@ collections:
             editor_components:
               - image
               - code-block
-
-      - name: "books"
-        label: "Books"
-        file: "src/_data/books.json"
-        format: "json"
+      - name: books
+        label: Books
+        file: src/_data/books.json
+        media_folder: src/images/books
+        public_folder: /images/books
+        format: json
         fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Books",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "WHAT I'M READING",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Bookshelf",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Books List"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.title}} by {{fields.author}} [{{fields.status}}]"
-            fields:
-              - { label: "Book Title", name: "title", widget: "string" }
-              - {
-                  label: "Author",
-                  name: "author",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Cover Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a book cover image (JPG, PNG, WEBP).",
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Currently Reading", value: "currently-reading" }
-                  - { label: "Completed / Finished", value: "read" }
-                  - { label: "Want to Read / Plan to Read", value: "to-read" }
-                default: "currently-reading"
-              - {
-                  label: "Progress / Notes (e.g. Chapter 6 / Page 140)",
-                  name: "progress",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Rating (Stars 1-5)",
-                  name: "rating",
-                  widget: "star-rating",
-                  required: false,
-                }
-              - {
-                  label: "Year / Date Read",
-                  name: "year",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Thoughts / Mini Review",
-                  name: "review",
-                  widget: "text",
-                  required: false,
-                }
-
-      - name: "movies"
-        label: "Movies"
-        file: "src/_data/movies.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Movies",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "WHAT I'M WATCHING",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Cinema & Shows",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Movies (Section 1)"
-            name: "movies"
-            widget: "list"
-            summary: "{{fields.title}} [{{fields.status}}]"
-            fields:
-              - { label: "Movie Title", name: "title", widget: "string" }
-              - {
-                  label: "Director / Studio",
-                  name: "director",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Poster Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a movie poster image (JPG, PNG, WEBP).",
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Currently Watching", value: "currently-watching" }
-                  - { label: "Completed / Watched", value: "watched" }
-                  - { label: "Plan to Watch", value: "plan-to-watch" }
-                default: "watched"
-              - {
-                  label: "Rating (Stars 1-5)",
-                  name: "rating",
-                  widget: "star-rating",
-                  required: false,
-                }
-              - {
-                  label: "Release Year",
-                  name: "year",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Thoughts / Mini Review",
-                  name: "review",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (IMDb, Letterboxd, TMDB)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-
-          - label: "TV Shows & Series (Section 2)"
-            name: "shows"
-            widget: "list"
-            summary: "{{fields.title}} [{{fields.status}}]"
-            fields:
-              - { label: "Show Title", name: "title", widget: "string" }
-              - {
-                  label: "Creator / Network / Studio",
-                  name: "creator",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Poster Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a show poster image (JPG, PNG, WEBP).",
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Currently Watching", value: "currently-watching" }
-                  - { label: "Completed / Finished", value: "watched" }
-                  - { label: "Plan to Watch", value: "plan-to-watch" }
-                default: "currently-watching"
-              - {
-                  label: "Progress / Notes (e.g. Season 2 or S03E04)",
-                  name: "progress",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Rating (Stars 1-5)",
-                  name: "rating",
-                  widget: "star-rating",
-                  required: false,
-                }
-              - {
-                  label: "Year / Airing Period",
-                  name: "year",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Thoughts / Mini Review",
-                  name: "review",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (IMDb, TMDB, MyAnimeList)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-
-      - name: "games"
-        label: "Games"
-        file: "src/_data/games.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Games",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "WHAT I'M PLAYING",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Games",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Games List"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}} [{{fields.status}}] {{#fields.playingRightNow}}★ Playing Right Now{{/fields.playingRightNow}}"
-            fields:
-              - { label: "Game Name", name: "name", widget: "string" }
-              - {
-                  label: "Playing Right Now (Feature on Home & Sidebar)",
-                  name: "playingRightNow",
-                  widget: "boolean",
-                  default: false,
-                  required: false,
-                  hint: "Enable to feature this game in the 'Games I play' card on the Home page and Sidebar.",
-                }
-              - {
-                  label: "Cover / Box Art Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a game cover image or box art (JPG, PNG, WEBP).",
-                }
-              - {
-                  label: "Icon / Mini Logo (Optional)",
-                  name: "icon",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a small game icon (PNG, SVG, WEBP).",
-                }
-              - {
-                  label: "Publisher / Developer",
-                  name: "publisher",
-                  widget: "string",
-                  required: false,
-                  hint: "e.g. HoYoverse, Nintendo, FromSoftware, Valve, Sony, etc.",
-                }
-              - {
-                  label: "Platform (e.g. PC, Switch, PS5, Steam Deck)",
-                  name: "platform",
-                  widget: "string",
-                  required: false,
-                }
-              - label: "Status"
-                name: "status"
-                widget: "select"
-                options:
-                  - { label: "Playing right now", value: "Playing right now" }
-                  - { label: "Currently Playing", value: "Currently Playing" }
-                  - { label: "Completed", value: "Completed" }
-                  - { label: "Plan to Play / Backlog", value: "Backlog" }
-                  - { label: "On Hold", value: "On Hold" }
-                  - { label: "Dropped", value: "Dropped" }
-                default: "Playing right now"
-              - {
-                  label: "Tags",
-                  name: "tags",
-                  widget: "list",
-                  required: false,
-                  hint: "Add tags, e.g. 'Playing right now', 'RPG', 'Gacha', 'PC', etc.",
-                }
-              - {
-                  label: "Description / Notes",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Link (Official Website or Steam Page)",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                }
-
-      - name: "software"
-        label: "Software"
-        file: "src/_data/software.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Software",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "TOOLS & APPS I USE",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Software & Tools",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Software List"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}}"
-            fields:
-              - {
-                  label: "Software / Tool Name",
-                  name: "name",
-                  widget: "string",
-                }
-              - {
-                  label: "Icon / Logo Image",
-                  name: "icon",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload a small app icon (PNG, SVG, WEBP, ICO).",
-                }
-              - {
-                  label: "Website / Download Link",
-                  name: "link",
-                  widget: "string",
-                  required: false,
-                  hint: "Link opened when clicking the software name.",
-                }
-
-      - name: "friends"
-        label: "Friends"
-        file: "src/_data/friends.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Friends",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "FRIENDS & ALLIES",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Friends & Web Neighbours",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Friends & Allies List"
-            name: "items"
-            widget: "list"
-            summary: "{{fields.name}} [{{fields.relationship}}]"
-            fields:
-              - { label: "Friend / Site Name", name: "name", widget: "string" }
-              - { label: "Website URL", name: "url", widget: "string" }
-              - {
-                  label: "Avatar / Profile Picture",
-                  name: "avatar",
-                  widget: "image",
-                  required: false,
-                  hint: "Upload an avatar or icon (PNG, JPG, WEBP, GIF).",
-                }
-              - {
-                  label: "Relationship / Role",
-                  name: "relationship",
-                  widget: "string",
-                  required: false,
-                  hint: "e.g. Peer / Friend, Colleague, Design Partner, Webring Ally",
-                }
-              - {
-                  label: "Bio / Description",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                  hint: "Short note on who they are or what their site is about.",
-                }
-      - name: "gear"
-        label: "Gear"
-        file: "src/_data/gear.json"
-        format: "json"
-        fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Gear",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "MY DESK & DAILY DRIVERS",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-              default: "/images/header-banner.jpg",
-            }
-          - {
-              label: "Section heading",
-              name: "heading",
-              widget: "string",
-              default: "Hardware, Desk Setup & Photography",
-            }
-          - {
-              label: "Page intro text",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - label: "Desk & Setup Photo Gallery"
-            name: "gallery"
-            widget: "list"
+          - label: Page title
+            name: title
+            widget: string
+            default: Books
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: WHAT I'M READING
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
             required: false
-            summary: "{{fields.title}} [{{fields.date}}]"
-            fields:
-              - { label: "Photo Title", name: "title", widget: "string", default: "Desk Setup" }
-              - { label: "Photo Image", name: "image", widget: "image" }
-              - { label: "Caption / Description", name: "caption", widget: "string", required: false }
-              - { label: "Date / Year", name: "date", widget: "string", required: false }
-          - label: "Hardware & Peripheral Categories"
-            name: "categories"
-            widget: "list"
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
             required: false
-            summary: "{{fields.category}}"
+          - label: Heading
+            name: heading
+            widget: string
+            default: Bookshelf
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Books List
+            name: items
+            widget: list
+            label_singular: Book
+            collapsed: true
+            summary: '{{fields.title}} by {{fields.author}} [{{fields.status}}]'
             fields:
-              - { label: "Category Name", name: "category", widget: "string" }
-              - label: "Hardware Items"
-                name: "items"
-                widget: "list"
-                summary: "{{fields.name}}: {{fields.specs}}"
+              - label: Book Title
+                name: title
+                widget: string
+              - label: Author
+                name: author
+                widget: string
+                required: false
+              - label: Cover Image
+                name: image
+                widget: image
+                required: false
+                hint: Upload a book cover image (JPG, PNG, WEBP).
+              - label: Cover Image Alt Text
+                name: imageAlt
+                widget: string
+                required: false
+              - label: Status
+                name: status
+                widget: select
+                options:
+                  - label: Currently Reading
+                    value: currently-reading
+                  - label: Completed / Finished
+                    value: read
+                  - label: Want to Read / Plan to Read
+                    value: to-read
+                default: currently-reading
+              - label: Progress / Notes (e.g. Chapter 6 / Page 140)
+                name: progress
+                widget: string
+                required: false
+              - label: Rating (Stars 1-5)
+                name: rating
+                widget: number
+                value_type: int
+                min: 1
+                max: 5
+                required: false
+              - label: Year / Date Read
+                name: year
+                widget: string
+                required: false
+              - label: Thoughts / Mini Review
+                name: review
+                widget: text
+                required: false
+      - name: movies
+        label: Movies
+        file: src/_data/movies.json
+        media_folder: src/images/movies
+        public_folder: /images/movies
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Movies
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: WHAT I'M WATCHING
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Cinema & Shows
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Movies (Section 1)
+            name: movies
+            widget: list
+            label_singular: Movie
+            collapsed: true
+            summary: '{{fields.title}} [{{fields.status}}]'
+            fields:
+              - label: Movie Title
+                name: title
+                widget: string
+              - label: Director / Studio
+                name: director
+                widget: string
+                required: false
+              - label: Poster Image
+                name: image
+                widget: image
+                required: false
+                hint: Upload a movie poster image (JPG, PNG, WEBP).
+              - label: Poster Alt Text
+                name: imageAlt
+                widget: string
+                required: false
+              - label: Status
+                name: status
+                widget: select
+                options:
+                  - label: Currently Watching
+                    value: currently-watching
+                  - label: Completed / Watched
+                    value: watched
+                  - label: Plan to Watch
+                    value: plan-to-watch
+                default: watched
+              - label: Rating (Stars 1-5)
+                name: rating
+                widget: number
+                value_type: int
+                min: 1
+                max: 5
+                required: false
+              - label: Release Year
+                name: year
+                widget: string
+                required: false
+              - label: Thoughts / Mini Review
+                name: review
+                widget: text
+                required: false
+              - label: Link (IMDb, Letterboxd, TMDB)
+                name: link
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+          - label: TV Shows & Series (Section 2)
+            name: shows
+            widget: list
+            label_singular: Show
+            collapsed: true
+            summary: '{{fields.title}} [{{fields.status}}]'
+            fields:
+              - label: Show Title
+                name: title
+                widget: string
+              - label: Creator / Network / Studio
+                name: creator
+                widget: string
+                required: false
+              - label: Poster Image
+                name: image
+                widget: image
+                required: false
+                hint: Upload a show poster image (JPG, PNG, WEBP).
+              - label: Poster Alt Text
+                name: imageAlt
+                widget: string
+                required: false
+              - label: Status
+                name: status
+                widget: select
+                options:
+                  - label: Currently Watching
+                    value: currently-watching
+                  - label: Completed / Finished
+                    value: watched
+                  - label: Plan to Watch
+                    value: plan-to-watch
+                default: currently-watching
+              - label: Progress / Notes (e.g. Season 2 or S03E04)
+                name: progress
+                widget: string
+                required: false
+              - label: Rating (Stars 1-5)
+                name: rating
+                widget: number
+                value_type: int
+                min: 1
+                max: 5
+                required: false
+              - label: Year / Airing Period
+                name: year
+                widget: string
+                required: false
+              - label: Thoughts / Mini Review
+                name: review
+                widget: text
+                required: false
+              - label: Link (IMDb, TMDB, MyAnimeList)
+                name: link
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+      - name: games
+        label: Games
+        file: src/_data/games.json
+        media_folder: src/images/games
+        public_folder: /images/games
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Games
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: WHAT I'M PLAYING
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Games
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Games List
+            name: items
+            widget: list
+            label_singular: Game
+            collapsed: true
+            summary: '{{fields.name}} [{{fields.status}}]'
+            fields:
+              - label: Game Name
+                name: name
+                widget: string
+              - label: Playing Right Now (Feature on Home & Sidebar)
+                name: playingRightNow
+                widget: boolean
+                default: false
+                required: false
+                hint: Enable to feature this game in the 'Games I play' card on the Home page and Sidebar.
+              - label: Cover / Box Art Image
+                name: image
+                widget: image
+                required: false
+                hint: Upload a game cover image or box art (JPG, PNG, WEBP).
+              - label: Cover Image Alt Text
+                name: imageAlt
+                widget: string
+                required: false
+              - label: Icon / Mini Logo (Optional)
+                name: icon
+                widget: image
+                required: false
+                hint: Upload a small game icon (PNG, SVG, WEBP).
+              - label: Icon Alt Text
+                name: iconAlt
+                widget: string
+                required: false
+              - label: Publisher / Developer
+                name: publisher
+                widget: string
+                required: false
+                hint: e.g. HoYoverse, Nintendo, FromSoftware, Valve, Sony, etc.
+              - label: Platform (e.g. PC, Switch, PS5, Steam Deck)
+                name: platform
+                widget: string
+                required: false
+              - label: Status
+                name: status
+                widget: select
+                options:
+                  - label: Playing
+                    value: playing
+                  - label: Completed
+                    value: completed
+                  - label: Backlog
+                    value: backlog
+                  - label: On Hold
+                    value: on-hold
+                  - label: Dropped
+                    value: dropped
+                default: playing
+              - label: Tags
+                name: tags
+                widget: list
+                required: false
+                label_singular: Tag
+                hint: Add tags, e.g. 'RPG', 'Gacha', 'PC', etc.
+              - label: Description / Notes
+                name: description
+                widget: text
+                required: false
+              - label: Link (Official Website or Steam Page)
+                name: link
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+      - name: software
+        label: Software
+        file: src/_data/software.json
+        media_folder: src/images/software
+        public_folder: /images/software
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Software
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: TOOLS & APPS I USE
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Software & Tools
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Software List
+            name: items
+            widget: list
+            label_singular: Tool
+            collapsed: true
+            summary: '{{fields.name}}'
+            fields:
+              - label: Software / Tool Name
+                name: name
+                widget: string
+              - label: Icon / Logo Image
+                name: icon
+                widget: image
+                required: false
+                hint: Upload a small app icon (PNG, SVG, WEBP, ICO).
+              - label: Icon Alt Text
+                name: iconAlt
+                widget: string
+                required: false
+              - label: Website / Download Link
+                name: link
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+      - name: friends
+        label: Friends
+        file: src/_data/friends.json
+        media_folder: src/images/friends
+        public_folder: /images/friends
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Friends
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: FRIENDS & ALLIES
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Friends & Web Neighbours
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Friends & Allies List
+            name: items
+            widget: list
+            label_singular: Friend
+            collapsed: true
+            summary: '{{fields.name}} [{{fields.relationship}}]'
+            fields:
+              - label: Friend / Site Name
+                name: name
+                widget: string
+              - label: Website URL
+                name: url
+                widget: string
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+              - label: Avatar / Profile Picture
+                name: avatar
+                widget: image
+                required: false
+                hint: Upload an avatar or icon (PNG, JPG, WEBP, GIF).
+              - label: Avatar Alt Text
+                name: avatarAlt
+                widget: string
+                required: false
+              - label: Relationship / Role
+                name: relationship
+                widget: string
+                required: false
+                hint: e.g. Peer / Friend, Colleague, Design Partner, Webring Ally
+              - label: Bio / Description
+                name: description
+                widget: text
+                required: false
+                hint: Short note on who they are or what their site is about.
+      - name: gear
+        label: Gear
+        file: src/_data/gear.json
+        media_folder: src/images/gear
+        public_folder: /images/gear
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Gear
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: MY DESK & DAILY DRIVERS
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+            default: /images/header-banner.jpg
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Hardware, Desk Setup & Photography
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Desk & Setup Photo Gallery
+            name: gallery
+            widget: list
+            label_singular: Photo
+            collapsed: true
+            required: false
+            summary: '{{fields.title}} [{{fields.date}}]'
+            fields:
+              - label: Photo Title
+                name: title
+                widget: string
+                default: Desk Setup
+              - label: Photo Image
+                name: image
+                widget: image
+              - label: Photo Alt Text
+                name: alt
+                widget: string
+                required: false
+              - label: Caption / Description
+                name: caption
+                widget: string
+                required: false
+              - label: Date / Year
+                name: date
+                widget: string
+                required: false
+          - label: Hardware & Peripheral Categories
+            name: categories
+            widget: list
+            label_singular: Category
+            collapsed: true
+            required: false
+            summary: '{{fields.category}}'
+            fields:
+              - label: Category Name
+                name: category
+                widget: string
+              - label: Hardware Items
+                name: items
+                widget: list
+                label_singular: Item
+                summary: '{{fields.name}}: {{fields.specs}}'
                 fields:
-                  - { label: "Item / Component Name", name: "name", widget: "string" }
-                  - { label: "Key Specifications", name: "specs", widget: "string" }
-                  - { label: "Notes / Experience", name: "notes", widget: "text", required: false }
-
-  - name: "resume-page"
-    label: "Resume / CV"
+                  - label: Item / Component Name
+                    name: name
+                    widget: string
+                  - label: Key Specifications
+                    name: specs
+                    widget: string
+                  - label: Notes / Experience
+                    name: notes
+                    widget: text
+                    required: false
+  - name: resume-page
+    label: Resume / CV
+    delete: false
     files:
-      - name: "resume-page"
-        label: "Resume / CV Page"
-        file: "src/_data/resume.json"
-        format: "json"
+      - name: resume-page
+        label: Resume / CV Page
+        file: src/_data/resume.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Resume",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "CURRICULUM VITAE",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Curriculum Vitae",
-            }
-          - {
-              label: "Subheading / Role",
-              name: "subheading",
-              widget: "string",
-              default: "Full-Stack Web Developer & Designer",
-              required: false,
-            }
-          - {
-              label: "Professional Summary",
-              name: "intro",
-              widget: "text",
-              required: false,
-            }
-          - {
-              label: "Resume PDF URL or File",
-              name: "pdfUrl",
-              widget: "file",
-              required: false,
-            }
-          - label: "Contact Details"
-            name: "contactDetails"
-            widget: "list"
+          - label: Page title
+            name: title
+            widget: string
+            default: Resume
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: CURRICULUM VITAE
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+            default: /images/header-banner.jpg
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading / Full Name
+            name: heading
+            widget: string
+            default: Curriculum Vitae
+          - label: Subheading / Role
+            name: subheading
+            widget: string
+            default: Full-Stack Web Developer & Designer
+            required: false
+          - label: Professional Summary
+            name: intro
+            widget: text
+            required: false
+          - label: Resume PDF URL or File
+            name: pdfUrl
+            widget: file
+            required: false
+          - label: Contact Details
+            name: contactDetails
+            widget: list
+            label_singular: Contact Detail
+            collapsed: true
             required: false
             fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Value", name: "value", widget: "string" }
-              - { label: "URL", name: "url", widget: "string", required: false }
-          - label: "Work Experience"
-            name: "experience"
-            widget: "list"
+              - label: Label
+                name: label
+                widget: string
+              - label: Value
+                name: value
+                widget: string
+              - label: URL
+                name: url
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+          - label: Work Experience
+            name: experience
+            widget: list
+            label_singular: Experience
+            collapsed: true
             required: false
             fields:
-              - { label: "Job Title", name: "role", widget: "string" }
-              - {
-                  label: "Company / Organization",
-                  name: "company",
-                  widget: "string",
-                }
-              - { label: "Period", name: "period", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-          - label: "Education"
-            name: "education"
-            widget: "list"
+              - label: Job Title
+                name: role
+                widget: string
+              - label: Company / Organization
+                name: company
+                widget: string
+              - label: Period
+                name: period
+                widget: string
+              - label: Description
+                name: description
+                widget: text
+          - label: Education
+            name: education
+            widget: list
+            label_singular: Education
+            collapsed: true
             required: false
             fields:
-              - {
-                  label: "Degree / Certificate",
-                  name: "degree",
-                  widget: "string",
-                }
-              - {
-                  label: "Institution / School",
-                  name: "institution",
-                  widget: "string",
-                }
-              - { label: "Period", name: "period", widget: "string" }
-              - {
-                  label: "Details",
-                  name: "details",
-                  widget: "string",
-                  required: false,
-                }
-          - label: "Certifications & Credentials"
-            name: "certifications"
-            widget: "list"
+              - label: Degree / Certificate
+                name: degree
+                widget: string
+              - label: Institution / School
+                name: institution
+                widget: string
+              - label: Period
+                name: period
+                widget: string
+              - label: Details
+                name: details
+                widget: string
+                required: false
+          - label: Certifications & Credentials
+            name: certifications
+            widget: list
+            label_singular: Certification
+            collapsed: true
             required: false
             fields:
-              - { label: "Certificate / Credential Name", name: "name", widget: "string" }
-              - { label: "Issuing Organization", name: "issuer", widget: "string" }
-              - { label: "Issue Date / Year", name: "date", widget: "string", required: false }
-              - { label: "Credential ID / License #", name: "credentialId", widget: "string", required: false }
-              - { label: "Verification URL", name: "credentialUrl", widget: "string", required: false }
-              - { label: "Badge / Certificate Image", name: "badge", widget: "image", required: false }
-              - { label: "Skills Covered", name: "skills", widget: "string", required: false }
-          - label: "Skill Categories"
-            name: "skillsList"
-            widget: "list"
+              - label: Certificate / Credential Name
+                name: name
+                widget: string
+              - label: Issuing Organization
+                name: issuer
+                widget: string
+              - label: Issue Date / Year
+                name: date
+                widget: string
+                required: false
+              - label: 'Credential ID / License #'
+                name: credentialId
+                widget: string
+                required: false
+              - label: Verification URL
+                name: credentialUrl
+                widget: string
+                required: false
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+              - label: Badge / Certificate Image
+                name: badge
+                widget: image
+                required: false
+              - label: Badge Alt Text
+                name: badgeAlt
+                widget: string
+                required: false
+              - label: Skills Covered
+                name: skills
+                widget: string
+                required: false
+          - label: Skill Categories
+            name: skillsList
+            widget: list
+            label_singular: Skill Category
+            collapsed: true
             required: false
             fields:
-              - { label: "Category", name: "category", widget: "string" }
-              - { label: "Skills", name: "items", widget: "string" }
-          - {
-              label: "Additional Notes",
-              name: "additionalNotes",
-              widget: "text",
-              required: false,
-            }
-
-  - name: "pages"
-    label: "Pages"
+              - label: Category
+                name: category
+                widget: string
+              - label: Skills
+                name: items
+                widget: string
+          - label: Additional Notes
+            name: additionalNotes
+            widget: text
+            required: false
+  - name: pages
+    label: Pages
+    delete: false
     files:
-      - name: "home"
-        label: "Homepage"
-        file: "src/_data/home.json"
-        format: "json"
+      - name: home
+        label: Homepage
+        file: src/_data/home.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - { label: "Greeting", name: "greeting", widget: "string" }
-          - { label: "Welcome text", name: "welcome", widget: "string" }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-              default: "/images/header-banner.jpg",
-            }
-          - {
-              label: "Greeting GIF",
-              name: "greetingGif",
-              widget: "image",
-              required: false,
-              default: "/images/hi.gif",
-            }
-          - { label: "About heading", name: "aboutTitle", widget: "string" }
-          - { label: "About text", name: "about", widget: "text" }
-          - {
-              label: "Currently heading",
-              name: "currentlyTitle",
-              widget: "string",
-            }
-          - {
-              label: "Currently",
-              name: "currently",
-              widget: "list",
-              field: { label: "Item", name: "item", widget: "string" },
-            }
-          - {
-              label: "Profile image",
-              name: "profileImage",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Profile image alt text",
-              name: "profileAlt",
-              widget: "string",
-              required: false,
-            }
-          - { label: "Status heading", name: "statusTitle", widget: "string" }
-          - label: "Status"
-            name: "status"
-            widget: "list"
+          - label: Greeting
+            name: greeting
+            widget: string
+          - label: Welcome text
+            name: welcome
+            widget: string
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+            default: /images/header-banner.jpg
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Greeting GIF
+            name: greetingGif
+            widget: image
+            required: false
+            default: /images/hi.gif
+          - label: Greeting GIF Alt Text
+            name: greetingGifAlt
+            widget: string
+            required: false
+          - label: About heading
+            name: aboutTitle
+            widget: string
+          - label: About text
+            name: about
+            widget: text
+          - label: Currently heading
+            name: currentlyTitle
+            widget: string
+          - label: Currently
+            name: currently
+            widget: list
+            label_singular: Item
+            field:
+              label: Item
+              name: item
+              widget: string
+          - label: Profile image
+            name: profileImage
+            widget: image
+            required: false
+          - label: Profile image alt text
+            name: profileAlt
+            widget: string
+            required: false
+          - label: Status heading
+            name: statusTitle
+            widget: string
+          - label: Status
+            name: status
+            widget: list
+            label_singular: Status Item
             fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "Value", name: "value", widget: "string" }
-          - label: "Quick links"
-            name: "links"
-            widget: "list"
+              - label: Label
+                name: label
+                widget: string
+              - label: Value
+                name: value
+                widget: string
+          - label: Quick links
+            name: links
+            widget: list
+            label_singular: Quick Link
+            collapsed: true
             fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
-          - {
-              label: "Skills",
-              name: "skills",
-              widget: "list",
-              field: { label: "Skill", name: "skill", widget: "string" },
-            }
-      - name: "blog-page"
-        label: "Blog landing page"
-        file: "src/_data/blogPage.json"
-        format: "json"
+              - label: Label
+                name: label
+                widget: string
+              - label: URL
+                name: url
+                widget: string
+                pattern:
+                  - ^https?://.+
+                  - Must be a full URL
+          - label: Skills
+            name: skills
+            widget: list
+            label_singular: Skill
+            field:
+              label: Skill
+              name: skill
+              widget: string
+      - name: blog-page
+        label: Blog landing page
+        file: src/_data/blogPage.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Blog",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "MY WEB LOG",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "Web log",
-            }
-          - { label: "Intro", name: "intro", widget: "text" }
-      - name: "portfolio-page"
-        label: "Portfolio landing page"
-        file: "src/_data/portfolioPage.json"
-        format: "json"
+          - label: Page title
+            name: title
+            widget: string
+            default: Blog
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: MY WEB LOG
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Web log
+          - label: Intro
+            name: intro
+            widget: text
+            required: true
+      - name: portfolio-page
+        label: Portfolio landing page
+        file: src/_data/portfolioPage.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - {
-              label: "Page title",
-              name: "title",
-              widget: "string",
-              default: "Portfolio",
-            }
-          - {
-              label: "Header tagline",
-              name: "headerTagline",
-              widget: "string",
-              default: "MY WEB PORTFOLIO",
-            }
-          - {
-              label: "Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-            }
-          - {
-              label: "Heading",
-              name: "heading",
-              widget: "string",
-              default: "My work",
-            }
-          - { label: "Intro", name: "intro", widget: "text" }
-      - name: "site"
-        label: "Site settings"
-        file: "src/_data/site.json"
-        format: "json"
+          - label: Page title
+            name: title
+            widget: string
+            default: Portfolio
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: MY WEB PORTFOLIO
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: My work
+          - label: Intro
+            name: intro
+            widget: text
+            required: true
+          - label: Show project filter chips
+            name: showFilters
+            widget: boolean
+            default: true
+          - label: Empty state message
+            name: emptyStateText
+            widget: string
+            default: There are no portfolio projects published yet. Check back soon!
+          - label: Call to Action Text
+            name: ctaText
+            widget: string
+            required: false
+            default: Get in touch »
+          - label: Call to Action URL
+            name: ctaUrl
+            widget: string
+            required: false
+            default: mailto:me@amitendu.me
+      - name: site
+        label: Site settings
+        file: src/_data/site.json
+        media_folder: src/images/site
+        public_folder: /images/site
+        format: json
         fields:
-          - { label: "Site title", name: "title", widget: "string" }
-          - { label: "Site URL", name: "url", widget: "string", default: "https://amitendu.me" }
-          - { label: "Header tagline", name: "tagline", widget: "string" }
-          - {
-              label: "Default Header Banner Image",
-              name: "headerBanner",
-              widget: "image",
-              required: false,
-              default: "/images/header-banner.jpg",
-            }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Footer text", name: "footer", widget: "string" }
-          - { label: "Footer title", name: "footerTitle", widget: "string" }
-          - { label: "Footer badge", name: "footerBadge", widget: "string" }
-          - { label: "Visitor count", name: "visitorCount", widget: "string" }
-          - label: "Left sidebar"
-            name: "leftSidebar"
-            widget: "object"
+          - label: Site title
+            name: title
+            widget: string
+          - label: Site URL
+            name: url
+            widget: string
+            default: https://amitendu.me
+          - label: Header tagline
+            name: tagline
+            widget: string
+          - label: Default Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+            default: /images/header-banner.jpg
+          - label: Default Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Email
+            name: email
+            widget: string
+          - label: Footer text
+            name: footer
+            widget: string
+          - label: Footer title
+            name: footerTitle
+            widget: string
+          - label: Footer badge
+            name: footerBadge
+            widget: string
+          - label: Visitor count
+            name: visitorCount
+            widget: string
+          - label: Left sidebar
+            name: leftSidebar
+            widget: object
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - label: "Links"
-                name: "items"
-                widget: "list"
+              - label: Title
+                name: title
+                widget: string
+              - label: Links
+                name: items
+                widget: list
+                label_singular: Link
+                collapsed: true
                 fields:
-                  - { label: "Label", name: "label", widget: "string" }
-                  - { label: "URL", name: "url", widget: "string" }
-          - label: "Right sidebar"
-            name: "rightSidebar"
-            widget: "object"
+                  - label: Label
+                    name: label
+                    widget: string
+                  - label: URL
+                    name: url
+                    widget: string
+          - label: Right sidebar
+            name: rightSidebar
+            widget: object
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - label: "Links"
-                name: "items"
-                widget: "list"
+              - label: Title
+                name: title
+                widget: string
+              - label: Links
+                name: items
+                widget: list
+                label_singular: Link
+                collapsed: true
                 fields:
-                  - { label: "Label", name: "label", widget: "string" }
-                  - { label: "URL", name: "url", widget: "string" }
-                  - label: "Website Icon"
-                    name: "icon"
-                    widget: "select"
+                  - label: Label
+                    name: label
+                    widget: string
+                  - label: URL
+                    name: url
+                    widget: string
+                  - label: Website Icon
+                    name: icon
+                    widget: select
                     required: false
                     options:
-                      - { label: "Auto (Detect from URL/Label)", value: "" }
-                      - { label: "DEV Community (dev.to)", value: "dev.to" }
-                      - { label: "Discord", value: "discord" }
-                      - { label: "Figma", value: "figma" }
-                      - { label: "Finder", value: "finder" }
-                      - { label: "GitHub", value: "github" }
-                      - { label: "Hashnode", value: "hashnode" }
-                      - { label: "Instagram", value: "instagram" }
-                      - { label: "LinkedIn", value: "linkedin" }
-                      - { label: "Apple Mail", value: "mail" }
-                      - { label: "Masterji", value: "masterji" }
-                      - { label: "Medium", value: "medium" }
-                      - { label: "Notes", value: "notes" }
-                      - { label: "Peerlist", value: "peerlist" }
-                      - { label: "Safari / Web", value: "safari" }
-                      - { label: "Terminal", value: "terminal" }
-                      - { label: "Twitter / X", value: "twitter" }
-                      - { label: "X (Twitter)", value: "x" }
-                      - { label: "YouTube", value: "youtube" }
-
-          - label: "Author Profile"
-            name: "author"
-            widget: "object"
+                      - label: DEV Community (dev.to)
+                        value: dev.to
+                      - label: Discord
+                        value: discord
+                      - label: Figma
+                        value: figma
+                      - label: Finder
+                        value: finder
+                      - label: GitHub
+                        value: github
+                      - label: Hashnode
+                        value: hashnode
+                      - label: Instagram
+                        value: instagram
+                      - label: LinkedIn
+                        value: linkedin
+                      - label: Apple Mail
+                        value: mail
+                      - label: Masterji
+                        value: masterji
+                      - label: Medium
+                        value: medium
+                      - label: Notes
+                        value: notes
+                      - label: Peerlist
+                        value: peerlist
+                      - label: Safari / Web
+                        value: safari
+                      - label: Terminal
+                        value: terminal
+                      - label: X (Twitter)
+                        value: x
+                      - label: YouTube
+                        value: youtube
+          - label: Author Profile
+            name: author
+            widget: object
             fields:
-              - { label: "Name", name: "name", widget: "string" }
-              - { label: "Role / Subtitle", name: "role", widget: "string" }
-              - { label: "Avatar", name: "avatar", widget: "image" }
-              - { label: "Mini Bio", name: "bio", widget: "string" }
-              - { label: "Resume URL", name: "resumeUrl", widget: "string" }
-          - label: "Sidebar Settings"
-            name: "sidebar"
-            widget: "object"
+              - label: Name
+                name: name
+                widget: string
+              - label: Role / Subtitle
+                name: role
+                widget: string
+              - label: Avatar
+                name: avatar
+                widget: image
+              - label: Avatar Alt Text
+                name: avatarAlt
+                widget: string
+                required: false
+              - label: Mini Bio
+                name: bio
+                widget: string
+          - label: Sidebar Settings
+            name: sidebar
+            widget: object
             fields:
-              - {
-                  label: "Recent Posts Title",
-                  name: "recentPostsTitle",
-                  widget: "string",
-                  default: "Recent Posts",
-                }
-              - {
-                  label: "Recent Posts Limit",
-                  name: "recentPostsLimit",
-                  widget: "number",
-                  value_type: "int",
-                  default: 3,
-                }
-              - {
-                  label: "Favorites Title",
-                  name: "favoritesTitle",
-                  widget: "string",
-                  default: "Favorites",
-                }
-          - {
-              label: "Featured item limit",
-              name: "featuredLimit",
-              widget: "number",
-              value_type: "int",
-              default: 4,
-            }
-          - label: "Announcement Banner"
-            name: "announcement"
-            widget: "object"
+              - label: Recent Posts Title
+                name: recentPostsTitle
+                widget: string
+                default: Recent Posts
+              - label: Recent Posts Limit
+                name: recentPostsLimit
+                widget: number
+                value_type: int
+                default: 3
+              - label: Favorites Title
+                name: favoritesTitle
+                widget: string
+                default: Favorites
+          - label: Featured item limit
+            name: featuredLimit
+            widget: number
+            value_type: int
+            default: 4
+          - label: Announcement Banner
+            name: announcement
+            widget: object
             required: false
             fields:
-              - { label: "Enable Announcement", name: "enabled", widget: "boolean", default: false }
-              - { label: "Announcement ID / Version Tag", name: "id", widget: "string", default: "welcome-2026", hint: "Change this tag whenever you post a new announcement so visitors who previously dismissed it will see it." }
-              - label: "Banner Style / Color"
-                name: "type"
-                widget: "select"
-                default: "info"
+              - label: Enable Announcement
+                name: enabled
+                widget: boolean
+                default: false
+              - label: Announcement ID / Version Tag
+                name: id
+                widget: string
+                default: welcome-2026
+                hint: Change this tag whenever you post a new announcement so visitors who previously dismissed it will see it.
+              - label: Banner Style / Color
+                name: type
+                widget: select
+                default: info
                 options:
-                  - { label: "Aero Blue (General / Welcome)", value: "info" }
-                  - { label: "Gold / Amber (Alert / Important)", value: "alert" }
-                  - { label: "Emerald Green (Update / Special)", value: "success" }
-              - { label: "Announcement Message", name: "message", widget: "string", default: "Welcome to my portfolio! Check out the newly updated retro workspace & books." }
-              - { label: "Action Button Text", name: "linkText", widget: "string", required: false, default: "Check it out »" }
-              - { label: "Action Button URL", name: "linkUrl", widget: "string", required: false, default: "/about/gear/" }
-
-  - name: "blog"
-    label: "Blog posts"
-    folder: "src/blog"
+                  - label: Aero Blue (General / Welcome)
+                    value: info
+                  - label: Gold / Amber (Alert / Important)
+                    value: alert
+                  - label: Emerald Green (Update / Special)
+                    value: success
+              - label: Announcement Message
+                name: message
+                widget: string
+                default: Welcome to my portfolio! Check out the newly updated retro workspace & books.
+              - label: Action Button Text
+                name: linkText
+                widget: string
+                required: false
+                default: Check it out »
+              - label: Action Button URL
+                name: linkUrl
+                widget: string
+                required: false
+                default: /about/gear/
+  - name: blog
+    label: Blog posts
+    folder: src/blog
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} — {{date | date('YYYY-MM-DD')}} ({{tags}})"
-    sortable_fields: ["date", "title", "commit_date"]
+    media_folder: src/images/blog
+    public_folder: /images/blog
+    preview_path: blog/{{slug}}
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    summary: '{{title}} — {{date | date(''YYYY-MM-DD'')}}'
+    sortable_fields:
+      - date
+      - title
+      - commit_date
     view_filters:
-      - label: "Published"
-        field: "tags"
-        pattern: "post"
-      - label: "Favorites"
-        field: "tags"
-        pattern: "fav"
-      - label: "Drafts"
-        field: "tags"
-        pattern: "draft"
+      - label: Published
+        field: draft
+        pattern: false
+      - label: Favorites / Featured
+        field: featured
+        pattern: true
+      - label: Drafts
+        field: draft
+        pattern: true
     view_groups:
-      - label: "Year"
-        field: "date"
-        pattern: "\\d{4}"
-      - label: "Status"
-        field: "tags"
+      - label: Year
+        field: date
+        pattern: \d{4}
+      - label: Draft status
+        field: draft
     fields:
-      - {
-          label: "Layout",
-          name: "layout",
-          widget: "hidden",
-          default: "post.njk",
-        }
-      - label: "Status (Tag)"
-        name: "tags"
-        widget: "select"
-        multiple: true
-        options:
-          - { label: "Post (Published)", value: "post" }
-          - { label: "Draft (Hidden from site)", value: "draft" }
-          - { label: "Favorite / Starred", value: "fav" }
-        default: ["post"]
-        hint: "Choose 'post' to publish on blog, 'fav' for starred favorite, or 'draft' to save as draft."
-      - { label: "Title", name: "title", widget: "string" }
-      - {
-          label: "Header tagline",
-          name: "headerTagline",
-          widget: "string",
-          default: "BLOG POST",
-        }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Publish date", name: "date", widget: "datetime" }
-      - {
-          label: "Author",
-          name: "author",
-          widget: "string",
-          default: "Amitendu Bikash Dhusiya",
-        }
-      - {
-          label: "Current mood",
-          name: "mood",
-          widget: "string",
-          required: false,
-          hint: "e.g. thoughtful, caffeinated",
-        }
-      - {
-          label: "Current music",
-          name: "music",
-          widget: "string",
-          required: false,
-          hint: "e.g. Daft Punk - Digital Love",
-        }
-      - {
-          label: "Featured image",
-          name: "image",
-          widget: "image",
-          required: false,
-          hint: "Upload an image or use an external image URL.",
-        }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "portfolio"
-    label: "Portfolio projects"
-    folder: "src/portfolio"
+      - label: Layout
+        name: layout
+        widget: hidden
+        default: post.njk
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+      - label: Featured on home
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Title
+        name: title
+        widget: string
+      - label: Header tagline
+        name: headerTagline
+        widget: string
+        default: BLOG POST
+      - label: Description
+        name: description
+        widget: string
+        pattern:
+          - .{20,160}
+          - 20-160 characters for SEO
+      - label: Publish date
+        name: date
+        widget: datetime
+      - label: Updated date
+        name: updated
+        widget: datetime
+        required: false
+      - label: Author
+        name: author
+        widget: relation
+        collection: authors
+        search_fields:
+          - name
+        value_field: name
+        display_fields:
+          - name
+        default: Amitendu Bikash Dhusiya
+      - label: Canonical URL
+        name: canonical
+        widget: string
+        required: false
+        pattern:
+          - ^https?://.+
+          - Must be a full URL
+      - label: Topics
+        name: topics
+        widget: list
+        required: false
+        label_singular: Topic
+      - label: Current mood
+        name: mood
+        widget: string
+        required: false
+        hint: e.g. thoughtful, caffeinated
+      - label: Current music
+        name: music
+        widget: string
+        required: false
+        hint: e.g. Daft Punk - Digital Love
+      - label: Featured image
+        name: image
+        widget: image
+        required: false
+        hint: Upload an image or use an external image URL.
+      - label: Featured image alt text
+        name: imageAlt
+        widget: string
+        required: false
+      - label: Social share image (OG Image)
+        name: ogImage
+        widget: image
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+  - name: portfolio
+    label: Portfolio projects
+    folder: src/portfolio
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} — ({{tags}})"
-    sortable_fields: ["title", "commit_date"]
+    media_folder: src/images/portfolio
+    public_folder: /images/portfolio
+    preview_path: portfolio/{{slug}}
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    summary: '{{title}} · {{projectType}} · {{projectStatus}}'
+    sortable_fields:
+      - date
+      - order
+      - title
+      - commit_date
     view_filters:
-      - label: "Published"
-        field: "tags"
-        pattern: "portfolio"
-      - label: "Favorites"
-        field: "tags"
-        pattern: "fav"
-      - label: "Drafts"
-        field: "tags"
-        pattern: "draft"
+      - label: Published
+        field: draft
+        pattern: false
+      - label: Featured on home
+        field: featured
+        pattern: true
+      - label: Drafts
+        field: draft
+        pattern: true
     view_groups:
-      - label: "Status"
-        field: "tags"
+      - label: Project Type
+        field: projectType
+      - label: Status
+        field: projectStatus
     fields:
-      - {
-          label: "Layout",
-          name: "layout",
-          widget: "hidden",
-          default: "base.njk",
-        }
-      - label: "Status (Tag)"
-        name: "tags"
-        widget: "select"
-        multiple: true
+      - label: Layout
+        name: layout
+        widget: hidden
+        default: base.njk
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+      - label: Featured on home
+        name: featured
+        widget: boolean
+        default: false
+      - label: Title
+        name: title
+        widget: string
+      - label: Header tagline
+        name: headerTagline
+        widget: string
+        default: PORTFOLIO PROJECT
+      - label: Description
+        name: description
+        widget: string
+        pattern:
+          - .{20,160}
+          - 20-160 characters for SEO
+      - label: Date
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+      - label: Sort order (lower = first)
+        name: order
+        widget: number
+        value_type: int
+        default: 100
+        required: false
+      - label: Project type
+        name: projectType
+        widget: select
         options:
-          - { label: "Portfolio (Published)", value: "portfolio" }
-          - { label: "Draft (Hidden from site)", value: "draft" }
-          - { label: "Favorite / Starred", value: "fav" }
-        default: ["portfolio"]
-        hint: "Choose 'portfolio' to publish, 'fav' for starred favorite, or 'draft' to save as draft."
-      - { label: "Title", name: "title", widget: "string" }
-      - {
-          label: "Header tagline",
-          name: "headerTagline",
-          widget: "string",
-          default: "PORTFOLIO PROJECT",
-        }
-      - { label: "Description", name: "description", widget: "string" }
-      - {
-          label: "Featured image",
-          name: "image",
-          widget: "image",
-          required: false,
-          hint: "Upload an image or use an external image URL.",
-        }
-      - { label: "Body", name: "body", widget: "markdown" }
-
-  - name: "authors"
-    label: "Authors"
-    folder: "src/authors"
+          - label: Desktop app
+            value: desktop
+          - label: Android app
+            value: android
+          - label: Web app
+            value: web
+          - label: Tool / Script
+            value: tool
+          - label: Academic / College
+            value: academic
+      - label: Platforms
+        name: platforms
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - Windows
+          - Android
+          - Web
+          - CLI
+      - label: Project status
+        name: projectStatus
+        widget: select
+        default: in-progress
+        options:
+          - label: In progress
+            value: in-progress
+          - label: Completed
+            value: completed
+          - label: Maintained
+            value: maintained
+          - label: Archived
+            value: archived
+          - label: Concept
+            value: concept
+      - label: Role
+        name: role
+        widget: string
+        required: false
+      - label: Context
+        name: context
+        widget: string
+        required: false
+        hint: Personal, College project, Client work, Hackathon
+      - label: Duration
+        name: duration
+        widget: string
+        required: false
+      - label: Tech stack
+        name: stack
+        widget: list
+        required: false
+        min: 1
+        label_singular: Tech
+      - label: Key highlights
+        name: highlights
+        widget: list
+        required: false
+        label_singular: Highlight
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        label_singular: Link
+        summary: '{{fields.label}}'
+        fields:
+          - label: Label
+            name: label
+            widget: string
+          - label: URL
+            name: url
+            widget: string
+            pattern:
+              - ^https?://.+
+              - Must be a full URL
+      - label: Featured image
+        name: image
+        widget: image
+        required: false
+      - label: Featured image alt text
+        name: imageAlt
+        widget: string
+        required: false
+      - label: Screenshots
+        name: gallery
+        widget: list
+        required: false
+        collapsed: true
+        label_singular: Screenshot
+        fields:
+          - label: Image
+            name: image
+            widget: image
+          - label: Alt text
+            name: alt
+            widget: string
+          - label: Caption
+            name: caption
+            widget: string
+            required: false
+      - label: Social share image
+        name: ogImage
+        widget: image
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+  - name: authors
+    label: Authors
+    folder: src/authors
     create: true
-    slug: "{{slug}}"
-    summary: "{{name}} (@{{slug}})"
+    media_folder: src/images/authors
+    public_folder: /images/authors
+    slug: '{{slug}}'
+    summary: '{{name}} (@{{slug}})'
     fields:
-      - {
-          label: "Layout",
-          name: "layout",
-          widget: "hidden",
-          default: "base.njk",
-        }
-      - {
-          label: "Page title",
-          name: "title",
-          widget: "hidden",
-          default: "Author Profile",
-        }
-      - {
-          label: "Header tagline",
-          name: "headerTagline",
-          widget: "hidden",
-          default: "AUTHOR PROFILE",
-        }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Name", name: "name", widget: "string" }
-      - {
-          label: "Profile image",
-          name: "image",
-          widget: "image",
-          required: false,
-        }
-      - { label: "Bio", name: "bio", widget: "text", required: false }
-      - {
-          label: "Hide hero image",
-          name: "hideHeroImage",
-          widget: "hidden",
-          default: true,
-        }
+      - label: Layout
+        name: layout
+        widget: hidden
+        default: base.njk
+      - label: Page title
+        name: title
+        widget: hidden
+        default: Author Profile
+      - label: Header tagline
+        name: headerTagline
+        widget: hidden
+        default: AUTHOR PROFILE
+      - label: Slug
+        name: slug
+        widget: string
+      - label: Name
+        name: name
+        widget: string
+      - label: Profile image
+        name: image
+        widget: image
+        required: false
+      - label: Profile image alt text
+        name: imageAlt
+        widget: string
+        required: false
+      - label: Bio
+        name: bio
+        widget: text
+        required: false
+      - label: Hide hero image
+        name: hideHeroImage
+        widget: hidden
+        default: true

@@ -1,16 +1,13 @@
 ---
 layout: post.njk
-tags:
-  - post
-title: Bootcamp of SAP
-headerTagline: EXPERIENCE
-description: Completed a 6-month SAP ABAP Bootcamp at Techno India Group, where
-  I learned the basics of ABAP programming, Object-Oriented ABAP, internal
-  tables, reports, and SAP HANA while gaining hands-on exposure to SAP
-  development.
+draft: false
+featured: false
+title: "Bootcamp of SAP"
+headerTagline: "EXPERIENCE"
+description: "Completed a 6-month SAP ABAP Bootcamp at Techno India Group, where I learned the basics of ABAP programming, Object-Oriented ABAP, internal tables, reports, and SAP HANA while gaining hands-on exposure to SAP development."
 date: 2026-05-27T08:41:00.000+05:30
-author: Amitendu Bikash Dhusiya
-image: /images/img-20260120-wa0008.webp
+author: "Amitendu Bikash Dhusiya"
+image: "/images/blog/2026-10-15-bootcamp-of-sap-5.webp"
 ---
 
 ## S.A.P. Bootcamp Experience
@@ -21,7 +18,7 @@ This was my introduction to the world of SAP and enterprise software development
 
 ## What I Learned
 
-![A view of the room we were sitting in!](/images/20260115_095553.webp "A view of the room we were sitting in!")
+![A view of the room we were sitting in!](/images/blog/2026-10-15-bootcamp-of-sap.webp "A view of the room we were sitting in!")
 
 I started with the fundamentals of ABAP (Advanced Business Application Programming), including:
 
@@ -36,7 +33,7 @@ Alongside programming, I was introduced to SAP HANA and basic database concepts,
 
 ## Skills I Built
 
-![Some code we were writing!](/images/20260115_113008.webp "Some code we were writing!")
+![Some code we were writing!](/images/blog/2026-10-15-bootcamp-of-sap-2.webp "Some code we were writing!")
 
 - ABAP Programming
 - Object-Oriented ABAP (OOABAP)
@@ -46,10 +43,10 @@ Alongside programming, I was introduced to SAP HANA and basic database concepts,
 
 ## Overall Experience
 
-![Last day at Techno India for the bootcamp!](/images/20260120_125709.webp "Last day at Techno India for the bootcamp!")
+![Last day at Techno India for the bootcamp!](/images/blog/2026-10-15-bootcamp-of-sap-3.webp "Last day at Techno India for the bootcamp!")
 
 The bootcamp was a great learning experience and gave me a strong foundation in SAP technologies. It helped me improve my programming skills, understand enterprise-level software systems, and gain practical exposure to how real-world business applications are developed.
 
-![Batch - Alpha](/images/img-20260120-wa0008.webp)
+![Batch - Alpha](/images/blog/2026-10-15-bootcamp-of-sap-5.webp)
 
-![Batch - Beta](/images/img-20260120-wa0007.webp "Batch - Beta")
+![Batch - Beta](/images/blog/2026-10-15-bootcamp-of-sap-4.webp "Batch - Beta")
