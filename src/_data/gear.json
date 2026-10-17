@@ -1,9 +1,90 @@
 {
   "title": "Gear",
   "headerTagline": "MY DESK & DAILY DRIVERS",
-  "heading": "Hardware, Desk Setup & Photography",
-  "intro": "A peek at my daily workstation, development machines, peripherals, and desk gallery.\n\nComming Soon!",
+  "heading": "Hardware, Desk Setup & Tech Specs",
+  "intro": "A look at my daily workstation, hardware configurations, peripherals, and everyday tech tools for programming, gaming, and creative projects.",
   "headerBanner": "/images/header-banner.jpg",
   "gallery": [],
-  "categories": []
+  "categories": [
+    {
+      "category": "Primary Workstation (Desktop PC)",
+      "items": [
+        {
+          "name": "Processor (CPU)",
+          "specs": "AMD Ryzen Multi-Core Processor",
+          "notes": "Delivers strong multi-threaded performance for compiling code, running local dev servers, and high-framerate gaming."
+        },
+        {
+          "name": "Graphics (GPU)",
+          "specs": "NVIDIA GeForce Dedicated Graphics",
+          "notes": "Handles 1080p/1440p gaming across titles like Genshin Impact and Honkai: Star Rail, along with video encoding and streaming."
+        },
+        {
+          "name": "Memory (RAM)",
+          "specs": "16 GB Dual-Channel DDR4 / DDR5",
+          "notes": "Ample memory for multitasking with IDEs (VS Code, Eclipse, Spring Tool Suite), browser tabs, and background Docker containers."
+        },
+        {
+          "name": "Primary Storage",
+          "specs": "High-Speed NVMe M.2 SSD",
+          "notes": "Fast boot drive for Windows 11 and active programming workspace repositories."
+        },
+        {
+          "name": "Operating System",
+          "specs": "Windows 11 Pro + WSL2 (Ubuntu)",
+          "notes": "Windows for gaming and general productivity paired with Windows Subsystem for Linux for native CLI and backend development."
+        }
+      ]
+    },
+    {
+      "category": "Display & Visuals",
+      "items": [
+        {
+          "name": "Primary Monitor",
+          "specs": "IPS High-Refresh Display (144Hz+)",
+          "notes": "Smooth high-refresh experience with vibrant color accuracy for coding sessions, UI design, and gaming."
+        }
+      ]
+    },
+    {
+      "category": "Peripherals & Audio",
+      "items": [
+        {
+          "name": "Keyboard",
+          "specs": "Mechanical Keyboard (Custom Keycaps)",
+          "notes": "Tactile and responsive typing experience for long coding marathons."
+        },
+        {
+          "name": "Mouse",
+          "specs": "Ergonomic Optical Gaming Mouse",
+          "notes": "Configurable DPI profiles and lightweight ergonomics for precise control."
+        },
+        {
+          "name": "Headphones / Audio",
+          "specs": "Studio / Gaming Over-Ear Headset",
+          "notes": "Comfortable earcups with clean audio separation for listening to HoYo-MiX OSTs and Discord voice chat."
+        },
+        {
+          "name": "Desk Surface",
+          "specs": "Extended Micro-Weave Desk Mat",
+          "notes": "Anti-fray stitched surface covering both keyboard and mouse area."
+        }
+      ]
+    },
+    {
+      "category": "Mobile & Daily Carry",
+      "items": [
+        {
+          "name": "Smartphone",
+          "specs": "Android Smartphone",
+          "notes": "Daily communication, testing responsive web layouts, and mobile productivity."
+        },
+        {
+          "name": "Earbuds",
+          "specs": "True Wireless Stereo (TWS) Earbuds",
+          "notes": "Compact audio gear for commutes and college study sessions."
+        }
+      ]
+    }
+  ]
 }

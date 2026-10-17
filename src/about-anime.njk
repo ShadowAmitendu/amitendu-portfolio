@@ -1,0 +1,98 @@
+---
+layout: base.njk
+title: Anime
+headerTagline: WHAT I'M WATCHING
+permalink: /about/anime/
+aboutTab: anime
+---
+{% include "about-tabs.njk" %}
+
+<h2 class="border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]">
+  {{ anime.heading or 'Anime & Animation' }}
+</h2>
+{% if anime.intro %}
+  <p class="mt-3 text-sm leading-relaxed text-[#26343d]">{{ anime.intro }}</p>
+{% endif %}
+
+<div class="mt-6 space-y-4">
+  {% if anime.series and anime.series.length > 0 %}
+    {% for item in anime.series %}
+      <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]">
+        {# 2005 Window Header #}
+        <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
+          <div class="flex items-baseline gap-1.5 text-sm">
+            <span class="text-sm font-bold text-[#556b78] select-none">#{{ loop.index }}</span>
+            <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline">
+              {% if item.link %}
+                <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a>
+              {% else %}
+                {{ item.title }}
+              {% endif %}
+            </h3>
+            {% if item.year %}
+              <span class="text-xs text-[#556b78] font-normal">({{ item.year }})</span>
+            {% endif %}
+          </div>
+          <div>
+            {% if item.status == "currently-watching" %}
+              <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">WATCHING NOW</span>
+            {% elif item.status == "watched" %}
+              <span class="text-[11px] font-bold text-[#2e7d32]">WATCHED</span>
+            {% elif item.status == "plan-to-watch" %}
+              <span class="text-[11px] font-bold text-[#556b78]">PLAN TO WATCH</span>
+            {% endif %}
+          </div>
+        </div>
+
+        {# Body #}
+        <div class="p-3 bg-[#f8fbfc] text-xs">
+          <table class="w-full text-xs text-[#26343d] border-collapse">
+            <tbody>
+              {% if item.studio %}
+                <tr class="border-b border-[#e1ebf0]">
+                  <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Studio:</td>
+                  <td class="py-1 text-[#3b4d57]">{{ item.studio }}</td>
+                </tr>
+              {% endif %}
+              {% if item.type %}
+                <tr class="border-b border-[#e1ebf0]">
+                  <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Format:</td>
+                  <td class="py-1 text-[#3b4d57]">{{ item.type }}{% if item.progress %} &bull; {{ item.progress }}{% endif %}</td>
+                </tr>
+              {% endif %}
+              {% if item.genres %}
+                <tr class="border-b border-[#e1ebf0]">
+                  <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Genres:</td>
+                  <td class="py-1 text-[#3b4d57]">{{ item.genres }}</td>
+                </tr>
+              {% endif %}
+              {% if item.rating %}
+                <tr class="border-b border-[#e1ebf0]">
+                  <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Rating:</td>
+                  <td class="py-1 text-[#c0392b] font-bold">{{ item.rating | ratingStars }} ({{ item.rating }}/5)</td>
+                </tr>
+              {% endif %}
+              {% if item.review %}
+                <tr>
+                  <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Notes:</td>
+                  <td class="py-1 text-[#26343d] leading-relaxed italic bg-[#f0f6f9] p-2 rounded mt-1 block sm:table-cell">"{{ item.review }}"</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+          {% if item.link %}
+            <div class="mt-2 text-right">
+              <a class="text-[#064f83] text-[11px] font-semibold underline hover:text-[#c0392b]" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">View on MyAnimeList / Official &raquo;</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-sm italic text-[#556b78]">No anime listed yet.</p>
+  {% endif %}
+</div>
+
+<p class="mt-8">
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a>
+</p>

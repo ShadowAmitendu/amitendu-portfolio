@@ -315,6 +315,103 @@ collections:
                 pattern:
                   - ^https?://.+
                   - Must be a full URL
+      - name: anime
+        label: Anime
+        file: src/_data/anime.json
+        media_folder: src/images/anime
+        public_folder: /images/anime
+        format: json
+        fields:
+          - label: Page title
+            name: title
+            widget: string
+            default: Anime
+          - label: Header tagline
+            name: headerTagline
+            widget: string
+            default: WHAT I'M WATCHING
+          - label: Header Banner Image
+            name: headerBanner
+            widget: image
+            required: false
+            default: /images/header-banner.jpg
+          - label: Header Banner Alt Text
+            name: headerBannerAlt
+            widget: string
+            required: false
+          - label: Heading
+            name: heading
+            widget: string
+            default: Anime & Animation
+          - label: Intro
+            name: intro
+            widget: text
+            required: false
+          - label: Anime Series & Movies
+            name: series
+            widget: list
+            label_singular: Anime
+            collapsed: true
+            summary: '{{fields.title}} [{{fields.status}}]'
+            fields:
+              - label: Anime Title
+                name: title
+                widget: string
+              - label: Animation Studio / Creator
+                name: studio
+                widget: string
+                required: false
+              - label: Format / Type
+                name: type
+                widget: select
+                options:
+                  - label: TV Series
+                    value: TV Series
+                  - label: Movie / Film
+                    value: Movie
+                  - label: Animated Shorts
+                    value: Animated Shorts
+                  - label: OVA / Special
+                    value: OVA
+                default: TV Series
+              - label: Progress / Episodes
+                name: progress
+                widget: string
+                required: false
+              - label: Status
+                name: status
+                widget: select
+                options:
+                  - label: Currently Watching
+                    value: currently-watching
+                  - label: Completed / Watched
+                    value: watched
+                  - label: Plan to Watch
+                    value: plan-to-watch
+                default: watched
+              - label: Release Year
+                name: year
+                widget: string
+                required: false
+              - label: Rating (Stars 1-5)
+                name: rating
+                widget: number
+                value_type: int
+                min: 1
+                max: 5
+                required: false
+              - label: Genres
+                name: genres
+                widget: string
+                required: false
+              - label: Thoughts / Review
+                name: review
+                widget: text
+                required: false
+              - label: Link (MyAnimeList, AniList, Official)
+                name: link
+                widget: string
+                required: false
       - name: games
         label: Games
         file: src/_data/games.json
