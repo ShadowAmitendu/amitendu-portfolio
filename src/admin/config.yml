@@ -26,11 +26,11 @@ media_processing:
     default: webp
 
 collections:
-  - name: "about-section"
-    label: "About (Me, Books, Movies, Games, Software, Friends, Gear)"
+  - name: "about"
+    label: "About"
     files:
-      - name: "about-me"
-        label: "Tab 1: Me"
+      - name: "me"
+        label: "Me"
         file: "src/_data/about.json"
         format: "json"
         fields:
@@ -89,8 +89,8 @@ collections:
               - image
               - code-block
 
-      - name: "about-books"
-        label: "Tab 2: Books"
+      - name: "books"
+        label: "Books"
         file: "src/_data/books.json"
         format: "json"
         fields:
@@ -176,8 +176,8 @@ collections:
                   required: false,
                 }
 
-      - name: "about-movies"
-        label: "Tab 3: Movies"
+      - name: "movies"
+        label: "Movies"
         file: "src/_data/movies.json"
         format: "json"
         fields:
@@ -321,8 +321,8 @@ collections:
                   required: false,
                 }
 
-      - name: "about-games"
-        label: "Tab 4: Games"
+      - name: "games"
+        label: "Games"
         file: "src/_data/games.json"
         format: "json"
         fields:
@@ -428,8 +428,8 @@ collections:
                   required: false,
                 }
 
-      - name: "about-software"
-        label: "Tab 5: Software"
+      - name: "software"
+        label: "Software"
         file: "src/_data/software.json"
         format: "json"
         fields:
@@ -488,8 +488,8 @@ collections:
                   hint: "Link opened when clicking the software name.",
                 }
 
-      - name: "about-friends"
-        label: "Tab 6: Friends"
+      - name: "friends"
+        label: "Friends"
         file: "src/_data/friends.json"
         format: "json"
         fields:
@@ -551,8 +551,8 @@ collections:
                   required: false,
                   hint: "Short note on who they are or what their site is about.",
                 }
-      - name: "about-gear"
-        label: "Tab 7: Gear & Setup"
+      - name: "gear"
+        label: "Gear"
         file: "src/_data/gear.json"
         format: "json"
         fields:

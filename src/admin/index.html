@@ -263,6 +263,49 @@
 					h(
 						"main",
 						{ className: "site-shell mx-auto max-w-6xl p-1" },
+						// Retro Dismissible Announcement Bar
+						h(
+							"aside",
+							{
+								className:
+									"mb-1 border border-[#789bb0] bg-[#e6f2f8] text-[#164b70] px-3 py-1.5 flex items-center justify-between gap-3 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.1)]",
+							},
+							h(
+								"div",
+								{ className: "flex items-center gap-2 min-w-0" },
+								h(
+									"span",
+									{
+										className:
+											"font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 border border-[#789bb0] bg-[#d0e5f2] text-[#164b70] select-none shrink-0",
+									},
+									"BULLETIN",
+								),
+								h(
+									"span",
+									{ className: "truncate font-medium text-xs" },
+									"Welcome to my portfolio! Check out the newly updated retro workspace & books.",
+								),
+								h(
+									"a",
+									{
+										className:
+											"shrink-0 underline font-bold hover:text-[#c0392b] ml-1",
+										href: "/about/books/",
+									},
+									"Check it out »",
+								),
+							),
+							h(
+								"span",
+								{
+									className:
+										"px-1.5 py-0.5 border border-[#9bb0be] bg-white text-[10px] font-bold text-[#71828b] select-none",
+								},
+								"✕",
+							),
+						),
+
 						// Header with CRT monitors banner
 						h(
 							"header",
@@ -425,50 +468,166 @@
 							h(
 								"aside",
 								{ className: "site-sidebar site-sidebar-right" },
-								h("h2", null, "Elsewhere"),
+								h("h2", null, "Outlinks"),
 								h(
 									"div",
 									{ className: "mt-2 space-y-2" },
+									[
+										{ label: "GitHub", url: "https://github.com/ShadowAmitendu", icon: "github" },
+										{ label: "YouTube", url: "https://www.youtube.com/@ShadowAmitendu", icon: "youtube" },
+										{ label: "X (Twitter)", url: "https://x.com/shadow_amitendu", icon: "x" },
+										{ label: "LinkedIn", url: "https://www.linkedin.com/in/amitendu/", icon: "linkedin" },
+										{ label: "Peerlist", url: "https://peerlist.io/amitendu", icon: "peerlist" },
+										{ label: "Discord", url: "https://discord.com/users/553845371131002891", icon: "discord" },
+									].map(function (item) {
+										return h(
+											"div",
+											{ key: item.label },
+											h(
+												"a",
+												{
+													className:
+														"flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
+													href: item.url,
+												},
+												h("img", {
+													className:
+														"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]",
+													src: "/assets/icons/macos-" + item.icon + ".png",
+													alt: "",
+													width: 20,
+													height: 20,
+												}),
+												h("span", { className: "underline" }, item.label),
+											),
+										);
+									}),
+								),
+
+								// Book I am reading card
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
 									h(
 										"div",
-										null,
+										{
+											className:
+												"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
+										},
 										h(
-											"a",
+											"div",
 											{
 												className:
-													"flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
-												href: "https://github.com/ShadowAmitendu",
+													"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
 											},
-											h("img", {
-												className:
-													"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]",
-												src: "/assets/icons/macos-github.png",
-												alt: "",
-												width: 20,
-												height: 20,
-											}),
-											h("span", { className: "underline" }, "GitHub"),
+											h("span", null, "Book I am reading"),
+											h(
+												"span",
+												{ className: "text-[10px] text-[#556b78] font-normal" },
+												"Reading",
+											),
+										),
+										h(
+											"div",
+											{ className: "p-2.5 text-center flex flex-col items-center" },
+											h(
+												"a",
+												{
+													className: "my-1 block hover:opacity-90",
+													href: "/about/books/",
+												},
+												h("img", {
+													className:
+														"h-24 w-16 object-contain border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
+													src: "/images/dopamine-detox.jpg",
+													alt: "Dopamine Detox",
+												}),
+											),
+											h(
+												"h3",
+												{
+													className:
+														"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+												},
+												h(
+													"a",
+													{
+														className:
+															"text-[#164b70] underline hover:text-[#c0392b]",
+														href: "/about/books/",
+													},
+													"Dopamine Detox",
+												),
+											),
+											h(
+												"p",
+												{ className: "text-[11px] text-[#556b78] mt-0.5" },
+												"by Thibaut Meurisse",
+											),
 										),
 									),
+								),
+
+								// Games I play card
+								h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
 									h(
 										"div",
-										null,
+										{
+											className:
+												"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
+										},
 										h(
-											"a",
+											"div",
 											{
 												className:
-													"flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]",
-												href: "https://www.youtube.com/@ShadowAmitendu",
+													"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
 											},
-											h("img", {
-												className:
-													"site-macos-icon h-5 w-5 shrink-0 rounded-[4.5px] shadow-[0_1px_2px_rgba(0,0,0,0.25)]",
-												src: "/assets/icons/macos-youtube.png",
-												alt: "",
-												width: 20,
-												height: 20,
-											}),
-											h("span", { className: "underline" }, "YouTube"),
+											h("span", null, "Games I play"),
+											h(
+												"span",
+												{ className: "text-[10px] text-[#556b78] font-normal" },
+												"Ongoing",
+											),
+										),
+										h(
+											"div",
+											{ className: "p-2.5 text-center flex flex-col items-center" },
+											h(
+												"a",
+												{
+													className: "my-1 block hover:opacity-90",
+													href: "/about/games/",
+												},
+												h("img", {
+													className:
+														"h-24 w-16 object-cover border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
+													src: "/images/genshin-impact.jpg",
+													alt: "Genshin Impact",
+												}),
+											),
+											h(
+												"h3",
+												{
+													className:
+														"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+												},
+												h(
+													"a",
+													{
+														className:
+															"text-[#164b70] underline hover:text-[#c0392b]",
+														href: "/about/games/",
+													},
+													"Genshin Impact",
+												),
+											),
+											h(
+												"p",
+												{ className: "text-[11px] text-[#556b78] mt-0.5" },
+												"by HoYoverse",
+											),
 										),
 									),
 								),
@@ -570,8 +729,12 @@
 					var description = entry.getIn(["data", "description"]);
 					var rawImage = entry.getIn(["data", "image"]);
 					var imageSrc = resolveAssetUrl(this.props.getAsset, rawImage);
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(this.props.getAsset, rawHeaderBanner);
 					var body = this.props.widgetFor("body");
 					var tags = entry.getIn(["data", "tags"]);
+					var mood = entry.getIn(["data", "mood"]);
+					var music = entry.getIn(["data", "music"]);
 					var isDraft =
 						entry.getIn(["data", "draft"]) ||
 						(tags &&
@@ -588,6 +751,53 @@
 								year: "numeric",
 							})
 						: "Draft";
+
+					var tagElements = [];
+					if (tags) {
+						var rawTags = tags.toJS ? tags.toJS() : tags;
+						if (Array.isArray(rawTags)) {
+							rawTags.forEach(function (t) {
+								if (t !== "blog") {
+									tagElements.push(
+										h(
+											"span",
+											{
+												key: t,
+												className:
+													"site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]",
+											},
+											t,
+										),
+									);
+								}
+							});
+						} else if (typeof rawTags === "string" && rawTags !== "blog") {
+							tagElements.push(
+								h(
+									"span",
+									{
+										key: rawTags,
+										className:
+											"site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]",
+									},
+									rawTags,
+								),
+							);
+						}
+					}
+					if (tagElements.length === 0) {
+						tagElements.push(
+							h(
+								"span",
+								{
+									key: "blog",
+									className:
+										"site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]",
+								},
+								"blog",
+							),
+						);
+					}
 
 					var articleContent = h(
 						"article",
@@ -731,6 +941,52 @@
 							body,
 						),
 
+						// Mood & Music Box
+						(mood || music)
+							? h(
+									"div",
+									{
+										className:
+											"site-entry-status mt-6 border border-[#b2c2cc] bg-[#edf4f7] px-3.5 py-2 text-xs text-[#536a75] shadow-[inset_0_1px_0_#fff]",
+									},
+									h(
+										"div",
+										{
+											className:
+												"flex flex-wrap items-center justify-between gap-2",
+										},
+										mood
+											? h(
+													"div",
+													{ className: "flex items-center gap-2" },
+													h(
+														"span",
+														{ className: "font-bold text-[#164b70]" },
+														"Mood:",
+													),
+													h("span", null, mood),
+											  )
+											: null,
+										music
+											? h(
+													"div",
+													{ className: "flex items-center gap-2" },
+													h(
+														"span",
+														{ className: "font-bold text-[#164b70]" },
+														"Music:",
+													),
+													h(
+														"span",
+														{ className: "italic" },
+														music,
+													),
+											  )
+											: null,
+									),
+							  )
+							: null,
+
 						// Footer
 						h(
 							"footer",
@@ -746,20 +1002,13 @@
 								},
 								h(
 									"div",
-									{ className: "flex items-center gap-1.5" },
+									{ className: "flex flex-wrap items-center gap-1.5" },
 									h(
 										"span",
 										{ className: "font-bold text-[#164b70]" },
 										"Filed under:",
 									),
-									h(
-										"span",
-										{
-											className:
-												"site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] text-[#164b70]",
-										},
-										"blog",
-									),
+									tagElements,
 								),
 								h(
 									"div",
@@ -784,22 +1033,43 @@
 						// Comments Box
 						h(
 							"section",
-							{ className: "site-comments mt-8 p-4" },
+							{ className: "site-comments mt-8 border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]" },
 							h(
-								"h3",
+								"div",
 								{
 									className:
-										"border-b border-[#b7cbd6] pb-1 text-base font-bold text-[#164b70]",
+										"border-b border-[#c6d7e0] bg-[#e4eef2] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
 								},
-								"Comments",
+								h(
+									"div",
+									{ className: "flex items-baseline gap-2" },
+									h(
+										"h3",
+										{
+											className:
+												"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
+										},
+										"Comments",
+									),
+									h(
+										"span",
+										{ className: "text-xs text-[#556b78] font-normal" },
+										"Leave a reply",
+									),
+								),
+								h(
+									"span",
+									{ className: "text-xs text-[#064f83] underline" },
+									"top ↑",
+								),
 							),
 							h(
 								"div",
-								{ className: "mt-3 text-xs text-[#71828b]" },
+								{ className: "p-4 bg-[#f8fbfc] text-xs text-[#71828b]" },
 								h(
 									"p",
 									null,
-									"Comment form will display here on published site.",
+									"Comment form will load here dynamically on the live site.",
 								),
 							),
 						),
@@ -825,6 +1095,7 @@
 						articleContent,
 						"blog",
 						[{ label: "blog", url: "/blog/" }, { label: title }],
+						headerBannerSrc,
 					);
 				},
 			});
@@ -840,6 +1111,8 @@
 					var description = entry.getIn(["data", "description"]);
 					var rawImage = entry.getIn(["data", "image"]);
 					var imageSrc = resolveAssetUrl(this.props.getAsset, rawImage);
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(this.props.getAsset, rawHeaderBanner);
 					var body = this.props.widgetFor("body");
 					var tags = entry.getIn(["data", "tags"]);
 					var isDraft =
@@ -850,6 +1123,26 @@
 								: tags.includes
 									? tags.includes("draft")
 									: false));
+
+					var tagElements = [];
+					if (tags) {
+						var rawTags = tags.toJS ? tags.toJS() : tags;
+						if (Array.isArray(rawTags)) {
+							rawTags.forEach(function (t) {
+								tagElements.push(
+									h(
+										"span",
+										{
+											key: t,
+											className:
+												"site-badge border border-[#7892a3] px-2 py-0.5 text-[11px] font-bold text-[#164b70] shadow-[1px_1px_0_#cad6de]",
+										},
+										t,
+									),
+								);
+							});
+						}
+					}
 
 					var portfolioContent = h(
 						"div",
@@ -881,6 +1174,9 @@
 							},
 							title,
 						),
+						tagElements.length > 0
+							? h("div", { className: "mt-2 flex flex-wrap gap-1.5" }, tagElements)
+							: null,
 						description
 							? h(
 									"p",
@@ -937,6 +1233,7 @@
 						portfolioContent,
 						"portfolio",
 						[{ label: "portfolio", url: "/portfolio/" }, { label: title }],
+						headerBannerSrc,
 					);
 				},
 			});
@@ -1593,6 +1890,7 @@
 				},
 			});
 			CMS.registerPreviewTemplate("resume-page", ResumePreview);
+			CMS.registerPreviewTemplate("resume", ResumePreview);
 
 			// 5. Custom Homepage Preview in Full Site Shell
 			var HomePreview = createClass({
@@ -1942,6 +2240,14 @@
 			var AboutMePreview = createClass({
 				render: function () {
 					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "About";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "ABOUT MYSELF";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
 					var heading = entry.getIn(["data", "heading"]) || "About me";
 					var intro = entry.getIn(["data", "intro"]) || "";
 					var rawProfileImage = entry.getIn(["data", "profileImage"]);
@@ -2011,14 +2317,24 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(aboutContent);
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						aboutContent,
+						"about",
+						[{ label: "about" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -2199,14 +2515,33 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(booksContent);
+					var title = entry.getIn(["data", "title"]) || "Books";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "WHAT I'M READING";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						booksContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "books" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -2790,14 +3125,33 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(moviesContent);
+					var title = entry.getIn(["data", "title"]) || "Movies";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "WHAT I'M WATCHING";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						moviesContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "movies" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -3074,14 +3428,33 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(gamesContent);
+					var title = entry.getIn(["data", "title"]) || "Games";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "WHAT I'M PLAYING";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						gamesContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "games" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -3183,14 +3556,33 @@
 							"p",
 							{ className: "mt-8" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(softwareContent);
+					var title = entry.getIn(["data", "title"]) || "Software";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "TOOLS & APPS I USE";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						softwareContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "software" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -3349,14 +3741,33 @@
 							"p",
 							{ className: "mt-6" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(friendsContent);
+					var title = entry.getIn(["data", "title"]) || "Friends";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "FRIENDS & ALLIES";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						friendsContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "friends" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -3570,14 +3981,33 @@
 							"p",
 							{ className: "mt-8" },
 							h(
-								"span",
-								{ className: "text-[#064f83] underline" },
+								"a",
+								{
+									className: "text-[#064f83] underline hover:text-[#c0392b]",
+									href: "/",
+								},
 								"← back to home",
 							),
 						),
 					);
 
-					return renderMainContentContainer(gearContent);
+					var title = entry.getIn(["data", "title"]) || "Gear";
+					var headerTagline =
+						entry.getIn(["data", "headerTagline"]) || "MY DESK & DAILY DRIVERS";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(
+						this.props.getAsset,
+						rawHeaderBanner,
+					);
+
+					return renderFullSiteShell(
+						headerTagline,
+						title,
+						gearContent,
+						"about",
+						[{ label: "about", url: "/about/" }, { label: "gear" }],
+						headerBannerSrc,
+					);
 				},
 			});
 
@@ -3587,40 +4017,125 @@
 					var file = entry.get("file") || "";
 					var slug = entry.get("slug") || "";
 
-					if (file.indexOf("books.json") !== -1 || slug === "about-books") {
+					if (file.indexOf("books.json") !== -1 || slug === "about-books" || slug === "books") {
 						return h(AboutBooksPreview, this.props);
 					}
-					if (file.indexOf("movies.json") !== -1 || slug === "about-movies") {
+					if (file.indexOf("movies.json") !== -1 || slug === "about-movies" || slug === "movies") {
 						return h(AboutMoviesPreview, this.props);
 					}
-					if (file.indexOf("games.json") !== -1 || slug === "about-games") {
+					if (file.indexOf("games.json") !== -1 || slug === "about-games" || slug === "games") {
 						return h(AboutGamesPreview, this.props);
 					}
 					if (
 						file.indexOf("software.json") !== -1 ||
-						slug === "about-software"
+						slug === "about-software" ||
+						slug === "software"
 					) {
 						return h(AboutSoftwarePreview, this.props);
 					}
-					if (file.indexOf("friends.json") !== -1 || slug === "about-friends") {
+					if (file.indexOf("friends.json") !== -1 || slug === "about-friends" || slug === "friends") {
 						return h(AboutFriendsPreview, this.props);
 					}
-					if (file.indexOf("gear.json") !== -1 || slug === "about-gear") {
+					if (file.indexOf("gear.json") !== -1 || slug === "about-gear" || slug === "gear") {
 						return h(AboutGearPreview, this.props);
 					}
 					return h(AboutMePreview, this.props);
 				},
 			});
 
+			CMS.registerPreviewTemplate("about", AboutSectionRouter);
 			CMS.registerPreviewTemplate("about-section", AboutSectionRouter);
+			CMS.registerPreviewTemplate("me", AboutMePreview);
 			CMS.registerPreviewTemplate("about-me", AboutMePreview);
+			CMS.registerPreviewTemplate("books", AboutBooksPreview);
 			CMS.registerPreviewTemplate("about-books", AboutBooksPreview);
+			CMS.registerPreviewTemplate("movies", AboutMoviesPreview);
 			CMS.registerPreviewTemplate("about-movies", AboutMoviesPreview);
+			CMS.registerPreviewTemplate("games", AboutGamesPreview);
 			CMS.registerPreviewTemplate("about-games", AboutGamesPreview);
+			CMS.registerPreviewTemplate("software", AboutSoftwarePreview);
 			CMS.registerPreviewTemplate("about-software", AboutSoftwarePreview);
+			CMS.registerPreviewTemplate("friends", AboutFriendsPreview);
 			CMS.registerPreviewTemplate("about-friends", AboutFriendsPreview);
+			CMS.registerPreviewTemplate("gear", AboutGearPreview);
 			CMS.registerPreviewTemplate("about-gear", AboutGearPreview);
 			CMS.registerPreviewTemplate("about-page", AboutMePreview);
+
+			// Site Configuration Preview
+			var SiteConfigPreview = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var title = entry.getIn(["data", "title"]) || "Amitendu Bikash Dhusiya";
+					var tagline = entry.getIn(["data", "tagline"]) || "WELCOME TO MY HOMEPAGE";
+					var rawHeaderBanner = entry.getIn(["data", "headerBanner"]);
+					var headerBannerSrc = resolveAssetUrl(this.props.getAsset, rawHeaderBanner);
+					var authorObj = entry.getIn(["data", "author"]);
+					var authorName = (authorObj && authorObj.get ? authorObj.get("name") : authorObj && authorObj.name) || "Amitendu";
+					var authorBio = (authorObj && authorObj.get ? authorObj.get("bio") : authorObj && authorObj.bio) || "Building small things for the web.";
+					var authorRole = (authorObj && authorObj.get ? authorObj.get("role") : authorObj && authorObj.role) || "Developer & Maker";
+
+					var siteConfigContent = h(
+						"div",
+						null,
+						h(
+							"h2",
+							{
+								className:
+									"border-b border-[#b7cbd6] pb-1 text-lg font-bold text-[#164b70]",
+							},
+							"Site Configuration Preview",
+						),
+						h(
+							"p",
+							{ className: "mt-3 text-sm text-[#26343d]" },
+							"Live preview of global site header, navigation, sidebars, and footer reflecting your site settings:",
+						),
+						h(
+							"div",
+							{
+								className:
+									"mt-4 border border-[#9bb0be] bg-[#f8fbfc] p-3.5 shadow-[inset_0_1px_0_#fff]",
+							},
+							h("p", { className: "font-bold text-xs text-[#164b70]" }, "SITE TITLE: " + title),
+							h("p", { className: "text-xs text-[#536a75] mt-1" }, "DEFAULT TAGLINE: " + tagline),
+							h("p", { className: "text-xs text-[#536a75] mt-1" }, "AUTHOR: " + authorName + " (" + authorRole + ")"),
+							h("p", { className: "text-xs text-[#536a75] mt-1" }, "BIO: " + authorBio),
+						),
+					);
+
+					return renderFullSiteShell(
+						tagline,
+						title,
+						siteConfigContent,
+						"home",
+						null,
+						headerBannerSrc,
+					);
+				},
+			});
+
+			var PagesSectionRouter = createClass({
+				render: function () {
+					var entry = this.props.entry;
+					var file = entry.get("file") || "";
+					var slug = entry.get("slug") || "";
+
+					if (file.indexOf("blogPage.json") !== -1 || slug === "blog-page") {
+						return h(BlogPagePreview, this.props);
+					}
+					if (file.indexOf("portfolioPage.json") !== -1 || slug === "portfolio-page") {
+						return h(PortfolioPagePreview, this.props);
+					}
+					if (file.indexOf("site.json") !== -1 || slug === "site-config" || slug === "site") {
+						return h(SiteConfigPreview, this.props);
+					}
+					return h(HomePreview, this.props);
+				},
+			});
+
+			CMS.registerPreviewTemplate("pages", PagesSectionRouter);
+			CMS.registerPreviewTemplate("site-config", SiteConfigPreview);
+			CMS.registerPreviewTemplate("site", SiteConfigPreview);
 
 			// 7. Custom Blog Landing Page Preview in Full Site Shell
 			var BlogPagePreview = createClass({
