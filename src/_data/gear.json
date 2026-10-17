@@ -2,56 +2,8 @@
   "title": "Gear",
   "headerTagline": "MY DESK & DAILY DRIVERS",
   "heading": "Hardware, Desk Setup & Photography",
-  "intro": "A peek at my daily workstation, development machines, peripherals, and desk gallery.",
+  "intro": "A peek at my daily workstation, development machines, peripherals, and desk gallery.\n\nComming Soon!",
   "headerBanner": "/images/header-banner.jpg",
-  "gallery": [
-    {
-      "title": "Main Workstation",
-      "caption": "Dual monitor setup for development, browsing, and terminal work.",
-      "date": "2026",
-      "image": "/images/header-banner.jpg"
-    }
-  ],
-  "categories": [
-    {
-      "category": "Workstation & PC",
-      "items": [
-        {
-          "name": "Development Desktop PC",
-          "specs": "Intel Core i5 / 16GB DDR4 / 1TB NVMe SSD / Dedicated GPU",
-          "notes": "Main desktop machine for Java/Spring Boot development, web projects, and multitasking."
-        }
-      ]
-    },
-    {
-      "category": "Displays & Mounts",
-      "items": [
-        {
-          "name": "Primary Display",
-          "specs": "24-inch IPS Full HD / 75Hz / Matte Anti-Glare",
-          "notes": "Main display for code editing, terminal, and browser devtools."
-        }
-      ]
-    },
-    {
-      "category": "Peripherals & Audio",
-      "items": [
-        {
-          "name": "Mechanical Keyboard",
-          "specs": "Tactile Switches / Tenkeyless (TKL)",
-          "notes": "Daily typing driver for comfortable long coding sessions."
-        },
-        {
-          "name": "Precision Mouse",
-          "specs": "Ergonomic Optical Mouse",
-          "notes": "Smooth tracking for Figma design and daily navigation."
-        },
-        {
-          "name": "Audio / Headphones",
-          "specs": "High-Fidelity Over-Ear Headphones",
-          "notes": "Coding companion for focus and music."
-        }
-      ]
-    }
-  ]
+  "gallery": [],
+  "categories": []
 }
