@@ -75,6 +75,16 @@
     },
     {
       "playingRightNow": false,
+      "status": "Completed",
+      "name": "Sky: Children of the Light",
+      "image": "/images/0e6cf9d31d44770e2ec111126cfd6a3b.webp",
+      "description": "I have completed this game from first to last around 4 to 5 times each year one time I will try it again just like the minecraft phase",
+      "icon": "/images/200x200bb-75-3-.webp",
+      "publisher": "thatgamecompany inc",
+      "platform": "PC & Mobile"
+    },
+    {
+      "playingRightNow": false,
       "status": "Dropped",
       "name": "PUBG PC",
       "image": "/images/66cbf6fda03b07313d2494dc01e63e78.webp",
