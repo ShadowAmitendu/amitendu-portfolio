@@ -43,6 +43,16 @@
     },
     {
       "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Squat Busters",
+      "image": "/images/images-2-.webp",
+      "icon": "/images/200x200bb-75-1-.webp",
+      "publisher": "SUPERCELL",
+      "platform": "Mobile",
+      "description": "Same as all the other games of supercell"
+    },
+    {
+      "playingRightNow": false,
       "name": "Minecraft",
       "status": "On Hold",
       "platform": "PC",
@@ -52,6 +62,102 @@
       "image": "/images/118499.webp",
       "publisher": "Mojang",
       "description": "\"Bought but never complely played till end! will do in a few years while streaming\""
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Valorant",
+      "image": "/images/1be84256c2a8a044bf000a54d17cf7b5.webp",
+      "icon": "/images/191c62d342811d1a0d3d0528ec35cd2d.ico",
+      "publisher": "Riot Games",
+      "platform": "PC",
+      "description": "Too much of Toxicity!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "PUBG PC",
+      "image": "/images/66cbf6fda03b07313d2494dc01e63e78.webp",
+      "icon": "/images/images.webp",
+      "publisher": "KRAFTON",
+      "platform": "PC",
+      "description": "Repetative"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "PUBG LITE",
+      "image": "/images/c7b64e6a2596bfbda8d857b5f5bdedcc.webp",
+      "icon": "/images/d6f84c02e2a54908d96f410083beb6e0.webp",
+      "publisher": "KRAFTON Inc.",
+      "platform": "PC",
+      "description": "As the game was in beta release, I played it but after a while they ended the support, bit sad but ok enough!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Shadow Fight 4: Arena",
+      "image": "/images/library_capsule_2x.webp",
+      "icon": "/images/200x200bb-75-2-.webp",
+      "publisher": "Nekki",
+      "platform": "Mobile",
+      "description": "Too much of same content from the other series"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Brawl Stars",
+      "image": "/images/bs.webp",
+      "icon": "/images/bs-log.webp",
+      "publisher": "SUPERCELL",
+      "platform": "Mobile",
+      "description": "It was a good pvp game, i dropped it as it was becoming too much and the rewards are not that great!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Completed",
+      "name": "Shadow Fight 3",
+      "image": "/images/82196fcef3da911d955681aa5fbe8492.webp",
+      "icon": "/images/b15611f2e9c5e12ccb937a0d372a334b.webp",
+      "publisher": "Nekki"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Boom Beach",
+      "image": "/images/images-1-.webp",
+      "icon": "/images/bb.webp",
+      "publisher": "SUPERCELL",
+      "platform": "Mobile",
+      "description": "it was a good game but same as clash of clans i just max it out for that version and left"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "Dead Ninja Mortal Shadow",
+      "image": "/images/ded.webp",
+      "icon": "/images/ded.webp",
+      "publisher": "Brain Eaters",
+      "platform": "Mobile",
+      "description": "Too much difficult and now the new ads"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Completed",
+      "name": "Shadow Fight 2",
+      "image": "/images/03440368ae777a908ab20b6fb052a69e.webp",
+      "icon": "/images/200x200bb-75-1-.webp",
+      "publisher": "Nekki"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Completed",
+      "name": "SAMURAI II: VENGEANCE",
+      "image": "/images/mv5bm2rjy2ywogytzgy5zc00nmu3lwi4nzgtogzlnzy0yzbmmjjhxkeyxkfqcgc-._v1_fmjpg_uy640_.webp",
+      "publisher": "MadFinger Games",
+      "icon": "/images/200x200ia-75-1-.webp",
+      "platform": "Mobile",
+      "description": "Best and the one game I completly played!"
     },
     {
       "playingRightNow": false,
@@ -73,6 +179,16 @@
       "publisher": "SUPERCELL",
       "platform": "Mobile",
       "description": "Not fun as nothing is new all is same repetitive!"
+    },
+    {
+      "playingRightNow": false,
+      "status": "Dropped",
+      "name": "PayBack 2",
+      "image": "/images/df24a563a92153793cb3f0e64124f6ad.webp",
+      "icon": "/images/unnamed.webp",
+      "publisher": "Apex Designs",
+      "platform": "Mobile",
+      "description": "Was a great game and also was the first game i played from this game i came to know about Clash Royale (via the ingame ads for coins)"
     }
   ]
 }
