@@ -1,0 +1,206 @@
+---
+layout: base.njk
+title: Privacy Policy
+headerTagline: PRIVACY & DATA POLICY
+permalink: /privacy/
+description: Privacy Policy for amitendu.me detailing essential browser storage, optional telemetry (Google Analytics & Microsoft Clarity), and your privacy choices.
+---
+
+<div class="site-portfolio-header mb-5 border-b border-[#b7cbd6] pb-3">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <div>
+      <h2 class="text-xl sm:text-2xl font-bold text-[#164b70] uppercase tracking-tight m-0">
+        Privacy Policy
+      </h2>
+      <p class="mt-1 text-xs sm:text-sm text-[#3b4d57]">
+        How your data, privacy, and browser storage are handled on this website.
+      </p>
+    </div>
+    <div>
+      <button type="button"
+              onclick="openCookieConsent()"
+              class="site-button-2007 text-xs font-bold px-3 py-1 inline-flex items-center gap-1.5 cursor-pointer">
+        <span aria-hidden="true">🍪</span> Cookie Settings
+      </button>
+    </div>
+  </div>
+</div>
+
+<article class="site-card border border-[#9bb0be] bg-white p-4 sm:p-6 shadow-[2px_2px_0_#cad6de] space-y-6 text-xs sm:text-sm leading-relaxed text-[#26343d]">
+  
+  {# Section 1: Intro #}
+  <section>
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1">
+      1. Overview &amp; Commitment
+    </h3>
+    <p class="mt-2.5">
+      Welcome to <strong>amitendu.me</strong>, the personal portfolio and engineering blog of <strong>Amitendu Bikash Dhusiya</strong> (ShadowAmitendu). Your privacy is important to me, and this site is designed with transparency and data minimization at its core.
+    </p>
+    <p class="mt-2 text-[#485b66]">
+      I do not sell, rent, or trade your personal data. There are no advertising trackers, behavioral marketing networks, or paywalls on this site. You can explore all content freely without creating an account or providing personally identifiable information (PII).
+    </p>
+  </section>
+
+  {# Section 2: Essential Storage #}
+  <section id="essential" class="scroll-mt-6">
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1 flex items-center justify-between">
+      <span>2. Strictly Necessary Technologies (&quot;Always Active&quot;)</span>
+      <span class="inline-block bg-[#e8f5e9] border border-[#a5d6a7] text-[#1b5e20] text-[10px] font-bold px-2 py-0.5 select-none uppercase tracking-wide">
+        Always Active
+      </span>
+    </h3>
+    <p class="mt-2.5">
+      The website uses modern browser local storage (<code class="bg-[#eef3f5] text-[#164b70] px-1 py-0.5 border border-[#cad6de]">localStorage</code>) exclusively for essential user preferences and site functionality:
+    </p>
+    
+    <div class="mt-3 overflow-x-auto border border-[#b7cbd6] bg-[#f8fbfc]">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead class="bg-[#e4eef2] border-b border-[#b7cbd6] text-[#164b70]">
+          <tr>
+            <th class="p-2 font-bold">Key Name</th>
+            <th class="p-2 font-bold">Type</th>
+            <th class="p-2 font-bold">Purpose</th>
+            <th class="p-2 font-bold">Duration</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#d8e3ea]">
+          <tr>
+            <td class="p-2 font-mono font-semibold text-[#164b70]">cookie_consent_preferences</td>
+            <td class="p-2">localStorage</td>
+            <td class="p-2">Remembers which telemetry services you have allowed or declined so you are not prompted repeatedly.</td>
+            <td class="p-2">Persistent</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-mono font-semibold text-[#164b70]">cookie_consent</td>
+            <td class="p-2">localStorage</td>
+            <td class="p-2">Stores the overall consent status for Google Tag Manager and Microsoft Clarity integration.</td>
+            <td class="p-2">Persistent</td>
+          </tr>
+          <tr>
+            <td class="p-2 font-mono font-semibold text-[#164b70]">announcement_dismissed</td>
+            <td class="p-2">localStorage</td>
+            <td class="p-2">Remembers if you dismissed the top announcement banner to prevent visual distraction on future visits.</td>
+            <td class="p-2">Persistent</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-3 text-[#485b66]">
+      <strong>Why these cannot be disabled:</strong> These items remain strictly inside your browser. They do not track you across other websites, do not send telemetry to third parties, and are technically required to honor your choices (such as remembering your cookie rejection). Under EU/GDPR and ePrivacy standards, strictly necessary storage does not require prior consent.
+    </p>
+  </section>
+
+  {# Section 3: Optional Telemetry Services #}
+  <section id="telemetry" class="scroll-mt-6">
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1">
+      3. Optional Telemetry &amp; Analytics (Consent Required)
+    </h3>
+    <p class="mt-2.5">
+      To understand how visitors discover this site and find broken links or formatting issues, two optional measurement services can be toggled on or off:
+    </p>
+
+    <div class="mt-3 space-y-3">
+      {# Google Analytics #}
+      <div class="border border-[#b7cbd6] bg-[#f8fbfc] p-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-[#164b70] text-sm m-0">A. Google Analytics 4 (GA4)</h4>
+          <span class="site-badge text-[10px] text-[#556b78] border border-[#7892a3] bg-white px-1.5 py-0.5">
+            ID: G-62QCP23320
+          </span>
+        </div>
+        <p class="mt-1.5 text-xs text-[#3b4d57]">
+          <strong>Provider:</strong> Google LLC (1600 Amphitheatre Parkway, Mountain View, CA 94043, USA).
+        </p>
+        <p class="mt-1 text-xs text-[#3b4d57]">
+          <strong>What it measures:</strong> Aggregated page views, general referral sources (e.g. GitHub, Google, direct), device type, and generalized regional location. IP masking is enabled by default.
+        </p>
+        <p class="mt-1 text-xs text-[#3b4d57]">
+          <strong>Consent Mode v2:</strong> This site enforces Google Consent Mode v2. All analytics cookies and storage remain completely disabled (<code class="bg-white px-1 py-0.2 border border-[#cad6de]">analytics_storage: &#39;denied&#39;</code>) until you actively choose &quot;Accept All&quot; or toggle Analytics ON.
+        </p>
+        <p class="mt-1.5 text-[11px] text-[#485b66]">
+          More information: <a class="text-[#064f83] underline hover:text-[#c0392b]" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+        </p>
+      </div>
+
+      {# Microsoft Clarity #}
+      <div class="border border-[#b7cbd6] bg-[#f8fbfc] p-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-bold text-[#164b70] text-sm m-0">B. Microsoft Clarity</h4>
+          <span class="site-badge text-[10px] text-[#556b78] border border-[#7892a3] bg-white px-1.5 py-0.5">
+            ID: yzmbhd5zjq
+          </span>
+        </div>
+        <p class="mt-1.5 text-xs text-[#3b4d57]">
+          <strong>Provider:</strong> Microsoft Corporation (One Microsoft Way, Redmond, WA 98052, USA).
+        </p>
+        <p class="mt-1 text-xs text-[#3b4d57]">
+          <strong>What it measures:</strong> Anonymous interaction behavior, scroll depth, and aggregated heatmaps to help identify broken layout elements or navigation dead ends.
+        </p>
+        <p class="mt-1 text-xs text-[#3b4d57]">
+          <strong>Privacy Safeguards:</strong> Keystroke masking and sensitive input masking are strictly enabled. Clarity is synchronized with your consent choice and remains disabled if rejected.
+        </p>
+        <p class="mt-1.5 text-[11px] text-[#485b66]">
+          More information: <a class="text-[#064f83] underline hover:text-[#c0392b]" href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {# Section 4: Your Rights & Changing Choices #}
+  <section id="controls" class="scroll-mt-6">
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1">
+      4. Your Choices &amp; How to Withdraw Consent
+    </h3>
+    <p class="mt-2.5">
+      You have the right to modify or revoke your consent at any time. When you change your settings, your preference is saved instantly and future tracking requests are updated or halted immediately:
+    </p>
+    
+    <div class="mt-3 p-3.5 border border-[#b7cbd6] bg-[#f0f6f9] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-[#164b70]">Review or Update Preferences</p>
+        <p class="text-xs text-[#485b66] mt-0.5">
+          Open the consent panel to toggle Google Analytics or Clarity on or off.
+        </p>
+      </div>
+      <button type="button"
+              onclick="openCookieConsent()"
+              class="site-button-2007 text-xs font-bold px-3 py-1.5 shrink-0 cursor-pointer">
+        Open Cookie Banner
+      </button>
+    </div>
+
+    <p class="mt-3 text-[#485b66]">
+      You can also clear your browser&#39;s cookies and site data at any time via your browser settings. Additionally, you can enable <em>Global Privacy Control (GPC)</em> or <em>Do Not Track (DNT)</em> in your browser preferences.
+    </p>
+  </section>
+
+  {# Section 5: External Links #}
+  <section>
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1">
+      5. External Links
+    </h3>
+    <p class="mt-2.5">
+      This portfolio contains links to external websites and developer platforms, including GitHub, LinkedIn, Discord, Peerlist, YouTube, Instagram, and X (Twitter). Clicking these links directs you to third-party domains whose privacy practices and policies are governed by their respective providers.
+    </p>
+  </section>
+
+  {# Section 6: Contact #}
+  <section>
+    <h3 class="text-base sm:text-lg font-bold text-[#164b70] m-0 border-b border-[#d8e3ea] pb-1">
+      6. Contact &amp; Questions
+    </h3>
+    <p class="mt-2.5">
+      If you have questions about this Privacy Policy, your data, or would like to request clarification on anything here, feel free to reach out:
+    </p>
+    <ul class="mt-2 list-disc list-inside space-y-1 text-xs text-[#485b66]">
+      <li><strong>Email:</strong> <a class="text-[#064f83] underline hover:text-[#c0392b]" href="mailto:amitendubikashdhusiya@gmail.com">amitendubikashdhusiya@gmail.com</a></li>
+      <li><strong>GitHub:</strong> <a class="text-[#064f83] underline hover:text-[#c0392b]" href="https://github.com/ShadowAmitendu" target="_blank" rel="noopener noreferrer">github.com/ShadowAmitendu</a></li>
+    </ul>
+  </section>
+
+</article>
+
+<p class="mt-6">
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">&larr; back to home</a>
+</p>
