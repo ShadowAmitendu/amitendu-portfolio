@@ -1,0 +1,7 @@
+# Netlify Server-side 301 Permanent Redirects for canonical SEO
+/cv/        /resume/          301!
+/cv         /resume/          301!
+/shelf/     /about/books/     301!
+/shelf      /about/books/     301!
+/apps/      /about/software/  301!
+/apps       /about/software/  301!

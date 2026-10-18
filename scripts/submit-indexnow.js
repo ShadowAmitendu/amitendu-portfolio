@@ -1,54 +1,64 @@
-import fs from "fs";
+import fs from "node:fs";
+import path from "node:path";
 
 const HOST = "amitendu.me";
 const KEY = "f5c6b98e721a48c4842e19d7a31b6728";
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
-const SITEMAP_PATH = "./public/sitemap.xml";
+const SITEMAP_PATH = path.resolve("public/sitemap.xml");
 
-async function submitToIndexNow() {
-	console.log(`[IndexNow] Preparing Bing/Copilot IndexNow submission for ${HOST}...`);
-
+async function submitIndexNow() {
+	console.log(`[IndexNow] Reading canonical URLs from ${SITEMAP_PATH}...`);
 	if (!fs.existsSync(SITEMAP_PATH)) {
-		console.error(`[IndexNow] Error: ${SITEMAP_PATH} not found. Please run 'npm run build' first.`);
+		console.error(`[IndexNow] Error: sitemap not found at ${SITEMAP_PATH}. Run 'npm run build' first.`);
 		process.exit(1);
 	}
 
-	const sitemap = fs.readFileSync(SITEMAP_PATH, "utf-8");
-	const matches = sitemap.matchAll(/<loc>(https:\/\/[^<]+)<\/loc>/g);
-	const urlList = Array.from(matches, (m) => m[1]);
+	const sitemapXml = fs.readFileSync(SITEMAP_PATH, "utf8");
+	const matches = sitemapXml.match(/<loc>(.*?)<\/loc>/g) || [];
+	const urls = matches.map((m) => m.replace(/<\/?loc>/g, "").trim()).filter(Boolean);
 
-	if (urlList.length === 0) {
-		console.warn("[IndexNow] No URLs found in sitemap.xml");
-		return;
+	if (urls.length === 0) {
+		console.error("[IndexNow] Error: No URLs found in sitemap.");
+		process.exit(1);
 	}
 
-	console.log(`[IndexNow] Discovered ${urlList.length} canonical URLs to submit.`);
+	console.log(`[IndexNow] Found ${urls.length} canonical URLs to submit to Bing & IndexNow:`);
+	urls.forEach((u) => console.log(`  - ${u}`));
 
 	const payload = {
 		host: HOST,
 		key: KEY,
 		keyLocation: KEY_LOCATION,
-		urlList: urlList,
+		urlList: urls,
 	};
 
-	try {
-		const response = await fetch("https://api.indexnow.org/indexnow", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json; charset=utf-8",
-			},
-			body: JSON.stringify(payload),
-		});
+	const endpoints = [
+		"https://api.indexnow.org/indexnow",
+		"https://www.bing.com/indexnow",
+	];
 
-		if (response.status === 200 || response.status === 202) {
-			console.log(`[IndexNow] Success (${response.status})! Bing and Copilot have been notified to re-crawl your URLs.`);
-		} else {
-			const text = await response.text();
-			console.log(`[IndexNow] Response status: ${response.status} ${response.statusText}`, text);
+	for (const endpoint of endpoints) {
+		try {
+			console.log(`[IndexNow] Submitting payload to ${endpoint}...`);
+			const response = await fetch(endpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json; charset=utf-8",
+				},
+				body: JSON.stringify(payload),
+			});
+
+			console.log(`[IndexNow] Response from ${endpoint}: ${response.status} ${response.statusText}`);
+			if (response.status === 200 || response.status === 202) {
+				console.log(`[IndexNow] SUCCESS: URLs queued for immediate crawling by Bing.`);
+			} else {
+				const body = await response.text();
+				console.warn(`[IndexNow] Notice: ${body}`);
+			}
+		} catch (err) {
+			console.error(`[IndexNow] Failed to ping ${endpoint}:`, err.message);
 		}
-	} catch (err) {
-		console.error("[IndexNow] Failed to send request:", err.message);
 	}
 }
 
-submitToIndexNow();
+submitIndexNow();

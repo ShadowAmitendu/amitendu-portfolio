@@ -5,7 +5,7 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for item in collections.all -%}
-{%- if item.url and not item.data.draft and not item.data.noindex and not item.data.eleventyExcludeFromCollections and not ('/admin/' in item.url) and item.url != '/shelf/' and item.url != '/apps/' and item.url != '/404.html' -%}
+{%- if item.url and not item.data.draft and not item.data.noindex and not item.data.eleventyExcludeFromCollections and not ('/admin/' in item.url) and item.url != '/shelf/' and item.url != '/apps/' and item.url != '/cv/' and item.url != '/404.html' -%}
   <url>
     <loc>{{ site.url }}{{ item.url }}</loc>
     {%- set itemDate = item.date or buildDate -%}

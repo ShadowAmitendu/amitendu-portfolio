@@ -2,7 +2,11 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-User-agent: Bingbot
+User-agent: bingbot
+Allow: /
+Disallow: /admin/
+
+User-agent: msnbot
 Allow: /
 Disallow: /admin/
 
