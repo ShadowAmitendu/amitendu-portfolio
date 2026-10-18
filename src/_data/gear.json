@@ -7,67 +7,85 @@
   "gallery": [],
   "categories": [
     {
-      "category": "Primary Workstation (Desktop PC)",
+      "category": "Primary Workstation - Custom Build on FEB 2022",
       "items": [
         {
           "name": "Processor (CPU)",
-          "specs": "AMD Ryzen Multi-Core Processor",
-          "notes": "Delivers strong multi-threaded performance for compiling code, running local dev servers, and high-framerate gaming."
+          "specs": "Intel Core i7 - 10700F",
+          "notes": ""
         },
         {
           "name": "Graphics (GPU)",
-          "specs": "NVIDIA GeForce Dedicated Graphics",
-          "notes": "Handles 1080p/1440p gaming across titles like Genshin Impact and Honkai: Star Rail, along with video encoding and streaming."
+          "specs": "INNO3D NVIDIA GeForce RTX 3060 - 12GB OC Edition",
+          "notes": ""
         },
         {
           "name": "Memory (RAM)",
-          "specs": "16 GB Dual-Channel DDR4 / DDR5",
-          "notes": "Ample memory for multitasking with IDEs (VS Code, Eclipse, Spring Tool Suite), browser tabs, and background Docker containers."
+          "specs": "CORSAIR Vengeance LPX DDR4 RAM 32GB (2x16GB) 3000Mhz",
+          "notes": ""
         },
         {
           "name": "Primary Storage",
-          "specs": "High-Speed NVMe M.2 SSD",
-          "notes": "Fast boot drive for Windows 11 and active programming workspace repositories."
+          "specs": " Crucial P2 500GB NVMe PCIe M.2 SSD",
+          "notes": ""
         },
         {
           "name": "Operating System",
-          "specs": "Windows 11 Pro + WSL2 (Ubuntu)",
-          "notes": "Windows for gaming and general productivity paired with Windows Subsystem for Linux for native CLI and backend development."
+          "specs": "Windows 11 Professional - OEM Edition",
+          "notes": ""
+        },
+        {
+          "name": "Secondary Storage",
+          "specs": "Crucial BX500 240GB 3D NAND SATA 2.5-inch SSD",
+          "notes": ""
+        },
+        {
+          "name": "Seconday Storage",
+          "specs": "WD Blue PC Desktop Hard Drive - 2TB"
+        },
+        {
+          "specs": "APC Back-UPS BX1100C-IN 1100VA / 660W UPS",
+          "name": "UPS"
         }
       ]
     },
     {
-      "category": "Display & Visuals",
+      "category": "Display & Other Accessories",
       "items": [
         {
           "name": "Primary Monitor",
-          "specs": "IPS High-Refresh Display (144Hz+)",
-          "notes": "Smooth high-refresh experience with vibrant color accuracy for coding sessions, UI design, and gaming."
-        }
-      ]
-    },
-    {
-      "category": "Peripherals & Audio",
-      "items": [
+          "specs": "MSI Optix G241",
+          "notes": "IPS Gaming Monitor – Full HD (1920x1080px) - 144hz Refresh Rate - 1ms Response time"
+        },
         {
           "name": "Keyboard",
-          "specs": "Mechanical Keyboard (Custom Keycaps)",
-          "notes": "Tactile and responsive typing experience for long coding marathons."
+          "specs": "Kreo Hive 98 V2 Wired Mechanical Gaming Keyboard",
+          "notes": "6-Key Layout | Gasket Mount | Hot-Swap PCB | RGB Backlit | Metal Volume Knob | Type-C"
         },
         {
           "name": "Mouse",
-          "specs": "Ergonomic Optical Gaming Mouse",
-          "notes": "Configurable DPI profiles and lightweight ergonomics for precise control."
+          "specs": "Logitech G502 Hero",
+          "notes": "Best Mouse from Logitech"
         },
         {
-          "name": "Headphones / Audio",
-          "specs": "Studio / Gaming Over-Ear Headset",
-          "notes": "Comfortable earcups with clean audio separation for listening to HoYo-MiX OSTs and Discord voice chat."
+          "name": "Webcam",
+          "specs": "Lenovo 300 FHD Webcam",
+          "notes": "1920 x 1080 Resolution Webcam"
         },
         {
-          "name": "Desk Surface",
-          "specs": "Extended Micro-Weave Desk Mat",
-          "notes": "Anti-fray stitched surface covering both keyboard and mouse area."
+          "specs": "Maono AU-A04T",
+          "name": "Microphone",
+          "notes": "USB Condenser Podcast PC Unidirectional Microphone"
+        },
+        {
+          "name": "Desk Pad",
+          "specs": "SYGA Desk Pad PU Desk Mat ",
+          "notes": "(90CM * 45CM Blue & Yellow)"
+        },
+        {
+          "name": "Printer",
+          "specs": "Epson L6190",
+          "notes": "Wi-Fi Duplex Multifunction InkTank Printer with ADF"
         }
       ]
     },
@@ -76,13 +94,55 @@
       "items": [
         {
           "name": "Smartphone",
-          "specs": "Android Smartphone",
-          "notes": "Daily communication, testing responsive web layouts, and mobile productivity."
+          "specs": "Samsung Galaxy S22 - 5G",
+          "notes": ""
         },
         {
           "name": "Earbuds",
-          "specs": "True Wireless Stereo (TWS) Earbuds",
-          "notes": "Compact audio gear for commutes and college study sessions."
+          "specs": "OnePlus Nord Buds 3 Pro",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "category": "Seconday Laptop - Victus by HP Gaming Laptop 15 ",
+      "items": [
+        {
+          "name": "CPU",
+          "specs": "Intel Core i7-12650H"
+        },
+        {
+          "specs": "NVIDIA GeForce RTX 3050 Laptop GPU with 4GB GDDR6",
+          "name": "GPU"
+        },
+        {
+          "specs": "16 GB DDR4-3200 MHz",
+          "name": "Memory"
+        },
+        {
+          "specs": "1TB PCIe Gen4 NVMe Samsung M.2 SSD",
+          "name": "Storage"
+        },
+        {
+          "name": "Operating System",
+          "specs": "Windows 11 Home with Microsoft Office Home & Student 2021"
+        }
+      ]
+    },
+    {
+      "category": "Secondary Backup Laptop - MacBook Air",
+      "items": [
+        {
+          "name": "Chip",
+          "specs": "Apple M4"
+        },
+        {
+          "name": "Memory",
+          "specs": "16GB Unified Memory"
+        },
+        {
+          "name": "Storage",
+          "specs": "500GB SSD"
         }
       ]
     }
