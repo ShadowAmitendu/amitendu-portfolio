@@ -1,0 +1,27 @@
+<h2>{{ site.leftSidebar.title }}</h2>
+{% for item in site.leftSidebar.items %}
+{% set itemActive = false %}
+{% if item.url == '/' and isHome %}
+{% set itemActive = true %}
+{% elif item.url == '/about/' and isAbout %}
+{% set itemActive = true %}
+{% elif item.url == '/blog/' and isBlog %}
+{% set itemActive = true %}
+{% elif item.url == '/portfolio/' and isPortfolio %}
+{% set itemActive = true %}
+{% elif (item.url == '/resume/' or item.url == '/cv/') and isResume %}
+{% set itemActive = true %}
+{% elif (item.url == '/shelf/' or item.url == '/books-movies/') and isShelf %}
+{% set itemActive = true %}
+{% elif (item.url == '/apps/' or item.url == '/uses/') and isApps %}
+{% set itemActive = true %}
+{% endif %}
+<p>
+  {% if itemActive %}
+  <span
+    class="inline-block bg-[#164b70] text-white font-bold px-1.5 py-0.5 text-[14px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]">{{ item.label }}</span>
+  {% else %}
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="{{ item.url }}">{{ item.label }}</a>
+  {% endif %}
+</p>
+{% endfor %}

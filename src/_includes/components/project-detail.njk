@@ -1,0 +1,155 @@
+<article class="site-project-entry">
+  {% set typeLabels = {
+    "desktop": "Desktop app",
+    "android": "Android app",
+    "web": "Web app",
+    "tool": "Tool / Script",
+    "academic": "Academic / College"
+  } %}
+  {% set statusLabels = {
+    "in-progress": "In progress",
+    "completed": "Completed",
+    "maintained": "Maintained",
+    "archived": "Archived",
+    "concept": "Concept"
+  } %}
+  <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de] mb-5">
+    <div class="border-b border-[#c6d7e0] bg-linear-to-b from-[#f8fbfc] to-[#dce8ee] px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 text-xs shadow-[inset_0_1px_0_#fff]">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase select-none">PROJECT</span>
+        {% if draft %}
+        <span class="inline-block bg-[#d97706] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase select-none">DRAFT</span>
+        {% endif %}
+        {% if projectType %}
+        <span class="site-badge border border-[#7398b0] bg-[#e8f3f8] px-1.5 py-0.5 text-[10px] font-bold text-[#164b70]">
+          {{ typeLabels[projectType] or projectType }}
+        </span>
+        {% endif %}
+        {% if projectStatus %}
+        <span class="site-badge border border-[#7892a3] bg-white px-1.5 py-0.5 text-[10px] font-bold {% if projectStatus == 'completed' %}text-[#2e7d32]{% else %}text-[#556b78]{% endif %}">
+          {{ statusLabels[projectStatus] or projectStatus }}
+        </span>
+        {% endif %}
+      </div>
+      <div class="text-[11px] text-[#556b78]">
+        {% if date %}<time datetime="{{ date }}">{{ date | shortDate }}</time>{% endif %}
+        {% if duration %} · <span>{{ duration }}</span>{% endif %}
+      </div>
+    </div>
+
+    <div class="p-4 sm:p-5">
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#164b70] uppercase leading-tight m-0">
+        {{ title }}
+      </h2>
+      {% if description %}
+      <p class="mt-2 text-xs sm:text-sm text-[#3b4d57] leading-relaxed italic border-l-2 border-[#164b70] pl-2.5">
+        {{ description }}
+      </p>
+      {% endif %}
+
+      {% if (platforms and platforms.length > 0) or role or context %}
+      <div class="mt-4 pt-3 border-t border-[#e1ebf0] grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        {% if platforms and platforms.length > 0 %}
+        <div>
+          <span class="font-bold text-[#164b70]">Platforms:</span>
+          <div class="inline-flex flex-wrap gap-1 ml-1.5">
+            {% for p in platforms %}
+            <span class="site-badge border border-[#9bb0be] bg-[#edf4f8] px-1.5 py-0.5 text-[10px] text-[#164b70]">{{ p }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if role %}
+        <div>
+          <span class="font-bold text-[#164b70]">Role:</span>
+          <span class="text-[#3b4d57] ml-1">{{ role }}</span>
+        </div>
+        {% endif %}
+        {% if context %}
+        <div>
+          <span class="font-bold text-[#164b70]">Context:</span>
+          <span class="text-[#3b4d57] ml-1">{{ context }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if stack and stack.length > 0 %}
+      <div class="mt-4 pt-3 border-t border-[#e1ebf0]">
+        <span class="font-bold text-xs text-[#164b70] block mb-1.5 uppercase tracking-wide">Tech Stack:</span>
+        <div class="flex flex-wrap gap-1.5">
+          {% for tech in stack %}
+          <span class="site-badge border border-[#7892a3] bg-white px-2 py-0.5 text-xs font-semibold text-[#164b70] shadow-[1px_1px_0_#cad6de]">
+            {{ tech }}
+          </span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if highlights and highlights.length > 0 %}
+      <div class="mt-4 pt-3 border-t border-[#e1ebf0]">
+        <span class="font-bold text-xs text-[#164b70] block mb-1.5 uppercase tracking-wide">Key Highlights:</span>
+        <ul class="list-disc list-inside space-y-1 text-xs text-[#26343d] leading-relaxed">
+          {% for hl in highlights %}
+          <li>{{ hl }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if links and links.length > 0 %}
+      <div class="mt-4 pt-3 border-t border-[#e1ebf0] flex flex-wrap gap-2">
+        {% for l in links %}
+        {% if l.url %}
+        <a class="site-button-2007 inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold" href="{{ l.url }}" target="_blank" rel="noopener noreferrer">
+          <span>{{ l.label or "Visit Project" }}</span>
+          <span class="text-[10px]">↗</span>
+        </a>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if image and not hideHeroImage %}
+  <div class="site-card border border-[#9bb0be] bg-white p-1 shadow-[2px_2px_0_#cad6de] mb-5">
+    <a class="site-lightbox-trigger block cursor-zoom-in" href="{{ image }}" data-lightbox="true" data-caption="{{ imageAlt or title }}" title="{{ imageAlt or title }}">
+      <img class="block w-full h-auto max-h-125 object-contain mx-auto" src="{{ image }}" alt="{{ imageAlt or title }}" />
+    </a>
+  </div>
+  {% endif %}
+
+  {% if gallery and gallery.length > 0 %}
+  <div class="mb-6">
+    <h3 class="border-b border-[#b7cbd6] pb-1 text-sm font-bold text-[#164b70] uppercase tracking-wide mb-3">
+      Screenshots & Gallery
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {% for shot in gallery %}
+      {% if shot.image %}
+      <figure class="site-card border border-[#9bb0be] bg-white p-1.5 shadow-[2px_2px_0_#cad6de] m-0 flex flex-col justify-between">
+        <a class="site-lightbox-trigger block cursor-zoom-in" href="{{ shot.image }}" data-lightbox="true" data-caption="{{ shot.caption or shot.alt or title }}" title="{{ shot.caption or shot.alt or title }}">
+          <img class="w-full h-44 object-cover sm:object-contain bg-[#0a1926]" src="{{ shot.image }}" alt="{{ shot.alt or title }}" loading="lazy" />
+        </a>
+        {% if shot.caption %}
+        <figcaption class="mt-1.5 text-center text-xs italic text-[#556b78] border-t border-dashed border-[#b7cbd6] pt-1">
+          {{ shot.caption }}
+        </figcaption>
+        {% endif %}
+      </figure>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="site-entry-body mt-4 text-sm leading-relaxed text-[#26343d]">
+    {{ content | safe }}
+  </div>
+
+  <div class="mt-6 pt-3 border-t border-dashed border-[#b7cbd6]">
+    <a class="text-[#064f83] underline hover:text-[#c0392b] text-xs font-semibold" href="/portfolio/">← Back to all projects</a>
+  </div>
+</article>

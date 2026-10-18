@@ -1,0 +1,26 @@
+{% if site.author %}
+<div class="site-sidebar-card mb-4">
+  <div class="site-sidebar-card-header">
+    About Me
+  </div>
+  <div class="site-sidebar-card-body">
+    <div class="flex items-center gap-2.5">
+      {% if site.author.avatar %}
+      <img class="site-profile-frame h-11 w-11 shrink-0 object-cover" src="{{ site.author.avatar }}"
+        alt="{{ site.author.name }}" width="44" height="44" />
+      {% endif %}
+      <div class="min-w-0">
+        <p class="truncate font-bold leading-tight text-[#164b70] text-sm">{{ site.author.name }}</p>
+        <p class="mt-0.5 text-[11px] leading-tight text-[#556b78]">{{ site.author.role }}</p>
+      </div>
+    </div>
+    {% if site.author.bio %}
+    <p class="mt-2.5 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2">
+      {{ site.author.bio }}</p>
+    {% endif %}
+    <div class="mt-2.5">
+      <a class="site-button-2007" href="{{ resume.pdfUrl or '/resume/' }}">{% if resume.pdfUrl %}Download Resume{% else %}View Resume{% endif %}</a>
+    </div>
+  </div>
+</div>
+{% endif %}

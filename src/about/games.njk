@@ -4,8 +4,9 @@ title: Games
 headerTagline: WHAT I'M PLAYING
 permalink: /about/games/
 aboutTab: games
+
 ---
-{% include "about-tabs.njk" %}
+{% include "components/about-tabs.njk" %}
 
 <div class="border-b border-[#b7cbd6] pb-2 flex flex-wrap items-baseline justify-between gap-2">
   <div>
@@ -13,7 +14,9 @@ aboutTab: games
       {{ games.heading or 'Gaming Timeline' }}
     </h2>
     {% if games.intro %}
-      <p class="mt-1 text-sm leading-relaxed text-[#26343d]">{{ games.intro }}</p>
+      <p class="mt-1 text-sm leading-relaxed text-[#26343d]">
+        {{ games.intro }}
+      </p>
     {% endif %}
   </div>
 </div>
@@ -23,9 +26,13 @@ aboutTab: games
 {# Timeline Header & Direction Switcher #}
 <div class="my-4 p-2.5 bg-[#f4f8fa] border border-[#b7cbd6] flex flex-wrap items-center justify-between gap-2 text-xs">
   <div class="flex items-center gap-2">
-    <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px]">Timeline Flow:</span>
+    <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px]"
+    >Timeline Flow:</span>
     <span class="text-[#556b78] text-[11px]">
-      From Starting Game <strong class="text-[#164b70]">#{{ totalGames }}</strong> &rarr; down to Latest <strong class="text-[#164b70]">#1</strong>
+      From Starting Game <strong class="text-[#164b70]">#{{
+          totalGames
+        }}</strong> &rarr; down to Latest <strong class="text-[#164b70]"
+      >#1</strong>
     </span>
   </div>
   <div class="flex items-center gap-1.5" id="timeline-controls">
@@ -51,24 +58,35 @@ aboutTab: games
 </div>
 
 {# Timeline Origin Banner #}
-<div class="mb-4 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#164b70] border-y border-r border-[#b7cbd6] flex items-center justify-between text-xs">
+<div class="mb-4 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#164b70] border-y border-r flex items-center justify-between text-xs">
   <span class="font-bold text-[#164b70] flex items-center gap-1.5">
     <span>🚩</span>
     <span>ORIGIN: Where It All Began (First Games Played)</span>
   </span>
-  <span class="text-[11px] text-[#556b78] font-semibold">Game #{{ totalGames }}</span>
+  <span class="text-[11px] text-[#556b78] font-semibold">Game #{{
+      totalGames
+    }}</span>
 </div>
 
 {# The Vertical Timeline Container #}
-<div class="relative pl-7 sm:pl-9 mt-4 before:content-[''] before:absolute before:left-3 sm:before:left-3.5 before:top-2 before:bottom-4 before:w-0.5 before:bg-[#8faab8]" id="games-timeline-container">
+<div
+  class="relative pl-7 sm:pl-9 mt-4 before:content-[''] before:absolute before:left-3 sm:before:left-3.5 before:top-2 before:bottom-4 before:w-0.5 before:bg-[#8faab8]"
+  id="games-timeline-container"
+>
   <div class="flex flex-col space-y-6" id="games-timeline-list">
     {% if games.items and games.items.length > 0 %}
       {% for game in games.items | reverse %}
         {% set milestoneNum = loop.revindex %}
-        <div class="relative timeline-item" data-chrono="{{ loop.index }}" data-milestone="{{ milestoneNum }}">
+        <div
+          class="relative timeline-item"
+          data-chrono="{{ loop.index }}"
+          data-milestone="{{ milestoneNum }}"
+        >
           {# Timeline Node Marker #}
           <div class="absolute -left-7 sm:-left-9 top-2.5 flex items-center justify-center w-6 sm:w-7 h-6 sm:h-7 rounded-full border-2 {% if milestoneNum == 1 %}border-[#2e7d32] bg-[#e8f5e9] text-[#1b5e20]{% else %}border-[#164b70] bg-[#f0f6f9] text-[#164b70]{% endif %} shadow-[0_1px_3px_rgba(0,0,0,0.18)] select-none">
-            <span class="font-bold text-[10px] sm:text-[11px] leading-none">{{ milestoneNum }}</span>
+            <span class="font-bold text-[10px] sm:text-[11px] leading-none">{{
+              milestoneNum
+            }}</span>
           </div>
 
           {# Card Window #}
@@ -76,39 +94,63 @@ aboutTab: games
             {# 2005 Window Header #}
             <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
               <div class="flex items-baseline gap-2 text-sm min-w-0">
-                <span class="site-badge font-bold text-xs bg-[#164b70] text-white px-1.5 py-0.2 shadow-[inset_0_1px_1px_rgba(0,0,0,0.25)] select-none">
+                <span
+                  class="site-badge font-bold text-xs bg-[#164b70] text-white px-1.5 py-0.2 shadow-[inset_0_1px_1px_rgba(0,0,0,0.25)] select-none"
+                >
                   #{{ milestoneNum }}
                 </span>
                 <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 truncate">
                   {% if game.link %}
-                    <a class="text-[#164b70] underline hover:text-[#c0392b]" href="{{ game.link }}" target="_blank" rel="noopener noreferrer">{{ game.name }}</a>
+                    <a
+                      class="text-[#164b70] underline hover:text-[#c0392b]"
+                      href="{{ game.link }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >{{ game.name }}</a>
                   {% else %}
                     {{ game.name }}
                   {% endif %}
                 </h3>
                 {% if game.publisher %}
-                  <span class="text-xs text-[#556b78] font-normal truncate hidden sm:inline">({{ game.publisher }})</span>
+                  <span
+                    class="text-xs text-[#556b78] font-normal truncate hidden sm:inline"
+                  >({{ game.publisher }})</span>
                 {% elif game.platform %}
-                  <span class="text-xs text-[#556b78] font-normal truncate hidden sm:inline">({{ game.platform }})</span>
+                  <span
+                    class="text-xs text-[#556b78] font-normal truncate hidden sm:inline"
+                  >({{ game.platform }})</span>
                 {% endif %}
               </div>
 
               <div>
                 {% if game.playingRightNow %}
-                  <span class="inline-flex items-center gap-1 bg-[#164b70] text-white text-[10px] font-bold px-2 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse"></span>
+                  <span
+                    class="inline-flex items-center gap-1 bg-[#164b70] text-white text-[10px] font-bold px-2 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-[#22c55e] inline-block animate-pulse"
+                    ></span>
                     <span>PLAYING RIGHT NOW</span>
                   </span>
                 {% elif game.status == "completed" %}
-                  <span class="inline-block bg-[#2e7d32] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">COMPLETED</span>
+                  <span
+                    class="inline-block bg-[#2e7d32] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide"
+                  >COMPLETED</span>
                 {% elif game.status == "on-hold" %}
-                  <span class="inline-block bg-[#d97706] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">ON HOLD</span>
+                  <span
+                    class="inline-block bg-[#d97706] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide"
+                  >ON HOLD</span>
                 {% elif game.status == "backlog" %}
-                  <span class="inline-block bg-[#4f46e5] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide">BACKLOG</span>
+                  <span
+                    class="inline-block bg-[#4f46e5] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide"
+                  >BACKLOG</span>
                 {% elif game.status == "dropped" %}
-                  <span class="text-[11px] font-bold text-[#71828b] uppercase">DROPPED</span>
+                  <span class="text-[11px] font-bold text-[#71828b] uppercase"
+                  >DROPPED</span>
                 {% elif game.status %}
-                  <span class="text-[11px] font-bold text-[#556b78] uppercase">{{ game.status | replace('-', ' ') }}</span>
+                  <span
+                    class="text-[11px] font-bold text-[#556b78] uppercase"
+                  >{{ game.status | replace('-', ' ') }}</span>
                 {% endif %}
               </div>
             </div>
@@ -117,11 +159,17 @@ aboutTab: games
             <div class="site-listing-body p-3 bg-[#f8fbfc]">
               {# Left Icon / Box Art #}
               {% set gameImg = game.image or game.icon %}
-              {% set gameAlt = game.imageAlt or game.iconAlt or game.name or 'Game cover' %}
+              {%
+                set gameAlt = game.imageAlt or game.iconAlt or game.name or 'Game cover'
+              %}
               <div class="site-listing-image-col">
                 {% if gameImg %}
                   <div class="site-listing-frame shadow-[1px_1px_2px_rgba(0,0,0,0.12)]">
-                    <img src="{{ gameImg }}" alt="{{ gameAlt }}" loading="lazy" />
+                    <img
+                      src="{{ gameImg }}"
+                      alt="{{ gameAlt }}"
+                      loading="lazy"
+                    />
                   </div>
                 {% else %}
                   <div class="site-listing-placeholder">
@@ -136,15 +184,23 @@ aboutTab: games
                   <tbody>
                     {% if game.publisher %}
                       <tr class="border-b border-[#e1ebf0]">
-                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Publisher:</td>
-                        <td class="py-1 text-[#3b4d57]">{{ game.publisher }}</td>
+                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                          Publisher:
+                        </td>
+                        <td class="py-1 text-[#3b4d57]">
+                          {{ game.publisher }}
+                        </td>
                       </tr>
                     {% endif %}
                     {% if game.platform %}
                       <tr class="border-b border-[#e1ebf0]">
-                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Platform:</td>
+                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                          Platform:
+                        </td>
                         <td class="py-1 text-[#3b4d57]">
-                          <span class="inline-block bg-[#eef4f7] border border-[#b7cbd6] px-1.5 py-0.2 rounded font-semibold text-[#164b70]">
+                          <span
+                            class="inline-block bg-[#eef4f7] border border-[#b7cbd6] px-1.5 py-0.2 rounded font-semibold text-[#164b70]"
+                          >
                             {{ game.platform }}
                           </span>
                         </td>
@@ -152,18 +208,25 @@ aboutTab: games
                     {% endif %}
                     {% if game.status %}
                       <tr class="border-b border-[#e1ebf0]">
-                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Status:</td>
+                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                          Status:
+                        </td>
                         <td class="py-1 text-[#3b4d57]">
-                          <strong class="capitalize">{{ game.status | replace('-', ' ') }}</strong>
+                          <strong class="capitalize">{{
+                            game.status | replace('-', ' ')
+                          }}</strong>
                           {% if game.tags and game.tags.length > 0 %}
-                            <span class="text-[#71828b] ml-1">({{ game.tags | join(', ') }})</span>
+                            <span class="text-[#71828b] ml-1"
+                            >({{ game.tags | join(', ') }})</span>
                           {% endif %}
                         </td>
                       </tr>
                     {% endif %}
                     {% if game.description %}
                       <tr class="border-b border-[#e1ebf0]">
-                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Timeline Note:</td>
+                        <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                          Timeline Note:
+                        </td>
                         <td class="py-1 text-[#26343d] leading-relaxed italic bg-[#f0f6f9] p-2 rounded mt-1 block sm:table-cell">
                           "{{ game.description }}"
                         </td>
@@ -174,7 +237,12 @@ aboutTab: games
 
                 {% if game.link %}
                   <div class="pt-2 flex justify-end">
-                    <a class="site-button-2007 inline-block px-3 py-1 text-xs font-semibold" href="{{ game.link }}" target="_blank" rel="noopener noreferrer">
+                    <a
+                      class="site-button-2007 inline-block px-3 py-1 text-xs font-semibold"
+                      href="{{ game.link }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Official Game Page &raquo;
                     </a>
                   </div>
@@ -193,9 +261,8 @@ aboutTab: games
 </div>
 
 {# Timeline Present Day Banner #}
-<div class="mt-6 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#2e7d32] border-y border-r border-[#b7cbd6] flex items-center justify-between text-xs">
+<div class="mt-6 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#2e7d32] border-y border-r flex items-center justify-between text-xs">
   <span class="font-bold text-[#2e7d32] flex items-center gap-1.5">
-    <span>⭐</span>
     <span>PRESENT: Latest &amp; Ongoing Gaming Era</span>
   </span>
   <span class="text-[11px] text-[#2e7d32] font-semibold">Game #1</span>
@@ -203,27 +270,29 @@ aboutTab: games
 
 <script>
 function setTimelineOrder(order) {
-  var list = document.getElementById('games-timeline-list');
-  var btnChrono = document.getElementById('btn-sort-chrono');
-  var btnReverse = document.getElementById('btn-sort-reverse');
+  var list = document.getElementById("games-timeline-list");
+  var btnChrono = document.getElementById("btn-sort-chrono");
+  var btnReverse = document.getElementById("btn-sort-reverse");
   if (!list) return;
 
   var items = Array.prototype.slice.call(list.children);
 
-  if (order === 'reverse') {
+  if (order === "reverse") {
     // Latest (#1) first down to Starting (#total)
     items.sort(function(a, b) {
-      return parseInt(a.getAttribute('data-milestone'), 10) - parseInt(b.getAttribute('data-milestone'), 10);
+      return parseInt(a.getAttribute("data-milestone"), 10)
+        - parseInt(b.getAttribute("data-milestone"), 10);
     });
-    btnReverse.classList.add('font-bold');
-    btnChrono.classList.remove('font-bold');
+    btnReverse.classList.add("font-bold");
+    btnChrono.classList.remove("font-bold");
   } else {
     // Starting (#total) first down to Latest (#1)
     items.sort(function(a, b) {
-      return parseInt(b.getAttribute('data-milestone'), 10) - parseInt(a.getAttribute('data-milestone'), 10);
+      return parseInt(b.getAttribute("data-milestone"), 10)
+        - parseInt(a.getAttribute("data-milestone"), 10);
     });
-    btnChrono.classList.add('font-bold');
-    btnReverse.classList.remove('font-bold');
+    btnChrono.classList.add("font-bold");
+    btnReverse.classList.remove("font-bold");
   }
 
   items.forEach(function(item) {
@@ -233,5 +302,6 @@ function setTimelineOrder(order) {
 </script>
 
 <p class="mt-8">
-  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a>
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/"
+  >← back to home</a>
 </p>
