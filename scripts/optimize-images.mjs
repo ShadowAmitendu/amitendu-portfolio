@@ -314,6 +314,9 @@ const nonRasterFiles = [];
 const unreferencedFiles = [];
 
 const assignedTargetPaths = new Set();
+for (const existingFile of allImageFiles) {
+  assignedTargetPaths.add(path.join(imagesDir, existingFile).toLowerCase());
+}
 
 for (const imgName of allImageFiles) {
   const ext = path.extname(imgName).toLowerCase();
@@ -385,7 +388,10 @@ for (const imgName of allImageFiles) {
   let targetPath = path.join(imagesDir, targetName);
 
   let counter = 2;
-  while (assignedTargetPaths.has(targetPath.toLowerCase())) {
+  while (
+    assignedTargetPaths.has(targetPath.toLowerCase()) ||
+    (fs.existsSync(targetPath) && targetPath.toLowerCase() !== srcPath.toLowerCase())
+  ) {
     targetName = `${date}-${chosenCollection}-${contentSlug}-${counter}.webp`;
     targetRel = `src/images/${targetName}`;
     targetPath = path.join(imagesDir, targetName);

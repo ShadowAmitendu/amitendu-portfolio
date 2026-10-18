@@ -6985,48 +6985,273 @@
 		// 4.2 AUTOMATIC IMAGE RENAMER (TO CONTENT SLUG)
 		// ==========================================
 		(function initImageRenamer() {
-			function slugify(text) {
-				return String(text || "")
+			var knownImages = new Set();
+			var lastActiveWidget = null;
+
+			// Track recently clicked image controls or buttons so we know the originating field/item
+			document.addEventListener(
+				"click",
+				function (e) {
+					var el = e.target;
+					if (!el) return;
+					var trigger = el.closest(
+						'button, [role="button"], label, input[type="file"], [class*="Upload"], [class*="ImageWrapper"]',
+					);
+					if (trigger) {
+						var widget = trigger.closest(
+							'[class*="ListItem"], [class*="Card"], [class*="StyledListItem"], [class*="ControlPane"], [class*="Field"], li, fieldset',
+						);
+						if (widget) {
+							lastActiveWidget = widget;
+						}
+					}
+				},
+				true,
+			);
+
+			function slugify(text, maxLen) {
+				if (!text) return "";
+				var s = String(text)
 					.toLowerCase()
 					.trim()
 					.replace(/^[0-9]{4}-[0-9]{2}-[0-9]{2}-/, "")
 					.replace(/[^a-z0-9]+/g, "-")
 					.replace(/^-+|-+$/g, "");
+				if (maxLen && s.length > maxLen) {
+					s = s.slice(0, maxLen).replace(/-+$/, "");
+				}
+				return s;
 			}
 
-			function getCleanSlug() {
-				// 1. Check if editing inside an item card (e.g. books, movies, games, gear, software)
-				var activeEl = document.activeElement;
-				if (activeEl) {
-					var itemCard = activeEl.closest(
-						'[class*="ListItem"], [class*="Card"], [class*="ControlPane"]',
+			function recordKnownImage(filename) {
+				if (!filename) return;
+				var lower = String(filename).trim().toLowerCase();
+				knownImages.add(lower);
+				try {
+					var stored = JSON.parse(
+						localStorage.getItem("decap_known_images") || "[]",
 					);
-					if (itemCard) {
-						var cardTitle = itemCard.querySelector(
-							'input[id*="title"], input[id*="heading"], input[id*="name"]',
+					if (stored.indexOf(lower) === -1) {
+						stored.push(lower);
+						if (stored.length > 500) stored = stored.slice(-500);
+						localStorage.setItem(
+							"decap_known_images",
+							JSON.stringify(stored),
 						);
-						if (cardTitle && cardTitle.value) {
-							return slugify(cardTitle.value);
+					}
+				} catch (e) {}
+			}
+
+			// Pre-load known images from localStorage
+			try {
+				var stored = JSON.parse(
+					localStorage.getItem("decap_known_images") || "[]",
+				);
+				if (Array.isArray(stored)) {
+					stored.forEach(function (name) {
+						if (name) knownImages.add(String(name).trim().toLowerCase());
+					});
+				}
+			} catch (e) {}
+
+			// Pre-load known repository images from /admin/images-list.json
+			fetch("/admin/images-list.json")
+				.then(function (res) {
+					if (res.ok) return res.json();
+					throw new Error("images-list.json not available");
+				})
+				.then(function (list) {
+					if (Array.isArray(list)) {
+						list.forEach(function (name) {
+							if (name) knownImages.add(String(name).trim().toLowerCase());
+						});
+					}
+				})
+				.catch(function () {});
+
+			// Scan all images and URLs currently rendered in the active DOM/form
+			function scanDomImages() {
+				try {
+					var elements = document.querySelectorAll(
+						'input[type="text"], input[type="hidden"], img, a, span',
+					);
+					for (var i = 0; i < elements.length; i++) {
+						var el = elements[i];
+						var val =
+							el.value || el.src || el.href || el.textContent || "";
+						if (typeof val === "string") {
+							var matches = val.match(
+								/[a-zA-Z0-9_\-~%]+\.(?:webp|avif|png|jpg|jpeg|gif|svg|ico|heic)/gi,
+							);
+							if (matches) {
+								for (var j = 0; j < matches.length; j++) {
+									knownImages.add(matches[j].toLowerCase());
+								}
+							}
+						}
+					}
+				} catch (e) {}
+			}
+
+			// Determine if a filename or base name is already taken
+			function isNameTaken(baseSlug, ext) {
+				var fullName = (baseSlug + "." + ext).toLowerCase();
+				if (knownImages.has(fullName)) return true;
+
+				var baseLower = baseSlug.toLowerCase();
+				for (var item of knownImages) {
+					var itemBase = item.replace(/\.[^.]+$/, "").toLowerCase();
+					if (itemBase === baseLower) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			// Find a unique filename for the given base slug and extension
+			function getUniqueFilename(baseSlug, ext) {
+				scanDomImages();
+
+				var cleanBase = slugify(baseSlug, 36) || "image";
+
+				// If base name is not yet taken, use it directly
+				if (!isNameTaken(cleanBase, ext)) {
+					var candidate = cleanBase + "." + ext;
+					recordKnownImage(candidate);
+					return candidate;
+				}
+
+				// If already taken (e.g. "gear.jpg"), append -2, -3, etc. so next image is unique
+				var counter = 2;
+				while (isNameTaken(cleanBase + "-" + counter, ext)) {
+					counter++;
+				}
+
+				var uniqueCandidate = cleanBase + "-" + counter + "." + ext;
+				recordKnownImage(uniqueCandidate);
+				return uniqueCandidate;
+			}
+
+			// Extract semantic context slug from DOM hierarchy and active field
+			function getContextSlug(input, file) {
+				var targetWidget =
+					(input &&
+						input.closest(
+							'[class*="ListItem"], [class*="Card"], [class*="StyledListItem"], [class*="ControlPane"], [class*="Field"], li, fieldset',
+						)) ||
+					lastActiveWidget;
+
+				// 1. Check if editing inside an item card (e.g. gear gallery, books, movies, games, software, friends)
+				if (targetWidget) {
+					var itemCard = targetWidget.closest(
+						'[class*="ListItem"], [class*="Card"], [class*="StyledListItem"], li, fieldset',
+					);
+					if (
+						!itemCard &&
+						targetWidget.matches &&
+						targetWidget.matches(
+							'[class*="ListItem"], [class*="Card"], [class*="StyledListItem"], li, fieldset',
+						)
+					) {
+						itemCard = targetWidget;
+					}
+
+					if (itemCard) {
+						var cardInput = itemCard.querySelector(
+							'input[id*="title"]:not([id^="title-field-1"]):not([id*="headerBanner"]), ' +
+								'input[id*="name"]:not([id^="name-field-1"]), ' +
+								'input[id*="caption"], input[id*="heading"], input[id*="alt"]',
+						);
+						if (cardInput && cardInput.value && cardInput.value.trim()) {
+							var itemSlug = slugify(cardInput.value);
+							if (itemSlug && itemSlug !== "desk-setup") return itemSlug;
+						}
+
+						var topBarTitle = itemCard.querySelector(
+							'[class*="TopBarTitle"], [class*="CardHeader"], [class*="Title"], h1, h2, h3, h4, h5, h6',
+						);
+						if (
+							topBarTitle &&
+							topBarTitle.textContent &&
+							topBarTitle.textContent.trim()
+						) {
+							var tbSlug = slugify(topBarTitle.textContent);
+							if (
+								tbSlug &&
+								tbSlug !== "desk-setup" &&
+								tbSlug !== "photo" &&
+								tbSlug !== "item"
+							) {
+								return tbSlug;
+							}
 						}
 					}
 				}
 
-				// 2. Check top-level title / heading inputs in active form
-				var mainTitle = document.querySelector(
-					'input[id^="title-field-"], input[id^="heading-field-"], input[id^="name-field-"]',
-				);
-				if (mainTitle && mainTitle.value) {
-					return slugify(mainTitle.value);
+				// 2. Identify the specific field name / label
+				var fieldName = "";
+				if (input && input.id) {
+					var idMatch = input.id.match(/^([a-zA-Z0-9_-]+?)-field-/);
+					if (idMatch && idMatch[1]) {
+						fieldName = slugify(idMatch[1]);
+					}
+				}
+				if (!fieldName && targetWidget) {
+					var labelEl = targetWidget.querySelector("label");
+					if (labelEl && labelEl.textContent) {
+						fieldName = slugify(labelEl.textContent);
+					}
 				}
 
-				// 3. Check URL hash (e.g. #/collections/blog/entries/2026-05-04-hello-world)
+				// 3. Identify page / entry slug from URL hash or page title
+				var entrySlug = "";
 				var hash = window.location.hash || "";
 				var hashMatch = hash.match(/\/entries\/([^/?#]+)/);
 				if (hashMatch && hashMatch[1]) {
-					return slugify(decodeURIComponent(hashMatch[1]));
+					entrySlug = slugify(decodeURIComponent(hashMatch[1]));
+				}
+				if (!entrySlug) {
+					var mainTitle = document.querySelector(
+						'input[id^="title-field-"], input[id^="heading-field-"], input[id^="name-field-"]',
+					);
+					if (mainTitle && mainTitle.value && mainTitle.value.trim()) {
+						entrySlug = slugify(mainTitle.value);
+					}
 				}
 
-				return null;
+				// 4. Combine entrySlug and field context
+				if (entrySlug) {
+					if (fieldName && fieldName !== entrySlug && fieldName !== "image") {
+						return entrySlug + "-" + fieldName;
+					}
+					if (
+						fieldName === "image" ||
+						fieldName === "photo" ||
+						fieldName === "photo-image"
+					) {
+						return entrySlug + "-setup";
+					}
+					return entrySlug;
+				}
+
+				if (fieldName && fieldName !== "image") {
+					return fieldName;
+				}
+
+				// 5. Fallback to original filename if descriptive
+				if (file && file.name) {
+					var origSlug = slugify(file.name.replace(/\.[^.]+$/, ""));
+					if (
+						origSlug &&
+						!origSlug.match(
+							/^(image|img|photo|screenshot|pic|dsc|file|upload)$/,
+						)
+					) {
+						return origSlug;
+					}
+				}
+
+				return "image";
 			}
 
 			// Intercept file input change events
@@ -7043,18 +7268,17 @@
 						return;
 					if (input.dataset.renamed === "true") return;
 
-					var slug = getCleanSlug();
-					if (!slug) return;
-
 					try {
 						var dt = new DataTransfer();
 						var hasChanges = false;
 
 						for (var i = 0; i < input.files.length; i++) {
 							var file = input.files[i];
-							var ext = file.name.split(".").pop().toLowerCase() || "webp";
-							var suffix = input.files.length > 1 ? "-" + (i + 1) : "";
-							var newName = slug + suffix + "." + ext;
+							var ext = (
+								file.name.split(".").pop() || "webp"
+							).toLowerCase();
+							var baseSlug = getContextSlug(input, file);
+							var newName = getUniqueFilename(baseSlug, ext);
 
 							if (file.name !== newName) {
 								var renamedFile = new File([file], newName, {
@@ -7065,9 +7289,9 @@
 								hasChanges = true;
 								console.log(
 									"[Decap Image Renamer] Renamed: " +
-									file.name +
-									" -> " +
-									newName,
+										file.name +
+										" -> " +
+										newName,
 								);
 							} else {
 								dt.items.add(file);

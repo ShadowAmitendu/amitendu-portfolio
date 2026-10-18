@@ -894,3 +894,24 @@ if (fs.existsSync(path.dirname(publicConfigPath))) {
 	fs.writeFileSync(publicConfigPath, yamlContent, "utf8");
 	console.log(`[generate-cms-config] Generated ${publicConfigPath}`);
 }
+
+// Generate image filename list for admin auto-renamer collision prevention
+try {
+	const imagesDir = path.resolve("src/images");
+	if (fs.existsSync(imagesDir)) {
+		const imgFiles = fs
+			.readdirSync(imagesDir)
+			.filter((f) => !f.startsWith(".") && fs.statSync(path.join(imagesDir, f)).isFile());
+		const jsonPathSrc = path.resolve("src/admin/images-list.json");
+		fs.writeFileSync(jsonPathSrc, JSON.stringify(imgFiles, null, 2), "utf8");
+		console.log(`[generate-cms-config] Generated ${jsonPathSrc} (${imgFiles.length} images)`);
+
+		if (fs.existsSync(path.dirname(publicConfigPath))) {
+			const jsonPathPublic = path.resolve("public/admin/images-list.json");
+			fs.writeFileSync(jsonPathPublic, JSON.stringify(imgFiles, null, 2), "utf8");
+			console.log(`[generate-cms-config] Generated ${jsonPathPublic}`);
+		}
+	}
+} catch (err) {
+	console.warn(`[generate-cms-config] Could not generate images-list.json: ${err.message}`);
+}
