@@ -39,20 +39,22 @@ aboutTab: games
     <button
       type="button"
       id="btn-sort-chrono"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-bold active"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-bold active inline-flex items-center gap-1.5"
       onclick="setTimelineOrder('chrono')"
       title="Sort from Starting game (#{{ totalGames }}) to Latest (#1)"
     >
-      ⏳ Start (#{{ totalGames }}) &rarr; Latest (#1)
+      <svg class="w-3.5 h-3.5 shrink-0 text-[#164b70]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Start (#{{ totalGames }}) &rarr; Latest (#1)</span>
     </button>
     <button
       type="button"
       id="btn-sort-reverse"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5"
       onclick="setTimelineOrder('reverse')"
       title="Sort from Latest (#1) to Starting game (#{{ totalGames }})"
     >
-      🔄 Latest (#1) &rarr; Start (#{{ totalGames }})
+      <svg class="w-3.5 h-3.5 shrink-0 text-[#164b70]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
+      <span>Latest (#1) &rarr; Start (#{{ totalGames }})</span>
     </button>
   </div>
 </div>
@@ -60,7 +62,7 @@ aboutTab: games
 {# Timeline Origin Banner #}
 <div class="mb-4 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#164b70] border-y border-r flex items-center justify-between text-xs">
   <span class="font-bold text-[#164b70] flex items-center gap-1.5">
-    <span>🚩</span>
+    <svg class="w-3.5 h-3.5 shrink-0 text-[#c0392b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
     <span>ORIGIN: Where It All Began (First Games Played)</span>
   </span>
   <span class="text-[11px] text-[#556b78] font-semibold">Game #{{
