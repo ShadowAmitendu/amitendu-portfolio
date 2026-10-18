@@ -1,355 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% set isHome = (page.url == '/' or page.url == '') %}
+    {% set isAbout = ('/about/' in page.url) %}
+    {%
+      set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags))
+    %}
+    {%
+      set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost))
+    %}
+    {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
+    {% set isShelf = ('/shelf/' in page.url or '/books-movies/' in page.url) %}
+    {% set isApps = ('/apps/' in page.url or '/uses/' in page.url) %}
+    {% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  {% set isHome = (page.url == '/' or page.url == '') %}
-  {% set isAbout = ('/about/' in page.url) %}
-  {% set isBlog = ('/blog/' in page.url or isPost or (tags and 'blog' in tags)) %}
-  {% set isPortfolio = ('/portfolio/' in page.url or (tags and 'portfolio' in tags and not isPost)) %}
-  {% set isResume = ('/resume/' in page.url or '/cv/' in page.url) %}
-  {% set isShelf = ('/shelf/' in page.url or '/books-movies/' in page.url) %}
-  {% set isApps = ('/apps/' in page.url or '/uses/' in page.url) %}
-  {% set isDraft = draft or (tags and ('draft' in tags or tags == 'draft')) %}
+    {% set displayTitle = title %}
+    {% set displayTagline = headerTagline %}
 
-  {% set displayTitle = title %}
-  {% set displayTagline = headerTagline %}
+    {% if isAbout and not isPost %}
+      {% if aboutTab == 'books' %}
+        {% set displayTitle = books.title or 'Books' %}
+        {% set displayTagline = books.headerTagline or "WHAT I'M READING" %}
+      {% elif aboutTab == 'movies' %}
+        {% set displayTitle = movies.title or 'Movies' %}
+        {% set displayTagline = movies.headerTagline or "WHAT I'M WATCHING" %}
+      {% elif aboutTab == 'anime' %}
+        {% set displayTitle = anime.title or 'Anime' %}
+        {% set displayTagline = anime.headerTagline or "WHAT I'M WATCHING" %}
+      {% elif aboutTab == 'games' %}
+        {% set displayTitle = games.title or 'Games' %}
+        {% set displayTagline = games.headerTagline or "WHAT I'M PLAYING" %}
+      {% elif aboutTab == 'software' %}
+        {% set displayTitle = software.title or 'Software' %}
+        {%
+          set displayTagline = software.headerTagline or "TOOLS & APPS I USE"
+        %}
+      {% elif aboutTab == 'gear' %}
+        {% set displayTitle = gear.title or 'Gear' %}
+        {%
+          set displayTagline = gear.headerTagline or "MY DESK & DAILY DRIVERS"
+        %}
+      {% else %}
+        {% set displayTitle = about.title or 'About' %}
+        {% set displayTagline = about.headerTagline or 'ABOUT MYSELF' %}
+      {% endif %}
+    {% elif isResume and not isPost %}
+      {% set displayTitle = resume.title or 'Resume' %}
+      {% set displayTagline = resume.headerTagline or 'CURRICULUM VITAE' %}
+    {% elif isPortfolio and page.url == '/portfolio/' %}
+      {% set displayTitle = portfolioPage.title or 'Portfolio' %}
+      {%
+        set displayTagline = portfolioPage.headerTagline or 'MY WEB PORTFOLIO'
+      %}
+    {% elif isBlog and page.url == '/blog/' %}
+      {% set displayTitle = blogPage.title or 'Blog' %}
+      {% set displayTagline = blogPage.headerTagline or 'MY WEB LOG' %}
+    {% elif isHome %}
+      {% set displayTitle = site.title %}
+      {% set displayTagline = site.tagline %}
+    {% endif %}
 
-  {% if isAbout and not isPost %}
-  {% if aboutTab == 'books' %}
-  {% set displayTitle = books.title or 'Books' %}
-  {% set displayTagline = books.headerTagline or "WHAT I'M READING" %}
-  {% elif aboutTab == 'movies' %}
-  {% set displayTitle = movies.title or 'Movies' %}
-  {% set displayTagline = movies.headerTagline or "WHAT I'M WATCHING" %}
-  {% elif aboutTab == 'anime' %}
-  {% set displayTitle = anime.title or 'Anime' %}
-  {% set displayTagline = anime.headerTagline or "WHAT I'M WATCHING" %}
-  {% elif aboutTab == 'games' %}
-  {% set displayTitle = games.title or 'Games' %}
-  {% set displayTagline = games.headerTagline or "WHAT I'M PLAYING" %}
-  {% elif aboutTab == 'software' %}
-  {% set displayTitle = software.title or 'Software' %}
-  {% set displayTagline = software.headerTagline or "TOOLS & APPS I USE" %}
-  {% elif aboutTab == 'gear' %}
-  {% set displayTitle = gear.title or 'Gear' %}
-  {% set displayTagline = gear.headerTagline or "MY DESK & DAILY DRIVERS" %}
-  {% else %}
-  {% set displayTitle = about.title or 'About' %}
-  {% set displayTagline = about.headerTagline or 'ABOUT MYSELF' %}
-  {% endif %}
-  {% elif isResume and not isPost %}
-  {% set displayTitle = resume.title or 'Resume' %}
-  {% set displayTagline = resume.headerTagline or 'CURRICULUM VITAE' %}
-  {% elif isPortfolio and page.url == '/portfolio/' %}
-  {% set displayTitle = portfolioPage.title or 'Portfolio' %}
-  {% set displayTagline = portfolioPage.headerTagline or 'MY WEB PORTFOLIO' %}
-  {% elif isBlog and page.url == '/blog/' %}
-  {% set displayTitle = blogPage.title or 'Blog' %}
-  {% set displayTagline = blogPage.headerTagline or 'MY WEB LOG' %}
-  {% elif isHome %}
-  {% set displayTitle = site.title %}
-  {% set displayTagline = site.tagline %}
-  {% endif %}
+    {% if not displayTitle %}{% set displayTitle = site.title %}{% endif %}
+    {% if not displayTagline %}{% set displayTagline = site.tagline %}{%
+      endif
+    %}
 
-  {% if not displayTitle %}{% set displayTitle = site.title %}{% endif %}
-  {% if not displayTagline %}{% set displayTagline = site.tagline %}{% endif %}
+    {% set canonicalUrl = canonical or (site.url ~ (page.url or '/')) %}
 
-  {% set canonicalUrl = canonical or (site.url ~ (page.url or '/')) %}
-
-  {% set pageDesc = description %}
-  {% if not pageDesc %}
-  {% if isAbout and not isPost %}
-  {% if aboutTab == 'books' %}
-  {% set pageDesc = books.intro or "Books read and recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'movies' %}
-  {% set pageDesc = movies.intro or "Cinema, shows, and films enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'anime' %}
-  {% set pageDesc = anime.intro or "Anime series, films, and animations enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'games' %}
-  {% set pageDesc = games.intro or "Video games played by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'software' %}
-  {% set pageDesc = software.intro or "Software, developer tools, and applications used by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'friends' %}
-  {% set pageDesc = friends.intro or "Friends, fellow developers, and creative homepages recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif aboutTab == 'gear' %}
-  {% set pageDesc = gear.intro or "Hardware, workstation specs, and daily peripherals used by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% else %}
-  {% set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast." %}
-  {% endif %}
-  {% elif isResume and not isPost %}
-  {% set pageDesc = resume.intro or "Curriculum Vitae and resume of Amitendu Bikash Dhusiya — Skills, experience, education, and technical background." %}
-  {% elif isPortfolio and page.url == '/portfolio/' %}
-  {% set pageDesc = portfolioPage.intro or "Web and software development portfolio projects by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif isBlog and page.url == '/blog/' %}
-  {% set pageDesc = blogPage.intro or "Articles, thoughts, and development logs by Amitendu Bikash Dhusiya (ShadowAmitendu)." %}
-  {% elif isHome %}
-  {% set pageDesc = site.description %}
-  {% else %}
-  {% set pageDesc = site.description %}
-  {% endif %}
-  {% endif %}
-
-  {% set socialImage = ogImage or image or site.ogImage %}
-  {% if socialImage and not socialImage.startsWith('http') %}
-  {% set socialImageUrl = site.url ~ socialImage %}
-  {% else %}
-  {% set socialImageUrl = socialImage %}
-  {% endif %}
-
-  {% include "components/head-meta.njk" %}
-
-</head>
-
-<body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
-  <main class="site-shell mx-auto max-w-6xl p-1">
-    {% include "components/announcement.njk" %}
-
-    {% include "components/header.njk" %}
-
-    {% include "components/nav.njk" %}
-    <div class="site-columns">
-      {% include "components/sidebar-left.njk" %}
-      <section class="site-content px-5 py-6 text-sm leading-6">
-        {% set isProject = isPortfolio and (page.url != '/portfolio/' and not ('/portfolio/page/' in page.url)) %}
-        {% if isProject %}
-          {% include "components/project-detail.njk" %}
-
+    {% set pageDesc = description %}
+    {% if not pageDesc %}
+      {% if isAbout and not isPost %}
+        {% if aboutTab == 'books' %}
+          {%
+            set pageDesc = books.intro or "Books read and recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'movies' %}
+          {%
+            set pageDesc = movies.intro or "Cinema, shows, and films enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'anime' %}
+          {%
+            set pageDesc = anime.intro or "Anime series, films, and animations enjoyed by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'games' %}
+          {%
+            set pageDesc = games.intro or "Video games played by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'software' %}
+          {%
+            set pageDesc = software.intro or "Software, developer tools, and applications used by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'friends' %}
+          {%
+            set pageDesc = friends.intro or "Friends, fellow developers, and creative homepages recommended by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
+        {% elif aboutTab == 'gear' %}
+          {%
+            set pageDesc = gear.intro or "Hardware, workstation specs, and daily peripherals used by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+          %}
         {% else %}
-        {% if draft and not isPost %}
-        <div
-          class="mb-4 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
-          DRAFT - This project is saved as a draft and is hidden from public listings.
-        </div>
+          {%
+            set pageDesc = about.intro or "Learn more about Amitendu Bikash Dhusiya (ShadowAmitendu) — BCA student, developer, and tech enthusiast."
+          %}
         {% endif %}
-        {% if image and not isPost and not hideHeroImage %}<img
-          class="site-full-image mb-4 h-auto max-h-none w-full object-contain" src="{{ image }}"
-          alt="{{ imageAlt or title }}" />{% endif %}
-        {% if author and not isPost %}
-        <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
-          {% if authorImage %}<img class="h-7 w-7 object-cover" src="{{ authorImage }}" alt="{{ author }}" />{% endif %}
-          <span>by {{ author }}</span>
-        </div>
-        {% endif %}
-        {{ content | safe }}
-        {% endif %}
-      </section>
-      {% include "components/sidebar-right.njk" %}
-    </div>
-    {% include "components/footer.njk" %}
-  </main>
-  <script>
-    if ( window.netlifyIdentity )
-    {
-      window.netlifyIdentity.on( "init", ( user ) =>
-      {
-        if ( !user )
-        {
-          window.netlifyIdentity.on( "login", () =>
-          {
-            document.location.href = "/admin/";
-          } );
-        }
-      } );
+      {% elif isResume and not isPost %}
+        {%
+          set pageDesc = resume.intro or "Curriculum Vitae and resume of Amitendu Bikash Dhusiya — Skills, experience, education, and technical background."
+        %}
+      {% elif isPortfolio and page.url == '/portfolio/' %}
+        {%
+          set pageDesc = portfolioPage.intro or "Web and software development portfolio projects by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+        %}
+      {% elif isBlog and page.url == '/blog/' %}
+        {%
+          set pageDesc = blogPage.intro or "Articles, thoughts, and development logs by Amitendu Bikash Dhusiya (ShadowAmitendu)."
+        %}
+      {% elif isHome %}
+        {% set pageDesc = site.description %}
+      {% else %}
+        {% set pageDesc = site.description %}
+      {% endif %}
+    {% endif %}
+
+    {% set socialImage = ogImage or image or site.ogImage %}
+    {% if socialImage and not socialImage.startsWith('http') %}
+      {% set socialImageUrl = site.url ~ socialImage %}
+    {% else %}
+      {% set socialImageUrl = socialImage %}
+    {% endif %}
+
+    {% include "components/head-meta.njk" %}
+  </head>
+
+  <body class="site-body min-h-screen px-4 py-10 font-['Barlow_Condensed',sans-serif] text-[#222]">
+    <main class="site-shell mx-auto max-w-6xl p-1">
+      {% include "components/announcement.njk" %}
+
+      {% include "components/header.njk" %}
+
+      {% include "components/nav.njk" %}
+      <div class="site-columns">
+        {% include "components/sidebar-left.njk" %}
+        <section class="site-content px-5 py-6 text-sm leading-6">
+          {%
+            set isProject = isPortfolio and (page.url != '/portfolio/' and not ('/portfolio/page/' in page.url))
+          %}
+          {% if isProject %}
+            {% include "components/project-detail.njk" %}
+          {% else %}
+            {% if draft and not isPost %}
+              <div class="mb-4 border border-dashed border-[#d97706] bg-[#fffbeb] px-3.5 py-2 text-xs font-bold text-[#b45309]">
+                DRAFT - This project is saved as a draft and is hidden from
+                public listings.
+              </div>
+            {% endif %}
+            {% if image and not isPost and not hideHeroImage %}<img
+                class="site-full-image mb-4 h-auto max-h-none w-full object-contain"
+                src="{{ image }}"
+                alt="{{ imageAlt or title }}"
+              />{% endif %}
+            {% if author and not isPost %}
+              <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
+                {% if authorImage %}<img
+                    class="h-7 w-7 object-cover"
+                    src="{{ authorImage }}"
+                    alt="{{ author }}"
+                  />{% endif %}
+                <span>by {{ author }}</span>
+              </div>
+            {% endif %}
+            {{ content | safe }}
+          {% endif %}
+        </section>
+        {% include "components/sidebar-right.njk" %}
+      </div>
+      {% include "components/footer.njk" %}
+    </main>
+    <script>
+    if (window.netlifyIdentity) {
+  window.netlifyIdentity.on("init", (user) => {
+    if (!user) {
+      window.netlifyIdentity.on("login", () => {
+        document.location.href = "/admin/";
+      });
     }
-  </script>
-  <script>
-    ( function ()
-    {
-      function openExternalLinksInNewTab ()
-      {
-        var links = document.querySelectorAll( 'a[href]' );
-        for ( var i = 0; i < links.length; i++ )
-        {
-          var a = links[ i ];
-          var href = a.getAttribute( 'href' );
-          if ( !href || href.charAt( 0 ) === '#' || href.indexOf( 'javascript:' ) === 0 ) continue;
-          var isInternal = (
-            href.charAt( 0 ) === '/' ||
-            href.indexOf( './' ) === 0 ||
-            href.indexOf( '../' ) === 0 ||
-            a.hostname === window.location.hostname
-          );
-          if ( !isInternal )
-          {
-            a.setAttribute( 'target', '_blank' );
-            a.setAttribute( 'rel', 'noopener noreferrer' );
-          }
-        }
-      }
-      if ( document.readyState === 'loading' )
-      {
-        document.addEventListener( 'DOMContentLoaded', openExternalLinksInNewTab );
-      } else
-      {
-        openExternalLinksInNewTab();
-      }
-      document.addEventListener( 'click', function ( e )
-      {
-        var a = e.target && e.target.closest ? e.target.closest( 'a[href]' ) : null;
-        if ( !a ) return;
-        var href = a.getAttribute( 'href' );
-        if ( !href || href.charAt( 0 ) === '#' || href.indexOf( 'javascript:' ) === 0 ) return;
-        var isInternal = (
-          href.charAt( 0 ) === '/' ||
-          href.indexOf( './' ) === 0 ||
-          href.indexOf( '../' ) === 0 ||
-          a.hostname === window.location.hostname
-        );
-        if ( !isInternal )
-        {
-          a.setAttribute( 'target', '_blank' );
-          a.setAttribute( 'rel', 'noopener noreferrer' );
-        }
-      } );
-    } )();
-  </script>
-
-  {# Modern fluid smooth scrolling using Lenis #}
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script>
-    ( function ()
-    {
-      if ( typeof Lenis === 'undefined' ) return;
-      // Respect accessibility preferences for reduced motion
-      var prefersReducedMotion = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
-      if ( prefersReducedMotion ) return;
-
-      var lenis = new Lenis( {
-        duration: 1.2,
-        easing: function ( t ) { return Math.min( 1, 1.001 - Math.pow( 2, -10 * t ) ); },
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2,
-        infinite: false
-      } );
-
-      function raf ( time )
-      {
-        lenis.raf( time );
-        requestAnimationFrame( raf );
-      }
-      requestAnimationFrame( raf );
-
-      // Smooth scroll for anchor links
-      document.querySelectorAll( 'a[href^="#"]' ).forEach( function ( anchor )
-      {
-        anchor.addEventListener( 'click', function ( e )
-        {
-          var targetId = this.getAttribute( 'href' );
-          if ( targetId && targetId.length > 1 )
-          {
-            var targetEl = document.querySelector( targetId );
-            if ( targetEl )
-            {
-              e.preventDefault();
-              lenis.scrollTo( targetEl, { offset: -20 } );
-            }
-          }
-        } );
-      } );
-    } )();
-  </script>
-
-  {% include "components/lightbox.njk" %}
-
-  <!-- Lanyard Live Discord Presence Tracker -->
-  <script>
+  });
+}
+    </script>
+    <script>
     (function() {
-      var userId = '553845371131002891';
-      var dot = document.getElementById('discord-status-dot');
-      var avatarDot = document.getElementById('discord-avatar-dot');
-      var label = document.getElementById('discord-status-label');
-      var avatar = document.getElementById('discord-avatar');
-      var userDisplay = document.getElementById('discord-user-display');
-      var userTag = document.getElementById('discord-user-tag');
-      var activityText = document.getElementById('discord-activity-text');
+  function openExternalLinksInNewTab() {
+    var links = document.querySelectorAll("a[href]");
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i];
+      var href = a.getAttribute("href");
+      if (
+        !href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0
+      ) continue;
+      var isInternal = href.charAt(0) === "/"
+        || href.indexOf("./") === 0
+        || href.indexOf("../") === 0
+        || a.hostname === window.location.hostname;
+      if (!isInternal) {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+      }
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", openExternalLinksInNewTab);
+  } else {
+    openExternalLinksInNewTab();
+  }
+  document.addEventListener("click", function(e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (!href || href.charAt(0) === "#" || href.indexOf("javascript:") === 0) {
+      return;
+    }
+    var isInternal = href.charAt(0) === "/"
+      || href.indexOf("./") === 0
+      || href.indexOf("../") === 0
+      || a.hostname === window.location.hostname;
+    if (!isInternal) {
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+    }
+  });
+})();
+    </script>
 
-      var statusConfig = {
-        online: { color: '#22c55e', text: 'Online' },
-        idle: { color: '#eab308', text: 'Idle' },
-        dnd: { color: '#ef4444', text: 'DND' },
-        offline: { color: '#94a3b8', text: 'Offline' }
-      };
+    {# Modern fluid smooth scrolling using Lenis #}
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script>
+    (function() {
+  if (typeof Lenis === "undefined") return;
+  // Respect accessibility preferences for reduced motion
+  var prefersReducedMotion = window.matchMedia
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
 
-      function updateUI(d) {
-        if (!d) return;
-        var status = d.discord_status || 'offline';
-        var conf = statusConfig[status] || statusConfig.offline;
+  var lenis = new Lenis({
+    duration: 1.2,
+    easing: function(t) {
+      return Math.min(1, 1.001 - Math.pow(2, -10 * t));
+    },
+    orientation: "vertical",
+    gestureOrientation: "vertical",
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 2,
+    infinite: false,
+  });
 
-        if (dot) dot.style.backgroundColor = conf.color;
-        if (avatarDot) avatarDot.style.backgroundColor = conf.color;
-        if (label) label.textContent = conf.text;
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
 
-        if (d.discord_user) {
-          if (d.discord_user.avatar && avatar) {
-            avatar.src = 'https://cdn.discordapp.com/avatars/' + d.discord_user.id + '/' + d.discord_user.avatar + '.png?size=64';
-          }
-          if (userDisplay && (d.discord_user.global_name || d.discord_user.username)) {
-            userDisplay.textContent = d.discord_user.global_name || d.discord_user.username;
-          }
-          if (userTag && d.discord_user.username) {
-            userTag.textContent = '@' + d.discord_user.username;
-          }
-        }
-
-        if (activityText) {
-          if (d.listening_to_spotify && d.spotify) {
-            activityText.innerHTML = '🎵 ' + (d.spotify.song || 'Music') + ' - ' + (d.spotify.artist || '');
-          } else if (d.activities && d.activities.length > 0) {
-            var game = d.activities.find(function(a) { return a.type === 0; });
-            var custom = d.activities.find(function(a) { return a.type === 4; });
-            if (game) {
-              activityText.innerHTML = '🎮 Playing <strong>' + (game.name || '') + '</strong>';
-            } else if (custom && custom.state) {
-              activityText.textContent = (custom.emoji ? (custom.emoji.name + ' ') : '💭 ') + custom.state;
-            } else {
-              activityText.textContent = d.activities[0].name || 'Active on Discord';
-            }
-          } else {
-            activityText.textContent = status === 'offline' ? 'Chat on Discord' : 'Online on Discord';
-          }
+  // Smooth scroll for anchor links
+  document.querySelectorAll("a[href^=\"#\"]").forEach(function(anchor) {
+    anchor.addEventListener("click", function(e) {
+      var targetId = this.getAttribute("href");
+      if (targetId && targetId.length > 1) {
+        var targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          lenis.scrollTo(targetEl, { offset: -20 });
         }
       }
+    });
+  });
+})();
+    </script>
 
-      // Initial REST fetch
-      fetch('https://api.lanyard.rest/v1/users/' + userId)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data && data.success && data.data) {
-            updateUI(data.data);
-          }
-        })
-        .catch(function(err) {});
+    {% include "components/lightbox.njk" %}
 
-      // WebSocket connection for real-time presence sync
+    <!-- Lanyard Live Discord Presence Tracker -->
+    <script>
+    (function() {
+  var userId = "553845371131002891";
+  var dot = document.getElementById("discord-status-dot");
+  var avatarDot = document.getElementById("discord-avatar-dot");
+  var label = document.getElementById("discord-status-label");
+  var avatar = document.getElementById("discord-avatar");
+  var userDisplay = document.getElementById("discord-user-display");
+  var userTag = document.getElementById("discord-user-tag");
+  var activityText = document.getElementById("discord-activity-text");
+
+  var statusConfig = {
+    online: { color: "#22c55e", text: "Online" },
+    idle: { color: "#eab308", text: "Idle" },
+    dnd: { color: "#ef4444", text: "DND" },
+    offline: { color: "#94a3b8", text: "Offline" },
+  };
+
+  function updateUI(d) {
+    if (!d) return;
+    var status = d.discord_status || "offline";
+    var conf = statusConfig[status] || statusConfig.offline;
+
+    if (dot) dot.style.backgroundColor = conf.color;
+    if (avatarDot) avatarDot.style.backgroundColor = conf.color;
+    if (label) label.textContent = conf.text;
+
+    if (d.discord_user) {
+      if (d.discord_user.avatar && avatar) {
+        avatar.src = "https://cdn.discordapp.com/avatars/" + d.discord_user.id
+          + "/" + d.discord_user.avatar + ".png?size=64";
+      }
+      if (
+        userDisplay && (d.discord_user.global_name || d.discord_user.username)
+      ) {
+        userDisplay.textContent = d.discord_user.global_name
+          || d.discord_user.username;
+      }
+      if (userTag && d.discord_user.username) {
+        userTag.textContent = "@" + d.discord_user.username;
+      }
+    }
+
+    if (activityText) {
+      if (d.listening_to_spotify && d.spotify) {
+        activityText.innerHTML = "🎵 " + (d.spotify.song || "Music") + " - "
+          + (d.spotify.artist || "");
+      } else if (d.activities && d.activities.length > 0) {
+        var game = d.activities.find(function(a) {
+          return a.type === 0;
+        });
+        var custom = d.activities.find(function(a) {
+          return a.type === 4;
+        });
+        if (game) {
+          activityText.innerHTML = "🎮 Playing <strong>" + (game.name || "")
+            + "</strong>";
+        } else if (custom && custom.state) {
+          activityText.textContent =
+            (custom.emoji ? (custom.emoji.name + " ") : "💭 ") + custom.state;
+        } else {
+          activityText.textContent = d.activities[0].name
+            || "Active on Discord";
+        }
+      } else {
+        activityText.textContent = status === "offline"
+          ? "Chat on Discord"
+          : "Online on Discord";
+      }
+    }
+  }
+
+  // Initial REST fetch
+  fetch("https://api.lanyard.rest/v1/users/" + userId)
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(data) {
+      if (data && data.success && data.data) {
+        updateUI(data.data);
+      }
+    })
+    .catch(function(err) {});
+
+  // WebSocket connection for real-time presence sync
+  try {
+    var ws = new WebSocket("wss://api.lanyard.rest/socket");
+    var heartbeatInterval;
+    ws.onopen = function() {};
+    ws.onmessage = function(event) {
       try {
-        var ws = new WebSocket('wss://api.lanyard.rest/socket');
-        var heartbeatInterval;
-        ws.onopen = function() {};
-        ws.onmessage = function(event) {
-          try {
-            var msg = JSON.parse(event.data);
-            if (msg.op === 1) {
-              heartbeatInterval = setInterval(function() {
-                ws.send(JSON.stringify({ op: 3 }));
-              }, msg.d.heartbeat_interval);
-              ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: userId } }));
-            } else if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
-              updateUI(msg.d);
-            }
-          } catch (e) {}
-        };
-        ws.onclose = function() {
-          if (heartbeatInterval) clearInterval(heartbeatInterval);
-        };
+        var msg = JSON.parse(event.data);
+        if (msg.op === 1) {
+          heartbeatInterval = setInterval(function() {
+            ws.send(JSON.stringify({ op: 3 }));
+          }, msg.d.heartbeat_interval);
+          ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: userId } }));
+        } else if (
+          msg.op === 0
+          && (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE")
+        ) {
+          updateUI(msg.d);
+        }
       } catch (e) {}
-    })();
-  </script>
-</body>
-
+    };
+    ws.onclose = function() {
+      if (heartbeatInterval) clearInterval(heartbeatInterval);
+    };
+  } catch (e) {}
+})();
+    </script>
+  </body>
 </html>
