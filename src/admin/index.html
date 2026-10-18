@@ -66,6 +66,116 @@
 					}
 				}
 
+				// 3. Intercept Media Library for src/images to display all subfolder assets (books, games, blog, etc.)
+				const mediaSubfolders = [
+					"src/images",
+					"src/images/authors",
+					"src/images/blog",
+					"src/images/books",
+					"src/images/friends",
+					"src/images/games",
+					"src/images/movies",
+					"src/images/portfolio",
+					"src/images/site",
+					"src/images/software",
+				];
+
+				// 3a. Local decap-server: POST /api/v1 with action "getMedia"
+				if (
+					init &&
+					init.body &&
+					typeof init.body === "string" &&
+					init.body.indexOf('"getMedia"') !== -1
+				) {
+					try {
+						const payload = JSON.parse(init.body);
+						if (
+							payload.action === "getMedia" &&
+							payload.params &&
+							(payload.params.mediaFolder === "src/images" ||
+								payload.params.mediaFolder === "src/images/")
+						) {
+							const results = await Promise.all(
+								mediaSubfolders.map((folder) => {
+									const folderPayload = JSON.stringify({
+										...payload,
+										params: { ...payload.params, mediaFolder: folder },
+									});
+									return originalFetch(resource, {
+										...init,
+										body: folderPayload,
+									})
+										.then((res) => (res.ok ? res.json() : []))
+										.catch(() => []);
+								}),
+							);
+							const combined = [];
+							const seen = new Set();
+							for (let r = 0; r < results.length; r++) {
+								const list = results[r];
+								if (Array.isArray(list)) {
+									for (let i = 0; i < list.length; i++) {
+										const file = list[i];
+										const key = file.id || file.path || file.name;
+										if (key && !seen.has(key)) {
+											seen.add(key);
+											combined.push(file);
+										}
+									}
+								}
+							}
+							return new Response(JSON.stringify(combined), {
+								status: 200,
+								statusText: "OK",
+								headers: { "Content-Type": "application/json" },
+							});
+						}
+					} catch (e) {
+						console.warn("[Media Interceptor] getMedia parse error:", e);
+					}
+				}
+
+				// 3b. Netlify Git Gateway: GET /.netlify/git/github/contents/src/images
+				if (/\/\.netlify\/git\/github\/contents\/src(?:%2F|\/)images(?:\?|$)/i.test(url)) {
+					try {
+						const results = await Promise.all(
+							mediaSubfolders.map((folder) => {
+								const subUrl = url.replace(
+									/\/contents\/src(?:%2F|\/)images/i,
+									"/contents/" + encodeURIComponent(folder),
+								);
+								return originalFetch(subUrl, init)
+									.then((res) => (res.ok ? res.json() : []))
+									.catch(() => []);
+							}),
+						);
+						const combined = [];
+						const seen = new Set();
+						for (let r = 0; r < results.length; r++) {
+							const list = results[r];
+							if (Array.isArray(list)) {
+								for (let i = 0; i < list.length; i++) {
+									const item = list[i];
+									if (item && item.type === "file") {
+										const key = item.path || item.sha || item.name;
+										if (key && !seen.has(key)) {
+											seen.add(key);
+											combined.push(item);
+										}
+									}
+								}
+							}
+						}
+						return new Response(JSON.stringify(combined), {
+							status: 200,
+							statusText: "OK",
+							headers: { "Content-Type": "application/json" },
+						});
+					} catch (e) {
+						console.warn("[Media Interceptor] Git Gateway media error:", e);
+					}
+				}
+
 				return originalFetch.apply(this, arguments);
 			};
 		})();

@@ -127,12 +127,13 @@ function getGitCreationDate(filePath) {
  */
 function getCollectionFromPath(filePath) {
   const norm = filePath.replace(/\\/g, "/");
-  if (norm.includes("/_data/books.json") || norm.includes("about-books")) return "books";
-  if (norm.includes("/_data/movies.json") || norm.includes("about-movies")) return "movies";
-  if (norm.includes("/_data/games.json") || norm.includes("about-games")) return "games";
-  if (norm.includes("/_data/software.json") || norm.includes("about-software")) return "software";
-  if (norm.includes("/_data/friends.json") || norm.includes("about-friends")) return "friends";
-  if (norm.includes("/_data/gear.json") || norm.includes("about-gear")) return "gear";
+  if (norm.includes("/_data/books.json") || norm.includes("about-books") || norm.includes("/about/books")) return "books";
+  if (norm.includes("/_data/movies.json") || norm.includes("about-movies") || norm.includes("/about/movies")) return "movies";
+  if (norm.includes("/_data/games.json") || norm.includes("about-games") || norm.includes("/about/games")) return "games";
+  if (norm.includes("/_data/software.json") || norm.includes("about-software") || norm.includes("/about/software")) return "software";
+  if (norm.includes("/_data/friends.json") || norm.includes("about-friends") || norm.includes("/about/friends")) return "friends";
+  if (norm.includes("/_data/gear.json") || norm.includes("about-gear") || norm.includes("/about/gear")) return "gear";
+  if (norm.includes("/_data/anime.json") || norm.includes("about-anime") || norm.includes("/about/anime")) return "anime";
   if (norm.includes("/blog/") || norm.includes("blog.njk")) return "blog";
   if (norm.includes("/portfolio/") || norm.includes("portfolio.njk")) return "portfolio";
   if (norm.includes("/authors/")) return "authors";
