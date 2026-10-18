@@ -5,88 +5,40 @@
   "intro": "Anime series, films, and animated shorts that I have enjoyed, followed, or am currently watching.",
   "series": [
     {
-      "title": "Steins;Gate",
-      "studio": "White Fox",
-      "type": "TV Series",
-      "progress": "24 Episodes (Completed)",
-      "status": "watched",
-      "year": "2011",
-      "rating": 5,
-      "genres": "Sci-Fi, Psychological, Thriller",
-      "review": "A masterpiece of time-travel fiction. The character dynamics in the Future Gadget Lab, the build-up of tension, and Okabe's relentless struggle make it unforgettable.",
-      "link": "https://myanimelist.net/anime/9253/Steins_Gate"
-    },
-    {
-      "title": "Frieren: Beyond Journey's End",
-      "studio": "Madhouse",
-      "type": "TV Series",
       "progress": "28 Episodes (Completed)",
-      "status": "watched",
-      "year": "2023-2024",
-      "rating": 5,
       "genres": "Fantasy, Adventure, Drama",
+      "status": "watched",
+      "studio": "Madhouse",
+      "title": "Frieren: Beyond Journey's End",
       "review": "A profound, quiet, and emotionally resonant reflection on time, mortality, and companionship. Stunning animation and direction by Madhouse.",
-      "link": "https://myanimelist.net/anime/52991/Sousou_no_Frieren"
+      "type": "TV Series",
+      "link": "https://myanimelist.net/anime/52991/Sousou_no_Frieren",
+      "year": "2023-2024",
+      "rating": 5
     },
     {
-      "title": "Your Name (Kimi no Na wa)",
-      "studio": "CoMix Wave Films",
-      "type": "Movie",
       "progress": "Feature Film (Completed)",
-      "status": "watched",
-      "year": "2016",
-      "rating": 5,
       "genres": "Romance, Supernatural, Drama",
+      "status": "watched",
+      "studio": "CoMix Wave Films",
+      "title": "Your Name (Kimi no Na wa)",
       "review": "Makoto Shinkai at his absolute finest. The visual fidelity, emotional pacing, and RADWIMPS soundtrack create an unforgettable cinematic journey.",
-      "link": "https://myanimelist.net/anime/32281/Kimi_no_Na_wa"
+      "type": "Movie",
+      "link": "https://myanimelist.net/anime/32281/Kimi_no_Na_wa",
+      "year": "2016",
+      "rating": 5
     },
     {
-      "title": "Attack on Titan (Shingeki no Kyojin)",
-      "studio": "Wit Studio / MAPPA",
-      "type": "TV Series",
-      "progress": "All Seasons (Completed)",
-      "status": "watched",
-      "year": "2013-2023",
-      "rating": 5,
-      "genres": "Action, Dark Fantasy, Mystery",
-      "review": "Incredible world-building, high-stakes plot twists, and legendary sound design by Hiroyuki Sawano. A modern classic from start to finish.",
-      "link": "https://myanimelist.net/anime/16498/Shingeki_no_Kyojin"
-    },
-    {
-      "title": "Honkai & Genshin Animated Shorts",
-      "studio": "miHoYo Anime",
-      "type": "Animated Shorts",
-      "progress": "Ongoing Collection",
-      "status": "watched",
-      "year": "2018-Present",
-      "rating": 5,
-      "genres": "Action, Fantasy, Sci-Fi",
-      "review": "Masterclass short animations including 'The Divine Move', 'Song Burning in the Embers', 'Because of You', and 'The Final Lesson'. Emotionally charged with top-tier cinematography.",
-      "link": "https://www.youtube.com/@HonkaiStarRail"
-    },
-    {
-      "title": "Jujutsu Kaisen",
-      "studio": "MAPPA",
-      "type": "TV Series",
       "progress": "Season 1 & 2 (Completed)",
-      "status": "watched",
-      "year": "2020-2023",
-      "rating": 5,
       "genres": "Action, Supernatural, Fantasy",
-      "review": "Superb choreography and animation quality, especially across the Shibuya Incident arc. Great pacing and soundtrack.",
-      "link": "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
-    },
-    {
-      "title": "Solo Leveling",
-      "studio": "A-1 Pictures",
-      "type": "TV Series",
-      "progress": "Season 1 (Completed)",
       "status": "watched",
-      "year": "2024",
-      "rating": 4,
-      "genres": "Action, Fantasy",
-      "review": "Hype-filled adaptation with great kinetic fight sequences and Hiroyuki Sawano's signature orchestral beats.",
-      "link": "https://myanimelist.net/anime/52299/Ore_dake_Haireru_Kakushi_Dungeon"
+      "studio": "MAPPA",
+      "title": "Jujutsu Kaisen",
+      "review": "Superb choreography and animation quality, especially across the Shibuya Incident arc. Great pacing and soundtrack.",
+      "type": "TV Series",
+      "link": "https://myanimelist.net/anime/40748/Jujutsu_Kaisen",
+      "year": "2020-2023",
+      "rating": 5
     }
   ]
 }
