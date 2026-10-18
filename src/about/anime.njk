@@ -46,42 +46,42 @@ aboutTab: anime
     <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px] mr-1">Filter:</span>
     <button
       type="button"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn active"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn whitespace-nowrap active"
       data-filter="all"
       title="Show all anime series and films"
     >
       <span>All</span>
-      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ totalAnime }}</span>
+      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ totalAnime }}</span>
     </button>
     <button
       type="button"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn whitespace-nowrap"
       data-filter="currently-watching"
       title="Show anime currently watching"
     >
-      <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+      <svg class="w-3.5 h-3.5 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
       <span>Watching</span>
-      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ watchingAnime.length }}</span>
+      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ watchingAnime.length }}</span>
     </button>
     <button
       type="button"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn whitespace-nowrap"
       data-filter="watched"
       title="Show watched / completed anime"
     >
-      <svg class="w-3.5 h-3.5 shrink-0 text-[#2e7d32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <svg class="w-3.5 h-3.5 shrink-0 inline-block text-[#2e7d32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
       <span>Watched</span>
-      <span class="bg-[#2e7d32] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ watchedAnime.length }}</span>
+      <span class="bg-[#2e7d32] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ watchedAnime.length }}</span>
     </button>
     <button
       type="button"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn"
+      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn whitespace-nowrap"
       data-filter="plan-to-watch"
       title="Show planned anime"
     >
-      <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+      <svg class="w-3.5 h-3.5 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
       <span>Plan to Watch</span>
-      <span class="bg-[#556b78] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ planAnime.length }}</span>
+      <span class="bg-[#556b78] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ planAnime.length }}</span>
     </button>
   </div>
   <span class="text-[11px] text-[#556b78] font-medium" id="anime-count-display">Showing {{ totalAnime }} of {{ totalAnime }} series</span>

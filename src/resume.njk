@@ -48,19 +48,26 @@ permalink: /resume/
 
       {# Standard ATS Inline Contact Strip #}
       <div class="mt-3 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-xs text-[#475569]">
+        {% set hasPrev = false %}
         {% if site.email %}
           <a href="mailto:{{ site.email }}" class="text-[#0f172a] font-medium underline hover:text-[#c0392b]">{{ site.email }}</a>
+          {% set hasPrev = true %}
         {% endif %}
         {% for item in r.contactDetails %}
-          <span class="text-[#94a3b8] select-none">•</span>
+          {% if hasPrev %}
+            <span class="text-[#94a3b8] select-none">•</span>
+          {% endif %}
           {% if item.url %}
             <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="text-[#0f172a] font-medium underline hover:text-[#c0392b]">{{ item.value }}</a>
           {% else %}
             <span class="font-medium text-[#334155]">{{ item.value }}</span>
           {% endif %}
+          {% set hasPrev = true %}
         {% endfor %}
         {% if site.url %}
-          <span class="text-[#94a3b8] select-none">•</span>
+          {% if hasPrev %}
+            <span class="text-[#94a3b8] select-none">•</span>
+          {% endif %}
           <a href="{{ site.url }}" target="_blank" rel="noopener noreferrer" class="text-[#0f172a] font-medium underline hover:text-[#c0392b]">amitendu.me</a>
         {% endif %}
       </div>

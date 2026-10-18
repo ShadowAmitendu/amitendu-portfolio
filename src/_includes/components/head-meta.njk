@@ -92,7 +92,9 @@
         "@type": "EducationalOrganization",
         "name": "Techno India Hooghly"
       },
+      {% if site.email %}
       "email": "mailto:{{ site.email }}",
+      {% endif %}
       "sameAs": [
         "https://github.com/ShadowAmitendu",
         "https://www.youtube.com/@ShadowAmitendu",
