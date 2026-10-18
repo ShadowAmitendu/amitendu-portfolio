@@ -49,7 +49,8 @@
     {
       "type": "TV Series",
       "status": "watched",
-      "title": "Delicious in Dungeon"
+      "title": "Delicious in Dungeon",
+      "image": "/images/delicious-in-dungeon.jpg"
     }
   ]
 }
