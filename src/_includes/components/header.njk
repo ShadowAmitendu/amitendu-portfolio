@@ -1,3 +1,10 @@
+{#
+  Component: header.njk
+  Description: Retro CRT monitor banner header with cascading page-level banner overrides.
+  Variables:
+  - displayTagline: Subtitle / tagline above the main page heading
+  - displayTitle: Main page <h1> heading
+#}
 <header class="site-header relative overflow-hidden text-white">
   {% set pageHeaderBanner = headerBanner or banner or pageBanner or (about and about.headerBanner) or (home and home.headerBanner) or (portfolioPage and portfolioPage.headerBanner) or (blogPage and blogPage.headerBanner) or (resume and resume.headerBanner) or (books and books.headerBanner) or (movies and movies.headerBanner) or (games and games.headerBanner) or (software and software.headerBanner) or (friends and friends.headerBanner) or (site and site.headerBanner) or '/images/header-banner.jpg' %}
   <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="{{ pageHeaderBanner }}" alt="" />

@@ -1,4 +1,10 @@
-{# Games I play Card in Right Sidebar #}
+{#
+  Component: widget-games.njk
+  Description: Right sidebar card featuring current active video game and secondary mini game icons.
+  Data Sources:
+  - games.json
+  - sidebarWidgets.json: gamesTitle, gamesLimit (max secondary icons to show; 0 = featured only)
+#}
 {% set sidebarGame = null %}
 {% for g in (games.items or []) %}
 {% if not sidebarGame and g.playingRightNow %}

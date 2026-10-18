@@ -1,4 +1,12 @@
-{# Persistent 1-Click Dismiss Announcement Banner #}
+{#
+  Component: announcement.njk
+  Description: Top-of-page announcement bar with localStorage dismissal memory.
+  Data Sources:
+  - announcement.json (or site.announcement fallback)
+  Features:
+  - Styles: info (blue bulletin), alert (yellow notice), success (green update)
+  - 1-click dismiss button saving dismissal state per banner ID in localStorage
+#}
 {% set banner = announcement or site.announcement %}
 {% if banner and banner.enabled and banner.message %}
   <aside

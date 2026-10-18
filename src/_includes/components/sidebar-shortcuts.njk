@@ -1,3 +1,10 @@
+{#
+  Component: sidebar-shortcuts.njk
+  Description: Right sidebar outlinks and social bookmarks with retro macOS dock icons.
+  Data Sources:
+  - rightSidebar.json (or site.rightSidebar fallback)
+  - sidebarWidgets.json: shortcutsLimit (0 = show all items), shortcutsTitle
+#}
 {% set shortcuts = rightSidebar or site.rightSidebar %}
 {% set sb = sidebarWidgets or site.sidebar %}
 {% set scLimit = (sb and sb.shortcutsLimit) or shortcuts.limit or 0 %}

@@ -246,8 +246,15 @@
 		);
 		CMS.registerPreviewStyle("/assets/styles.css");
 
-		// Universal asset URL resolver for Decap CMS previews
-		// Resolves unpublished local File objects (blob URLs), AssetProxy, or path strings
+		/**
+		 * Universal asset URL resolver for Decap CMS previews.
+		 * Safely resolves unpublished local File objects (blob: URLs), AssetProxy objects, or path strings
+		 * so newly uploaded or modified images render immediately in real time inside the preview iframe.
+		 * 
+		 * @param {Function} getAsset - Decap CMS asset resolver function.
+		 * @param {string|object} val - The raw image value from entry data.
+		 * @returns {string|null} Resolved image URL or null if empty.
+		 */
 		function resolveAssetUrl(getAsset, val) {
 			if (!val) return null;
 			if (
@@ -285,7 +292,15 @@
 			return typeof val === "string" ? val : null;
 		}
 
-		// Helper function to resolve shortcut icons from url, label, and explicit icon
+		/**
+		 * Resolves shortcut icons for the right sidebar outlinks preview.
+		 * Detects platforms based on URL domain or label (e.g. GitHub, YouTube, LinkedIn, X, Discord).
+		 * 
+		 * @param {string} itemUrl - The bookmark destination URL.
+		 * @param {string} itemLabel - The bookmark display text.
+		 * @param {string} explicitIcon - Optional manual icon override from CMS.
+		 * @returns {string} Clean icon identifier (e.g. "github", "safari").
+		 */
 		function resolveShortcutIcon(itemUrl, itemLabel, explicitIcon) {
 			var normalizedExplicit = (explicitIcon || "").toLowerCase().trim();
 			if (normalizedExplicit === "twitter") return "x";
@@ -317,7 +332,27 @@
 			return "safari";
 		}
 
-		// Helper function to render the full site shell (header banner, nav, sidebars, footer)
+		/**
+		 * Renders the full retro 2007 website shell around CMS preview content.
+		 * Replicates the complete production layout:
+		 * - Optional top announcement banner with alert/info/success styling
+		 * - CRT monitors header banner and typography
+		 * - Top navigation bar with breadcrumb trail
+		 * - Left sidebar (avatar, navigation links, recent posts, favorites)
+		 * - Center article section with preview content
+		 * - Right sidebar (outlinks/shortcuts, currently reading, games, software, friends)
+		 * - Site footer with copyright and sitemap links
+		 * 
+		 * @param {string} headerTagline - Subtitle tagline for the header banner.
+		 * @param {string} pageTitle - Main <h1> title for the header.
+		 * @param {React.ReactNode} contentChildren - Body content to render inside the center column.
+		 * @param {string} activeNavKey - Identifier of the active top-level nav link ("home", "about", etc.).
+		 * @param {Array<object>} breadcrumbs - Location breadcrumb items.
+		 * @param {string} headerBannerSrc - Header banner image background URL.
+		 * @param {object} announcement - Optional announcement banner override object.
+		 * @param {object} customSidebarOptions - Optional sidebar widget limits and titles overrides.
+		 * @returns {React.ReactElement} The full site shell virtual DOM element.
+		 */
 		function renderFullSiteShell(
 			headerTagline,
 			pageTitle,

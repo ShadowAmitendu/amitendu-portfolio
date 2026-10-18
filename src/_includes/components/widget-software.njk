@@ -1,4 +1,10 @@
-{# Software Icons in Right Sidebar #}
+{#
+  Component: widget-software.njk
+  Description: Right sidebar favorite developer tools & software application icons.
+  Data Sources:
+  - software.json
+  - sidebarWidgets.json: softwareTitle, softwareLimit (max app icons; 0 = show all)
+#}
 {% set sb = sidebarWidgets or site.sidebar %}
 {% set sLimit = 8 if (sb and sb.softwareLimit is not defined) else (sb.softwareLimit) %}
 {% set sTitle = (sb and sb.softwareTitle) or 'Software' %}

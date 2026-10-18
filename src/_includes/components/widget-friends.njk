@@ -1,4 +1,10 @@
-{# Friends Section in Right Sidebar #}
+{#
+  Component: widget-friends.njk
+  Description: Right sidebar friends, webring peers, and allies list.
+  Data Sources:
+  - friends.json
+  - sidebarWidgets.json: friendsTitle, friendsLimit (max friends to show; 0 = show all)
+#}
 {% set sb = sidebarWidgets or site.sidebar %}
 {% set fLimit = 4 if (sb and sb.friendsLimit is not defined) else (sb.friendsLimit) %}
 {% set fTitle = (sb and sb.friendsTitle) or 'Friends &amp; Allies' %}

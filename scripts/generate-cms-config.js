@@ -1,7 +1,29 @@
+/**
+ * @file scripts/generate-cms-config.js
+ * @description Decap CMS configuration generator.
+ * 
+ * Programmatically constructs Decap CMS `config.yml` with:
+ * - Editorial workflow and git-gateway backend settings.
+ * - Categorized media folders ensuring image uploads are properly organized.
+ * - Singletons for site metadata, banner announcements, navigation, and sidebar widgets with configurable limits.
+ * - Dynamic select options for retro icons generated from `src/assets/icons/`.
+ * - Blog post and portfolio collections with draft support and preview links.
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { formatIconLabel, getAvailableIcons } from "./sync-icons.js";
 
+/**
+ * Reusable helper generating standard header fields for content collections and singleton pages.
+ * 
+ * @param {string} title - Default page title.
+ * @param {string} tagline - Default header tagline text.
+ * @param {string} heading - Default main section heading.
+ * @param {boolean} [introRequired=false] - Whether intro summary text is mandatory.
+ * @param {string} [defaultBanner=""] - Optional default banner image path.
+ * @returns {Array<object>} Decap CMS field schema definitions.
+ */
 function getHeaderFields(title, tagline, heading, introRequired = false, defaultBanner = "") {
 	const bannerField = {
 		label: "Header Banner Image",
@@ -21,6 +43,11 @@ function getHeaderFields(title, tagline, heading, introRequired = false, default
 	];
 }
 
+/**
+ * Builds the complete Decap CMS configuration object.
+ * 
+ * @returns {object} The complete configuration hierarchy ready for YAML serialization.
+ */
 export function buildConfig() {
 	const availableIcons = getAvailableIcons().filter((i) => i !== "twitter").sort();
 	const iconOptions = availableIcons.map((icon) => ({

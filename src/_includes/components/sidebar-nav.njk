@@ -1,3 +1,10 @@
+{#
+  Component: sidebar-nav.njk
+  Description: Left sidebar navigation link tree.
+  Data Sources:
+  - leftSidebar.json (or site.leftSidebar fallback)
+  - sidebarWidgets.json: navigationLimit (0 = show all links)
+#}
 {% set nav = leftSidebar or site.leftSidebar %}
 {% set sb = sidebarWidgets or site.sidebar %}
 {% set navLimit = (sb and sb.navigationLimit) or (nav and nav.limit) or 0 %}

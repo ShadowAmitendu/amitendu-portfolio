@@ -1,3 +1,10 @@
+{#
+  Component: recent-posts.njk
+  Description: Left sidebar recent blog posts widget.
+  Data Sources:
+  - collections.blog (newest first)
+  - sidebarWidgets.json: recentPostsTitle, recentPostsLimit (default: 3)
+#}
 <div class="mt-5 border-t border-[#b7cbd6] pt-3">
   {% set sb = sidebarWidgets or site.sidebar %}
   <h2>{{ (sb and sb.recentPostsTitle) or 'Recent Posts' }}</h2>

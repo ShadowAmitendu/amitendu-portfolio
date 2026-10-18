@@ -1,3 +1,12 @@
+{#
+  Component: sidebar-left.njk
+  Description: Left sidebar column container.
+  Includes:
+  - author-card.njk: Profile photo, bio blurb, and resume button
+  - sidebar-nav.njk: Desktop navigation link tree with limit support
+  - recent-posts.njk: Latest published blog posts list with limit support
+  - favorites.njk: Starred/featured portfolio projects list with limit support
+#}
 <aside class="site-sidebar site-sidebar-left">
   {% include "components/author-card.njk" %}
   {% include "components/sidebar-nav.njk" %}

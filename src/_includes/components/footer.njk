@@ -1,3 +1,9 @@
+{#
+  Component: footer.njk
+  Description: Site footer with dynamic copyright year, site map links, and build timestamp.
+  Data Sources:
+  - site.json (title, footerTitle, footer)
+#}
 <footer class="site-footer px-5 py-4 text-center text-[14px] text-[#71828b]">
   <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
   <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>

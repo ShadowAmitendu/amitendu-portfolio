@@ -1,4 +1,10 @@
-{# Book I am reading Card in Right Sidebar #}
+{#
+  Component: widget-reading.njk
+  Description: Right sidebar card displaying currently reading book with cover image.
+  Data Sources:
+  - books.json or shelf.json
+  - sidebarWidgets.json: readingLimit (0 = hide card, 1 = show card), readingTitle
+#}
 {% set sb = sidebarWidgets or site.sidebar %}
 {% set rLimit = 1 if (sb and sb.readingLimit is not defined) else (sb.readingLimit) %}
 {% if rLimit > 0 %}

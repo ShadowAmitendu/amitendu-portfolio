@@ -1,3 +1,10 @@
+{#
+  Component: favorites.njk
+  Description: Left sidebar favorites widget for starred articles or projects tagged with 'fav' or 'featured: true'.
+  Data Sources:
+  - collections.fav
+  - sidebarWidgets.json: favoritesTitle, favoritesLimit (default: 4)
+#}
 <div class="mt-5 border-t border-[#b7cbd6] pt-3">
   {% set sb = sidebarWidgets or site.sidebar %}
   <h2>{{ (sb and sb.favoritesTitle) or 'Favorites' }}</h2>

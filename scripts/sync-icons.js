@@ -1,3 +1,13 @@
+/**
+ * @file scripts/sync-icons.js
+ * @description Icon synchronization and resolution utility for retro 2007 macOS dock icons.
+ * 
+ * Responsibilities:
+ * 1. Reads available icon assets in `src/assets/icons/macos-*.png|svg`.
+ * 2. Provides URL domain and label heuristic resolution for right sidebar shortcuts (e.g. github.com -> github).
+ * 3. Dynamically injects available icon select options into Decap CMS `config.yml`.
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 
@@ -5,6 +15,9 @@ const iconsDir = path.resolve("src/assets/icons");
 const configPath = path.resolve("src/admin/config.yml");
 const publicConfigPath = path.resolve("public/admin/config.yml");
 
+/**
+ * Friendly display labels for known social networks and application names.
+ */
 const knownLabels = {
 	github: "GitHub",
 	youtube: "YouTube",
@@ -36,6 +49,12 @@ const knownLabels = {
 	behance: "Behance",
 };
 
+/**
+ * Scans `src/assets/icons/` and returns an array of unique icon identifiers.
+ * Extracts icon names from filenames following the `macos-{name}.(png|svg)` convention.
+ * 
+ * @returns {string[]} List of lowercase icon names (e.g. ["github", "safari", "x"]).
+ */
 export function getAvailableIcons() {
 	if (!fs.existsSync(iconsDir)) return [];
 	const files = fs.readdirSync(iconsDir);
@@ -49,6 +68,12 @@ export function getAvailableIcons() {
 	return Array.from(icons);
 }
 
+/**
+ * Returns a human-friendly capitalized label for an icon name.
+ * 
+ * @param {string} iconName - The raw icon key (e.g. "devto", "github").
+ * @returns {string} Human-friendly label (e.g. "DEV Community", "GitHub").
+ */
 export function formatIconLabel(iconName) {
 	if (knownLabels[iconName]) return knownLabels[iconName];
 	return iconName
@@ -57,6 +82,16 @@ export function formatIconLabel(iconName) {
 		.join(" ");
 }
 
+/**
+ * Resolves the most appropriate retro icon identifier for a shortcut or bookmark.
+ * Prioritizes an explicit icon selection first, followed by URL domain heuristics, label name matches,
+ * and finally falls back to the default "safari" compass icon.
+ * 
+ * @param {string} [itemUrl=""] - Bookmark destination URL (e.g. "https://github.com/ShadowAmitendu").
+ * @param {string} [itemLabel=""] - Bookmark link text (e.g. "GitHub Profile").
+ * @param {string} [explicitIcon=""] - Manually chosen icon override from CMS.
+ * @returns {string} The resolved icon identifier.
+ */
 export function resolveIcon(itemUrl = "", itemLabel = "", explicitIcon = "") {
 	const available = getAvailableIcons();
 	const normalizedExplicit = (explicitIcon || "").toLowerCase().trim();
