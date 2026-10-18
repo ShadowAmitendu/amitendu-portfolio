@@ -4,7 +4,15 @@
   "heading": "Hardware, Desk Setup & Tech Specs",
   "intro": "A look at my daily workstation, hardware configurations, peripherals, and everyday tech tools for programming, gaming, and creative projects.",
   "headerBanner": "/images/header-banner.jpg",
-  "gallery": [],
+  "gallery": [
+    {
+      "title": "MacBook Air",
+      "image": "/images/gear.png",
+      "alt": "My MacBook Air 13\"",
+      "caption": "My mom's MacBook Air",
+      "date": "2025"
+    }
+  ],
   "categories": [
     {
       "category": "Primary Workstation - Custom Build on FEB 2022",
@@ -130,7 +138,7 @@
       ]
     },
     {
-      "category": "Secondary Backup Laptop - MacBook Air",
+      "category": "Secondary Backup Laptop - MacBook Air 13\"",
       "items": [
         {
           "name": "Chip",
