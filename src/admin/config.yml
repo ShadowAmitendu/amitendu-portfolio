@@ -1177,6 +1177,12 @@ collections:
             name: title
             widget: string
             default: Navigate
+          - label: Max Navigation Links (0 to show all)
+            name: limit
+            widget: number
+            value_type: int
+            default: 0
+            required: false
           - label: Navigation Links
             name: items
             widget: list
@@ -1199,6 +1205,12 @@ collections:
             name: title
             widget: string
             default: Outlinks
+          - label: Max Shortcuts to Display (0 to show all)
+            name: limit
+            widget: number
+            value_type: int
+            default: 8
+            required: false
           - label: Outlink Shortcuts
             name: items
             widget: list
@@ -1269,6 +1281,7 @@ collections:
             widget: number
             value_type: int
             default: 3
+            hint: Number of blog posts to display in left sidebar
           - label: Favorites Title
             name: favoritesTitle
             widget: string
@@ -1278,6 +1291,59 @@ collections:
             widget: number
             value_type: int
             default: 4
+            hint: Number of favorite projects/articles to display in left sidebar
+          - label: Navigation Links Limit (0 to show all)
+            name: navigationLimit
+            widget: number
+            value_type: int
+            default: 0
+            required: false
+            hint: Maximum navigation items to display in left sidebar (0 = all)
+          - label: Outlinks / Shortcuts Title
+            name: shortcutsTitle
+            widget: string
+            default: Outlinks
+          - label: Outlinks / Shortcuts Limit (0 to show all)
+            name: shortcutsLimit
+            widget: number
+            value_type: int
+            default: 8
+            required: false
+            hint: Maximum outlinks/social profiles to display in right sidebar (0 = all)
+          - label: Book Reading Card Title
+            name: readingTitle
+            widget: string
+            default: Book I am reading
+          - label: Games Widget Title
+            name: gamesTitle
+            widget: string
+            default: Games I play
+          - label: Games Mini Icons Limit
+            name: gamesLimit
+            widget: number
+            value_type: int
+            default: 6
+            hint: Maximum secondary game icons to display below featured game (0 to hide mini icons)
+          - label: Software Widget Title
+            name: softwareTitle
+            widget: string
+            default: Software
+          - label: Software Icons Limit (0 to show all)
+            name: softwareLimit
+            widget: number
+            value_type: int
+            default: 8
+            hint: Maximum software icons to display in right sidebar (0 = all)
+          - label: Friends & Allies Title
+            name: friendsTitle
+            widget: string
+            default: Friends & Allies
+          - label: Friends & Allies Limit
+            name: friendsLimit
+            widget: number
+            value_type: int
+            default: 4
+            hint: Number of friends & allies to display in right sidebar (0 = all)
   - name: blog
     label: Blog posts
     folder: src/blog

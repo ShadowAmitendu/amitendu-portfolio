@@ -1,11 +1,16 @@
 {# Software Icons in Right Sidebar #}
+{% set sb = sidebarWidgets or site.sidebar %}
+{% set sLimit = 8 if (sb and sb.softwareLimit is not defined) else (sb.softwareLimit) %}
+{% set sTitle = (sb and sb.softwareTitle) or 'Software' %}
 {% set sidebarSoftware = software.items %}
 {% if sidebarSoftware and sidebarSoftware.length > 0 %}
 <div class="mt-5 border-t border-[#b7cbd6] pt-3">
-  <h2>Software</h2>
+  <h2>{{ sTitle }}</h2>
   <div class="mt-2 flex flex-wrap gap-1.5">
+    {% set sCount = 0 %}
     {% for s in sidebarSoftware %}
-    {% if s.icon %}
+    {% if s.icon and (sLimit == 0 or sCount < sLimit) %}
+    {% set sCount = sCount + 1 %}
     <a class="block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]"
       href="{{ s.link or '/about/software/' }}"
       title="{{ s.name }}{% if s.category %} [{{ s.category }}]{% endif %}"

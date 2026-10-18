@@ -3,5 +3,15 @@
   "recentPostsTitle": "Recent Posts",
   "recentPostsLimit": 3,
   "favoritesTitle": "Favorites",
-  "favoritesLimit": 4
+  "favoritesLimit": 4,
+  "navigationLimit": 0,
+  "shortcutsTitle": "Outlinks",
+  "shortcutsLimit": 8,
+  "readingTitle": "Book I am reading",
+  "gamesTitle": "Games I play",
+  "gamesLimit": 6,
+  "softwareTitle": "Software",
+  "softwareLimit": 8,
+  "friendsTitle": "Friends & Allies",
+  "friendsLimit": 4
 }

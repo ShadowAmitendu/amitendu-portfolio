@@ -1,4 +1,7 @@
 {# Book I am reading Card in Right Sidebar #}
+{% set sb = sidebarWidgets or site.sidebar %}
+{% set rLimit = 1 if (sb and sb.readingLimit is not defined) else (sb.readingLimit) %}
+{% if rLimit > 0 %}
 {% set sidebarBook = null %}
 {% for b in (books.items or shelf.books) %}
 {% if (b.status == "currently-reading" or b.status == "reading") and not sidebarBook %}
@@ -13,7 +16,7 @@
   <div class="site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden">
     <div
       class="border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]">
-      <span>Book I am reading</span>
+      <span>{{ (sb and sb.readingTitle) or 'Book I am reading' }}</span>
       <span class="text-[10px] text-[#556b78] font-normal">Reading</span>
     </div>
     <div class="p-2.5 text-center flex flex-col items-center">
@@ -40,4 +43,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endif %}

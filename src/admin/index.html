@@ -434,6 +434,10 @@
 				? customSidebarOptions.leftSidebar.items
 				: navItems;
 			var leftSidebarTitle = (customSidebarOptions && customSidebarOptions.leftSidebar && customSidebarOptions.leftSidebar.title) || "Navigate";
+			var navLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && Number(customSidebarOptions.sidebarWidgets.navigationLimit)) || (customSidebarOptions && customSidebarOptions.leftSidebar && Number(customSidebarOptions.leftSidebar.limit)) || 0;
+			if (navLimit > 0) {
+				leftSidebarItems = leftSidebarItems.slice(0, navLimit);
+			}
 
 			var sidebarLinks = leftSidebarItems.map(function (item, idx) {
 				var itemKey = item.key || item.label || ("nav-" + idx);
@@ -753,7 +757,12 @@
 							"aside",
 							{ className: "site-sidebar site-sidebar-right" },
 							(function () {
-								var roTitle = (customSidebarOptions && customSidebarOptions.rightSidebar && customSidebarOptions.rightSidebar.title) || "Outlinks";
+								var roTitle = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.shortcutsTitle) || (customSidebarOptions && customSidebarOptions.rightSidebar && customSidebarOptions.rightSidebar.title) || "Outlinks";
+								var scLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.shortcutsLimit !== undefined)
+									? Number(customSidebarOptions.sidebarWidgets.shortcutsLimit)
+									: ((customSidebarOptions && customSidebarOptions.rightSidebar && customSidebarOptions.rightSidebar.limit)
+										? Number(customSidebarOptions.rightSidebar.limit)
+										: 8);
 								var roItems = (customSidebarOptions && customSidebarOptions.rightSidebar && customSidebarOptions.rightSidebar.items)
 									? customSidebarOptions.rightSidebar.items
 									: [
@@ -763,7 +772,12 @@
 										{ label: "LinkedIn", url: "https://www.linkedin.com/in/amitendu/", icon: "linkedin" },
 										{ label: "Peerlist", url: "https://peerlist.io/amitendu", icon: "peerlist" },
 										{ label: "Discord", url: "https://discord.com/users/553845371131002891", icon: "discord" },
+										{ label: "Figma", url: "https://www.figma.com/@shadow_amitendu", icon: "figma" },
+										{ label: "Instagram", url: "https://www.instagram.com/shadowamitendu/", icon: "instagram" },
 									];
+								if (scLimit > 0) {
+									roItems = roItems.slice(0, scLimit);
+								}
 
 								return [
 									h("h2", { key: "ro-title" }, roTitle),
@@ -801,132 +815,314 @@
 							})(),
 
 							// Book I am reading card
-							h(
-								"div",
-								{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
-								h(
+							(function () {
+								var rLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.readingLimit !== undefined)
+									? Number(customSidebarOptions.sidebarWidgets.readingLimit)
+									: 1;
+								if (rLimit <= 0) return null;
+								var rTitle = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.readingTitle) || "Book I am reading";
+								return h(
 									"div",
-									{
-										className:
-											"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
-									},
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
 									h(
 										"div",
 										{
 											className:
-												"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
+												"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
 										},
-										h("span", null, "Book I am reading"),
 										h(
-											"span",
-											{ className: "text-[10px] text-[#556b78] font-normal" },
-											"Reading",
-										),
-									),
-									h(
-										"div",
-										{ className: "p-2.5 text-center flex flex-col items-center" },
-										h(
-											"a",
-											{
-												className: "my-1 block hover:opacity-90",
-												href: "/about/books/",
-											},
-											h("img", {
-												className:
-													"h-24 w-16 object-contain border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
-												src: "/images/dopamine-detox.jpg",
-												alt: "Dopamine Detox",
-											}),
-										),
-										h(
-											"h3",
+											"div",
 											{
 												className:
-													"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+													"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
 											},
+											h("span", null, rTitle),
+											h(
+												"span",
+												{ className: "text-[10px] text-[#556b78] font-normal" },
+												"Reading",
+											),
+										),
+										h(
+											"div",
+											{ className: "p-2.5 text-center flex flex-col items-center" },
 											h(
 												"a",
 												{
-													className:
-														"text-[#164b70] underline hover:text-[#c0392b]",
+													className: "my-1 block hover:opacity-90",
 													href: "/about/books/",
 												},
-												"Dopamine Detox",
+												h("img", {
+													className:
+														"h-24 w-16 object-contain border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
+													src: "/images/dopamine-detox.jpg",
+													alt: "Dopamine Detox",
+												}),
+											),
+											h(
+												"h3",
+												{
+													className:
+														"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+												},
+												h(
+													"a",
+													{
+														className:
+															"text-[#164b70] underline hover:text-[#c0392b]",
+														href: "/about/books/",
+													},
+													"Dopamine Detox",
+												),
+											),
+											h(
+												"p",
+												{ className: "text-[11px] text-[#556b78] mt-0.5" },
+												"by Thibaut Meurisse",
 											),
 										),
-										h(
-											"p",
-											{ className: "text-[11px] text-[#556b78] mt-0.5" },
-											"by Thibaut Meurisse",
-										),
 									),
-								),
-							),
+								);
+							})(),
 
 							// Games I play card
-							h(
-								"div",
-								{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
-								h(
+							(function () {
+								var gTitle = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.gamesTitle) || "Games I play";
+								var gLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.gamesLimit !== undefined)
+									? Number(customSidebarOptions.sidebarWidgets.gamesLimit)
+									: 6;
+								var sampleMiniGames = [
+									{ name: "Honkai: Star Rail", icon: "/images/icons/steam.png" },
+									{ name: "Zenless Zone Zero", icon: "/images/icons/safari.png" },
+									{ name: "Elden Ring", icon: "/images/icons/steam.png" },
+									{ name: "Wuthering Waves", icon: "/images/icons/safari.png" },
+									{ name: "Persona 5 Royal", icon: "/images/icons/steam.png" },
+									{ name: "Clash of Clans", icon: "/images/icons/safari.png" },
+								].slice(0, gLimit);
+
+								return h(
 									"div",
-									{
-										className:
-											"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
-									},
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
 									h(
 										"div",
 										{
 											className:
-												"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
+												"site-card border border-[#b7cbd6] bg-[#f4f8fa] p-0 flex flex-col overflow-hidden",
 										},
-										h("span", null, "Games I play"),
 										h(
-											"span",
-											{ className: "text-[10px] text-[#556b78] font-normal" },
-											"Ongoing",
-										),
-									),
-									h(
-										"div",
-										{ className: "p-2.5 text-center flex flex-col items-center" },
-										h(
-											"a",
-											{
-												className: "my-1 block hover:opacity-90",
-												href: "/about/games/",
-											},
-											h("img", {
-												className:
-													"h-24 w-16 object-cover border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
-												src: "/images/genshin-impact.jpg",
-												alt: "Genshin Impact",
-											}),
-										),
-										h(
-											"h3",
+											"div",
 											{
 												className:
-													"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+													"border-b border-[#c6d7e0] bg-[#e4eef2] px-2.5 py-1 font-bold text-[#164b70] text-xs flex justify-between items-center shadow-[inset_0_1px_0_#fff]",
 											},
+											h("span", null, gTitle),
 											h(
-												"a",
-												{
-													className:
-														"text-[#164b70] underline hover:text-[#c0392b]",
-													href: "/about/games/",
-												},
-												"Genshin Impact",
+												"span",
+												{ className: "text-[10px] text-[#556b78] font-normal" },
+												"Ongoing",
 											),
 										),
 										h(
-											"p",
-											{ className: "text-[11px] text-[#556b78] mt-0.5" },
-											"by HoYoverse",
+											"div",
+											{ className: "p-2.5 text-center flex flex-col items-center" },
+											h(
+												"a",
+												{
+													className: "my-1 block hover:opacity-90",
+													href: "/about/games/",
+												},
+												h("img", {
+													className:
+														"h-24 w-16 object-cover border border-[#7892a3] bg-white p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.12)]",
+													src: "/images/genshin-impact.jpg",
+													alt: "Genshin Impact",
+												}),
+											),
+											h(
+												"h3",
+												{
+													className:
+														"font-bold text-[#164b70] text-sm mt-1 leading-tight tracking-tight uppercase",
+												},
+												h(
+													"a",
+													{
+														className:
+															"text-[#164b70] underline hover:text-[#c0392b]",
+														href: "/about/games/",
+													},
+													"Genshin Impact",
+												),
+											),
+											h(
+												"p",
+												{ className: "text-[11px] text-[#556b78] mt-0.5" },
+												"by HoYoverse",
+											),
+										),
+										gLimit > 0
+											? h(
+												"div",
+												{
+													className:
+														"border-t border-[#d8e3ea] bg-[#eef4f7] px-2 py-1.5 flex flex-wrap items-center justify-center gap-1.5",
+												},
+												sampleMiniGames.map(function (mg, mi) {
+													return h(
+														"a",
+														{
+															key: mi,
+															className:
+																"block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]",
+															href: "/about/games/",
+															title: mg.name,
+														},
+														h("img", {
+															className: "h-6 w-6 object-contain",
+															src: mg.icon,
+															alt: mg.name,
+															width: 24,
+															height: 24,
+														}),
+													);
+												}),
+											)
+											: null,
+									),
+								);
+							})(),
+
+							// Software Icons Card
+							(function () {
+								var sTitle = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.softwareTitle) || "Software";
+								var sLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.softwareLimit !== undefined)
+									? Number(customSidebarOptions.sidebarWidgets.softwareLimit)
+									: 8;
+								var sampleSoftware = [
+									{ name: "Visual Studio Code", icon: "/images/icons/safari.png" },
+									{ name: "Figma", icon: "/images/icons/figma.png" },
+									{ name: "GitHub Desktop", icon: "/images/icons/github.png" },
+									{ name: "Discord", icon: "/images/icons/discord.png" },
+									{ name: "Spotify", icon: "/images/icons/spotify.png" },
+									{ name: "Steam", icon: "/images/icons/steam.png" },
+									{ name: "Chrome", icon: "/images/icons/safari.png" },
+									{ name: "Notion", icon: "/images/icons/safari.png" },
+								];
+								var softwareList = sLimit > 0 ? sampleSoftware.slice(0, sLimit) : sampleSoftware;
+
+								return h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, sTitle),
+									h(
+										"div",
+										{ className: "mt-2 flex flex-wrap gap-1.5" },
+										softwareList.map(function (s, si) {
+											return h(
+												"a",
+												{
+													key: si,
+													className:
+														"block border border-[#7892a3] bg-white p-0.5 hover:border-[#c0392b]",
+													href: "/about/software/",
+													title: s.name,
+												},
+												h("img", {
+													className: "h-6 w-6 object-contain",
+													src: s.icon,
+													alt: s.name,
+													width: 24,
+													height: 24,
+												}),
+											);
+										}),
+									),
+									h(
+										"div",
+										{ className: "mt-2 text-right text-xs" },
+										h(
+											"a",
+											{
+												className: "text-[#064f83] underline hover:text-[#c0392b]",
+												href: "/about/software/",
+											},
+											"View software »",
 										),
 									),
-								),
-							),
+								);
+							})(),
+
+							// Friends & Allies Card
+							(function () {
+								var fTitle = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.friendsTitle) || "Friends & Allies";
+								var fLimit = (customSidebarOptions && customSidebarOptions.sidebarWidgets && customSidebarOptions.sidebarWidgets.friendsLimit !== undefined)
+									? Number(customSidebarOptions.sidebarWidgets.friendsLimit)
+									: 4;
+								var sampleFriends = [
+									{ name: "Hritam Samanta", role: "Friend & Peer" },
+									{ name: "Suman Mondal", role: "Webring Ally" },
+									{ name: "Subhadip Saha", role: "Designer Partner" },
+									{ name: "Anish Mukherjee", role: "Developer Ally" },
+								];
+								var friendsList = fLimit > 0 ? sampleFriends.slice(0, fLimit) : sampleFriends;
+
+								return h(
+									"div",
+									{ className: "mt-5 border-t border-[#b7cbd6] pt-3" },
+									h("h2", null, fTitle),
+									h(
+										"div",
+										{ className: "mt-2 space-y-2" },
+										friendsList.map(function (f, fi) {
+											return h(
+												"div",
+												{ key: fi, className: "flex items-center gap-2" },
+												h(
+													"span",
+													{
+														className:
+															"h-5 w-5 shrink-0 border border-[#7892a3] bg-[#dce9ef] flex items-center justify-center text-[9px] font-bold text-[#164b70]",
+													},
+													"✦",
+												),
+												h(
+													"div",
+													{ className: "min-w-0 flex-1 truncate" },
+													h(
+														"a",
+														{
+															className:
+																"text-[13px] leading-snug text-[#064f83] underline hover:text-[#c0392b] block truncate",
+															href: "/about/friends/",
+														},
+														f.name,
+													),
+													h(
+														"span",
+														{
+															className:
+																"block text-[10px] text-[#71828b] leading-tight truncate",
+														},
+														f.role,
+													),
+												),
+											);
+										}),
+									),
+									h(
+										"div",
+										{ className: "mt-2 text-right text-xs" },
+										h(
+											"a",
+											{
+												className: "text-[#064f83] underline hover:text-[#c0392b]",
+												href: "/about/friends/",
+											},
+											"All friends »",
+										),
+									),
+								);
+							})(),
 						),
 					),
 
@@ -5351,6 +5547,7 @@
 				var entry = this.props.entry;
 				var data = entry.get("data");
 				var title = data.get("title") || "Navigate";
+				var limit = data.get("limit") !== undefined ? Number(data.get("limit")) : 0;
 				var rawItems = data.get("items");
 				var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
 
@@ -5396,14 +5593,14 @@
 							h(
 								"span",
 								{ className: "text-xs font-bold text-[#064f83]" },
-								items.length + " Links Configured",
+								items.length + " Links " + (limit > 0 ? "(Limit: " + limit + ")" : "(Showing All)"),
 							),
 						),
 						h(
 							"div",
 							{
 								className:
-									"mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#26343d]",
+									"mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#26343d]",
 							},
 							h(
 								"div",
@@ -5427,12 +5624,29 @@
 								h(
 									"span",
 									{ className: "font-bold text-[#164b70] block text-[11px]" },
+									"DISPLAY LIMIT:",
+								),
+								h(
+									"span",
+									{ className: "font-semibold text-[#064f83]" },
+									limit > 0 ? limit + " links" : "0 (Show all)",
+								),
+							),
+							h(
+								"div",
+								{
+									className:
+										"border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+								},
+								h(
+									"span",
+									{ className: "font-bold text-[#164b70] block text-[11px]" },
 									"ACTIVE ROUTING:",
 								),
 								h(
 									"span",
 									{ className: "text-[#556b78]" },
-									"Supports internal pages & external links",
+									"Internal & external",
 								),
 							),
 						),
@@ -5460,7 +5674,7 @@
 							h(
 								"div",
 								{ className: "site-sidebar-card-body space-y-1.5" },
-								items.map(function (item, idx) {
+								(limit > 0 ? items.slice(0, limit) : items).map(function (item, idx) {
 									var isHome =
 										item.url === "/" ||
 										(item.label && item.label.toLowerCase() === "home");
@@ -5509,7 +5723,7 @@
 					null,
 					"/images/header-banner.jpg",
 					undefined,
-					{ leftSidebar: { title: title, items: items } },
+					{ leftSidebar: { title: title, items: items, limit: limit } },
 				);
 			},
 		});
@@ -5522,6 +5736,7 @@
 				var entry = this.props.entry;
 				var data = entry.get("data");
 				var title = data.get("title") || "Outlinks";
+				var limit = data.get("limit") !== undefined ? Number(data.get("limit")) : 0;
 				var rawItems = data.get("items");
 				var items = rawItems && rawItems.toJS ? rawItems.toJS() : [];
 
@@ -5567,14 +5782,14 @@
 							h(
 								"span",
 								{ className: "text-xs font-bold text-[#064f83]" },
-								items.length + " Shortcuts Active",
+								items.length + " Shortcuts " + (limit > 0 ? "(Limit: " + limit + ")" : "(Showing All)"),
 							),
 						),
 						h(
 							"div",
 							{
 								className:
-									"mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#26343d]",
+									"mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#26343d]",
 							},
 							h(
 								"div",
@@ -5598,12 +5813,29 @@
 								h(
 									"span",
 									{ className: "font-bold text-[#164b70] block text-[11px]" },
+									"DISPLAY LIMIT:",
+								),
+								h(
+									"span",
+									{ className: "font-semibold text-[#064f83]" },
+									limit > 0 ? limit + " shortcuts" : "0 (Show all)",
+								),
+							),
+							h(
+								"div",
+								{
+									className:
+										"border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+								},
+								h(
+									"span",
+									{ className: "font-bold text-[#164b70] block text-[11px]" },
 									"ICON ASSETS:",
 								),
 								h(
 									"span",
 									{ className: "text-[#556b78]" },
-									"Retro macOS/Windows 32x32 PNGs",
+									"Retro macOS/Windows PNGs",
 								),
 							),
 						),
@@ -5641,7 +5873,7 @@
 									className:
 										"p-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs",
 								},
-								items.map(function (item, idx) {
+								(limit > 0 ? items.slice(0, limit) : items).map(function (item, idx) {
 									var iconKey = resolveShortcutIcon(
 										item.url,
 										item.label,
@@ -5702,7 +5934,7 @@
 					null,
 					"/images/header-banner.jpg",
 					undefined,
-					{ rightSidebar: { title: title, items: items } },
+					{ rightSidebar: { title: title, items: items, limit: limit } },
 				);
 			},
 		});
@@ -5715,11 +5947,25 @@
 				var entry = this.props.entry;
 				var data = entry.get("data");
 				var discordUserId = data.get("discordUserId") || "553845371131002891";
-				var recentPostsTitle =
-					data.get("recentPostsTitle") || "Recent Posts";
-				var recentPostsLimit = Number(data.get("recentPostsLimit")) || 3;
+
+				// Left Sidebar Controls
+				var navigationLimit = data.get("navigationLimit") !== undefined ? Number(data.get("navigationLimit")) : 0;
+				var recentPostsTitle = data.get("recentPostsTitle") || "Recent Posts";
+				var recentPostsLimit = data.get("recentPostsLimit") !== undefined ? Number(data.get("recentPostsLimit")) : 3;
 				var favoritesTitle = data.get("favoritesTitle") || "Favorites";
-				var favoritesLimit = Number(data.get("favoritesLimit")) || 4;
+				var favoritesLimit = data.get("favoritesLimit") !== undefined ? Number(data.get("favoritesLimit")) : 4;
+
+				// Right Sidebar Controls
+				var shortcutsTitle = data.get("shortcutsTitle") || "Outlinks";
+				var shortcutsLimit = data.get("shortcutsLimit") !== undefined ? Number(data.get("shortcutsLimit")) : 8;
+				var readingTitle = data.get("readingTitle") || "Currently Reading";
+				var readingLimit = data.get("readingLimit") !== undefined ? Number(data.get("readingLimit")) : 1;
+				var gamesTitle = data.get("gamesTitle") || "Games I Play";
+				var gamesLimit = data.get("gamesLimit") !== undefined ? Number(data.get("gamesLimit")) : 6;
+				var softwareTitle = data.get("softwareTitle") || "Software";
+				var softwareLimit = data.get("softwareLimit") !== undefined ? Number(data.get("softwareLimit")) : 8;
+				var friendsTitle = data.get("friendsTitle") || "Friends & Allies";
+				var friendsLimit = data.get("friendsLimit") !== undefined ? Number(data.get("friendsLimit")) : 4;
 
 				var widgetsContent = h(
 					"div",
@@ -5730,106 +5976,174 @@
 						h(
 							"h2",
 							{ className: "text-lg font-bold text-[#164b70]" },
-							"Sidebar Widgets & Limits Preview",
+							"Sidebar Widgets & Limits Control Hub",
 						),
 						h(
 							"p",
 							{ className: "text-xs text-[#556b78] mt-0.5" },
-							"Settings for Discord Presence status card, Recent Posts count limit, and Favorites limit.",
+							"Central configuration for all sidebar cards, item counts, and display limits across desktop sidebars.",
 						),
 					),
 
-					// Widgets Controls Matrix
+					// Overview Dashboard - Left & Right Sidebar Grids
 					h(
 						"div",
-						{
-							className:
-								"site-card border border-[#9bb0be] bg-[#f8fbfc] p-3.5 shadow-[2px_2px_0_#cad6de]",
-						},
-						h(
-							"span",
-							{
-								className:
-									"font-bold text-xs uppercase tracking-wider text-[#164b70] block border-b border-[#c6d7e0] pb-2",
-							},
-							"Widgets Dashboard",
-						),
+						{ className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+						// Left Sidebar Limits Box
 						h(
 							"div",
 							{
 								className:
-									"mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#26343d]",
+									"site-card border border-[#9bb0be] bg-[#f8fbfc] p-3.5 shadow-[2px_2px_0_#cad6de]",
 							},
 							h(
-								"div",
+								"span",
 								{
 									className:
-										"border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+										"font-bold text-xs uppercase tracking-wider text-[#164b70] block border-b border-[#c6d7e0] pb-2",
 								},
+								"Left Sidebar Widgets",
+							),
+							h(
+								"div",
+								{ className: "mt-3 space-y-2 text-xs" },
 								h(
-									"span",
-									{ className: "font-bold text-[#164b70] block text-[11px]" },
-									"DISCORD TARGET:",
-								),
-								h(
-									"span",
-									{ className: "font-mono text-xs block text-[#064f83]" },
-									discordUserId,
-								),
-								h(
-									"a",
+									"div",
 									{
 										className:
-											"text-[10px] text-[#71828b] underline hover:text-[#c0392b] block mt-1",
-										href: "https://discord.com/users/" + discordUserId,
-										target: "_blank",
-										rel: "noopener noreferrer",
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
 									},
-									"Open Discord Profile ↗",
+									h("span", { className: "font-semibold text-[#164b70]" }, "Nav Links Limit:"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										navigationLimit > 0 ? navigationLimit + " links" : "0 (Show all)",
+									),
 								),
+								h(
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, recentPostsTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										recentPostsLimit + " posts",
+									),
+								),
+								h(
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, favoritesTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										favoritesLimit + " items",
+									),
+								),
+								h(
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, "Discord ID:"),
+									h(
+										"span",
+										{ className: "font-mono text-[11px] text-[#064f83]" },
+										discordUserId,
+									),
+								),
+							),
+						),
+
+						// Right Sidebar Limits Box
+						h(
+							"div",
+							{
+								className:
+									"site-card border border-[#9bb0be] bg-[#f8fbfc] p-3.5 shadow-[2px_2px_0_#cad6de]",
+							},
+							h(
+								"span",
+								{
+									className:
+										"font-bold text-xs uppercase tracking-wider text-[#164b70] block border-b border-[#c6d7e0] pb-2",
+								},
+								"Right Sidebar Widgets",
 							),
 							h(
 								"div",
-								{
-									className:
-										"border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
-								},
+								{ className: "mt-3 space-y-2 text-xs" },
 								h(
-									"span",
-									{ className: "font-bold text-[#164b70] block text-[11px]" },
-									"RECENT POSTS:",
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, shortcutsTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										shortcutsLimit > 0 ? shortcutsLimit + " shortcuts" : "0 (Show all)",
+									),
 								),
 								h(
-									"span",
-									{ className: "font-semibold block" },
-									recentPostsTitle,
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, readingTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										readingLimit > 0 ? "Show card (" + readingLimit + ")" : "0 (Hidden)",
+									),
 								),
 								h(
-									"span",
-									{ className: "text-[11px] text-[#556b78] mt-1 block" },
-									"Display Limit: " + recentPostsLimit + " posts",
-								),
-							),
-							h(
-								"div",
-								{
-									className:
-										"border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
-								},
-								h(
-									"span",
-									{ className: "font-bold text-[#164b70] block text-[11px]" },
-									"FAVORITES WIDGET:",
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, gamesTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										gamesLimit > 0 ? gamesLimit + " mini icons" : "0 (Main only)",
+									),
 								),
 								h(
-									"span",
-									{ className: "font-semibold block" },
-									favoritesTitle,
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, softwareTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										softwareLimit > 0 ? softwareLimit + " apps" : "0 (Show all)",
+									),
 								),
 								h(
-									"span",
-									{ className: "text-[11px] text-[#556b78] mt-1 block" },
-									"Display Limit: " + favoritesLimit + " items",
+									"div",
+									{
+										className:
+											"flex justify-between items-center border border-[#b7cbd6]/70 bg-white p-2 shadow-[inset_0_1px_0_#fff]",
+									},
+									h("span", { className: "font-semibold text-[#164b70]" }, friendsTitle + ":"),
+									h(
+										"span",
+										{ className: "font-bold text-[#064f83]" },
+										friendsLimit > 0 ? friendsLimit + " allies" : "0 (Show all)",
+									),
 								),
 							),
 						),
@@ -5906,11 +6220,11 @@
 										className:
 											"mt-2 border-t border-[#d8e3ea] pt-1.5 text-[11px] text-[#3b4d57]",
 									},
-									"Live Lanyard integration updates automatically on site visit.",
+									"Live Lanyard presence updates automatically on site visit.",
 								),
 							),
 						),
-						// Limits preview card
+						// Helpful hints card
 						h(
 							"div",
 							{
@@ -5920,42 +6234,14 @@
 							h(
 								"div",
 								{ className: "site-sidebar-card-header" },
-								"Configured Limits",
+								"Limits & Performance Guide",
 							),
 							h(
 								"div",
-								{ className: "site-sidebar-card-body space-y-2 text-xs" },
-								h(
-									"div",
-									{
-										className:
-											"flex justify-between border-b border-[#e1ebf0] pb-1",
-									},
-									h(
-										"span",
-										{ className: "font-semibold text-[#164b70]" },
-										recentPostsTitle,
-									),
-									h(
-										"span",
-										{ className: "font-bold text-[#064f83]" },
-										recentPostsLimit + " items max",
-									),
-								),
-								h(
-									"div",
-									{ className: "flex justify-between" },
-									h(
-										"span",
-										{ className: "font-semibold text-[#164b70]" },
-										favoritesTitle,
-									),
-									h(
-										"span",
-										{ className: "font-bold text-[#064f83]" },
-										favoritesLimit + " items max",
-									),
-								),
+								{ className: "site-sidebar-card-body space-y-1.5 text-xs text-[#3b4d57]" },
+								h("p", null, "✦ Setting any limit to 0 disables truncation and shows all configured items (or hides the card where noted)."),
+								h("p", null, "✦ Changes saved here immediately synchronize across all Eleventy pages and components."),
+								h("p", null, "✦ The outer site preview on this page reflects all your custom titles and limits live as you type."),
 							),
 						),
 					),
@@ -5964,10 +6250,21 @@
 				var customOpts = {
 					sidebarWidgets: {
 						discordUserId: discordUserId,
+						navigationLimit: navigationLimit,
 						recentPostsTitle: recentPostsTitle,
 						recentPostsLimit: recentPostsLimit,
 						favoritesTitle: favoritesTitle,
 						favoritesLimit: favoritesLimit,
+						shortcutsTitle: shortcutsTitle,
+						shortcutsLimit: shortcutsLimit,
+						readingTitle: readingTitle,
+						readingLimit: readingLimit,
+						gamesTitle: gamesTitle,
+						gamesLimit: gamesLimit,
+						softwareTitle: softwareTitle,
+						softwareLimit: softwareLimit,
+						friendsTitle: friendsTitle,
+						friendsLimit: friendsLimit,
 					},
 				};
 

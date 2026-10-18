@@ -1,7 +1,10 @@
 {% set shortcuts = rightSidebar or site.rightSidebar %}
-<h2>{{ shortcuts.title }}</h2>
+{% set sb = sidebarWidgets or site.sidebar %}
+{% set scLimit = (sb and sb.shortcutsLimit) or shortcuts.limit or 0 %}
+{% set scItems = shortcuts.items.slice(0, scLimit) if (scLimit and scLimit > 0) else (shortcuts.items or []) %}
+<h2>{{ (sb and sb.shortcutsTitle) or shortcuts.title or 'Outlinks' }}</h2>
 <div class="mt-2 space-y-2">
-  {% for item in shortcuts.items %}
+  {% for item in scItems %}
   {% set itemIcon = item.url | resolveIcon(item.label, item.icon) %}
   <div>
     <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}"
