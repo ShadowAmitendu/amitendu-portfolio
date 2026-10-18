@@ -1,0 +1,9 @@
+<header class="site-header relative overflow-hidden text-white">
+  {% set pageHeaderBanner = headerBanner or banner or pageBanner or (about and about.headerBanner) or (home and home.headerBanner) or (portfolioPage and portfolioPage.headerBanner) or (blogPage and blogPage.headerBanner) or (resume and resume.headerBanner) or (books and books.headerBanner) or (movies and movies.headerBanner) or (games and games.headerBanner) or (software and software.headerBanner) or (friends and friends.headerBanner) or (site and site.headerBanner) or '/images/header-banner.jpg' %}
+  <img class="site-header-banner absolute inset-0 h-full w-full object-cover" src="{{ pageHeaderBanner }}" alt="" />
+  <div class="relative px-5 py-4">
+    <p class="text-center text-xs tracking-[0.2em] text-[#b8d9e8]">{{ displayTagline }}</p>
+    <h1 class="mt-1 text-center tracking-tight">
+      {{ displayTitle }}</h1>
+  </div>
+</header>

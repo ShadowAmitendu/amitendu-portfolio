@@ -1,0 +1,68 @@
+<nav class="site-nav text-xs">
+  <div
+    class="site-nav-links flex flex-nowrap items-center justify-center gap-0.5 sm:gap-1 px-1 sm:px-5 py-1 text-[11px] sm:text-xs overflow-x-auto whitespace-nowrap scrollbar-none">
+    <a class="site-nav-link shrink-0 {% if isHome %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
+      href="/">home</a>
+    <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+    <a class="site-nav-link shrink-0 {% if isAbout %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
+      href="/about/">about</a>
+    <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+    <a class="site-nav-link shrink-0 {% if isPortfolio %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
+      href="/portfolio/">portfolio</a>
+    <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+    <a class="site-nav-link shrink-0 {% if isBlog %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
+      href="/blog/">blog</a>
+    <span class="px-0.5 sm:px-1 text-[#8aa2af] shrink-0 text-[10px] sm:text-xs select-none">|</span>
+    <a class="site-nav-link shrink-0 {% if isResume %}bg-[#164b70] text-white font-bold shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] no-underline{% else %}text-[#064f83] underline hover:text-[#c0392b] hover:bg-[#dce9f0]{% endif %} px-1.5 sm:px-2 py-0.5"
+      href="/resume/">resume</a>
+  </div>
+  {% if not isHome %}
+  <div
+    class="site-nav-breadcrumbs flex flex-wrap items-center justify-center gap-1.5 border-t border-[#c6d7e0] bg-[#edf4f7] px-5 py-1 text-[14px] text-[#536a75] shadow-[inset_0_1px_0_#fff]">
+    <span class="font-bold text-[#164b70]">Location:</span>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    {% if isBlog %}
+    {% if isPost or (tags and 'blog' in tags and page.url != '/blog/') %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">{{ title }}</span>
+    {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+    {% else %}
+    <span class="font-bold text-[#164b70]">blog</span>
+    {% endif %}
+    {% elif isPortfolio %}
+    {% if tags and 'portfolio' in tags and page.url != '/portfolio/' %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">{{ title }}</span>
+    {% elif pagination and pagination.pageNumber and pagination.pageNumber > 0 %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">page {{ pagination.pageNumber + 1 }}</span>
+    {% else %}
+    <span class="font-bold text-[#164b70]">portfolio</span>
+    {% endif %}
+    {% elif isAbout %}
+    {% if page.url == '/about/' %}
+    <span class="font-bold text-[#164b70]">about</span>
+    {% else %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">{{ aboutTab or title }}</span>
+    {% endif %}
+    {% elif isResume %}
+    <span class="font-bold text-[#164b70]">resume</span>
+    {% elif '/authors/' in page.url %}
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+    <span class="text-[#8aa2af]">&gt;</span>
+    <span class="font-bold text-[#164b70]">{{ name or title }}</span>
+    {% else %}
+    <span class="font-bold text-[#164b70]">{{ title }}</span>
+    {% endif %}
+  </div>
+  {% endif %}
+</nav>

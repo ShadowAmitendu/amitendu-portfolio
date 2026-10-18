@@ -1,0 +1,16 @@
+<footer class="site-footer px-5 py-4 text-center text-[14px] text-[#71828b]">
+  <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
+  <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>
+  <p class="mt-2">
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">home</a>
+    <span class="px-1">·</span>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/about/">about</a>
+    <span class="px-1">·</span>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/blog/">blog</a>
+    <span class="px-1">·</span>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
+    <span class="px-1">·</span>
+    <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/resume/">resume</a>
+  </p>
+  <p class="mt-2 text-[10px]">Last updated: {{ buildDate | shortDate }}</p>
+</footer>

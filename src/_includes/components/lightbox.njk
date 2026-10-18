@@ -1,0 +1,164 @@
+{# Windows 7 / Frutiger Aero Lightbox Modal Dialog (Windows Photo Viewer) #}
+<div id="siteLightbox" class="site-lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="site-lightbox-window win7-aero-window"
+    style="border-radius: 14px !important; overflow: hidden !important; -webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: -webkit-radial-gradient(white, black);"
+    role="document">
+    {# Top Specular Aero Glass Reflection #}
+    <div class="win7-aero-glass-shine"></div>
+
+    {# Windows 7 Titlebar with Aero Glow & Close Button #}
+    <div class="site-lightbox-titlebar win7-aero-titlebar">
+      <div class="win7-title-group flex items-center gap-1.5 min-w-0 pr-14">
+        {# Official Windows Photo Viewer Icon #}
+        <img src="/images/site/2026-10-15-windows-photo-viewer.webp" alt=""
+          class="h-4 w-4 shrink-0 drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)] object-contain select-none" />
+        <span id="siteLightboxTitle" class="win7-title-text truncate">Windows Photo Viewer</span>
+      </div>
+
+      {# Windows 7 Glowing Red Close Button (From Top to Center) #}
+      <button type="button" class="site-lightbox-close win7-btn-close" aria-label="Close image viewer"
+        onclick="closeSiteLightbox()">
+        <span>✕</span>
+      </button>
+    </div>
+
+    {# Inner Client Area (White Stage with rounded corners) #}
+    <div class="site-lightbox-body win7-client-area">
+      <div class="win7-image-stage">
+        <img id="siteLightboxImg" src="" alt="" />
+      </div>
+      <div id="siteLightboxCaption" class="site-lightbox-caption win7-caption"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  ( function ()
+  {
+    var overlay = document.getElementById( 'siteLightbox' );
+    var modalImg = document.getElementById( 'siteLightboxImg' );
+    var modalCaption = document.getElementById( 'siteLightboxCaption' );
+    var modalTitle = document.getElementById( 'siteLightboxTitle' );
+    if ( !overlay || !modalImg ) return;
+
+    var currentRotation = 0;
+    var isZoomed = false;
+
+    function applyTransform ()
+    {
+      var scale = isZoomed ? 'scale(1.4)' : 'scale(1)';
+      var rot = 'rotate(' + currentRotation + 'deg)';
+      modalImg.style.transform = rot + ' ' + scale;
+      modalImg.style.transition = 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+
+    window.openSiteLightbox = function ( src, caption )
+    {
+      currentRotation = 0;
+      isZoomed = false;
+      modalImg.style.transform = 'none';
+      modalImg.src = src;
+      modalImg.alt = caption || 'Expanded image';
+      modalCaption.textContent = caption || '';
+      modalCaption.style.display = caption ? 'block' : 'none';
+      modalTitle.textContent = ( caption ? caption + ' - ' : '' ) + 'Windows Photo Viewer';
+      overlay.classList.add( 'is-active' );
+      overlay.setAttribute( 'aria-hidden', 'false' );
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.rotateLightbox = function ( deg )
+    {
+      currentRotation = ( currentRotation + deg ) % 360;
+      applyTransform();
+    };
+
+    window.toggleLightboxZoom = function ()
+    {
+      isZoomed = !isZoomed;
+      applyTransform();
+    };
+
+    window.toggleLightboxFit = function ()
+    {
+      isZoomed = false;
+      currentRotation = 0;
+      applyTransform();
+    };
+
+    window.resetLightboxTransform = function ()
+    {
+      currentRotation = 0;
+      isZoomed = false;
+      applyTransform();
+    };
+
+    window.closeSiteLightbox = function ()
+    {
+      overlay.classList.remove( 'is-active' );
+      overlay.setAttribute( 'aria-hidden', 'true' );
+      modalImg.src = '';
+      currentRotation = 0;
+      isZoomed = false;
+      modalImg.style.transform = 'none';
+      document.body.style.overflow = '';
+    };
+
+    overlay.addEventListener( 'click', function ( e )
+    {
+      if ( e.target === overlay )
+      {
+        window.closeSiteLightbox();
+      }
+    } );
+
+    document.addEventListener( 'keydown', function ( e )
+    {
+      if ( overlay.classList.contains( 'is-active' ) )
+      {
+        if ( e.key === 'Escape' )
+        {
+          window.closeSiteLightbox();
+        }
+        else if ( e.key === 'ArrowRight' || e.key === '.' )
+        {
+          window.rotateLightbox( 90 );
+        }
+        else if ( e.key === 'ArrowLeft' || e.key === ',' )
+        {
+          window.rotateLightbox( -90 );
+        }
+      }
+    } );
+
+    // Event delegation for lightbox clicks anywhere in site-entry-body or with data-lightbox
+    document.addEventListener( 'click', function ( e )
+    {
+      var trigger = e.target && e.target.closest ? e.target.closest( 'a[data-lightbox="true"], .site-lightbox-trigger' ) : null;
+      if ( trigger )
+      {
+        e.preventDefault();
+        var href = trigger.getAttribute( 'href' );
+        var caption = trigger.getAttribute( 'data-caption' ) || trigger.getAttribute( 'title' ) || '';
+        if ( href )
+        {
+          window.openSiteLightbox( href, caption );
+        }
+        return;
+      }
+
+      // Also allow direct clicking of any image inside .site-entry-body, .site-entry-image-frame, or .site-entry-hero to zoom
+      var bodyImg = e.target && e.target.closest ? e.target.closest( '.site-entry-body img, .site-entry-image-frame img, .site-entry-hero img, .site-entry-header img' ) : null;
+      if ( bodyImg && !bodyImg.closest( 'a' ) )
+      {
+        e.preventDefault();
+        var src = bodyImg.getAttribute( 'src' );
+        var cap = bodyImg.getAttribute( 'alt' ) || bodyImg.getAttribute( 'title' ) || '';
+        if ( src )
+        {
+          window.openSiteLightbox( src, cap );
+        }
+      }
+    } );
+  } )();
+</script>
