@@ -19,7 +19,7 @@ aboutTab: software
     {% for item in software.items %}
     <div class="flex items-center gap-2.5 min-w-0">
       {% if item.icon %}
-      <img src="{{ item.icon }}" alt="" class="w-5 h-5 object-contain shrink-0" loading="lazy" />
+      <img src="{{ item.icon }}" alt="{{ item.name }} icon" class="w-5 h-5 object-contain shrink-0" loading="lazy" />
       {% else %}
       <span class="w-5 h-5 flex items-center justify-center shrink-0 text-[#556b78]" aria-hidden="true">
         <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3zm1 1v2h10V4H3zm10 3H3v6h10V7z"/></svg>
@@ -35,7 +35,7 @@ aboutTab: software
     {% endfor %}
   </div>
   {% else %}
-  <div class="w-full border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+  <div class="w-full border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#485b66]">
     No software or tools added yet. Software added via the admin panel will appear here.
   </div>
   {% endif %}

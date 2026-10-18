@@ -102,7 +102,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/p
             </span>
             {% endfor %}
             {% if project.data.stack.length > 4 %}
-            <span class="text-[10px] text-[#71828b] italic">+{{ project.data.stack.length - 4 }} more</span>
+            <span class="text-[10px] text-[#485b66] italic">+{{ project.data.stack.length - 4 }} more</span>
             {% endif %}
           </div>
           {% endif %}
@@ -120,7 +120,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/p
 </div>
 
 {# Filter No-Results Box #}
-<div id="portfolio-no-filter-match" class="hidden mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+<div id="portfolio-no-filter-match" class="hidden mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#485b66] shadow-[inset_0_1px_0_#fff]">
   <p class="font-bold text-sm text-[#164b70]">No matching projects</p>
   <p class="mt-1">No projects found for the selected category.</p>
 </div>
@@ -173,7 +173,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/portfolio/{% else %}/portfolio/p
 
 {% else %}
 <div
-  class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+  class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#485b66] shadow-[inset_0_1px_0_#fff]">
   <p class="font-bold text-sm text-[#164b70]">No Portfolio</p>
   <p class="mt-1">{{ portfolioPage.emptyStateText or 'There are no portfolio projects published yet. Check back soon!' }}</p>
 </div>

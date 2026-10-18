@@ -1,0 +1,99 @@
+{#
+  Component: cookie-consent.njk
+  Description: Windows 7 Aero style Cookie & Privacy Consent Banner with Allow / Reject options.
+  Features:
+  - Supports Google Consent Mode v2 (updates analytics_storage)
+  - Supports Microsoft Clarity consent API
+  - Persists preference in localStorage ('cookie_consent': 'granted' | 'denied')
+  - Exposes openCookieConsent() to allow reopening preferences anytime
+#}
+<aside id="cookieConsentBanner"
+       role="region"
+       aria-label="Cookie and Privacy Consent"
+       class="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-50 max-w-sm w-[calc(100%-1.5rem)] select-none transition-all duration-300"
+       style="display: none;">
+  <div class="win7-aero-window p-1 shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
+    <div class="win7-aero-glass-shine"></div>
+    <div class="win7-aero-titlebar pr-1">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="text-xs select-none" aria-hidden="true">🍪</span>
+        <span class="win7-title-text truncate">Cookie &amp; Privacy Preferences</span>
+      </div>
+      <button type="button"
+              class="win7-btn-close cursor-pointer"
+              aria-label="Close and decline cookies"
+              onclick="handleCookieConsent('denied')">
+        <span aria-hidden="true">✕</span>
+      </button>
+    </div>
+    <div class="win7-client-area bg-[#f8fbfc] p-3 text-xs leading-relaxed text-[#26343d]">
+      <p class="text-[12px] text-[#3b4d57]">
+        We use cookies and telemetry (<strong class="font-semibold text-[#164b70]">Google Analytics</strong> &amp; <strong class="font-semibold text-[#164b70]">Microsoft Clarity</strong>) to analyze anonymous visits and improve your browsing experience.
+      </p>
+      <div class="mt-3 flex items-center justify-end gap-2">
+        <button type="button"
+                id="cookieRejectBtn"
+                class="site-button-2007 text-xs px-2.5 py-1 text-[#485b66] cursor-pointer"
+                onclick="handleCookieConsent('denied')">
+          Decline
+        </button>
+        <button type="button"
+                id="cookieAcceptBtn"
+                class="site-button-2007 text-xs font-bold px-3 py-1 cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
+                style="background: linear-gradient(#236487 0%, #164b70 100%); color: #ffffff !important;"
+                onclick="handleCookieConsent('granted')">
+          Accept &amp; Allow
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+(function() {
+  var banner = document.getElementById("cookieConsentBanner");
+  if (!banner) return;
+
+  function getConsent() {
+    try {
+      return localStorage.getItem("cookie_consent");
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function setConsent(status) {
+    try {
+      localStorage.setItem("cookie_consent", status);
+    } catch(e) {}
+
+    // Update Google Analytics Consent Mode v2
+    if (typeof window.gtag === "function") {
+      window.gtag("consent", "update", {
+        "analytics_storage": status
+      });
+    }
+
+    // Update Microsoft Clarity consent
+    if (typeof window.clarity === "function") {
+      window.clarity("consent", status === "granted");
+    }
+
+    banner.style.display = "none";
+  }
+
+  window.handleCookieConsent = setConsent;
+
+  window.openCookieConsent = function() {
+    banner.style.display = "block";
+  };
+
+  // If no choice was made yet, show banner after brief non-intrusive delay
+  var currentConsent = getConsent();
+  if (!currentConsent) {
+    setTimeout(function() {
+      banner.style.display = "block";
+    }, 600);
+  }
+})();
+</script>

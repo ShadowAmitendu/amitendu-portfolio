@@ -4,7 +4,7 @@
   Data Sources:
   - site.json (title, footerTitle, footer)
 #}
-<footer class="site-footer px-5 py-4 text-center text-[14px] text-[#71828b]">
+<footer class="site-footer px-5 py-4 text-center text-[14px] text-[#485b66]">
   <p class="font-bold text-[#164b70]">{{ site.footerTitle }}</p>
   <p class="mt-1">&copy; {% currentYear %} {{ site.title }}. {{ site.footer }}</p>
   <p class="mt-2">
@@ -17,6 +17,8 @@
     <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/portfolio/">portfolio</a>
     <span class="px-1">·</span>
     <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/resume/">resume</a>
+    <span class="px-1">·</span>
+    <button type="button" onclick="openCookieConsent()" class="text-[#064f83] underline hover:text-[#c0392b] bg-transparent border-0 p-0 cursor-pointer text-inherit">cookies</button>
   </p>
   <p class="mt-2 text-[10px]">Last updated: {{ buildDate | shortDate }}</p>
 </footer>

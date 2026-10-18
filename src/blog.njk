@@ -26,7 +26,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pag
               href="{{ post.url }}"
             >{{ post.data.title }}</a>
           </h3>
-          <p class="mt-2 text-xs text-[#71828b]">
+          <p class="mt-2 text-xs text-[#485b66]">
             {{ post.data.date | shortDate }}{% if post.data.author %}
               · by {{ post.data.author }}{% endif %}
             <a
@@ -43,7 +43,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pag
             <img
               class="site-card-image h-24 w-28 max-w-full object-cover"
               src="{{ post.data.image }}"
-              alt="{{ post.data.title }}"
+              alt="{{ post.data.imageAlt or post.data.title }}"
             />
           </a>
         {% endif %}
@@ -69,7 +69,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pag
     </nav>
   {% endif %}
 {% else %}
-  <div class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#71828b] shadow-[inset_0_1px_0_#fff]">
+  <div class="mt-6 border border-[#b7cbd6] bg-[#f4f8fa] p-4 text-center text-xs text-[#485b66] shadow-[inset_0_1px_0_#fff]">
     <p class="font-bold text-sm text-[#164b70]">No Blogs</p>
     <p class="mt-1">There are no blog posts published yet. Check back soon!</p>
   </div>

@@ -71,10 +71,10 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 	const token = tokens[idx];
 	const srcIndex = token.attrIndex("src");
 	const titleIndex = token.attrIndex("title");
-	const alt = token.content || "";
+	const alt = token.content || title || "Article image";
 	const src = srcIndex >= 0 ? token.attrs[srcIndex][1] : "";
 	const title = titleIndex >= 0 ? token.attrs[titleIndex][1] : "";
-	const captionText = title || alt;
+	const captionText = title || token.content || "";
 
 	const captionHtml = captionText
 		? `<figcaption class="site-image-caption mt-1.5 text-center text-xs italic text-[#556b78] border-t border-dashed border-[#b7cbd6] pt-1.5">${md.utils.escapeHtml(captionText)}</figcaption>`
@@ -102,8 +102,9 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
  */
 async function imageShortcode(src, alt = "", className = "", sizes = "100vw", loading = "lazy") {
 	if (!src) return "";
+	const safeAlt = alt || "Content image";
 	if (src.endsWith(".svg") || src.endsWith(".ico") || src.endsWith(".gif")) {
-		return `<img src="${src}" alt="${alt || ""}" class="${className}" loading="${loading}" />`;
+		return `<img src="${src}" alt="${safeAlt}" class="${className}" loading="${loading}" />`;
 	}
 
 	let fullSrc = src;
@@ -114,7 +115,7 @@ async function imageShortcode(src, alt = "", className = "", sizes = "100vw", lo
 		}
 	}
 	if (!fs.existsSync(fullSrc)) {
-		return `<img src="${src}" alt="${alt || ""}" class="${className}" loading="${loading}" />`;
+		return `<img src="${src}" alt="${safeAlt}" class="${className}" loading="${loading}" />`;
 	}
 
 	try {
@@ -131,7 +132,7 @@ async function imageShortcode(src, alt = "", className = "", sizes = "100vw", lo
 		});
 
 		const imageAttributes = {
-			alt: alt || "",
+			alt: safeAlt,
 			sizes: sizes || "(max-width: 800px) 100vw, 800px",
 			loading: loading || "lazy",
 			decoding: "async",
@@ -141,7 +142,7 @@ async function imageShortcode(src, alt = "", className = "", sizes = "100vw", lo
 		return Image.generateHTML(metadata, imageAttributes);
 	} catch (err) {
 		console.warn("[eleventy-img] Failed to optimize", src, err.message);
-		return `<img src="${src}" alt="${alt || ""}" class="${className}" loading="${loading}" />`;
+		return `<img src="${src}" alt="${safeAlt}" class="${className}" loading="${loading}" />`;
 	}
 }
 
@@ -220,13 +221,14 @@ export default function (eleventyConfig) {
 	 * @example {% figure "/images/retro-setup.jpg", "My Desktop", "Windows Aero Workspace in 2007" %}
 	 */
 	eleventyConfig.addShortcode("figure", (src = "", alt = "", caption = "") => {
+		const altText = alt || caption || "Figure illustration";
 		const captionText = caption || alt || "";
 		const captionHtml = captionText
 			? `<figcaption class="site-image-caption mt-1.5 text-center text-xs italic text-[#556b78] border-t border-dashed border-[#b7cbd6] pt-1.5">${md.utils.escapeHtml(captionText)}</figcaption>`
 			: "";
 		return `<figure class="site-image-figure my-5 text-center">
   <a class="site-lightbox-trigger inline-block cursor-zoom-in" href="${md.utils.escapeHtml(src)}" data-lightbox="true" data-caption="${md.utils.escapeHtml(captionText)}" title="${md.utils.escapeHtml(captionText || "Click to view full image")}">
-    <img src="${md.utils.escapeHtml(src)}" alt="${md.utils.escapeHtml(alt)}" class="site-entry-image block mx-auto max-w-full h-auto" />
+    <img src="${md.utils.escapeHtml(src)}" alt="${md.utils.escapeHtml(altText)}" class="site-entry-image block mx-auto max-w-full h-auto" />
   </a>
   ${captionHtml}
 </figure>`;

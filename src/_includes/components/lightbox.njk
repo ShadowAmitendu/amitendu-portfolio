@@ -1,5 +1,5 @@
 {# Windows 7 / Frutiger Aero Lightbox Modal Dialog (Windows Photo Viewer) #}
-<div id="siteLightbox" class="site-lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+<div id="siteLightbox" class="site-lightbox-overlay" aria-hidden="true" inert role="dialog" aria-modal="true">
   <div class="site-lightbox-window win7-aero-window"
     style="border-radius: 14px !important; overflow: hidden !important; -webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: -webkit-radial-gradient(white, black);"
     role="document">
@@ -10,7 +10,7 @@
     <div class="site-lightbox-titlebar win7-aero-titlebar">
       <div class="win7-title-group flex items-center gap-1.5 min-w-0 pr-14">
         {# Official Windows Photo Viewer Icon #}
-        <img src="/images/2026-10-15-site-windows-photo-viewer.webp" alt=""
+        <img src="/images/2026-10-15-site-windows-photo-viewer.webp" alt="Windows Photo Viewer icon"
           class="h-4 w-4 shrink-0 drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)] object-contain select-none" />
         <span id="siteLightboxTitle" class="win7-title-text truncate">Windows Photo Viewer</span>
       </div>
@@ -25,7 +25,7 @@
     {# Inner Client Area (White Stage with rounded corners) #}
     <div class="site-lightbox-body win7-client-area">
       <div class="win7-image-stage">
-        <img id="siteLightboxImg" src="" alt="" />
+        <img id="siteLightboxImg" src="" alt="Enlarged photo preview" />
       </div>
       <div id="siteLightboxCaption" class="site-lightbox-caption win7-caption"></div>
     </div>
@@ -62,6 +62,7 @@
       modalCaption.textContent = caption || '';
       modalCaption.style.display = caption ? 'block' : 'none';
       modalTitle.textContent = ( caption ? caption + ' - ' : '' ) + 'Windows Photo Viewer';
+      overlay.removeAttribute( 'inert' );
       overlay.classList.add( 'is-active' );
       overlay.setAttribute( 'aria-hidden', 'false' );
       document.body.style.overflow = 'hidden';
@@ -95,6 +96,7 @@
 
     window.closeSiteLightbox = function ()
     {
+      overlay.setAttribute( 'inert', '' );
       overlay.classList.remove( 'is-active' );
       overlay.setAttribute( 'aria-hidden', 'true' );
       modalImg.src = '';

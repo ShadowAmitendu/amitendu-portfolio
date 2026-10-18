@@ -145,7 +145,7 @@ aboutTab: games
                     class="inline-block bg-[#4f46e5] text-white text-[10px] font-bold px-1.5 py-0.5 uppercase tracking-wide"
                   >BACKLOG</span>
                 {% elif game.status == "dropped" %}
-                  <span class="text-[11px] font-bold text-[#71828b] uppercase"
+                  <span class="text-[11px] font-bold text-[#485b66] uppercase"
                   >DROPPED</span>
                 {% elif game.status %}
                   <span
@@ -216,7 +216,7 @@ aboutTab: games
                             game.status | replace('-', ' ')
                           }}</strong>
                           {% if game.tags and game.tags.length > 0 %}
-                            <span class="text-[#71828b] ml-1"
+                            <span class="text-[#485b66] ml-1"
                             >({{ game.tags | join(', ') }})</span>
                           {% endif %}
                         </td>
@@ -253,7 +253,7 @@ aboutTab: games
         </div>
       {% endfor %}
     {% else %}
-      <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#71828b]">
+      <div class="border border-[#b7cbd6] bg-[#f4f8fa] px-4 py-3 text-xs text-[#485b66]">
         No games added yet. Games added via the admin panel will appear here.
       </div>
     {% endif %}

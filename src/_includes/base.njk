@@ -163,7 +163,7 @@
                 alt="{{ imageAlt or title }}"
               />{% endif %}
             {% if author and not isPost %}
-              <div class="mb-4 flex items-center gap-2 text-xs text-[#71828b]">
+              <div class="mb-4 flex items-center gap-2 text-xs text-[#485b66]">
                 {% if authorImage %}<img
                     class="h-7 w-7 object-cover"
                     src="{{ authorImage }}"
@@ -180,15 +180,17 @@
       {% include "components/footer.njk" %}
     </main>
     <script>
-    if (window.netlifyIdentity) {
-  window.netlifyIdentity.on("init", (user) => {
-    if (!user) {
-      window.netlifyIdentity.on("login", () => {
-        document.location.href = "/admin/";
-      });
-    }
-  });
-}
+    window.addEventListener("DOMContentLoaded", function() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function() {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    });
     </script>
     <script>
     (function() {
@@ -279,6 +281,7 @@
 })();
     </script>
 
+    {% include "components/cookie-consent.njk" %}
     {% include "components/lightbox.njk" %}
   </body>
 </html>
