@@ -13,22 +13,43 @@ permalink: /resume/
       <span class="hidden sm:inline-block text-[11px] font-semibold text-[#556b78]">ATS-Compliant Format</span>
     </div>
     <div>
-      <button
-        type="button"
-        id="btn-download-cv"
-        onclick="downloadOrPrintCV()"
-        class="site-button-2007 inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-white cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.35)]"
-        style="background: linear-gradient(#236487 0%, #164b70 100%); color: #ffffff !important;"
-        title="Download CV as PDF"
-        aria-label="Download CV as PDF"
-      >
-        <svg class="w-3.5 h-3.5 shrink-0 text-white fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" x2="12" y1="15" y2="3" />
-        </svg>
-        <span>Download CV</span>
-      </button>
+      {% if r.pdfUrl and r.pdfUrl.trim() !== "" and r.pdfUrl !== "#" %}
+        <a
+          id="btn-download-cv"
+          href="{{ r.pdfUrl }}"
+          download="Amitendu_Bikash_Dhusiya_CV.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="site-button-2007 inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-white cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.35)]"
+          style="background: linear-gradient(#236487 0%, #164b70 100%); color: #ffffff !important;"
+          title="Download CV as PDF"
+          aria-label="Download CV as PDF"
+        >
+          <svg class="w-3.5 h-3.5 shrink-0 text-white fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          <span>Download CV</span>
+        </a>
+      {% else %}
+        <button
+          type="button"
+          id="btn-download-cv"
+          onclick="window.print()"
+          class="site-button-2007 inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-white cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.35)]"
+          style="background: linear-gradient(#236487 0%, #164b70 100%); color: #ffffff !important;"
+          title="Save or Print CV as PDF"
+          aria-label="Save or Print CV as PDF"
+        >
+          <svg class="w-3.5 h-3.5 shrink-0 text-white fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          <span>Download CV</span>
+        </button>
+      {% endif %}
     </div>
   </div>
 
@@ -200,22 +221,7 @@ permalink: /resume/
   </p>
 </div>
 
-<script>
-function downloadOrPrintCV() {
-  var pdfUrl = "{{ r.pdfUrl }}";
-  if (pdfUrl && pdfUrl.trim() !== "" && pdfUrl !== "#") {
-    var a = document.createElement("a");
-    a.href = pdfUrl;
-    a.download = "Amitendu_Bikash_Dhusiya_CV.pdf";
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  } else {
-    window.print();
-  }
-}
-</script>
+
 
 <style>
 .site-resume-doc,

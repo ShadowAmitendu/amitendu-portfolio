@@ -1,25 +1,28 @@
-{% if site.author %}
+{% set isAboutMePage = (page.url == '/about/' or page.url == '/about' or aboutTab == 'me') %}
+{% set isHomePage = (isHome or page.url == '/' or page.url == '' or page.url == '/index.html') %}
+{% if site.author and not isHomePage and not isAboutMePage %}
 <div class="site-sidebar-card mb-4">
   <div class="site-sidebar-card-header">
     About Me
   </div>
   <div class="site-sidebar-card-body">
-    <div class="flex items-center gap-2.5">
-      {% if site.author.avatar %}
-      <img class="site-profile-frame h-11 w-11 shrink-0 object-cover" src="{{ site.author.avatar }}"
-        alt="{{ site.author.name }}" width="44" height="44" />
-      {% endif %}
-      <div class="min-w-0">
-        <p class="truncate font-bold leading-tight text-[#164b70] text-sm">{{ site.author.name }}</p>
-        <p class="mt-0.5 text-[11px] leading-tight text-[#556b78]">{{ site.author.role }}</p>
-      </div>
+    {% if site.author.avatar %}
+    <div class="site-profile-frame w-full mb-2.5">
+      <img class="w-full aspect-square object-cover block" src="{{ site.author.avatar }}"
+        alt="{{ site.author.name }}" width="240" height="240" />
+    </div>
+    {% endif %}
+    <div>
+      <p class="truncate font-bold leading-tight text-[#164b70] text-sm">{{ site.author.name }}</p>
+      <p class="mt-0.5 text-[11px] leading-tight text-[#556b78]">{{ site.author.role }}</p>
     </div>
     {% if site.author.bio %}
-    <p class="mt-2.5 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2">
-      {{ site.author.bio }}</p>
+    <p class="mt-2 text-[12px] leading-snug text-[#3b4d57] border-t border-[#d8e3ea] pt-2">
+      {{ site.author.bio }}
+    </p>
     {% endif %}
     <div class="mt-2.5">
-      <a class="site-button-2007 w-full justify-center" href="{{ resume.pdfUrl or '/resume/' }}">{% if resume.pdfUrl %}Download Resume{% else %}View Resume{% endif %}</a>
+      <a class="site-button-2007 w-full justify-center" href="{{ resume.pdfUrl or '/resume/' }}" {% if resume.pdfUrl %}download target="_blank" rel="noopener noreferrer"{% endif %}>{% if resume.pdfUrl %}Download Resume{% else %}View Resume{% endif %}</a>
     </div>
   </div>
 </div>

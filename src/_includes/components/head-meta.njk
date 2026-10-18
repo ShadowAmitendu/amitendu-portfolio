@@ -206,7 +206,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
 <link rel="manifest" href="/site.webmanifest?v=2" />
-<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-62QCP23320"></script>
@@ -237,22 +236,40 @@
   gtag('config', 'G-62QCP23320');
 </script>
 
-<!-- Clarity tracking code for https://amitendu.me/ -->
+<!-- Clarity tracking code (Consent-gated to prevent third-party cookies) -->
 <script>
-  (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "yzmbhd5zjq");
+  window.dataLayer = window.dataLayer || [];
+  function initClarity() {
+    if (window.__clarityInitialized) return;
+    window.__clarityInitialized = true;
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yzmbhd5zjq");
+
+    if (typeof window.clarity === "function") {
+      // Consent V2: ad_Storage denied prevents third-party Bing / MUID ad cookies; analytics_Storage granted
+      window.clarity('consentv2', {
+        ad_Storage: 'denied',
+        analytics_Storage: 'granted'
+      });
+      window.clarity('consent', true);
+    }
+  }
+  window.initClarity = initClarity;
+
   try {
     var rawClarity = localStorage.getItem('cookie_consent_preferences');
+    var hasClarityConsent = false;
     if (rawClarity) {
       var prefsClarity = JSON.parse(rawClarity);
-      window.clarity('consent', Boolean(prefsClarity && prefsClarity.clarity));
-    } else if (localStorage.getItem('cookie_consent') === 'denied') {
-      window.clarity('consent', false);
+      if (prefsClarity && prefsClarity.clarity) hasClarityConsent = true;
     } else if (localStorage.getItem('cookie_consent') === 'granted') {
-      window.clarity('consent', true);
+      hasClarityConsent = true;
+    }
+    if (hasClarityConsent) {
+      initClarity();
     }
   } catch(e) {}
 </script>

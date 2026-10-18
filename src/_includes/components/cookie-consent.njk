@@ -109,7 +109,7 @@
           </p>
         </div>
         <div class="mt-2.5 pt-1.5 border-t border-dashed border-[#d8e3ea] flex items-center justify-between text-[10px]">
-          <span class="text-[#556b78]">Service: Clarity (yzmbhd5zjq)</span>
+          <span class="text-[#556b78]">Service: Clarity</span>
           <span id="clarityStatusLabel" class="font-bold text-[#c0392b]">Disabled</span>
         </div>
       </div>
@@ -217,9 +217,25 @@
       });
     }
 
-    // Update Microsoft Clarity consent
-    if (typeof window.clarity === "function") {
-      window.clarity("consent", Boolean(prefs.clarity));
+    // Update Microsoft Clarity consent & dynamic initialization
+    if (prefs.clarity) {
+      if (typeof window.initClarity === "function") {
+        window.initClarity();
+      } else if (typeof window.clarity === "function") {
+        window.clarity("consentv2", {
+          ad_Storage: "denied",
+          analytics_Storage: "granted"
+        });
+        window.clarity("consent", true);
+      }
+    } else {
+      if (typeof window.clarity === "function") {
+        window.clarity("consentv2", {
+          ad_Storage: "denied",
+          analytics_Storage: "denied"
+        });
+        window.clarity("consent", false);
+      }
     }
 
     banner.style.display = "none";

@@ -166,8 +166,8 @@ aboutTab: friends
                             <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
                               Notes:
                             </td>
-                            <td class="py-1 text-[#26343d] leading-relaxed italic whitespace-pre-line">
-                              "{{ friend.description }}"
+                            <td class="py-1 text-[#26343d] leading-relaxed italic">
+                              "{{ friend.description | trim }}"
                             </td>
                           </tr>
                         {% endif %}
