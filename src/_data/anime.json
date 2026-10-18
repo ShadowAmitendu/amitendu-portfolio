@@ -5,46 +5,46 @@
   "intro": "Anime series, films, and animated shorts that I have enjoyed, followed, or am currently watching.",
   "series": [
     {
-      "title": "Frieren: Beyond Journey's End",
-      "studio": "Madhouse",
-      "type": "TV Series",
-      "progress": "28 Episodes (Completed)",
-      "status": "watched",
-      "year": "2023-2024",
-      "rating": 5,
-      "genres": "Fantasy, Adventure, Drama",
-      "image": "/images/2026-10-18-anime-frieren-beyond-journeys-end.webp",
+      "progress": "Season 1 and 2",
       "imageAlt": "Frieren: Beyond Journey's End anime poster featuring Frieren in a meadow",
-      "review": "A profound, quiet, and emotionally resonant reflection on time, mortality, and companionship. Stunning animation and direction by Madhouse.",
-      "link": "https://myanimelist.net/anime/52991/Sousou_no_Frieren"
-    },
-    {
-      "title": "Your Name (Kimi no Na wa)",
-      "studio": "CoMix Wave Films",
-      "type": "Movie",
-      "progress": "Feature Film (Completed)",
+      "genres": "Fantasy, Adventure, Drama",
       "status": "watched",
-      "year": "2016",
-      "rating": 5,
-      "genres": "Romance, Supernatural, Drama",
-      "image": "/images/2026-10-18-anime-your-name-kimi-no-na-wa.webp",
-      "imageAlt": "Your Name (Kimi no Na wa) anime poster featuring Taki and Mitsuha under a comet",
-      "review": "Makoto Shinkai at his absolute finest. The visual fidelity, emotional pacing, and RADWIMPS soundtrack create an unforgettable cinematic journey.",
-      "link": "https://myanimelist.net/anime/32281/Kimi_no_Na_wa"
-    },
-    {
-      "title": "Jujutsu Kaisen",
-      "studio": "MAPPA",
+      "studio": "Madhouse",
+      "title": "Frieren: Beyond Journey's End ",
+      "review": "",
       "type": "TV Series",
-      "progress": "Season 1 & 2 (Completed)",
+      "link": "https://myanimelist.net/anime/52991/Sousou_no_Frieren",
+      "image": "/images/anime.jpg",
+      "year": "2023-2024",
+      "rating": 5
+    },
+    {
+      "progress": "Feature Film (Completed)",
+      "imageAlt": "Your Name (Kimi no Na wa) anime poster featuring Taki and Mitsuha under a comet",
+      "genres": "Romance, Supernatural, Drama",
       "status": "watched",
-      "year": "2020-2023",
-      "rating": 5,
-      "genres": "Action, Supernatural, Fantasy",
-      "image": "/images/2026-10-18-anime-jujutsu-kaisen.webp",
+      "studio": "CoMix Wave Films",
+      "title": "Your Name (Kimi no Na wa)",
+      "review": "Makoto Shinkai at his absolute finest. The visual fidelity, emotional pacing, and RADWIMPS soundtrack create an unforgettable cinematic journey.",
+      "type": "Movie",
+      "link": "https://myanimelist.net/anime/32281/Kimi_no_Na_wa",
+      "image": "/images/2026-10-18-anime-your-name-kimi-no-na-wa.webp",
+      "year": "2016",
+      "rating": 5
+    },
+    {
+      "progress": "Season 1 & 2 (Completed)",
       "imageAlt": "Jujutsu Kaisen anime poster featuring Yuji, Gojo, Megumi, and Nobara",
+      "genres": "Action, Supernatural, Fantasy",
+      "status": "watched",
+      "studio": "MAPPA",
+      "title": "Jujutsu Kaisen",
       "review": "Superb choreography and animation quality, especially across the Shibuya Incident arc. Great pacing and soundtrack.",
-      "link": "https://myanimelist.net/anime/40748/Jujutsu_Kaisen"
+      "type": "TV Series",
+      "link": "https://myanimelist.net/anime/40748/Jujutsu_Kaisen",
+      "image": "/images/2026-10-18-anime-jujutsu-kaisen.webp",
+      "year": "2020-2023",
+      "rating": 5
     }
   ]
 }
