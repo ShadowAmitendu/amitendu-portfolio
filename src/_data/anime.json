@@ -45,6 +45,11 @@
       "image": "/images/2026-10-18-anime-jujutsu-kaisen.webp",
       "year": "2020-2023",
       "rating": 5
+    },
+    {
+      "type": "TV Series",
+      "status": "watched",
+      "title": "Delicious in Dungeon"
     }
   ]
 }
