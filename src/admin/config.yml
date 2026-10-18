@@ -1268,10 +1268,6 @@ collections:
         file: src/_data/sidebarWidgets.json
         format: json
         fields:
-          - label: Discord User ID (for Live Lanyard Presence)
-            name: discordUserId
-            widget: string
-            default: '553845371131002891'
           - label: Recent Posts Title
             name: recentPostsTitle
             widget: string

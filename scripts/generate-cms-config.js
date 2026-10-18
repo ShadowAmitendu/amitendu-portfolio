@@ -669,7 +669,6 @@ export function buildConfig() {
 						file: "src/_data/sidebarWidgets.json",
 						format: "json",
 						fields: [
-							{ label: "Discord User ID (for Live Lanyard Presence)", name: "discordUserId", widget: "string", default: "553845371131002891" },
 							{ label: "Recent Posts Title", name: "recentPostsTitle", widget: "string", default: "Recent Posts" },
 							{ label: "Recent Posts Limit", name: "recentPostsLimit", widget: "number", value_type: "int", default: 3, hint: "Number of blog posts to display in left sidebar" },
 							{ label: "Favorites Title", name: "favoritesTitle", widget: "string", default: "Favorites" },
