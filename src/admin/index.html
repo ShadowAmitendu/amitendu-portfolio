@@ -4554,235 +4554,207 @@
 				var seriesList =
 					rawSeries && rawSeries.toJS ? rawSeries.toJS() : [];
 
+				var getAsset = this.props.getAsset;
 				var seriesElements;
 				if (seriesList.length > 0) {
-					seriesElements = seriesList.map(function (item, idx) {
-						var statusBadge = null;
-						if (item.status === "currently-watching") {
-							statusBadge = h(
-								"span",
-								{
-									className:
-										"inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]",
-								},
-								"WATCHING NOW",
-							);
-						} else if (item.status === "watched") {
-							statusBadge = h(
-								"span",
-								{ className: "text-[11px] font-bold text-[#2e7d32]" },
-								"WATCHED",
-							);
-						} else if (item.status === "plan-to-watch") {
-							statusBadge = h(
-								"span",
-								{ className: "text-[11px] font-bold text-[#556b78]" },
-								"PLAN TO WATCH",
-							);
-						}
-
-						var ratingStr = null;
-						if (item.rating) {
-							var r = Math.max(
-								1,
-								Math.min(5, Math.round(Number(item.rating) || 0)),
-							);
-							var s = "";
-							for (var si = 0; si < 5; si++) {
-								s += si < r ? "★" : "☆";
+					seriesElements = h(
+						"div",
+						{ className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" },
+						seriesList.map(function (item, idx) {
+							var posterSrc = resolveAssetUrl(getAsset, item.image);
+							var statusBg = "bg-[#556b78]";
+							var statusLabel = "Plan";
+							if (item.status === "currently-watching") {
+								statusLabel = "Watching";
+								statusBg = "bg-[#164b70]";
+							} else if (item.status === "watched") {
+								statusLabel = "Watched";
+								statusBg = "bg-[#2e7d32]";
 							}
-							ratingStr = s + " (" + item.rating + "/5)";
-						}
 
-						var rows = [];
-						if (item.studio) {
-							rows.push(
-								h(
-									"tr",
-									{ key: "studio", className: "border-b border-[#e1ebf0]" },
-									h(
-										"td",
-										{
-											className:
-												"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-										},
-										"Studio:",
-									),
-									h("td", { className: "py-1 text-[#3b4d57]" }, item.studio),
-								),
-							);
-						}
-						if (item.type) {
-							rows.push(
-								h(
-									"tr",
-									{ key: "type", className: "border-b border-[#e1ebf0]" },
-									h(
-										"td",
-										{
-											className:
-												"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-										},
-										"Format:",
-									),
-									h(
-										"td",
-										{ className: "py-1 text-[#3b4d57]" },
-										item.type + (item.progress ? " • " + item.progress : ""),
-									),
-								),
-							);
-						}
-						if (item.genres) {
-							rows.push(
-								h(
-									"tr",
-									{ key: "genres", className: "border-b border-[#e1ebf0]" },
-									h(
-										"td",
-										{
-											className:
-												"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-										},
-										"Genres:",
-									),
-									h("td", { className: "py-1 text-[#3b4d57]" }, item.genres),
-								),
-							);
-						}
-						if (ratingStr) {
-							rows.push(
-								h(
-									"tr",
-									{ key: "rating", className: "border-b border-[#e1ebf0]" },
-									h(
-										"td",
-										{
-											className:
-												"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-										},
-										"Rating:",
-									),
-									h(
-										"td",
-										{ className: "py-1 text-[#c0392b] font-bold" },
-										ratingStr,
-									),
-								),
-							);
-						}
-						if (item.review) {
-							rows.push(
-								h(
-									"tr",
-									{ key: "review" },
-									h(
-										"td",
-										{
-											className:
-												"py-1 font-bold text-[#164b70] w-24 shrink-0 align-top",
-										},
-										"Notes:",
-									),
-									h(
-										"td",
-										{
-											className:
-												"py-1 text-[#26343d] leading-relaxed italic bg-[#f0f6f9] p-2 rounded mt-1 block sm:table-cell",
-										},
-										'"' + item.review + '"',
-									),
-								),
-							);
-						}
+							var ratingStr = null;
+							if (item.rating) {
+								var r = Math.max(
+									1,
+									Math.min(5, Math.round(Number(item.rating) || 0)),
+								);
+								var s = "";
+								for (var si = 0; si < 5; si++) {
+									s += si < r ? "★" : "☆";
+								}
+								ratingStr = s;
+							}
 
-						return h(
-							"div",
-							{
-								key: idx,
-								className:
-									"site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de]",
-							},
-							// 2005 Window Header
-							h(
+							return h(
 								"div",
 								{
+									key: idx,
 									className:
-										"border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]",
+										"site-card border border-[#9bb0be] bg-white p-2.5 flex flex-col justify-between shadow-[2px_2px_0_#cad6de]",
 								},
 								h(
 									"div",
-									{ className: "flex items-baseline gap-1.5 text-sm" },
+									{ className: "flex flex-col h-full" },
+									// Poster Frame
 									h(
-										"span",
+										"div",
 										{
 											className:
-												"text-sm font-bold text-[#556b78] select-none",
+												"relative w-full aspect-[2/3] overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center",
 										},
-										"#" + (idx + 1),
-									),
-									h(
-										"h3",
-										{
-											className:
-												"font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 inline",
-										},
-										item.link
-											? h(
-												"a",
+										posterSrc
+											? h("img", {
+												src: posterSrc,
+												alt: item.imageAlt || item.title || "",
+												className:
+													"w-full h-auto max-h-full object-contain block mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]",
+											})
+											: h(
+												"div",
 												{
 													className:
-														"text-[#164b70] underline hover:text-[#c0392b]",
-													href: item.link,
-													target: "_blank",
-													rel: "noopener noreferrer",
+														"w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]",
 												},
-												item.title,
-											)
-											: item.title,
-									),
-									item.year
-										? h(
-											"span",
-											{ className: "text-xs text-[#556b78] font-normal" },
-											"(" + item.year + ")",
-										)
-										: null,
-								),
-								statusBadge ? h("div", null, statusBadge) : null,
-							),
-							// Body
-							h(
-								"div",
-								{ className: "p-3 bg-[#f8fbfc] text-xs" },
-								h(
-									"table",
-									{
-										className:
-											"w-full text-xs text-[#26343d] border-collapse",
-									},
-									h("tbody", null, rows),
-								),
-								item.link
-									? h(
-										"div",
-										{ className: "mt-2 text-right" },
+												h(
+													"span",
+													{
+														className:
+															"text-xs font-bold text-[#164b70] uppercase",
+													},
+													"ANIME",
+												),
+												h(
+													"span",
+													{
+														className:
+															"text-[10px] text-[#556b78] mt-1 line-clamp-2",
+													},
+													item.title || "",
+												),
+											),
+										// Status ribbon
 										h(
-											"a",
+											"div",
 											{
 												className:
-													"text-[#064f83] text-[11px] font-semibold underline hover:text-[#c0392b]",
-												href: item.link,
-												target: "_blank",
-												rel: "noopener noreferrer",
+													"absolute top-1.5 right-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]",
 											},
-											"View on MyAnimeList / Official »",
+											h(
+												"span",
+												{
+													className:
+														"inline-block text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase " +
+														statusBg,
+												},
+												statusLabel,
+											),
 										),
-									)
-									: null,
-							),
-						);
-					});
+										// Format ribbon
+										item.type
+											? h(
+												"div",
+												{
+													className:
+														"absolute bottom-1.5 left-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]",
+												},
+												h(
+													"span",
+													{
+														className:
+															"inline-block bg-[#0a1926]/80 text-white text-[9px] font-semibold px-1.5 py-0.5 tracking-wide",
+													},
+													item.type,
+												),
+											)
+											: null,
+									),
+									// Card Info
+									h(
+										"div",
+										{ className: "mt-2.5 flex-1 flex flex-col justify-between" },
+										h(
+											"div",
+											null,
+											h(
+												"div",
+												{
+													className:
+														"flex items-center justify-between text-[10px] text-[#71828b] font-bold",
+												},
+												h("span", null, "#" + (idx + 1)),
+												item.year ? h("span", null, item.year) : null,
+											),
+											h(
+												"h3",
+												{
+													className:
+														"font-bold text-xs text-[#164b70] tracking-tight uppercase leading-snug line-clamp-2 min-h-[2rem] mt-0.5",
+												},
+												item.link
+													? h(
+														"a",
+														{
+															className:
+																"text-[#164b70] underline hover:text-[#c0392b]",
+															href: item.link,
+															target: "_blank",
+															rel: "noopener noreferrer",
+														},
+														item.title || "Untitled",
+													)
+													: item.title || "Untitled",
+											),
+											item.studio
+												? h(
+													"p",
+													{
+														className:
+															"text-[11px] text-[#556b78] line-clamp-1 mt-0.5",
+													},
+													"Studio: " + item.studio,
+												)
+												: null,
+											item.genres
+												? h(
+													"p",
+													{
+														className:
+															"text-[10px] text-[#7892a3] line-clamp-1 truncate mt-0.5",
+													},
+													item.genres,
+												)
+												: null,
+										),
+										h(
+											"div",
+											{
+												className:
+													"mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]",
+											},
+											ratingStr
+												? h(
+													"span",
+													{
+														className:
+															"text-[#c0392b] font-bold text-[10px]",
+													},
+													ratingStr,
+												)
+												: h("span", null),
+											h(
+												"span",
+												{
+													className:
+														"text-[#064f83] font-semibold text-[10px]",
+												},
+												item.progress || "Details »",
+											),
+										),
+									),
+								),
+							);
+						}),
+					);
 				} else {
 					seriesElements = h(
 						"p",
@@ -4810,7 +4782,7 @@
 							intro,
 						)
 						: null,
-					h("div", { className: "mt-6 space-y-4" }, seriesElements),
+					h("div", { className: "mt-6" }, seriesElements),
 					h(
 						"p",
 						{ className: "mt-8" },

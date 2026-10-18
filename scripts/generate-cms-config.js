@@ -231,6 +231,8 @@ export function buildConfig() {
 								fields: [
 									{ label: "Title", name: "title", widget: "string" },
 									{ label: "Studio", name: "studio", widget: "string", required: false },
+									{ label: "Poster Image", name: "image", widget: "image", required: false, hint: "Upload an anime cover/poster image (JPG, PNG, WEBP)." },
+									{ label: "Poster Alt Text", name: "imageAlt", widget: "string", required: false },
 									{ label: "Format / Type", name: "type", widget: "string", default: "TV Series" },
 									{ label: "Progress", name: "progress", widget: "string", required: false },
 									{
