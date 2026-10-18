@@ -1,98 +1,276 @@
 {#
   Component: cookie-consent.njk
-  Description: Windows 7 Aero style Cookie & Privacy Consent Banner with Allow / Reject options.
-  Features:
-  - Supports Google Consent Mode v2 (updates analytics_storage)
-  - Supports Microsoft Clarity consent API
-  - Persists preference in localStorage ('cookie_consent': 'granted' | 'denied')
-  - Exposes openCookieConsent() to allow reopening preferences anytime
+  Description: Clean bottom cookie & privacy consent banner with granular EU-style toggles.
+  - Aligned to site shell width (max-w-6xl).
+  - Toggles for Essential (locked), Google Analytics, and Microsoft Clarity.
+  - Buttons for Reject Non-Essential, Save Preferences, and Accept All.
+  - Persists preferences in localStorage ('cookie_consent_preferences' and 'cookie_consent').
+  - Exposes window.openCookieConsent() for footer/settings reopening.
 #}
 <aside id="cookieConsentBanner"
        role="region"
-       aria-label="Cookie and Privacy Consent"
-       class="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-50 max-w-sm w-[calc(100%-1.5rem)] select-none transition-all duration-300"
+       aria-label="Cookie and Privacy Settings"
+       class="fixed bottom-0 left-0 right-0 z-50 flex justify-center px-2 sm:px-4 pb-2 sm:pb-3 pointer-events-none transition-all duration-300"
        style="display: none;">
-  <div class="win7-aero-window p-1 shadow-[0_12px_32px_rgba(0,0,0,0.45)]">
-    <div class="win7-aero-glass-shine"></div>
-    <div class="win7-aero-titlebar pr-1">
-      <div class="flex items-center gap-1.5 min-w-0">
-        <span class="text-xs select-none" aria-hidden="true">🍪</span>
-        <span class="win7-title-text truncate">Cookie &amp; Privacy Preferences</span>
+  <div class="site-card pointer-events-auto w-full max-w-6xl border border-[#7892a3] bg-white shadow-[0_-4px_24px_rgba(0,0,0,0.18),2px_2px_0_#cad6de] p-3 sm:p-4 text-xs">
+    
+    {# Banner Header & Actions #}
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#c6d7e0] pb-3">
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sm select-none" aria-hidden="true">🍪</span>
+          <h3 class="m-0 text-sm sm:text-base font-bold text-[#164b70] uppercase tracking-wide">
+            Cookie &amp; Privacy Preferences
+          </h3>
+        </div>
+        <p class="mt-1 text-[12px] sm:text-[13px] text-[#3b4d57] leading-relaxed max-w-3xl">
+          We use cookies and telemetry tools to ensure essential site features, analyze anonymous traffic, and understand user interactions. You can adjust your preferences below before continuing.
+        </p>
       </div>
-      <button type="button"
-              class="win7-btn-close cursor-pointer"
-              aria-label="Close and decline cookies"
-              onclick="handleCookieConsent('denied')">
-        <span aria-hidden="true">✕</span>
-      </button>
-    </div>
-    <div class="win7-client-area bg-[#f8fbfc] p-3 text-xs leading-relaxed text-[#26343d]">
-      <p class="text-[12px] text-[#3b4d57]">
-        We use cookies and telemetry (<strong class="font-semibold text-[#164b70]">Google Analytics</strong> &amp; <strong class="font-semibold text-[#164b70]">Microsoft Clarity</strong>) to analyze anonymous visits and improve your browsing experience.
-      </p>
-      <div class="mt-3 flex items-center justify-end gap-2">
+
+      {# Action Buttons #}
+      <div class="flex flex-wrap items-center gap-2 shrink-0">
         <button type="button"
-                id="cookieRejectBtn"
-                class="site-button-2007 text-xs px-2.5 py-1 text-[#485b66] cursor-pointer"
-                onclick="handleCookieConsent('denied')">
-          Decline
+                id="cookieRejectAllBtn"
+                class="site-button-2007 text-xs px-3 py-1.5 text-[#485b66] cursor-pointer"
+                onclick="rejectNonEssentialCookies()">
+          Reject Non-Essential
         </button>
         <button type="button"
-                id="cookieAcceptBtn"
-                class="site-button-2007 text-xs font-bold px-3 py-1 cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
+                id="cookieSavePrefsBtn"
+                class="site-button-2007 text-xs font-bold px-3 py-1.5 text-[#164b70] cursor-pointer"
+                onclick="saveCustomPreferences()">
+          Save Preferences
+        </button>
+        <button type="button"
+                id="cookieAcceptAllBtn"
+                class="site-button-2007 text-xs font-bold px-4 py-1.5 text-white cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
                 style="background: linear-gradient(#236487 0%, #164b70 100%); color: #ffffff !important;"
-                onclick="handleCookieConsent('granted')">
-          Accept &amp; Allow
+                onclick="acceptAllCookies()">
+          Accept All
         </button>
       </div>
+    </div>
+
+    {# Granular EU-style Category Toggles #}
+    <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2.5">
+      
+      {# 1. Essential / Necessary #}
+      <div class="border border-[#b7cbd6] bg-[#f8fbfc] p-2.5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-bold text-[#164b70] text-xs">Essential / Necessary</span>
+            <span class="inline-block bg-[#e8f5e9] border border-[#a5d6a7] text-[#1b5e20] text-[10px] font-bold px-1.5 py-0.2 select-none">
+              Always Active
+            </span>
+          </div>
+          <p class="mt-1 text-[11px] text-[#556b78] leading-normal">
+            Required for core layout, accessibility features, and remembering your cookie consent preferences.
+          </p>
+        </div>
+        <div class="mt-2.5 pt-1.5 border-t border-dashed border-[#d8e3ea] text-[10px] text-[#71828b]">
+          Essential (Cannot be disabled)
+        </div>
+      </div>
+
+      {# 2. Google Analytics 4 #}
+      <div class="border border-[#b7cbd6] bg-[#f8fbfc] p-2.5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-bold text-[#164b70] text-xs">Google Analytics 4</span>
+            <label class="consent-switch" title="Toggle Google Analytics">
+              <input type="checkbox" id="consentToggleAnalytics" onchange="updateToggleLabels()">
+              <span class="consent-slider"></span>
+            </label>
+          </div>
+          <p class="mt-1 text-[11px] text-[#556b78] leading-normal">
+            Measures aggregated pageviews, visitor counts, and popular content to improve writing and resources.
+          </p>
+        </div>
+        <div class="mt-2.5 pt-1.5 border-t border-dashed border-[#d8e3ea] flex items-center justify-between text-[10px]">
+          <span class="text-[#556b78]">Service: GA4 (G-62QCP23320)</span>
+          <span id="analyticsStatusLabel" class="font-bold text-[#c0392b]">Disabled</span>
+        </div>
+      </div>
+
+      {# 3. Microsoft Clarity #}
+      <div class="border border-[#b7cbd6] bg-[#f8fbfc] p-2.5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-bold text-[#164b70] text-xs">Microsoft Clarity</span>
+            <label class="consent-switch" title="Toggle Microsoft Clarity">
+              <input type="checkbox" id="consentToggleClarity" onchange="updateToggleLabels()">
+              <span class="consent-slider"></span>
+            </label>
+          </div>
+          <p class="mt-1 text-[11px] text-[#556b78] leading-normal">
+            Provides anonymous session heatmaps and click behavior to diagnose layout bugs and improve UX.
+          </p>
+        </div>
+        <div class="mt-2.5 pt-1.5 border-t border-dashed border-[#d8e3ea] flex items-center justify-between text-[10px]">
+          <span class="text-[#556b78]">Service: Clarity (yzmbhd5zjq)</span>
+          <span id="clarityStatusLabel" class="font-bold text-[#c0392b]">Disabled</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </aside>
+
+<style>
+  .consent-switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 20px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .consent-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  .consent-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #cbd6dc;
+    border: 1px solid #7892a3;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+  .consent-slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease;
+    border-radius: 50%;
+  }
+  .consent-switch input:checked + .consent-slider {
+    background-color: #164b70;
+    border-color: #0f3956;
+  }
+  .consent-switch input:focus-visible + .consent-slider {
+    outline: 2px solid #064f83;
+    outline-offset: 2px;
+  }
+  .consent-switch input:checked + .consent-slider:before {
+    transform: translateX(18px);
+  }
+</style>
 
 <script>
 (function() {
   var banner = document.getElementById("cookieConsentBanner");
   if (!banner) return;
 
-  function getConsent() {
+  function getPreferences() {
     try {
-      return localStorage.getItem("cookie_consent");
+      var raw = localStorage.getItem("cookie_consent_preferences");
+      if (raw) return JSON.parse(raw);
+      var legacy = localStorage.getItem("cookie_consent");
+      if (legacy === "granted") return { analytics: true, clarity: true };
+      if (legacy === "denied") return { analytics: false, clarity: false };
+      return null;
     } catch(e) {
       return null;
     }
   }
 
-  function setConsent(status) {
+  function updateToggleLabels() {
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    var aLabel = document.getElementById("analyticsStatusLabel");
+    var cLabel = document.getElementById("clarityStatusLabel");
+
+    if (aLabel && aInput) {
+      aLabel.textContent = aInput.checked ? "Enabled" : "Disabled";
+      aLabel.className = aInput.checked ? "font-bold text-[#1b5e20]" : "font-bold text-[#c0392b]";
+    }
+    if (cLabel && cInput) {
+      cLabel.textContent = cInput.checked ? "Enabled" : "Disabled";
+      cLabel.className = cInput.checked ? "font-bold text-[#1b5e20]" : "font-bold text-[#c0392b]";
+    }
+  }
+  window.updateToggleLabels = updateToggleLabels;
+
+  function applyPreferences(prefs) {
     try {
+      localStorage.setItem("cookie_consent_preferences", JSON.stringify(prefs));
+      var status = (prefs.analytics && prefs.clarity) ? "granted" : ((!prefs.analytics && !prefs.clarity) ? "denied" : "custom");
       localStorage.setItem("cookie_consent", status);
     } catch(e) {}
 
     // Update Google Analytics Consent Mode v2
     if (typeof window.gtag === "function") {
       window.gtag("consent", "update", {
-        "analytics_storage": status
+        "analytics_storage": prefs.analytics ? "granted" : "denied"
       });
     }
 
     // Update Microsoft Clarity consent
     if (typeof window.clarity === "function") {
-      window.clarity("consent", status === "granted");
+      window.clarity("consent", Boolean(prefs.clarity));
     }
 
     banner.style.display = "none";
   }
 
-  window.handleCookieConsent = setConsent;
-
-  window.openCookieConsent = function() {
-    banner.style.display = "block";
+  window.acceptAllCookies = function() {
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    if (aInput) aInput.checked = true;
+    if (cInput) cInput.checked = true;
+    updateToggleLabels();
+    applyPreferences({ analytics: true, clarity: true });
   };
 
-  // If no choice was made yet, show banner after brief non-intrusive delay
-  var currentConsent = getConsent();
-  if (!currentConsent) {
+  window.rejectNonEssentialCookies = function() {
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    if (aInput) aInput.checked = false;
+    if (cInput) cInput.checked = false;
+    updateToggleLabels();
+    applyPreferences({ analytics: false, clarity: false });
+  };
+
+  window.saveCustomPreferences = function() {
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    var analytics = aInput ? aInput.checked : false;
+    var clarity = cInput ? cInput.checked : false;
+    applyPreferences({ analytics: analytics, clarity: clarity });
+  };
+
+  window.openCookieConsent = function() {
+    var prefs = getPreferences();
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    if (aInput) aInput.checked = prefs ? Boolean(prefs.analytics) : false;
+    if (cInput) cInput.checked = prefs ? Boolean(prefs.clarity) : false;
+    updateToggleLabels();
+    banner.style.display = "flex";
+  };
+
+  // On page load, if no preferences have been saved yet, display the banner
+  var saved = getPreferences();
+  if (!saved) {
+    var aInput = document.getElementById("consentToggleAnalytics");
+    var cInput = document.getElementById("consentToggleClarity");
+    // Standard GDPR default: non-essential start disabled until opted-in
+    if (aInput) aInput.checked = false;
+    if (cInput) cInput.checked = false;
+    updateToggleLabels();
     setTimeout(function() {
-      banner.style.display = "block";
+      banner.style.display = "flex";
     }, 600);
   }
 })();
