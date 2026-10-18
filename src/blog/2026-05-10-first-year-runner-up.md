@@ -7,18 +7,18 @@ headerTagline: "STORY TIME"
 description: "Secured Runner-Up position in the Single Coding Competition at Spark Quest 3.0. A competitive programming experience focused on problem-solving, logical thinking, and coding under time constraints."
 date: 2026-05-10T08:10:00.000+05:30
 author: "Amitendu Bikash Dhusiya"
-image: "/images/blog/2026-10-15-first-year-runner-up-4.webp"
+image: "/images/2026-10-15-blog-first-year-runner-up-4.webp"
 ---
 
 ## From Nervous Freshers to Tech Fest Runner-Up
 
 Participating in **Spark Quest 3.0** was one of the most exciting and unexpected experiences of my first year in college. At that time, we had only recently joined college, so everything felt new to us — the campus, the professors, the events, and even the way competitions were conducted. Most of us were shy and still trying to understand how college life worked.
 
-![Mock Competition](/images/blog/2026-10-15-first-year-runner-up-3.webp "Mock Competition")
+![Mock Competition](/images/2026-10-15-blog-first-year-runner-up-3.webp "Mock Competition")
 
-![Mock Competition](/images/blog/2026-10-15-first-year-runner-up-2.webp "Mock Competition")
+![Mock Competition](/images/2026-10-15-blog-first-year-runner-up-2.webp "Mock Competition")
 
-![Mock Competition (Dada asked who are going to participate)](/images/blog/2026-10-15-first-year-runner-up.webp "Mock Competition (Dada asked who are going to participate)")
+![Mock Competition (Dada asked who are going to participate)](/images/2026-10-15-blog-first-year-runner-up.webp "Mock Competition (Dada asked who are going to participate)")
 
 Before the actual competition started, the organizers arranged a small practice session for freshers. They showed us basic MCQs and simple programming-related questions just to make us comfortable and encourage participation in the tech fest. Only a few students attended that session, but it helped us understand what the actual competition could look like.
 
@@ -57,7 +57,7 @@ At this stage, many first-year students had already been eliminated, and the rem
 
 ## _Round 3_ — **The Hardest Round**
 
-![Last Participants Left (From Left Me, Rohit Chatterjee, 3rd year Senior - Winner, Debarghya Das, another senior and the one sitting is from Committee)](/images/blog/2026-10-15-first-year-runner-up-5.webp "Last Participants Left (From Left Me, Rohit Chatterjee, 3rd year Senior - Winner, Debarghya Das, another senior and the one sitting is from Committee)")
+![Last Participants Left (From Left Me, Rohit Chatterjee, 3rd year Senior - Winner, Debarghya Das, another senior and the one sitting is from Committee)](/images/2026-10-15-blog-first-year-runner-up-5.webp "Last Participants Left (From Left Me, Rohit Chatterjee, 3rd year Senior - Winner, Debarghya Das, another senior and the one sitting is from Committee)")
 
 The final round was based on **LeetCode-style programming problems**. We were given **two coding questions**, and we had to solve at least one of them. Unlike the previous rounds, this part allowed any programming language.
 

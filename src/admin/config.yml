@@ -29,8 +29,6 @@ collections:
       - name: me
         label: Me
         file: src/_data/about.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Page title
@@ -87,8 +85,6 @@ collections:
       - name: books
         label: Books
         file: src/_data/books.json
-        media_folder: src/images/books
-        public_folder: /images/books
         format: json
         fields:
           - label: Page title
@@ -171,8 +167,6 @@ collections:
       - name: movies
         label: Movies
         file: src/_data/movies.json
-        media_folder: src/images/movies
-        public_folder: /images/movies
         format: json
         fields:
           - label: Page title
@@ -315,108 +309,9 @@ collections:
                 pattern:
                   - ^https?://.+
                   - Must be a full URL
-      - name: anime
-        label: Anime
-        file: src/_data/anime.json
-        media_folder: src/images/anime
-        public_folder: /images/anime
-        format: json
-        fields:
-          - label: Page title
-            name: title
-            widget: string
-            default: Anime
-          - label: Header tagline
-            name: headerTagline
-            widget: string
-            default: WHAT I'M WATCHING
-          - label: Header Banner Image
-            name: headerBanner
-            widget: image
-            required: false
-            default: /images/header-banner.jpg
-          - label: Header Banner Alt Text
-            name: headerBannerAlt
-            widget: string
-            required: false
-          - label: Heading
-            name: heading
-            widget: string
-            default: Anime & Animation
-          - label: Intro
-            name: intro
-            widget: text
-            required: false
-          - label: Anime Series & Movies
-            name: series
-            widget: list
-            label_singular: Anime
-            collapsed: true
-            summary: '{{fields.title}} [{{fields.status}}]'
-            fields:
-              - label: Anime Title
-                name: title
-                widget: string
-              - label: Animation Studio / Creator
-                name: studio
-                widget: string
-                required: false
-              - label: Format / Type
-                name: type
-                widget: select
-                options:
-                  - label: TV Series
-                    value: TV Series
-                  - label: Movie / Film
-                    value: Movie
-                  - label: Animated Shorts
-                    value: Animated Shorts
-                  - label: OVA / Special
-                    value: OVA
-                default: TV Series
-              - label: Progress / Episodes
-                name: progress
-                widget: string
-                required: false
-              - label: Status
-                name: status
-                widget: select
-                options:
-                  - label: Currently Watching
-                    value: currently-watching
-                  - label: Completed / Watched
-                    value: watched
-                  - label: Plan to Watch
-                    value: plan-to-watch
-                default: watched
-              - label: Release Year
-                name: year
-                widget: string
-                required: false
-              - label: Rating (Stars 1-5)
-                name: rating
-                widget: number
-                value_type: int
-                min: 1
-                max: 5
-                required: false
-              - label: Genres
-                name: genres
-                widget: string
-                required: false
-              - label: Thoughts / Review
-                name: review
-                widget: text
-                required: false
-              - label: Link (MyAnimeList, AniList, Official)
-                name: link
-                widget: string
-                required: false
       - name: games
         label: Games
         file: src/_data/games.json
-        media_folder: src/images/games
-        public_folder: /images/games
         format: json
         fields:
           - label: Page title
@@ -521,8 +416,6 @@ collections:
       - name: software
         label: Software
         file: src/_data/software.json
-        media_folder: src/images/software
-        public_folder: /images/software
         format: json
         fields:
           - label: Page title
@@ -578,8 +471,6 @@ collections:
       - name: friends
         label: Friends
         file: src/_data/friends.json
-        media_folder: src/images/friends
-        public_folder: /images/friends
         format: json
         fields:
           - label: Page title
@@ -644,8 +535,6 @@ collections:
       - name: gear
         label: Gear
         file: src/_data/gear.json
-        media_folder: src/images/gear
-        public_folder: /images/gear
         format: json
         fields:
           - label: Page title
@@ -734,8 +623,6 @@ collections:
       - name: resume-page
         label: Resume / CV Page
         file: src/_data/resume.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Page title
@@ -895,8 +782,6 @@ collections:
       - name: home
         label: Homepage
         file: src/_data/home.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Greeting
@@ -988,8 +873,6 @@ collections:
       - name: blog-page
         label: Blog landing page
         file: src/_data/blogPage.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Page title
@@ -1019,8 +902,6 @@ collections:
       - name: portfolio-page
         label: Portfolio landing page
         file: src/_data/portfolioPage.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Page title
@@ -1068,8 +949,6 @@ collections:
       - name: site
         label: Site settings
         file: src/_data/site.json
-        media_folder: src/images/site
-        public_folder: /images/site
         format: json
         fields:
           - label: Site title
@@ -1268,8 +1147,6 @@ collections:
     label: Blog posts
     folder: src/blog
     create: true
-    media_folder: src/images/blog
-    public_folder: /images/blog
     preview_path: blog/{{slug}}
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     summary: '{{title}} — {{date | date(''YYYY-MM-DD'')}}'
@@ -1380,8 +1257,6 @@ collections:
     label: Portfolio projects
     folder: src/portfolio
     create: true
-    media_folder: src/images/portfolio
-    public_folder: /images/portfolio
     preview_path: portfolio/{{slug}}
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     summary: '{{title}} · {{projectType}} · {{projectStatus}}'
@@ -1557,8 +1432,6 @@ collections:
     label: Authors
     folder: src/authors
     create: true
-    media_folder: src/images/authors
-    public_folder: /images/authors
     slug: '{{slug}}'
     summary: '{{name}} (@{{slug}})'
     fields:

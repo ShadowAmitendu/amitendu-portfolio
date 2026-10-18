@@ -8,7 +8,7 @@
       "status": "currently-reading",
       "title": "MySQL Crash Course",
       "author": "Rick Silva",
-      "image": "/images/books/2026-10-15-mysql-crash-course.webp",
+      "image": "/images/2026-10-15-books-mysql-crash-course.webp",
       "rating": 5,
       "year": "2026",
       "review": "This book is really a very good approach to MySQL for Beginners"
@@ -20,20 +20,20 @@
       "rating": 5,
       "year": "2026",
       "review": "Book's content is very damn good but the printing and the paper is very very bad like worse than ever!",
-      "image": "/images/books/2026-10-16-pandas-for-everyone-2nd-edition.webp"
+      "image": "/images/2026-10-16-books-pandas-for-everyone-2nd-edition.webp"
     },
     {
       "status": "to-read",
       "title": "Introduction to Data Science",
       "author": "Davy Cielen, Arno D. B. Meysman, Mohamed Ali",
-      "image": "/images/books/2026-10-16-introduction-to-data-science.webp",
+      "image": "/images/2026-10-16-books-introduction-to-data-science.webp",
       "year": "2026"
     },
     {
       "status": "to-read",
       "title": "How Linux Works, 3rd Edition",
       "author": "Brian Ward",
-      "image": "/images/books/2026-10-17-how-linux-works-3rd-edition.webp",
+      "image": "/images/2026-10-17-books-how-linux-works-3rd-edition.webp",
       "year": "2026"
     },
     {
@@ -44,13 +44,13 @@
       "rating": 5,
       "year": "2026",
       "review": "This book is a mini course on DSA and CS",
-      "image": "/images/books/2026-10-17-algorithms-4th-edition.webp"
+      "image": "/images/2026-10-17-books-algorithms-4th-edition.webp"
     },
     {
       "status": "currently-reading",
       "title": "REST API Design Handbook",
       "author": "Mark Masse",
-      "image": "/images/books/2026-10-17-rest-api-design-handbook.webp",
+      "image": "/images/2026-10-17-books-rest-api-design-handbook.webp",
       "progress": "37th Page",
       "rating": 5,
       "year": "2026",
@@ -60,53 +60,53 @@
       "status": "to-read",
       "title": "Practical SQL, 2nd Edition",
       "author": "Anthony DeBarros",
-      "image": "/images/books/2026-10-17-practical-sql-2nd-edition.webp",
+      "image": "/images/2026-10-17-books-practical-sql-2nd-edition.webp",
       "year": "2026"
     },
     {
       "status": "to-read",
       "title": "Learning Git",
       "author": "Anna Skoulikari",
-      "image": "/images/books/2026-10-17-learning-git.webp",
+      "image": "/images/2026-10-17-books-learning-git.webp",
       "year": "2026"
     },
     {
       "status": "currently-reading",
       "title": "Introduction to Machine Learning with Python",
       "author": "Andreas C. Müller, Sarah Guido",
-      "image": "/images/books/2026-10-17-introduction-to-machine-learning-with-python.webp"
+      "image": "/images/2026-10-17-books-introduction-to-machine-learning-with-python.webp"
     },
     {
       "status": "to-read",
       "title": "Machine Learning with Python For Everyone",
       "author": "Mark Fenner",
-      "image": "/images/books/2026-10-17-machine-learning-with-python-for-everyone.webp",
+      "image": "/images/2026-10-17-books-machine-learning-with-python-for-everyone.webp",
       "year": "2026"
     },
     {
       "status": "to-read",
       "title": "Python Distilled",
       "author": "David M Beazley",
-      "image": "/images/books/2026-10-17-python-distilled.webp",
+      "image": "/images/2026-10-17-books-python-distilled.webp",
       "year": "2026"
     },
     {
       "status": "currently-reading",
       "title": "Linux Pocket Guide",
       "author": "Daniel J. Barrett",
-      "image": "/images/books/2026-10-17-linux-pocket-guide.webp"
+      "image": "/images/2026-10-17-books-linux-pocket-guide.webp"
     },
     {
       "status": "to-read",
       "title": "JavaScript: The Definitive Guide",
       "author": "David Flanagan",
-      "image": "/images/books/2026-10-17-javascript-the-definitive-guide.webp"
+      "image": "/images/2026-10-17-books-javascript-the-definitive-guide.webp"
     },
     {
       "status": "read",
       "title": "PHP & MySQL: Server Side Web Development",
       "author": "Jon Duckett",
-      "image": "/images/books/2026-10-17-php-mysql-server-side-web-development.webp",
+      "image": "/images/2026-10-17-books-php-mysql-server-side-web-development.webp",
       "rating": 5,
       "year": "2025",
       "review": "A damn good book on php and mysql and you know its going to be good as its of Jon Duckett"
@@ -115,44 +115,44 @@
       "status": "currently-reading",
       "title": "Front-End Mastery: HTML, CSS, and JavaScript Unleashed",
       "author": "Suman Das (My College Professor)",
-      "image": "/images/books/2026-10-17-front-end-mastery-html-css-and-javascript-unleas.webp",
+      "image": "/images/2026-10-17-books-front-end-mastery-html-css-and-javascript-unleas.webp",
       "review": "Its quite a good book for interviews as it has very good interview style questions"
     },
     {
       "status": "to-read",
       "title": "The Intel Microprocessors, 4th Edition",
       "author": "Barry B. Brey",
-      "image": "/images/books/2026-10-17-the-intel-microprocessors-4th-edition.webp"
+      "image": "/images/2026-10-17-books-the-intel-microprocessors-4th-edition.webp"
     },
     {
       "status": "currently-reading",
       "title": "101 Challenges in C Programming",
       "author": "Yashavant Kanetkar",
-      "image": "/images/books/2026-10-17-101-challenges-in-c-programming.webp"
+      "image": "/images/2026-10-17-books-101-challenges-in-c-programming.webp"
     },
     {
       "status": "read",
       "title": "BASIC COMPUTATION AND PROGRAMMING WITH C",
       "author": "Subrata Saha (My College Professor)",
-      "image": "/images/books/2026-10-17-basic-computation-and-programming-with-c.webp"
+      "image": "/images/2026-10-17-books-basic-computation-and-programming-with-c.webp"
     },
     {
       "status": "read",
       "title": "Learn C the Hard Way, 1st Edition (with CD)",
       "author": "Zed A. Shaw",
-      "image": "/images/books/2026-10-17-learn-c-the-hard-way-1st-edition-with-cd.webp"
+      "image": "/images/2026-10-17-books-learn-c-the-hard-way-1st-edition-with-cd.webp"
     },
     {
       "status": "to-read",
       "title": "Kotlin In-Depth, Volume 1 & 2",
       "author": "Aleksei Sedunov",
-      "image": "/images/books/2026-10-17-kotlin-in-depth-volume-1-2.webp"
+      "image": "/images/2026-10-17-books-kotlin-in-depth-volume-1-2.webp"
     },
     {
       "status": "read",
       "title": "HTML & CSS",
       "author": "Jon Duckett",
-      "image": "/images/books/2026-10-17-html-css.webp",
+      "image": "/images/2026-10-17-books-html-css.webp",
       "review": "same as other Jon Duckett Books!",
       "rating": 5,
       "year": "2020"
@@ -161,7 +161,7 @@
       "status": "read",
       "title": "JavaScript & JQuery",
       "author": "Jon Duckett",
-      "image": "/images/books/2026-10-17-javascript-jquery.webp",
+      "image": "/images/2026-10-17-books-javascript-jquery.webp",
       "rating": 5,
       "year": "2020",
       "review": "All Jon Duckett books are same type Extremely good"
@@ -170,43 +170,43 @@
       "status": "currently-reading",
       "title": "Python Interview Questions You'll Most Likely Be Asked",
       "author": "Vibrant Publishers",
-      "image": "/images/books/2026-10-17-python-interview-questions-you-ll-most-likely-be.webp"
+      "image": "/images/2026-10-17-books-python-interview-questions-you-ll-most-likely-be.webp"
     },
     {
       "status": "read",
       "title": "PHP, MySQL & JavaScript All-in-One for Dummies",
       "author": "Richard Blum",
-      "image": "/images/books/2026-10-17-php-mysql-javascript-all-in-one-for-dummies.webp"
+      "image": "/images/2026-10-17-books-php-mysql-javascript-all-in-one-for-dummies.webp"
     },
     {
       "status": "read",
       "title": "Java: The Complete Reference, 11th Edition",
       "author": "Herbert Schildt",
-      "image": "/images/books/2026-10-17-java-the-complete-reference-11th-edition.webp"
+      "image": "/images/2026-10-17-books-java-the-complete-reference-11th-edition.webp"
     },
     {
       "status": "currently-reading",
       "title": "Automate the Boring Stuff with Python, 2nd Edition",
       "author": "Al Sweigart",
-      "image": "/images/books/2026-10-17-automate-the-boring-stuff-with-python-2nd-editio.webp"
+      "image": "/images/2026-10-17-books-automate-the-boring-stuff-with-python-2nd-editio.webp"
     },
     {
       "status": "read",
       "title": "SQL All-In-One for Dummies, 3rd Edition",
       "author": "Allen G. Taylor",
-      "image": "/images/books/2026-10-17-sql-all-in-one-for-dummies-3rd-edition.webp"
+      "image": "/images/2026-10-17-books-sql-all-in-one-for-dummies-3rd-edition.webp"
     },
     {
       "status": "read",
       "title": "Java All-in-One for Dummies, 5th Edition",
       "author": "Doug Lowe",
-      "image": "/images/books/2026-10-17-java-all-in-one-for-dummies-5th-edition.webp"
+      "image": "/images/2026-10-17-books-java-all-in-one-for-dummies-5th-edition.webp"
     },
     {
       "status": "read",
       "title": "Learning with Python",
       "author": "Allen Downey, Jeffrey Elkner, Chris Meyers",
-      "image": "/images/books/2026-10-17-learning-with-python.webp",
+      "image": "/images/2026-10-17-books-learning-with-python.webp",
       "rating": 3,
       "review": "The book is good but the code and some stuff are outdated like of Python 2 and the book says python 3 thats an issue rather buy the Programming Python by Orielly!"
     }

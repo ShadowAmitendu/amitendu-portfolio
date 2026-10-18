@@ -64,8 +64,6 @@ export function buildConfig() {
 						name: "me",
 						label: "Me",
 						file: "src/_data/about.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: [
 							...getHeaderFields("About", "ABOUT THIS PERSON", "About me", true),
@@ -87,8 +85,6 @@ export function buildConfig() {
 						name: "books",
 						label: "Books",
 						file: "src/_data/books.json",
-						media_folder: "src/images/books",
-						public_folder: "/images/books",
 						format: "json",
 						fields: [
 							...getHeaderFields("Books", "WHAT I'M READING", "Bookshelf", false),
@@ -127,8 +123,6 @@ export function buildConfig() {
 						name: "movies",
 						label: "Movies",
 						file: "src/_data/movies.json",
-						media_folder: "src/images/movies",
-						public_folder: "/images/movies",
 						format: "json",
 						fields: [
 							...getHeaderFields("Movies", "WHAT I'M WATCHING", "Cinema & Shows", false),
@@ -197,8 +191,6 @@ export function buildConfig() {
 						name: "games",
 						label: "Games",
 						file: "src/_data/games.json",
-						media_folder: "src/images/games",
-						public_folder: "/images/games",
 						format: "json",
 						fields: [
 							...getHeaderFields("Games", "WHAT I'M PLAYING", "Games", false),
@@ -249,8 +241,6 @@ export function buildConfig() {
 						name: "software",
 						label: "Software",
 						file: "src/_data/software.json",
-						media_folder: "src/images/software",
-						public_folder: "/images/software",
 						format: "json",
 						fields: [
 							...getHeaderFields("Software", "TOOLS & APPS I USE", "Software & Tools", false),
@@ -274,8 +264,6 @@ export function buildConfig() {
 						name: "friends",
 						label: "Friends",
 						file: "src/_data/friends.json",
-						media_folder: "src/images/friends",
-						public_folder: "/images/friends",
 						format: "json",
 						fields: [
 							...getHeaderFields("Friends", "FRIENDS & ALLIES", "Friends & Web Neighbours", false),
@@ -301,8 +289,6 @@ export function buildConfig() {
 						name: "gear",
 						label: "Gear",
 						file: "src/_data/gear.json",
-						media_folder: "src/images/gear",
-						public_folder: "/images/gear",
 						format: "json",
 						fields: [
 							...getHeaderFields("Gear", "MY DESK & DAILY DRIVERS", "Hardware, Desk Setup & Photography", false, "/images/header-banner.jpg"),
@@ -359,8 +345,6 @@ export function buildConfig() {
 						name: "resume-page",
 						label: "Resume / CV Page",
 						file: "src/_data/resume.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: [
 							{ label: "Page title", name: "title", widget: "string", default: "Resume" },
@@ -456,8 +440,6 @@ export function buildConfig() {
 						name: "home",
 						label: "Homepage",
 						file: "src/_data/home.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: [
 							{ label: "Greeting", name: "greeting", widget: "string" },
@@ -501,8 +483,6 @@ export function buildConfig() {
 						name: "blog-page",
 						label: "Blog landing page",
 						file: "src/_data/blogPage.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: getHeaderFields("Blog", "MY WEB LOG", "Web log", true),
 					},
@@ -510,8 +490,6 @@ export function buildConfig() {
 						name: "portfolio-page",
 						label: "Portfolio landing page",
 						file: "src/_data/portfolioPage.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: [
 							...getHeaderFields("Portfolio", "MY WEB PORTFOLIO", "My work", true),
@@ -525,8 +503,6 @@ export function buildConfig() {
 						name: "site",
 						label: "Site settings",
 						file: "src/_data/site.json",
-						media_folder: "src/images/site",
-						public_folder: "/images/site",
 						format: "json",
 						fields: [
 							{ label: "Site title", name: "title", widget: "string" },
@@ -640,8 +616,6 @@ export function buildConfig() {
 				label: "Blog posts",
 				folder: "src/blog",
 				create: true,
-				media_folder: "src/images/blog",
-				public_folder: "/images/blog",
 				preview_path: "blog/{{slug}}",
 				slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
 				summary: "{{title}} — {{date | date('YYYY-MM-DD')}}",
@@ -689,8 +663,6 @@ export function buildConfig() {
 				label: "Portfolio projects",
 				folder: "src/portfolio",
 				create: true,
-				media_folder: "src/images/portfolio",
-				public_folder: "/images/portfolio",
 				preview_path: "portfolio/{{slug}}",
 				slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
 				summary: "{{title}} · {{projectType}} · {{projectStatus}}",
@@ -780,8 +752,6 @@ export function buildConfig() {
 				label: "Authors",
 				folder: "src/authors",
 				create: true,
-				media_folder: "src/images/authors",
-				public_folder: "/images/authors",
 				slug: "{{slug}}",
 				summary: "{{name}} (@{{slug}})",
 				fields: [

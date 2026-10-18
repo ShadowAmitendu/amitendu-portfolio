@@ -7,7 +7,7 @@ headerTagline: "NEWS"
 description: "A small beginning. This is the first post on my blog where I share why I started writing, what this space will focus on, and what you can expect in the future."
 date: 2026-05-05T02:04:00.000+05:30
 author: "Amitendu Bikash Dhusiya"
-image: "/images/blog/2026-10-15-hello-world.webp"
+image: "/images/2026-10-15-blog-hello-world.webp"
 ---
 
 # Hello World!

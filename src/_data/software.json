@@ -6,7 +6,7 @@
   "items": [
     {
       "name": "Visual Studio code",
-      "icon": "/images/software/2026-10-15-visual-studio-code.webp",
+      "icon": "/images/2026-10-15-software-visual-studio-code.webp",
       "category": "Editor",
       "platform": "Windows and MacOS",
       "description": "versatile code editor",
@@ -15,195 +15,195 @@
     {
       "category": "",
       "name": "Zed",
-      "icon": "/images/software/2026-10-16-zed.webp",
+      "icon": "/images/2026-10-16-software-zed.webp",
       "link": "https://zed.dev/"
     },
     {
       "name": "Antigravity",
-      "icon": "/images/software/2026-10-16-antigravity.webp",
+      "icon": "/images/2026-10-16-software-antigravity.webp",
       "link": "https://antigravity.google/product/antigravity-ide/"
     },
     {
       "name": "Git",
-      "icon": "/images/software/2026-10-16-git.webp",
+      "icon": "/images/2026-10-16-software-git.webp",
       "link": "https://git-scm.com/"
     },
     {
       "name": "Rust Desk",
-      "icon": "/images/software/2026-10-16-rust-desk.webp",
+      "icon": "/images/2026-10-16-software-rust-desk.webp",
       "link": "https://rustdesk.com/"
     },
     {
       "name": "GitHub",
-      "icon": "/images/software/2026-10-16-github.webp",
+      "icon": "/images/2026-10-16-software-github.webp",
       "link": "https://github.com/"
     },
     {
       "name": "GitHub Desktop",
-      "icon": "/images/software/2026-10-16-github-desktop.webp",
+      "icon": "/images/2026-10-16-software-github-desktop.webp",
       "link": "https://github.com/apps/desktop"
     },
     {
       "name": "GitHub CLI",
-      "icon": "/images/software/2026-10-16-github.webp",
+      "icon": "/images/2026-10-16-software-github.webp",
       "link": "https://cli.github.com/"
     },
     {
       "name": "IntelliJ IDEA",
       "link": "https://www.jetbrains.com/idea/",
-      "icon": "/images/software/2026-10-16-intellij-idea.webp"
+      "icon": "/images/2026-10-16-software-intellij-idea.webp"
     },
     {
       "link": "https://www.jetbrains.com/webstorm/",
       "name": "WebStorm",
-      "icon": "/images/software/2026-10-16-webstorm.webp"
+      "icon": "/images/2026-10-16-software-webstorm.webp"
     },
     {
       "name": "PhpStorm",
       "link": "https://www.jetbrains.com/phpstorm/",
-      "icon": "/images/software/2026-10-16-phpstorm.webp"
+      "icon": "/images/2026-10-16-software-phpstorm.webp"
     },
     {
       "link": "https://www.jetbrains.com/pycharm/",
       "name": "PyCharm",
-      "icon": "/images/software/2026-10-16-pycharm.webp"
+      "icon": "/images/2026-10-16-software-pycharm.webp"
     },
     {
       "name": "Affinity",
       "link": "https://www.affinity.studio/",
-      "icon": "/images/software/2026-10-16-affinity.webp"
+      "icon": "/images/2026-10-16-software-affinity.webp"
     },
     {
       "name": "Docker Desktop",
-      "icon": "/images/software/2026-10-16-docker-desktop.webp",
+      "icon": "/images/2026-10-16-software-docker-desktop.webp",
       "link": "https://www.docker.com/products/docker-desktop/"
     },
     {
       "name": "TexStudio",
-      "icon": "/images/software/2026-10-16-texstudio.webp",
+      "icon": "/images/2026-10-16-software-texstudio.webp",
       "link": "https://www.texstudio.org/"
     },
     {
       "name": "Blip",
-      "icon": "/images/software/2026-10-16-blip.webp",
+      "icon": "/images/2026-10-16-software-blip.webp",
       "link": "https://blip.net/"
     },
     {
       "name": "PostMan",
-      "icon": "/images/software/2026-10-16-postman.webp",
+      "icon": "/images/2026-10-16-software-postman.webp",
       "link": "https://www.postman.com/"
     },
     {
       "name": "Figma",
-      "icon": "/images/software/2026-10-16-figma.webp",
+      "icon": "/images/2026-10-16-software-figma.webp",
       "link": "http://figma.com/"
     },
     {
       "name": "Zoltero",
-      "icon": "/images/software/2026-10-16-zoltero.webp",
+      "icon": "/images/2026-10-16-software-zoltero.webp",
       "link": "https://www.zotero.org/"
     },
     {
       "name": "OnlyOffice",
-      "icon": "/images/software/2026-10-16-onlyoffice.webp",
+      "icon": "/images/2026-10-16-software-onlyoffice.webp",
       "link": "https://www.onlyoffice.com/"
     },
     {
       "name": "NetBeans",
-      "icon": "/images/software/2026-10-16-netbeans.webp",
+      "icon": "/images/2026-10-16-software-netbeans.webp",
       "link": "https://netbeans.apache.org/front/main/index.html"
     },
     {
       "name": "TailScale",
-      "icon": "/images/software/2026-10-16-tailscale.webp",
+      "icon": "/images/2026-10-16-software-tailscale.webp",
       "link": "https://tailscale.com/"
     },
     {
       "name": "Eclispe IDE for Java Developers",
-      "icon": "/images/software/2026-10-16-eclispe-ide-for-java-developers.webp",
+      "icon": "/images/2026-10-16-software-eclispe-ide-for-java-developers.webp",
       "link": "https://eclipseide.org/"
     },
     {
       "name": "Obsidian",
-      "icon": "/images/software/2026-10-16-obsidian.webp"
+      "icon": "/images/2026-10-16-software-obsidian.webp"
     },
     {
       "name": "Microsoft PowerToys",
-      "icon": "/images/software/2026-10-16-microsoft-powertoys.webp",
+      "icon": "/images/2026-10-16-software-microsoft-powertoys.webp",
       "link": "https://github.com/microsoft/powertoys"
     },
     {
       "name": "WinRAR",
-      "icon": "/images/software/2026-10-16-winrar.webp",
+      "icon": "/images/2026-10-16-software-winrar.webp",
       "link": "https://www.win-rar.com/"
     },
     {
       "name": "Cloudflare WARP",
-      "icon": "/images/software/2026-10-16-cloudflare-warp.webp",
+      "icon": "/images/2026-10-16-software-cloudflare-warp.webp",
       "link": "https://one.one.one.one/"
     },
     {
       "name": "WinSCP",
       "link": "https://winscp.net/eng/index.php",
-      "icon": "/images/software/2026-10-16-winscp.webp"
+      "icon": "/images/2026-10-16-software-winscp.webp"
     },
     {
       "name": "Typedown",
-      "icon": "/images/software/2026-10-16-typedown.webp",
+      "icon": "/images/2026-10-16-software-typedown.webp",
       "link": "https://apps.microsoft.com/detail/9p8tcw4h2hb4?hl=en-GB&gl=IN"
     },
     {
       "name": "Nvidia - ShadowPlay",
-      "icon": "/images/software/2026-10-16-nvidia-shadowplay.webp",
+      "icon": "/images/2026-10-16-software-nvidia-shadowplay.webp",
       "link": "https://www.nvidia.com/en-us/software/nvidia-app/"
     },
     {
       "name": "DaVinchi Resolve",
-      "icon": "/images/software/2026-10-16-davinchi-resolve.webp",
+      "icon": "/images/2026-10-16-software-davinchi-resolve.webp",
       "link": "https://www.blackmagicdesign.com/in/products/davinciresolve"
     },
     {
       "name": "Fedora",
-      "icon": "/images/software/2026-10-16-fedora.webp",
+      "icon": "/images/2026-10-16-software-fedora.webp",
       "link": "https://fedoraproject.org/"
     },
     {
       "name": "CentOS",
-      "icon": "/images/software/2026-10-16-centos.webp",
+      "icon": "/images/2026-10-16-software-centos.webp",
       "link": "https://www.centos.org/"
     },
     {
       "name": "Ubuntu Desktop",
-      "icon": "/images/software/2026-10-16-ubuntu-desktop.webp",
+      "icon": "/images/2026-10-16-software-ubuntu-desktop.webp",
       "link": "https://ubuntu.com/"
     },
     {
       "name": "RedHat Linux",
-      "icon": "/images/software/2026-10-16-redhat-linux.webp",
+      "icon": "/images/2026-10-16-software-redhat-linux.webp",
       "link": "https://www.redhat.com/en"
     },
     {
       "name": "Arch Linux",
-      "icon": "/images/software/2026-10-16-arch-linux.webp",
+      "icon": "/images/2026-10-16-software-arch-linux.webp",
       "link": "https://archlinux.org/"
     },
     {
       "name": "Linux Mint",
-      "icon": "/images/software/2026-10-16-linux-mint.webp"
+      "icon": "/images/2026-10-16-software-linux-mint.webp"
     },
     {
       "name": "Debian Linux",
-      "icon": "/images/software/2026-10-16-debian-linux.webp",
+      "icon": "/images/2026-10-16-software-debian-linux.webp",
       "link": "https://www.debian.org/"
     },
     {
       "name": "Windows 11 Professional",
-      "icon": "/images/software/2026-10-16-windows-11-professional.webp",
+      "icon": "/images/2026-10-16-software-windows-11-professional.webp",
       "link": "https://www.microsoft.com/en-us/software-download/windows11"
     },
     {
       "name": "OBS Studio",
-      "icon": "/images/software/2026-10-16-obs-studio.webp",
+      "icon": "/images/2026-10-16-software-obs-studio.webp",
       "link": "https://obsproject.com/"
     }
   ],

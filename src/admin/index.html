@@ -66,18 +66,9 @@
 					}
 				}
 
-				// 3. Intercept Media Library for src/images to display all subfolder assets (books, games, blog, etc.)
+				// 3. Intercept Media Library for src/images
 				const mediaSubfolders = [
 					"src/images",
-					"src/images/authors",
-					"src/images/blog",
-					"src/images/books",
-					"src/images/friends",
-					"src/images/games",
-					"src/images/movies",
-					"src/images/portfolio",
-					"src/images/site",
-					"src/images/software",
 				];
 
 				// 3a. Local decap-server: POST /api/v1 with action "getMedia"
@@ -544,7 +535,7 @@
 										h("img", {
 											className:
 												"site-profile-frame h-11 w-11 shrink-0 object-cover",
-											src: "/images/authors/2026-10-14-amitendu-bikash-dhusiya.webp",
+											src: "/images/2026-10-14-authors-amitendu-bikash-dhusiya.webp",
 											alt: "Amitendu",
 											width: 44,
 											height: 44,

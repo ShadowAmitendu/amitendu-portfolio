@@ -4,7 +4,7 @@ title: Author Profile
 headerTagline: AUTHOR PROFILE
 slug: shadow-amitendu
 name: Amitendu Bikash Dhusiya
-image: /images/authors/2026-10-14-amitendu-bikash-dhusiya.webp
+image: /images/2026-10-14-authors-amitendu-bikash-dhusiya.webp
 bio: A simple and creative developer using niche stuff!
 hideHeroImage: true
 ---

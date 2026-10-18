@@ -380,15 +380,15 @@ for (const imgName of allImageFiles) {
   const date = getGitCreationDate(srcPath);
 
   // Formulate target name and resolve collisions with -2, -3, etc.
-  let targetName = `${date}-${contentSlug}.webp`;
-  let targetRel = `src/images/${chosenCollection}/${targetName}`;
-  let targetPath = path.join(srcDir, "images", chosenCollection, targetName);
+  let targetName = `${date}-${chosenCollection}-${contentSlug}.webp`;
+  let targetRel = `src/images/${targetName}`;
+  let targetPath = path.join(imagesDir, targetName);
 
   let counter = 2;
   while (assignedTargetPaths.has(targetPath.toLowerCase())) {
-    targetName = `${date}-${contentSlug}-${counter}.webp`;
-    targetRel = `src/images/${chosenCollection}/${targetName}`;
-    targetPath = path.join(srcDir, "images", chosenCollection, targetName);
+    targetName = `${date}-${chosenCollection}-${contentSlug}-${counter}.webp`;
+    targetRel = `src/images/${targetName}`;
+    targetPath = path.join(imagesDir, targetName);
     counter++;
   }
   assignedTargetPaths.add(targetPath.toLowerCase());
@@ -400,7 +400,7 @@ for (const imgName of allImageFiles) {
     newName: targetName,
     newRel: targetRel,
     newPath: targetPath,
-    newRef: `/images/${chosenCollection}/${targetName}`,
+    newRef: `/images/${targetName}`,
     collection: chosenCollection,
     date,
     title: chosenTitle || "(from filename)",
@@ -515,7 +515,7 @@ async function run() {
           pattern.lastIndex = 0;
           content = content.replace(pattern, (match, prefix) => {
             changed = true;
-            return `${prefix}images/${r.collection}/${r.newName}`;
+            return `${prefix}images/${r.newName}`;
           });
         }
       }
