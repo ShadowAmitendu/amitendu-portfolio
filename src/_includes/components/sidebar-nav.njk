@@ -1,5 +1,6 @@
-<h2>{{ site.leftSidebar.title }}</h2>
-{% for item in site.leftSidebar.items %}
+{% set nav = leftSidebar or site.leftSidebar %}
+<h2>{{ nav.title }}</h2>
+{% for item in nav.items %}
 {% set itemActive = false %}
 {% if item.url == '/' and isHome %}
 {% set itemActive = true %}

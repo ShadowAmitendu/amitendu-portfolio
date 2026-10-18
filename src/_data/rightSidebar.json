@@ -1,0 +1,65 @@
+{
+  "title": "Outlinks",
+  "items": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/ShadowAmitendu",
+      "icon": "github"
+    },
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@ShadowAmitendu",
+      "icon": "youtube"
+    },
+    {
+      "label": "X (Formerly Twitter)",
+      "url": "https://x.com/shadow_amitendu",
+      "icon": "x"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/amitendu/",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Peerlist",
+      "url": "https://peerlist.io/amitendu",
+      "icon": "peerlist"
+    },
+    {
+      "label": "Discord",
+      "url": "https://discord.com/users/553845371131002891",
+      "icon": "discord"
+    },
+    {
+      "label": "Figma",
+      "url": "https://www.figma.com/@shadow_amitendu",
+      "icon": "figma"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/shadowamitendu/",
+      "icon": "instagram"
+    },
+    {
+      "label": "Dev.to",
+      "url": "https://dev.to/shadowamitendu",
+      "icon": "dev.to"
+    },
+    {
+      "label": "Hashnode",
+      "url": "https://hashnode.com/@amitendu",
+      "icon": "hashnode"
+    },
+    {
+      "label": "MasterJi",
+      "url": "https://www.masterji.co/shadowamitendu/codes",
+      "icon": ""
+    },
+    {
+      "label": "Medium",
+      "url": "https://medium.com/@shadowamitendu",
+      "icon": "medium"
+    }
+  ]
+}

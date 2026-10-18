@@ -1,8 +1,9 @@
 <div class="mt-5 border-t border-[#b7cbd6] pt-3">
-  <h2>{{ (site.sidebar and site.sidebar.favoritesTitle) or 'Favorites' }}</h2>
+  {% set sb = sidebarWidgets or site.sidebar %}
+  <h2>{{ (sb and sb.favoritesTitle) or 'Favorites' }}</h2>
   <div class="mt-2 space-y-2">
     {% if collections.fav and collections.fav.length > 0 %}
-    {% for item in collections.fav.slice(0, 4) %}
+    {% for item in collections.fav.slice(0, (sb and sb.favoritesLimit) or 4) %}
     <div class="flex items-start gap-1.5">
       <svg class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#e1a62a]" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20" fill="currentColor">

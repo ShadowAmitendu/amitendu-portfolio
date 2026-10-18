@@ -1,6 +1,7 @@
-<h2>{{ site.rightSidebar.title }}</h2>
+{% set shortcuts = rightSidebar or site.rightSidebar %}
+<h2>{{ shortcuts.title }}</h2>
 <div class="mt-2 space-y-2">
-  {% for item in site.rightSidebar.items %}
+  {% for item in shortcuts.items %}
   {% set itemIcon = item.url | resolveIcon(item.label, item.icon) %}
   <div>
     <a class="flex items-center gap-2 text-[#064f83] hover:text-[#c0392b]" href="{{ item.url }}"

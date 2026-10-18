@@ -1,0 +1,25 @@
+{
+  "title": "Navigate",
+  "items": [
+    {
+      "label": "home",
+      "url": "/"
+    },
+    {
+      "label": "about",
+      "url": "/about/"
+    },
+    {
+      "label": "blog",
+      "url": "/blog/"
+    },
+    {
+      "label": "portfolio",
+      "url": "/portfolio/"
+    },
+    {
+      "label": "resume",
+      "url": "/resume/"
+    }
+  ]
+}

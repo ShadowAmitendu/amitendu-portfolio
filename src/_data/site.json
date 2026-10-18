@@ -1,125 +1,23 @@
 {
-  "rightSidebar": {
-    "title": "Outlinks",
-    "items": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/ShadowAmitendu",
-        "icon": "github"
-      },
-      {
-        "label": "YouTube",
-        "url": "https://www.youtube.com/@ShadowAmitendu",
-        "icon": "youtube"
-      },
-      {
-        "label": "X (Formerly Twitter)",
-        "url": "https://x.com/shadow_amitendu",
-        "icon": "x"
-      },
-      {
-        "label": "LinkedIn",
-        "url": "https://www.linkedin.com/in/amitendu/",
-        "icon": "linkedin"
-      },
-      {
-        "label": "Peerlist",
-        "url": "https://peerlist.io/amitendu",
-        "icon": "peerlist"
-      },
-      {
-        "label": "Discord",
-        "url": "https://discord.com/users/553845371131002891",
-        "icon": "discord"
-      },
-      {
-        "label": "Figma",
-        "url": "https://www.figma.com/@shadow_amitendu",
-        "icon": "figma"
-      },
-      {
-        "url": "https://www.instagram.com/shadowamitendu/",
-        "label": "Instagram",
-        "icon": "instagram"
-      },
-      {
-        "url": "https://dev.to/shadowamitendu",
-        "label": "Dev.to"
-      },
-      {
-        "label": "Hashnode",
-        "url": "https://hashnode.com/@amitendu",
-        "icon": "hashnode"
-      },
-      {
-        "label": "MasterJi",
-        "url": "https://www.masterji.co/shadowamitendu/codes",
-        "icon": ""
-      },
-      {
-        "label": "Medium",
-        "url": "https://medium.com/@shadowamitendu",
-        "icon": "medium"
-      }
-    ]
-  },
-  "visitorCount": "you are visitor #000042",
-  "ogImage": "/images/og-card.jpg",
-  "announcement": {
-    "enabled": true,
-    "id": "Hello Everyone!",
-    "type": "alert",
-    "message": "This site's url is going to stay for Oct 10th 2027 only after that i will change! Will be posting it here!",
-    "linkText": "",
-    "linkUrl": ""
-  },
+  "title": "Amitendu Bikash Dhusiya",
+  "name": "Amitendu Bikash Dhusiya",
+  "url": "https://amitendu.me",
+  "tagline": "WELCOME TO MY HOMEPAGE",
+  "email": "amitendubikashdhusiya@gmail.com",
   "handle": "ShadowAmitendu",
-  "footerBadge": "made with HTML, CSS & Eleventy",
+  "twitter": "@shadow_amitendu",
   "keywords": "Amitendu Bikash Dhusiya, ShadowAmitendu, Amitendu, Web Developer, Software Engineer, Portfolio, BCA, React, Java, Spring Boot, JavaScript, Front-End Developer, Full Stack Developer, Techno India Hooghly",
+  "description": "Developer portfolio of Amitendu Bikash Dhusiya — BCA student and web developer specializing in React, Java, Spring Boot, UI/UX design, and full-stack development.",
+  "ogImage": "/images/og-card.jpg",
+  "visitorCount": "you are visitor #000042",
+  "footer": "All rights reserved.",
+  "footerTitle": "Thanks for stopping by!",
+  "footerBadge": "made with HTML, CSS & Eleventy",
+  "featuredLimit": 4,
   "author": {
     "name": "Amitendu",
     "role": "Developer & Maker",
     "avatar": "/images/2026-10-14-authors-amitendu-bikash-dhusiya.webp",
     "bio": "Building small things for the web."
-  },
-  "name": "Amitendu Bikash Dhusiya",
-  "featuredLimit": 4,
-  "tagline": "WELCOME TO MY HOMEPAGE",
-  "url": "https://amitendu.me",
-  "twitter": "@shadow_amitendu",
-  "leftSidebar": {
-    "title": "Navigate",
-    "items": [
-      {
-        "label": "home",
-        "url": "/"
-      },
-      {
-        "label": "about",
-        "url": "/about/"
-      },
-      {
-        "label": "blog",
-        "url": "/blog/"
-      },
-      {
-        "label": "portfolio",
-        "url": "/portfolio/"
-      },
-      {
-        "label": "resume",
-        "url": "/resume/"
-      }
-    ]
-  },
-  "title": "Amitendu Bikash Dhusiya",
-  "footer": "All rights reserved.",
-  "sidebar": {
-    "recentPostsTitle": "Recent Posts",
-    "recentPostsLimit": 3,
-    "favoritesTitle": "Favorites"
-  },
-  "email": "amitendubikashdhusiya@gmail.com",
-  "description": "Developer portfolio of Amitendu Bikash Dhusiya — BCA student and web developer specializing in React, Java, Spring Boot, UI/UX design, and full-stack development.",
-  "footerTitle": "Thanks for stopping by!"
+  }
 }

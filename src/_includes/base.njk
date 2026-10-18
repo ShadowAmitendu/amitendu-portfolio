@@ -284,7 +284,7 @@
     <!-- Lanyard Live Discord Presence Tracker -->
     <script>
     (function() {
-  var userId = "553845371131002891";
+  var userId = "{{ (sidebarWidgets and sidebarWidgets.discordUserId) or '553845371131002891' }}";
   var dot = document.getElementById("discord-status-dot");
   var avatarDot = document.getElementById("discord-avatar-dot");
   var label = document.getElementById("discord-status-label");

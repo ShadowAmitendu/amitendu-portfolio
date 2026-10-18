@@ -1,30 +1,27 @@
 {# Persistent 1-Click Dismiss Announcement Banner #}
-{%
-  if site.announcement and site.announcement.enabled and site.announcement.message
-%}
+{% set banner = announcement or site.announcement %}
+{% if banner and banner.enabled and banner.message %}
   <aside
     id="site-announcement-bar"
-    data-announcement-id="{{ site.announcement.id or 'announcement-default' }}"
-    class="mb-1 border border-[#9bb0be] px-3 py-1.5 flex items-center justify-between gap-3 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.1)] {% if site.announcement.type == 'alert' %}bg-[#fff8e1] border-[#d4a017] text-[#5d4037]{% elif site.announcement.type == 'success' %}bg-[#e8f5e9] border-[#66bb6a] text-[#1b5e20]{% else %}bg-[#e6f2f8] border-[#789bb0] text-[#164b70]{% endif %}"
+    data-announcement-id="{{ banner.id or 'announcement-default' }}"
+    class="mb-1 border border-[#9bb0be] px-3 py-1.5 flex items-center justify-between gap-3 text-xs shadow-[0_1px_3px_rgba(0,0,0,0.1)] {% if banner.type == 'alert' %}bg-[#fff8e1] border-[#d4a017] text-[#5d4037]{% elif banner.type == 'success' %}bg-[#e8f5e9] border-[#66bb6a] text-[#1b5e20]{% else %}bg-[#e6f2f8] border-[#789bb0] text-[#164b70]{% endif %}"
     style="display: none;"
     aria-label="Site announcement"
   >
     <div class="flex items-center gap-2 min-w-0">
       <span
-        class="font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 border {% if site.announcement.type == 'alert' %}bg-[#ffecb3] border-[#d4a017] text-[#795548]{% elif site.announcement.type == 'success' %}bg-[#c8e6c9] border-[#66bb6a] text-[#2e7d32]{% else %}bg-[#d0e5f2] border-[#789bb0] text-[#164b70]{% endif %} select-none shrink-0"
+        class="font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 border {% if banner.type == 'alert' %}bg-[#ffecb3] border-[#d4a017] text-[#795548]{% elif banner.type == 'success' %}bg-[#c8e6c9] border-[#66bb6a] text-[#2e7d32]{% else %}bg-[#d0e5f2] border-[#789bb0] text-[#164b70]{% endif %} select-none shrink-0"
       >
-        {% if site.announcement.type == 'alert' %}NOTICE{%
-          elif site.announcement.type == 'success'
+        {% if banner.type == 'alert' %}NOTICE{%
+          elif banner.type == 'success'
         %}UPDATE{% else %}BULLETIN{% endif %}
       </span>
-      <span class="truncate font-medium text-xs">{{
-        site.announcement.message
-      }}</span>
-      {% if site.announcement.linkUrl and site.announcement.linkText %}
+      <span class="truncate font-medium text-xs">{{ banner.message }}</span>
+      {% if banner.linkUrl and banner.linkText %}
         <a
-          href="{{ site.announcement.linkUrl }}"
+          href="{{ banner.linkUrl }}"
           class="shrink-0 underline font-bold hover:text-[#c0392b] ml-1"
-        >{{ site.announcement.linkText }}</a>
+        >{{ banner.linkText }}</a>
       {% endif %}
     </div>
     <button

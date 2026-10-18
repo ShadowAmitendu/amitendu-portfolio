@@ -1,5 +1,6 @@
 {# Live Discord Status Widget (via Lanyard API) #}
-<div class="site-sidebar-card mb-4" id="discord-card" data-discord-id="553845371131002891">
+{% set discordId = (sidebarWidgets and sidebarWidgets.discordUserId) or "553845371131002891" %}
+<div class="site-sidebar-card mb-4" id="discord-card" data-discord-id="{{ discordId }}">
   <div class="site-sidebar-card-header flex items-center justify-between">
     <span class="flex items-center gap-1.5">
       <svg class="h-3.5 w-3.5 fill-[#164b70]" viewBox="0 0 24 24" aria-hidden="true">
@@ -19,7 +20,7 @@
         <span id="discord-avatar-dot" class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border border-white bg-[#94a3b8]"></span>
       </div>
       <div class="min-w-0 flex-1">
-        <a href="https://discord.com/users/553845371131002891" target="_blank" rel="noopener noreferrer" class="truncate font-bold leading-tight text-[#064f83] hover:text-[#c0392b] underline text-xs block">
+        <a href="https://discord.com/users/{{ discordId }}" target="_blank" rel="noopener noreferrer" class="truncate font-bold leading-tight text-[#064f83] hover:text-[#c0392b] underline text-xs block">
           <span id="discord-user-display">{{ site.author.name or 'Amitendu' }}</span>
         </a>
         <p id="discord-user-tag" class="text-[10px] text-[#71828b] leading-tight truncate">@shadowamitendu</p>
