@@ -1741,14 +1741,14 @@
 						"div",
 						{
 							className:
-								"site-resume-toolbar border border-[#9bb0be] bg-gradient-to-b from-[#ffffff] to-[#edf4f8] px-3 py-1.5 shadow-[inset_0_1px_0_#fff,1px_1px_0_#cad6de] flex flex-wrap items-center justify-between gap-2 mb-4",
+								"site-resume-toolbar border border-[#b7cbd6] bg-[#f4f8fa] px-3.5 py-2 shadow-[inset_0_1px_0_#fff] flex flex-wrap items-center justify-between gap-3 mb-6 select-none",
 						},
 						h(
 							"div",
 							{ className: "flex items-center gap-2" },
 							h("span", {
 								className:
-									"inline-block w-2 h-2 bg-[#2e7d32] shadow-[0_0_3px_#2e7d32]",
+									"inline-block w-2 h-2 rounded-full bg-[#2e7d32] shadow-[0_0_4px_#2e7d32]",
 							}),
 							h(
 								"span",
@@ -1756,30 +1756,31 @@
 									className:
 										"text-xs font-bold text-[#164b70] uppercase tracking-wider",
 								},
-								"DOCUMENT :: CURRICULUM VITAE",
+								"CURRICULUM VITAE",
+							),
+							h(
+								"span",
+								{ className: "text-[#9bb0be]" },
+								"·",
+							),
+							h(
+								"span",
+								{ className: "text-[11px] font-semibold text-[#556b78]" },
+								"ATS-Compliant Format",
 							),
 						),
 						h(
 							"div",
-							{ className: "flex items-center gap-2" },
+							null,
 							h(
 								"span",
 								{
 									className:
-										"site-button-2007 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs select-none",
+										"site-button-2007 inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white select-none shadow-sm",
+									style: { background: "linear-gradient(#236487 0%, #164b70 100%)", color: "#ffffff" },
 								},
-								"Print / Save PDF",
+								"Download CV",
 							),
-							pdfUrl
-								? h(
-									"span",
-									{
-										className:
-											"site-button-2007 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs select-none",
-									},
-									"Download PDF",
-								)
-								: null,
 						),
 					),
 

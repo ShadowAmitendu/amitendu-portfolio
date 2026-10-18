@@ -23,49 +23,34 @@ aboutTab: games
 
 {% set totalGames = games.items.length %}
 
-{# Timeline Header & Direction Switcher #}
-<div class="my-4 p-2.5 bg-[#f4f8fa] border border-[#b7cbd6] flex flex-wrap items-center justify-between gap-2 text-xs">
-  <div class="flex items-center gap-2">
-    <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px]"
-    >Timeline Flow:</span>
-    <span class="text-[#556b78] text-[11px]">
-      From Starting Game <strong class="text-[#164b70]">#{{
-          totalGames
-        }}</strong> &rarr; down to Latest <strong class="text-[#164b70]"
-      >#1</strong>
-    </span>
-  </div>
-  <div class="flex items-center gap-1.5" id="timeline-controls">
-    <button
-      type="button"
-      id="btn-sort-chrono"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-bold active inline-flex items-center gap-1.5"
-      onclick="setTimelineOrder('chrono')"
-      title="Sort from Starting game (#{{ totalGames }}) to Latest (#1)"
-    >
-      <svg class="w-3.5 h-3.5 shrink-0 text-[#164b70]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Start (#{{ totalGames }}) &rarr; Latest (#1)</span>
-    </button>
-    <button
-      type="button"
-      id="btn-sort-reverse"
-      class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5"
-      onclick="setTimelineOrder('reverse')"
-      title="Sort from Latest (#1) to Starting game (#{{ totalGames }})"
-    >
-      <svg class="w-3.5 h-3.5 shrink-0 text-[#164b70]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
-      <span>Latest (#1) &rarr; Start (#{{ totalGames }})</span>
-    </button>
-  </div>
+{# Timeline Header & Direction Toggle #}
+<div class="my-4 p-2 bg-[#f4f8fa] border border-[#b7cbd6] flex items-center justify-between text-xs select-none">
+  <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px]">Timeline Flow</span>
+  <button
+    type="button"
+    id="btn-toggle-timeline"
+    class="site-button-2007 px-2.5 py-1 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer"
+    onclick="toggleTimelineOrder()"
+    title="Toggle timeline order"
+    aria-label="Toggle timeline order"
+  >
+    <svg class="w-3.5 h-3.5 shrink-0 text-[#164b70]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="m21 16-4 4-4-4"/>
+      <path d="M17 20V4"/>
+      <path d="m3 8 4-4 4 4"/>
+      <path d="M7 4v16"/>
+    </svg>
+    <span id="timeline-flow-text" class="font-bold text-[#164b70]">#{{ totalGames }} &rarr; #1</span>
+  </button>
 </div>
 
 {# Timeline Origin Banner #}
-<div class="mb-4 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#164b70] border-y border-r flex items-center justify-between text-xs">
+<div id="timeline-banner-top" class="mb-4 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#164b70] border-y border-r flex items-center justify-between text-xs">
   <span class="font-bold text-[#164b70] flex items-center gap-1.5">
     <svg class="w-3.5 h-3.5 shrink-0 text-[#c0392b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
-    <span>ORIGIN: Where It All Began (First Games Played)</span>
+    <span id="timeline-banner-top-text">ORIGIN: Where It All Began (First Games Played)</span>
   </span>
-  <span class="text-[11px] text-[#556b78] font-semibold">Game #{{
+  <span id="timeline-banner-top-num" class="text-[11px] text-[#556b78] font-semibold">Game #{{
       totalGames
     }}</span>
 </div>
@@ -263,18 +248,29 @@ aboutTab: games
 </div>
 
 {# Timeline Present Day Banner #}
-<div class="mt-6 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#2e7d32] border-y border-r flex items-center justify-between text-xs">
+<div id="timeline-banner-bottom" class="mt-6 px-3 py-1.5 bg-[#eaf2f6] border-l-4 border-[#2e7d32] border-y border-r flex items-center justify-between text-xs">
   <span class="font-bold text-[#2e7d32] flex items-center gap-1.5">
-    <span>PRESENT: Latest &amp; Ongoing Gaming Era</span>
+    <span id="timeline-banner-bottom-text">PRESENT: Latest &amp; Ongoing Gaming Era</span>
   </span>
-  <span class="text-[11px] text-[#2e7d32] font-semibold">Game #1</span>
+  <span id="timeline-banner-bottom-num" class="text-[11px] text-[#2e7d32] font-semibold">Game #1</span>
 </div>
 
 <script>
+var currentTimelineOrder = "chrono";
+var totalTimelineGames = {{ totalGames }};
+
+function toggleTimelineOrder() {
+  currentTimelineOrder = (currentTimelineOrder === "chrono") ? "reverse" : "chrono";
+  setTimelineOrder(currentTimelineOrder);
+}
+
 function setTimelineOrder(order) {
   var list = document.getElementById("games-timeline-list");
-  var btnChrono = document.getElementById("btn-sort-chrono");
-  var btnReverse = document.getElementById("btn-sort-reverse");
+  var label = document.getElementById("timeline-flow-text");
+  var bannerTopText = document.getElementById("timeline-banner-top-text");
+  var bannerTopNum = document.getElementById("timeline-banner-top-num");
+  var bannerBottomText = document.getElementById("timeline-banner-bottom-text");
+  var bannerBottomNum = document.getElementById("timeline-banner-bottom-num");
   if (!list) return;
 
   var items = Array.prototype.slice.call(list.children);
@@ -285,16 +281,22 @@ function setTimelineOrder(order) {
       return parseInt(a.getAttribute("data-milestone"), 10)
         - parseInt(b.getAttribute("data-milestone"), 10);
     });
-    btnReverse.classList.add("font-bold");
-    btnChrono.classList.remove("font-bold");
+    if (label) label.innerHTML = "#1 &rarr; #" + totalTimelineGames;
+    if (bannerTopText) bannerTopText.textContent = "PRESENT: Latest & Ongoing Gaming Era";
+    if (bannerTopNum) bannerTopNum.textContent = "Game #1";
+    if (bannerBottomText) bannerBottomText.textContent = "ORIGIN: Where It All Began (First Games Played)";
+    if (bannerBottomNum) bannerBottomNum.textContent = "Game #" + totalTimelineGames;
   } else {
     // Starting (#total) first down to Latest (#1)
     items.sort(function(a, b) {
       return parseInt(b.getAttribute("data-milestone"), 10)
         - parseInt(a.getAttribute("data-milestone"), 10);
     });
-    btnChrono.classList.add("font-bold");
-    btnReverse.classList.remove("font-bold");
+    if (label) label.innerHTML = "#" + totalTimelineGames + " &rarr; #1";
+    if (bannerTopText) bannerTopText.textContent = "ORIGIN: Where It All Began (First Games Played)";
+    if (bannerTopNum) bannerTopNum.textContent = "Game #" + totalTimelineGames;
+    if (bannerBottomText) bannerBottomText.textContent = "PRESENT: Latest & Ongoing Gaming Era";
+    if (bannerBottomNum) bannerBottomNum.textContent = "Game #1";
   }
 
   items.forEach(function(item) {

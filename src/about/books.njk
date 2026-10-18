@@ -18,24 +18,42 @@ aboutTab: books
 {% set readBooks = books.items | filterByStatus("read") %}
 {% set toReadBooks = books.items | filterByStatus("to-read") %}
 
-{# Quick Jump / Status Category Bar #}
-<div class="mt-4 mb-6 flex flex-wrap items-center gap-1.5 text-xs select-none border-y border-[#b7cbd6] py-2 bg-[#f4f8fa]">
-  <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px] mr-1">Categories:</span>
-  <a href="#reading" class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 no-underline">
-    <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-    <span>Currently Reading</span>
-    <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ readingBooks.length }}</span>
-  </a>
-  <a href="#finished" class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 no-underline">
-    <svg class="w-3.5 h-3.5 shrink-0 text-[#2e7d32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-    <span>Finished / Read</span>
-    <span class="bg-[#2e7d32] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ readBooks.length }}</span>
-  </a>
-  <a href="#to-read" class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 no-underline">
-    <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-    <span>Plan to Read</span>
-    <span class="bg-[#556b78] text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">{{ toReadBooks.length }}</span>
-  </a>
+{# Status Category Filter Bar #}
+<div class="mt-4 mb-6 flex flex-wrap items-center justify-between gap-2 text-xs select-none border-y border-[#b7cbd6] py-2 bg-[#f4f8fa]">
+  <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+    <button
+      type="button"
+      class="book-filter-btn cursor-pointer font-bold text-[#164b70] no-underline bg-transparent border-0 p-0 text-xs"
+      data-filter="all"
+    >
+      All ({{ books.items.length }})
+    </button>
+    <span class="text-[#b7cbd6] select-none">|</span>
+    <button
+      type="button"
+      class="book-filter-btn cursor-pointer font-normal text-[#064f83] underline hover:text-[#c0392b] bg-transparent border-0 p-0 text-xs"
+      data-filter="reading"
+    >
+      Currently Reading ({{ readingBooks.length }})
+    </button>
+    <span class="text-[#b7cbd6] select-none">|</span>
+    <button
+      type="button"
+      class="book-filter-btn cursor-pointer font-normal text-[#064f83] underline hover:text-[#c0392b] bg-transparent border-0 p-0 text-xs"
+      data-filter="finished"
+    >
+      Finished ({{ readBooks.length }})
+    </button>
+    <span class="text-[#b7cbd6] select-none">|</span>
+    <button
+      type="button"
+      class="book-filter-btn cursor-pointer font-normal text-[#064f83] underline hover:text-[#c0392b] bg-transparent border-0 p-0 text-xs"
+      data-filter="to-read"
+    >
+      Plan to Read ({{ toReadBooks.length }})
+    </button>
+  </div>
+  <span class="text-[11px] text-[#556b78] font-medium" id="book-count-display">Showing {{ books.items.length }} of {{ books.items.length }} books</span>
 </div>
 
 {# Macro to render individual book cards #}
@@ -244,7 +262,7 @@ aboutTab: books
 </section>
 
 {# Section 2: Finished / Completed #}
-<section id="finished" class="mt-10 mb-10 scroll-mt-6">
+<section id="finished" class="mt-6 mb-10 scroll-mt-6">
   <div class="border-b-2 border-[#2e7d32] pb-1.5 mb-4 flex items-center justify-between gap-2">
     <div class="flex items-center gap-2">
       <svg class="w-4 h-4 shrink-0 text-[#2e7d32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -268,7 +286,7 @@ aboutTab: books
 </section>
 
 {# Section 3: Plan to Read #}
-<section id="to-read" class="mt-10 mb-8 scroll-mt-6">
+<section id="to-read" class="mt-6 mb-8 scroll-mt-6">
   <div class="border-b-2 border-[#556b78] pb-1.5 mb-4 flex items-center justify-between gap-2">
     <div class="flex items-center gap-2">
       <svg class="w-4 h-4 shrink-0 text-[#556b78]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
@@ -292,6 +310,58 @@ aboutTab: books
 </section>
 
 <script>
+// Filter books by category status
+(function() {
+  var filterBtns = document.querySelectorAll(".book-filter-btn");
+  var secReading = document.getElementById("reading");
+  var secFinished = document.getElementById("finished");
+  var secToRead = document.getElementById("to-read");
+  var countDisplay = document.getElementById("book-count-display");
+  var totalBooks = {{ books.items.length }};
+  var counts = {
+    all: totalBooks,
+    reading: {{ readingBooks.length }},
+    finished: {{ readBooks.length }},
+    "to-read": {{ toReadBooks.length }}
+  };
+
+  if (!filterBtns.length) return;
+
+  function applyFilter(filter) {
+    filterBtns.forEach(function(b) {
+      if (b.getAttribute("data-filter") === filter) {
+        b.classList.remove("font-normal", "text-[#064f83]", "underline");
+        b.classList.add("font-bold", "text-[#164b70]", "no-underline");
+      } else {
+        b.classList.remove("font-bold", "text-[#164b70]", "no-underline");
+        b.classList.add("font-normal", "text-[#064f83]", "underline");
+      }
+    });
+
+    if (secReading) secReading.style.display = (filter === "all" || filter === "reading") ? "" : "none";
+    if (secFinished) secFinished.style.display = (filter === "all" || filter === "finished") ? "" : "none";
+    if (secToRead) secToRead.style.display = (filter === "all" || filter === "to-read") ? "" : "none";
+
+    if (countDisplay) {
+      countDisplay.textContent = "Showing " + (counts[filter] || 0) + " of " + totalBooks + " books";
+    }
+  }
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var filter = btn.getAttribute("data-filter");
+      applyFilter(filter);
+    });
+  });
+
+  if (window.location.hash) {
+    var initialHash = window.location.hash.replace("#", "");
+    if (counts[initialHash] !== undefined) {
+      applyFilter(initialHash);
+    }
+  }
+})();
+
 // Close dialog when clicking on the backdrop outside the window
 document.querySelectorAll("dialog.site-book-dialog").forEach(function(dialog) {
   dialog.addEventListener("click", function(e) {
