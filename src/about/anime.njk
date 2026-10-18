@@ -4,6 +4,7 @@ title: Anime
 headerTagline: WHAT I'M WATCHING
 permalink: /about/anime/
 aboutTab: anime
+
 ---
 {# 
   Component / Page: Anime Showcase (Frutiger Aero Grid Layout)
@@ -43,7 +44,9 @@ aboutTab: anime
 {# Interactive Category Filter Bar #}
 <div class="mt-4 mb-6 flex flex-wrap items-center justify-between gap-2 text-xs select-none border-y border-[#b7cbd6] py-2 bg-[#f4f8fa]">
   <div class="flex items-center gap-1.5 flex-wrap">
-    <span class="font-bold text-[#164b70] uppercase tracking-wider text-[11px] mr-1">Filter:</span>
+    <span
+      class="font-bold text-[#164b70] uppercase tracking-wider text-[11px] mr-1"
+    >Filter:</span>
     <button
       type="button"
       class="site-button-2007 px-2.5 py-0.5 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer anime-filter-btn whitespace-nowrap active"
@@ -51,7 +54,9 @@ aboutTab: anime
       title="Show all anime series and films"
     >
       <span>All</span>
-      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ totalAnime }}</span>
+      <span
+        class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center"
+      >{{ totalAnime }}</span>
     </button>
     <button
       type="button"
@@ -59,9 +64,23 @@ aboutTab: anime
       data-filter="currently-watching"
       title="Show anime currently watching"
     >
-      <svg class="w-3.5 h-3.5 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+      <svg
+        class="w-3.5 h-3.5 shrink-0 inline-block"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <rect width="20" height="15" x="2" y="7" rx="2" ry="2" />
+        <polyline points="17 2 12 7 7 2" />
+      </svg>
       <span>Watching</span>
-      <span class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ watchingAnime.length }}</span>
+      <span
+        class="bg-[#164b70] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center"
+      >{{ watchingAnime.length }}</span>
     </button>
     <button
       type="button"
@@ -69,9 +88,22 @@ aboutTab: anime
       data-filter="watched"
       title="Show watched / completed anime"
     >
-      <svg class="w-3.5 h-3.5 shrink-0 inline-block text-[#2e7d32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <svg
+        class="w-3.5 h-3.5 shrink-0 inline-block text-[#2e7d32]"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
       <span>Watched</span>
-      <span class="bg-[#2e7d32] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ watchedAnime.length }}</span>
+      <span
+        class="bg-[#2e7d32] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center"
+      >{{ watchedAnime.length }}</span>
     </button>
     <button
       type="button"
@@ -79,12 +111,26 @@ aboutTab: anime
       data-filter="plan-to-watch"
       title="Show planned anime"
     >
-      <svg class="w-3.5 h-3.5 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+      <svg
+        class="w-3.5 h-3.5 shrink-0 inline-block"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+      </svg>
       <span>Plan to Watch</span>
-      <span class="bg-[#556b78] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center">{{ planAnime.length }}</span>
+      <span
+        class="bg-[#556b78] text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none inline-flex items-center justify-center"
+      >{{ planAnime.length }}</span>
     </button>
   </div>
-  <span class="text-[11px] text-[#556b78] font-medium" id="anime-count-display">Showing {{ totalAnime }} of {{ totalAnime }} series</span>
+  <span class="text-[11px] text-[#556b78] font-medium" id="anime-count-display"
+  >Showing {{ totalAnime }} of {{ totalAnime }} series</span>
 </div>
 
 {# Macro to render individual anime poster cards #}
@@ -103,7 +149,7 @@ aboutTab: anime
       title="Click to view full details for {{ item.title }}"
     >
       {# Anime Poster Frame with 2:3 Aspect Ratio #}
-      <div class="relative w-full aspect-2/3 overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 bg-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
+      <div class="relative w-full aspect-2/3 overflow-hidden bg-[#e4eef2] border border-[#7892a3] p-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] flex items-center justify-center">
         {% if item.image %}
           <img
             src="{{ item.image }}"
@@ -113,26 +159,37 @@ aboutTab: anime
           />
         {% else %}
           <div class="w-full h-full flex flex-col items-center justify-center text-center p-2 bg-[#dce9ef]">
-            <span class="text-xs font-bold text-[#164b70] uppercase">ANIME</span>
-            <span class="text-[10px] text-[#556b78] mt-1 line-clamp-2">{{ item.title }}</span>
+            <span class="text-xs font-bold text-[#164b70] uppercase"
+            >ANIME</span>
+            <span class="text-[10px] text-[#556b78] mt-1 line-clamp-2">{{
+              item.title
+            }}</span>
           </div>
         {% endif %}
 
         {# Status Badge (Top Right) #}
         <div class="absolute top-1.5 right-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]">
           {% if item.status == "currently-watching" %}
-            <span class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Watching</span>
+            <span
+              class="inline-block bg-[#164b70] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+            >Watching</span>
           {% elif item.status == "watched" %}
-            <span class="inline-block bg-[#2e7d32] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Watched</span>
+            <span
+              class="inline-block bg-[#2e7d32] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+            >Watched</span>
           {% else %}
-            <span class="inline-block bg-[#556b78] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Plan</span>
+            <span
+              class="inline-block bg-[#556b78] text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase"
+            >Plan</span>
           {% endif %}
         </div>
 
         {# Format Badge (Bottom Left) #}
         {% if item.type %}
           <div class="absolute bottom-1.5 left-1.5 shadow-[1px_1px_2px_rgba(0,0,0,0.3)]">
-            <span class="inline-block bg-[#0a1926]/80 text-white text-[9px] font-semibold px-1.5 py-0.5 tracking-wide backdrop-blur-xs">
+            <span
+              class="inline-block bg-[#0a1926]/80 text-white text-[9px] font-semibold px-1.5 py-0.5 tracking-wide backdrop-blur-xs"
+            >
               {{ item.type }}
             </span>
           </div>
@@ -153,7 +210,10 @@ aboutTab: anime
             {% if item.studio %}Studio: {{ item.studio }}{% endif %}
           </p>
           {% if item.genres %}
-            <p class="text-[10px] text-[#7892a3] line-clamp-1 truncate mt-0.5" title="{{ item.genres }}">
+            <p
+              class="text-[10px] text-[#7892a3] line-clamp-1 truncate mt-0.5"
+              title="{{ item.genres }}"
+            >
               {{ item.genres }}
             </p>
           {% endif %}
@@ -161,11 +221,15 @@ aboutTab: anime
 
         <div class="mt-2 pt-1.5 border-t border-dashed border-[#d8e5ec] flex items-center justify-between text-[11px]">
           {% if item.rating %}
-            <span class="text-[#c0392b] font-bold text-[10px]">{{ item.rating | ratingStars }}</span>
+            <span class="text-[#c0392b] font-bold text-[10px]">{{
+              item.rating | ratingStars
+            }}</span>
           {% else %}
             <span></span>
           {% endif %}
-          <span class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]">Details &raquo;</span>
+          <span
+            class="text-[#064f83] font-semibold underline text-[10px] group-hover:text-[#c0392b]"
+          >Details &raquo;</span>
         </div>
       </div>
     </button>
@@ -218,7 +282,9 @@ aboutTab: anime
               </h3>
               {% if item.studio %}
                 <p class="text-xs text-[#556b78] mt-0.5">
-                  Studio: <span class="font-bold text-[#26343d]">{{ item.studio }}</span>
+                  Studio: <span class="font-bold text-[#26343d]">{{
+                    item.studio
+                  }}</span>
                 </p>
               {% endif %}
 
@@ -226,47 +292,66 @@ aboutTab: anime
                 <tbody>
                   {% if item.type %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Format:</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Format:
+                      </td>
                       <td class="py-1 text-[#3b4d57]">
-                        {{ item.type }}{% if item.progress %} &bull; {{ item.progress }}{% endif %}
+                        {{ item.type }}{% if item.progress %}
+                          &bull; {{ item.progress }}{% endif %}
                       </td>
                     </tr>
                   {% endif %}
                   {% if item.status %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Status:</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Status:
+                      </td>
                       <td class="py-1 text-[#3b4d57]">
                         {% if item.status == "currently-watching" %}
-                          <span class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.2 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]">WATCHING NOW</span>
+                          <span
+                            class="inline-block bg-[#164b70] text-white text-[10px] font-bold px-1.5 py-0.2 shadow-[inset_0_1px_1px_rgba(0,0,0,0.3)]"
+                          >WATCHING NOW</span>
                         {% elif item.status == "watched" %}
-                          <span class="text-[11px] font-bold text-[#2e7d32]">COMPLETED / WATCHED</span>
+                          <span class="text-[11px] font-bold text-[#2e7d32]"
+                          >COMPLETED / WATCHED</span>
                         {% else %}
-                          <span class="text-[11px] font-bold text-[#556b78]">PLAN TO WATCH</span>
+                          <span class="text-[11px] font-bold text-[#556b78]"
+                          >PLAN TO WATCH</span>
                         {% endif %}
                       </td>
                     </tr>
                   {% endif %}
                   {% if item.year %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Period:</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Period:
+                      </td>
                       <td class="py-1 text-[#556b78]">{{ item.year }}</td>
                     </tr>
                   {% endif %}
                   {% if item.genres %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Genres:</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Genres:
+                      </td>
                       <td class="py-1 text-[#3b4d57]">{{ item.genres }}</td>
                     </tr>
                   {% endif %}
                   {% if item.rating %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Rating:</td>
-                      <td class="py-1 text-[#c0392b] font-bold">{{ item.rating | ratingStars }} ({{ item.rating }}/5)</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Rating:
+                      </td>
+                      <td class="py-1 text-[#c0392b] font-bold">
+                        {{ item.rating | ratingStars }} ({{ item.rating }}/5)
+                      </td>
                     </tr>
                   {% endif %}
                   {% if item.review %}
                     <tr class="border-b border-[#e1ebf0]">
-                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">Viewer Notes:</td>
+                      <td class="py-1 font-bold text-[#164b70] w-24 shrink-0 align-top">
+                        Viewer Notes:
+                      </td>
                       <td class="py-1 text-[#26343d] leading-relaxed italic bg-[#f0f6f9] p-2 rounded mt-1 block sm:table-cell">
                         "{{ item.review }}"
                       </td>
@@ -283,7 +368,19 @@ aboutTab: anime
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <svg
+                      class="w-3 h-3 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
                     <span>View on MyAnimeList / Official</span>
                     <span>&raquo;</span>
                   </a>
@@ -317,7 +414,10 @@ aboutTab: anime
 {# Responsive Poster Grid #}
 <div class="mt-6">
   {% if anime.series and anime.series.length > 0 %}
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="anime-grid">
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+      id="anime-grid"
+    >
       {% for item in anime.series %}
         {{ renderAnimeCard(item, loop.index) }}
       {% endfor %}
@@ -329,37 +429,41 @@ aboutTab: anime
 
 {# Client-side Status Filter Script #}
 <script>
-  (function() {
-    var btns = document.querySelectorAll('.anime-filter-btn');
-    var items = document.querySelectorAll('.anime-item');
-    var countDisplay = document.getElementById('anime-count-display');
-    if (!btns.length || !items.length) return;
+(function() {
+  var btns = document.querySelectorAll(".anime-filter-btn");
+  var items = document.querySelectorAll(".anime-item");
+  var countDisplay = document.getElementById("anime-count-display");
+  if (!btns.length || !items.length) return;
 
-    btns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var filter = btn.getAttribute('data-filter');
-        btns.forEach(function(b) { b.classList.remove('active'); });
-        btn.classList.add('active');
+  btns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var filter = btn.getAttribute("data-filter");
+      btns.forEach(function(b) {
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
 
-        var visibleCount = 0;
-        items.forEach(function(item) {
-          var status = item.getAttribute('data-status');
-          if (filter === 'all' || status === filter) {
-            item.style.display = '';
-            visibleCount++;
-          } else {
-            item.style.display = 'none';
-          }
-        });
-
-        if (countDisplay) {
-          countDisplay.textContent = 'Showing ' + visibleCount + ' of ' + items.length + ' series';
+      var visibleCount = 0;
+      items.forEach(function(item) {
+        var status = item.getAttribute("data-status");
+        if (filter === "all" || status === filter) {
+          item.style.display = "";
+          visibleCount++;
+        } else {
+          item.style.display = "none";
         }
       });
+
+      if (countDisplay) {
+        countDisplay.textContent = "Showing " + visibleCount + " of "
+          + items.length + " series";
+      }
     });
-  })();
+  });
+})();
 </script>
 
 <p class="mt-8">
-  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/">← back to home</a>
+  <a class="text-[#064f83] underline hover:text-[#c0392b]" href="/"
+  >← back to home</a>
 </p>
