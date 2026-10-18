@@ -29,7 +29,7 @@ aboutTab: games
   <button
     type="button"
     id="btn-toggle-timeline"
-    class="site-button-2007 px-2.5 py-1 text-xs font-semibold inline-flex items-center gap-1.5 cursor-pointer"
+    class="site-button-2007 p-1.5 text-xs font-semibold inline-flex items-center justify-center cursor-pointer"
     onclick="toggleTimelineOrder()"
     title="Toggle timeline order"
     aria-label="Toggle timeline order"
@@ -40,7 +40,6 @@ aboutTab: games
       <path d="m3 8 4-4 4 4"/>
       <path d="M7 4v16"/>
     </svg>
-    <span id="timeline-flow-text" class="font-bold text-[#164b70]">#{{ totalGames }} &rarr; #1</span>
   </button>
 </div>
 
@@ -81,11 +80,6 @@ aboutTab: games
             {# 2005 Window Header #}
             <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
               <div class="flex items-baseline gap-2 text-sm min-w-0">
-                <span
-                  class="site-badge font-bold text-xs bg-[#164b70] text-white px-1.5 py-0.2 shadow-[inset_0_1px_1px_rgba(0,0,0,0.25)] select-none"
-                >
-                  #{{ milestoneNum }}
-                </span>
                 <h3 class="font-bold text-sm text-[#164b70] tracking-tight uppercase leading-none m-0 truncate">
                   {% if game.link %}
                     <a
@@ -266,7 +260,7 @@ function toggleTimelineOrder() {
 
 function setTimelineOrder(order) {
   var list = document.getElementById("games-timeline-list");
-  var label = document.getElementById("timeline-flow-text");
+  var toggleBtn = document.getElementById("btn-toggle-timeline");
   var bannerTopText = document.getElementById("timeline-banner-top-text");
   var bannerTopNum = document.getElementById("timeline-banner-top-num");
   var bannerBottomText = document.getElementById("timeline-banner-bottom-text");
@@ -281,7 +275,10 @@ function setTimelineOrder(order) {
       return parseInt(a.getAttribute("data-milestone"), 10)
         - parseInt(b.getAttribute("data-milestone"), 10);
     });
-    if (label) label.innerHTML = "#1 &rarr; #" + totalTimelineGames;
+    if (toggleBtn) {
+      toggleBtn.title = "Timeline order: #1 to #" + totalTimelineGames + " (Click to toggle)";
+      toggleBtn.setAttribute("aria-label", "Timeline order: #1 to #" + totalTimelineGames);
+    }
     if (bannerTopText) bannerTopText.textContent = "PRESENT: Latest & Ongoing Gaming Era";
     if (bannerTopNum) bannerTopNum.textContent = "Game #1";
     if (bannerBottomText) bannerBottomText.textContent = "ORIGIN: Where It All Began (First Games Played)";
@@ -292,7 +289,10 @@ function setTimelineOrder(order) {
       return parseInt(b.getAttribute("data-milestone"), 10)
         - parseInt(a.getAttribute("data-milestone"), 10);
     });
-    if (label) label.innerHTML = "#" + totalTimelineGames + " &rarr; #1";
+    if (toggleBtn) {
+      toggleBtn.title = "Timeline order: #" + totalTimelineGames + " to #1 (Click to toggle)";
+      toggleBtn.setAttribute("aria-label", "Timeline order: #" + totalTimelineGames + " to #1");
+    }
     if (bannerTopText) bannerTopText.textContent = "ORIGIN: Where It All Began (First Games Played)";
     if (bannerTopNum) bannerTopNum.textContent = "Game #" + totalTimelineGames;
     if (bannerBottomText) bannerBottomText.textContent = "PRESENT: Latest & Ongoing Gaming Era";
