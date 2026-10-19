@@ -129,6 +129,24 @@
       "url": "https://example.com/",
       "relationship": "Bro is the Niga",
       "description": "Bro tries everything to get someone but rather, the others get one!"
+    },
+    {
+      "name": "Purna Show",
+      "url": "https://example.com",
+      "avatar": "/images/friends-friend-site-name.avif",
+      "relationship": "Best Bro & is damn iPhony Cool",
+      "description": "what can i say he is really good!"
+    },
+    {
+      "name": "Aritri Biswas",
+      "url": "https://example.com",
+      "avatar": "/images/friends-friend-site-name-2.jpg"
+    },
+    {
+      "name": "Souvik Das",
+      "url": "https://example.com",
+      "avatar": "/images/friends-friend-site-name-3.jpg",
+      "relationship": "Best Friend - bro is just too much reel paglu"
     }
   ]
 }
