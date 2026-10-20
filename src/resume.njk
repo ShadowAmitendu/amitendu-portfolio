@@ -185,20 +185,54 @@ permalink: /resume/
         <h2 class="text-xs font-bold text-[#0f172a] uppercase tracking-wider border-b border-[#0f172a] pb-1 mb-3">
           Certifications &amp; Credentials
         </h2>
-        <div class="space-y-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {% for cert in r.certifications %}
-            <div class="site-resume-item flex flex-wrap items-baseline justify-between gap-x-2 text-xs break-inside-avoid">
-              <div>
-                <span class="font-bold text-[#0f172a]">{{ cert.name }}</span>
-                {% if cert.issuer %}
-                  <span class="text-[#475569] italic"> — {{ cert.issuer }}</span>
+            <div class="site-card border border-[#9bb0be] bg-white p-0 shadow-[2px_2px_0_#cad6de] break-inside-avoid">
+              {# Card Header #}
+              <div class="border-b border-[#c6d7e0] bg-[#e4eef2] px-3 py-1.5 flex items-center justify-between gap-2 shadow-[inset_0_1px_0_#fff]">
+                <span class="font-bold text-xs text-[#164b70] uppercase tracking-tight leading-tight truncate">{{ cert.name }}</span>
+                {% if cert.date %}
+                  <span class="text-[10px] text-[#556b78] font-semibold shrink-0">{{ cert.date }}</span>
                 {% endif %}
               </div>
-              <div class="text-[11px] text-[#64748b] flex items-center gap-2">
-                {% if cert.date %}<span>{{ cert.date }}</span>{% endif %}
-                {% if cert.credentialUrl and cert.credentialUrl != '#' %}
-                  <a href="{{ cert.credentialUrl }}" target="_blank" rel="noopener noreferrer" class="text-[#064f83] underline hover:text-[#c0392b]">Verify</a>
+
+              {# Card Body #}
+              <div class="p-3 bg-[#f8fbfc] flex gap-3">
+                {# Badge Image #}
+                {% if cert.badge %}
+                  <div class="shrink-0 w-20 h-20 border border-[#b7cbd6] bg-white shadow-[inset_0_0_0_1px_#e2e8f0] flex items-center justify-center overflow-hidden">
+                    <img src="{{ cert.badge }}" alt="{{ cert.badgeAlt or cert.name }}" class="w-full h-full object-contain" loading="lazy" />
+                  </div>
                 {% endif %}
+
+                {# Details #}
+                <div class="min-w-0 flex-1 text-xs space-y-1">
+                  {% if cert.issuer %}
+                    <div>
+                      <span class="font-bold text-[#164b70]">Issuer:</span>
+                      <span class="text-[#3b4d57]">{{ cert.issuer }}</span>
+                    </div>
+                  {% endif %}
+                  {% if cert.credentialId %}
+                    <div>
+                      <span class="font-bold text-[#164b70]">ID:</span>
+                      <span class="text-[#556b78] font-mono text-[11px]">{{ cert.credentialId }}</span>
+                    </div>
+                  {% endif %}
+                  {% if cert.skills %}
+                    <div>
+                      <span class="font-bold text-[#164b70]">Skills:</span>
+                      <span class="text-[#3b4d57]">{{ cert.skills }}</span>
+                    </div>
+                  {% endif %}
+                  {% if cert.credentialUrl and cert.credentialUrl != '#' %}
+                    <div class="pt-1">
+                      <a href="{{ cert.credentialUrl }}" target="_blank" rel="noopener noreferrer" class="site-button-2007 inline-block px-2.5 py-0.5 text-[11px]">
+                        Verify &raquo;
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
               </div>
             </div>
           {% endfor %}
